@@ -12,7 +12,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-         안녕하세요
+          Edit <code>src/App.js</code> and save to reload.
         </p>
         <a
           className="App-link"
@@ -22,7 +22,6 @@ function App() {
         >
           Learn React
         </a>
-        <Button onClick={btnfunc} >button</Button>
       </header>
     </div>
   );

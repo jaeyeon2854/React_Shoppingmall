@@ -1,14 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Nav1 from '../Components/MainNav';
-import Nav2 from '../Components/SubNav';
-
+import MainNav from '../Components/MainNav';
+import SubNav from '../Components/SubNav';
 function Login() {
 
     return (
         <div>
-            <Nav1 />
-            <Nav2 />
-            
+            <MainNav />
+            <SubNav />
         </div>
     )
 }

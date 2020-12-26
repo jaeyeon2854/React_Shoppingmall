@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Nav1 from '../Components/MainNav';
-import Nav2 from '../Components/SubNav';
+import MainNav from '../Components/MainNav';
+import SubNav from '../Components/SubNav';
 import Products from './Products';
 
 function ProductsList() {
 
     return (
         <div>
-            <Nav1 />
-            <Nav2 />
-            
+            <MainNav />
+            <SubNav />
         </div>
     )
 }

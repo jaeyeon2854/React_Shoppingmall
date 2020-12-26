@@ -1,11 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
-import { Button } from 'react-bootstrap';
 
 function App() {
-  function funcs(){
-    alert("hi")
-  }
   return (
     <div className="App">
       <header className="App-header">
@@ -21,11 +17,7 @@ function App() {
         >
           Learn React
         </a>
-        <Button onClick={funcs}>이름</Button>
       </header>
-      <body>
-
-      </body>
     </div>
   );
 }

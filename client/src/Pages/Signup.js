@@ -7,31 +7,81 @@ function Signup() {
 
 
     return (
-        <div class="form-container">
+        <Container className="d-flex justify-content-center">
             <Nav1 />
             <Nav2 />
-            <form id="form" class="form">
-                <h1>회원가입</h1>
-                <div class="form-control">
-                    <label for="id">아이디</label>
-                    <input type="text" id="id" placeholder="아이디를 입력하세요"></input>
+            <div className="form-control">
+                <Form.Label className="d-flex justify-content-center">Sign Up</Form.Label>
+                <Form>
 
-                    <label for="name">본명</label>
-                    <input type="text" id="name" placeholder="본명을 입력하세요"></input>
+                    <Form.Group controlId="formBasicId">
+                        <Form.Row>
+                            <Form.Label for="id">User Name</Form.Label>
+                        </Form.Row>
+                        <Col>
+                            <Form.Control type="text" id="id" size="sm" placeholder="UserName" className="mx-sm-3"></Form.Control>
+                        </Col>
+                    </Form.Group>
 
-                    <label for="password">비밀번호</label>
-                    <input type="password" id="password" placeholder="비밀번호를 입력하세요"></input>
+                    <Form.Group controlId="formBasicName">
+                        <Form.Row>
+                            <Form.Label for="name">Real Name</Form.Label>
+                        </Form.Row>
+                        <Col>
+                            <Form.Control type="text" id="name" size="sm" placeholder="Enter your Real Name" className="mx-sm-3"></Form.Control>
+                        </Col>
+                    </Form.Group>
 
-                    <label for="password2">비밀번호 확인</label>
-                    <input type="password" id="password2" placeholder="비밀번호를 한번 더 입력하세요"></input>
+                    <Form.Group controlId="formBasicNumber">
+                        <Form.Row>
+                            <Form.Label for="number">Resident registration number</Form.Label>
+                        </Form.Row>
+                        <Col>
+                            <Form.Control type="text" id="number1" size="sm" maxlength="6" className="mx-sm-3"></Form.Control>
+                        </Col>
+                    </Form.Group>
 
-                    <label for="tel">휴대폰 번호</label>
-                    <input type="text" id="tel" placeholder="휴대폰 번호를 입력하세요"></input>
+                    <Form.Group controlId="formBasicPassword">
+                        <Form.Row>
+                            <Form.Label for="password">Password</Form.Label>
+                        </Form.Row>
+                        <Col>
+                            <Form.Control type="password" id="password" size="sm" aria-describedby="passwordHelpBlock" className="mx-sm-3"></Form.Control>
+                            <Form.Text id="password" muted>Must be 8-20 characters long.</Form.Text>
+                        </Col>
+                    </Form.Group>
 
-                    <label for="add">주소</label>
-                </div>
-            </form>
-        </div>
+                    <Form.Group controlId="formBasicPassword2">
+                        <Form.Row>
+                            <Form.Label for="password2">Confirm Password</Form.Label>
+                        </Form.Row>
+                        <Col>
+                            <Form.Control type="password" id="password2" size="sm" placeholder="Confirm Password" className="mx-sm-3"></Form.Control>
+                        </Col>
+                    </Form.Group>
+
+                    <Form.Group controlId="formBasicTel">
+                        <Form.Row>
+                            <Form.Label for="tel">Phone Number</Form.Label>
+                        </Form.Row>
+                        <Col>
+                            <Form.Control type="text" id="tel" size="sm" placeholder="Enter your Phone Number" className="mx-sm-3"></Form.Control>
+                        </Col>
+                    </Form.Group>
+
+                    <Form.Group controlId="formBasicAdd">
+                        <Form.Row>
+                            <Form.Label>address</Form.Label>
+                        </Form.Row>
+                        <Col>
+                            <Form.Control type="text" id="add" size="sm" placeholder="Enter your Address" className="mx-sm-3"></Form.Control>
+                        </Col>
+                    </Form.Group>
+                </Form>
+
+                <Button variant="outline-dark" type="submit" block>Sign Up</Button>
+            </div>
+        </Container>
 
     )
 }

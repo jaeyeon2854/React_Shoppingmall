@@ -5,8 +5,19 @@ import { Form, Col, Container, Button, Row } from 'react-bootstrap'
 import { Link , Redirect} from 'react-router-dom'
 
 
-function Login() {
+function Login(authenticated,login,location) {
+    const [id, setId] = useState("");
+    const [password,setPassword]= useState("");
 
+    const handleClick =() => {
+        try {
+            Login({id,password})
+        } catch(e) {
+            alert("Failed to login")
+            setId("")
+            setPassword("")
+        }
+    }
 
     return (
         <div>
@@ -24,7 +35,12 @@ function Login() {
                                 <Form.Row>
                                     <Form.Label for="id">User Name</Form.Label>
                                     <Col>
-                                        <Form.Control type="text" id="id" className="mx-sm-3" size="sm" placeholder="User Name"></Form.Control>
+                                        <Form.Control 
+                                        type="text" 
+                                        value={id} 
+                                        onChange={({target:{value}})=>setId(value)} 
+                                        className="mx-sm-3" size="sm" placeholder="User Name">
+                                        </Form.Control>
                                     </Col>
                                 </Form.Row>
                             </Form.Group>
@@ -33,11 +49,15 @@ function Login() {
                                 <Form.Row>
                                     <Form.Label for="password">Password</Form.Label>
                                     <Col>
-                                        <Form.Control type="password" id="password" className="mx-sm-3" size="sm" placeholder="Password"></Form.Control>
+                                        <Form.Control 
+                                        type="password" 
+                                        value={password}
+                                        onChange={({target:{value}})=>setPassword(value)} 
+                                        className="mx-sm-3" size="sm" placeholder="Password"></Form.Control>
                                     </Col>
                                 </Form.Row>
                             </Form.Group>
-                            <Button variant="outline-dark" type="submit" block>Login</Button>
+                            <Button variant="outline-dark" type="submit" onClick={handleClick} block>Login</Button>
                             <div className="loginLine">
                                 <Link to="/signup">SignUp?</Link>
                             </div>

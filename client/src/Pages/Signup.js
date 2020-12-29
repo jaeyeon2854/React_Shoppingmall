@@ -3,12 +3,14 @@ import { Redirect } from 'react-router-dom';
 import Nav1 from '../Components/MainNav';
 import Nav2 from '../Components/SubNav';
 import { Form, Col, Container, Button, Row } from 'react-bootstrap'
+import FormCheckInput from 'react-bootstrap/esm/FormCheckInput';
 
 function Signup() {
 
 
     return (
         <div>
+
             <Nav1 />
             <Nav2 />
             <Container className="my-5">
@@ -45,7 +47,7 @@ function Signup() {
                                     <Col as={Row}>
                                     <Form.Control type="text" id="number1" size="sm" maxlength="6" className="mx-sm-3" style={{width:'120px'}}></Form.Control>
                                     -
-                                    <Form.Control type="text" id="number1" size="sm" maxlength="1" className="mx-sm-3" style={{width:'25px'}}></Form.Control>
+                                    <Form.Control type="text" id="number2" size="sm" maxlength="1" className="mx-sm-3" style={{width:'25px'}}></Form.Control>
                                     ******
                                     </Col>
 

@@ -1,30 +1,22 @@
 import logo from './logo.svg';
 import './App.css';
 import { Button } from 'react-bootstrap';
+import { Router } from 'react-router-dom';
+import Login from './Login'
+import LogoutButton from './LogoutButton'
+import {signIn} from './auth'
+
 
 function App() {
-  function btnfunc(){
-    alert("hi")
-    console.log("아")
-  }
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [user,setUser]=useState(null);
+
+  const authenticated =user !=null;
+
+  const login =({id, password}) => setUser(signIn({id,password}));
+
+  const logout=()=>setUser(null);
+
+
 }
 
 export default App;

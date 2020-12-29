@@ -5,6 +5,7 @@ import Home from './Pages/Home';
 import Login from './Pages/Login';
 import Signup from './Pages/Signup';
 import Admin from './Pages/Admin';
+import ProductsRegist from './Pages/ProductsRegist';
 import ShoppingCart from './Pages/ShoppingCart';
 import Payment from './Pages/Payment';
 import reportWebVitals from './reportWebVitals';
@@ -18,7 +19,9 @@ ReactDOM.render(
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/admin" component={Admin} />
+        <Route path="/regist" component={ProductsRegist} />
         <Route path="/shoppingcart" component={ShoppingCart} />
+        <Route path="/payment" component={Payment} />
         <Redirect path="/" to="/" />
       </Switch>
     </Router>

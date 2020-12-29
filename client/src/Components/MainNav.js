@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
-import logo from '../footprint.ico';
+import logo from '../footprint.svg';
 import cart from '../cart.svg';
 import option from '../option.svg';
 
@@ -12,7 +12,7 @@ function MainNav() {
     return (
         <Navbar fixed="top" bg="dark" variant="dark" style={{position: "sticky"}}>
             <Navbar.Brand href="/home">
-                <img src={logo} width="30" height="30" />
+                <img src={logo} width="23" height="23" />
                 {' '}KU#
             </Navbar.Brand>
             <Nav className="justify-content-end">

@@ -5,22 +5,23 @@ import Home from './Pages/Home';
 import Login from './Pages/Login';
 import Signup from './Pages/Signup';
 import Admin from './Pages/Admin';
+import ProductsRegist from './Pages/ProductsRegist';
 import ShoppingCart from './Pages/ShoppingCart';
 import Payment from './Pages/Payment';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ProductsRegist from './Pages/ProductsRegist';
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <Switch>
-        {/* <Route exact path="/" component={Home} /> */}
-        {/* <Route exact path="/" component={ShoppingCart} /> */}
-        {/* <Route exact path="/" component={Payment} /> */}
-        <Route exact path="/" component={ProductsRegist} />
+        <Route exact path="/" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route path="/admin" component={Admin} />
+        <Route path="/regist" component={ProductsRegist} />
+        <Route path="/shoppingcart" component={ShoppingCart} />
+        <Route path="/payment" component={Payment} />
         <Redirect path="/" to="/" />
       </Switch>
     </Router>

@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
+import MainNav from '../Components/MainNav';
+import SubNav from '../Components/SubNav';
 import { Container, Card, Row, Col, Button, Form } from 'react-bootstrap';
-import Nav1 from '../Components/MainNav';
-import Nav2 from '../Components/SubNav';
 
 function Payment() {
 
-    const [ paymentWay, setPaymentWay ] = useState([])
+    const [paymentWay, setPaymentWay] = useState([])
 
     function handleClick() {
         if (paymentWay.length !== 0) {
@@ -37,7 +37,7 @@ function Payment() {
         }
     }
 
-    function handleClick2 (){
+    function handleClick2() {
         if (paymentWay.length !== 0) {
             setPaymentWay([])
         }
@@ -45,8 +45,8 @@ function Payment() {
 
     return (
         <div>
-            <Nav1 />
-            <Nav2 />
+            <MainNav />
+            <SubNav />
             <Container>
                 <h3 className="my-5 font-weight-bold text-center" style={{ color: '#F2A400' }}>주문/결제</h3>
                 <div>

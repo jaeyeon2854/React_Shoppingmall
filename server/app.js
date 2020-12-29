@@ -22,10 +22,6 @@ app.use(express.urlencoded({ extended: false }));
 // app.use(express.static(path.join(__dirname, 'public')));
 
 // app.use('/', indexRouter);
-app.get('/', (req, res)=>{
-  res.send('hello')
-  console.log(req)
-})
 
 app.listen(port, () => console.log(port));
 // app.listen(3001, () => console.log(port));

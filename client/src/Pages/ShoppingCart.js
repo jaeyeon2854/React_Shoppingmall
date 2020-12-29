@@ -1,18 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Redirect } from 'react-router-dom';
-import Nav1 from '../Components/MainNav';
-import Nav2 from '../Components/SubNav';
+import MainNav from '../Components/MainNav';
+import SubNav from '../Components/SubNav';
 import { Card, Button, Container, Row, Col } from 'react-bootstrap';
-// import { Button } from 'bootstrap';
-
 
 function ShoppingCart() {
 
     return (
         <div>
-            <Nav1 />
-            <Nav2 />
-            <div className="justify-content-center">
+            <MainNav />
+            <SubNav />
+            <Container className="justify-content-center">
                 <h3 className="my-5 font-weight-bold text-center" style={{ color: '#F2A400' }}>장바구니</h3>
                 <div>
                     <h4 className="bg-light font-weight-bold py-3 border-top border-bottom text-center">주문상품정보</h4>
@@ -79,7 +77,7 @@ function ShoppingCart() {
                 <div className="text-center">
                     <Button className="px-5">결제하기</Button>
                 </div>
-            </div>
+            </Container>
 
         </div>
     )

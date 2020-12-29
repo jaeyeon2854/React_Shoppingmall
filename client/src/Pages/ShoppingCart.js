@@ -12,7 +12,7 @@ function ShoppingCart() {
         <div>
             <Nav1 />
             <Nav2 />
-            <Container className="justify-content-center">
+            <div className="justify-content-center">
                 <h3 className="my-5 font-weight-bold text-center" style={{ color: '#F2A400' }}>장바구니</h3>
                 <div>
                     <h4 className="bg-light font-weight-bold py-3 border-top border-bottom text-center">주문상품정보</h4>
@@ -79,7 +79,7 @@ function ShoppingCart() {
                 <div className="text-center">
                     <Button className="px-5">결제하기</Button>
                 </div>
-            </Container>
+            </div>
 
         </div>
     )

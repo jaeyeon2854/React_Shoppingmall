@@ -9,12 +9,16 @@ import ShoppingCart from './Pages/ShoppingCart';
 import Payment from './Pages/Payment';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ProductsRegist from './Pages/ProductsRegist';
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <Switch>
-        <Route exact path="/" component={Home} />
+        {/* <Route exact path="/" component={Home} /> */}
+        {/* <Route exact path="/" component={ShoppingCart} /> */}
+        {/* <Route exact path="/" component={Payment} /> */}
+        <Route exact path="/" component={ProductsRegist} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Redirect path="/" to="/" />

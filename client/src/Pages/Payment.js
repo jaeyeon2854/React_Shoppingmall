@@ -40,7 +40,6 @@ function Payment() {
     function handleClick2() {
         if (paymentWay.length !== 0) {
             setPaymentWay([])
-            // paymentWay=[]
         }
     }
 

@@ -10,19 +10,19 @@ function MainNav() {
     }
 
     return (
-        <Navbar fixed="top" bg="dark" variant="dark" style={{position: "sticky"}}>
-            <Navbar.Brand href="/home">
-                <img src={logo} width="23" height="23" />
+        <Navbar sticky="top" style={{ background: "#CDC5C2" }}>
+            <Navbar.Brand href="/home" className="text-light">
+                <img src={logo} width="24" height="24" />
                 {' '}KU#
             </Navbar.Brand>
             <Nav className="justify-content-end">
-                <Nav.Link href="/login">Login</Nav.Link>
-                <Nav.Link href="/signup">Signup</Nav.Link>
+                <Nav.Link className="text-light" href="/login">Login</Nav.Link>
+                <Nav.Link className="text-light" href="/signup">Signup</Nav.Link>
                 <Nav.Link href="/shoppingcart">
                     <img src={cart} width="30" height="30" />
                 </Nav.Link>
-                <Nav.Link onClick={() => handleClick()}>Logout</Nav.Link>
-                <Nav.Link href="/admin/:id">
+                <Nav.Link className="text-light" onClick={() => handleClick()}>Logout</Nav.Link>
+                <Nav.Link href="/admin">
                     <img src={option} width="30" height="30" />
                 </Nav.Link>
             </Nav>

@@ -8,10 +8,41 @@ import DaumPostcode from "react-daum-postcode";
 
 
 function Signup() {
+    const [address,setAddress] =useState("")
 
-    const [isAddress, setIsAddress] = useState("");
-    const [isZoneCode, setIsZoneCode] = useState();
-    const [isPostOpen, setIsPostOpen] = useState();
+    const handleComplete = (data) => {
+        let fullAddress = data.address;
+        let extraAddress = "";
+
+        console.log(data)
+
+        if (data.addressType === "R") {
+            if (data.bname !== "") {
+                extraAddress += data.bname;
+                console.log(extraAddress)
+            }
+            if (data.buildingName !== "") {
+                extraAddress +=
+                    extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+            }
+            fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+        }
+        setAddress({full: fullAddress, zone: data.zonecode});
+
+        console.log(fullAddress);
+    }
+
+    const Postcode = () => {
+
+
+        return (
+            <DaumPostcode
+                onComplete={handleComplete}
+            />
+        );
+    }
+
+
     const [post, setPost] = useState([]);
 
     function postClick() {
@@ -26,26 +57,6 @@ function Signup() {
 
         }
     }
-
-    const handleComplete = (data) => {
-        let fullAddress = data.address;
-        let extraAddress = "";
-
-        if (data.addressType === "R") {
-            if (data.bname !== "") {
-                extraAddress += data.bname;
-            }
-            if (data.buildingName !== "") {
-                extraAddress +=
-                    extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
-            }
-            fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
-        }
-        setIsZoneCode(data.zonecode);
-        setIsAddress(fullAddress);
-        setIsPostOpen(false);
-    };
-
     const postCodeStyle = {
         position: "absolute",
         width: "400px",
@@ -158,14 +169,14 @@ function Signup() {
 
                             <Form.Group controlId="formBasicAdd">
                                 <Form.Row>
-                                    <Form.Label>주 소</Form.Label>
-
-                                    <Col>
-                                        <button type="button" onClick={postClick}>우편번호 찾기</button>
+                                    {console.log("address=", address)}
+                                    <Form.Label className="mx-3">주 소</Form.Label>
+                                    <Form.Control required type="text" id="add" size="sm " style={{ width: '120px' }} value={address.zone} disabled={(address.zone == null) ? false : true} ></Form.Control>                                        
+                                    <Button size="sm" style={{ background: '#91877F', borderColor: '#91877F' }} className="mx-3" type="button" onClick={postClick}>주소 찾기</Button>
                                         {post}
-                                        <Form.Control required type="text" id="add2" size="sm" placeholder="상세주소" className="mx-sm-3"></Form.Control>
+                                    <Form.Control required type="text" id="add" size="sm " value={address.full} disabled={(address.zone == null) ? false : true} className="mx-3"style={{width:'330px'}}></Form.Control>
+                                    <Form.Control required type="text" id="add2" size="sm" placeholder="상세주소" className="mx-sm-3"></Form.Control>
                                         <Form.Control.Feedback type="invalid" > 상세 주소를 입력하세요. </Form.Control.Feedback>
-                                    </Col>
                                 </Form.Row>
                             </Form.Group>
 

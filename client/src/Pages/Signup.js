@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Redirect } from 'react-router-dom';
 import Nav1 from '../Components/MainNav';
 import Nav2 from '../Components/SubNav';
-import { Form, Col, Container, Button, Row } from 'react-bootstrap'
-import FormCheckInput from 'react-bootstrap/esm/FormCheckInput';
+import { Form, Col, Container, Button, Row } from 'react-bootstrap';
 import DaumPostcode from "react-daum-postcode";
 
 

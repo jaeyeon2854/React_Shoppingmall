@@ -19,7 +19,7 @@ function Admin() {
                         <img src={search} width="20" height="20" />
                     </Button>
                 </Col>
-                <Col sm={2} xs={3} as={Button} variant="dark" type="button" href="/:id/productsregist">상품 등록</Col>
+                <Col sm={2} xs={3} as={Button} variant="dark" type="button" href="/regist">상품 등록</Col>
             </Row>
             <Row className="mt-5 m-auto justify-content-start">
                 <Card className="m-4" style={{width: "18rem"}}>

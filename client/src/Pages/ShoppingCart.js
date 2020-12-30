@@ -11,7 +11,7 @@ function ShoppingCart() {
             <MainNav />
             <SubNav />
             <Container className="justify-content-center">
-                <h3 className="my-5 font-weight-bold text-center" style={{ color: '#F2A400' }}>장바구니</h3>
+                <h3 className="my-5 font-weight-bold text-center">장바구니</h3>
                 <div>
                     <h4 className="bg-light font-weight-bold py-3 border-top border-bottom text-center">주문상품정보</h4>
                     <Card >
@@ -75,7 +75,7 @@ function ShoppingCart() {
                     </div>
                 </div>
                 <div className="text-center">
-                    <Button className="px-5">결제하기</Button>
+                    <Button className="px-5" style={{background:"#91877F", borderColor:'#91877F'}}>결제하기</Button>
                 </div>
             </Container>
 

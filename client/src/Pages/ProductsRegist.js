@@ -13,7 +13,7 @@ function ProductsRegist() {
             <Container>
                 <Row className="justify-content-md-center">
                     <Col md={6} className="border m-5 p-3">
-                        <Form >
+                        <Form>
                             <Form.Group controlId="productNameform">
                                 <Form.Label>상품명</Form.Label>
                                 <Form.Control type="text" placeholder="상품명" />

@@ -95,9 +95,9 @@ function Payment() {
             <MainNav />
             <SubNav />
             <Container>
-                <h3 className="my-5 font-weight-bold text-center" style={{ color: '#F2A400' }}>주문/결제</h3>
+                <h3 className="my-5 font-weight-bold text-center">주문/결제</h3>
                 <div>
-                    <h5 className="bg-light font-weight-bold py-3 border-top border-bottom text-center">주문자 정보</h5>
+                    <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>주문자 정보</h5>
                     <Form>
                         <Form.Group controlId="formBasicName">
                             <Form.Label>이름</Form.Label>
@@ -116,13 +116,18 @@ function Payment() {
                 </div>
 
                 <div>
-                    <h5 className="bg-light font-weight-bold py-3 border-top border-bottom text-center">배송지 정보</h5>
-                    <Button onClick={postClick}>우편번호</Button>
+                    <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>배송지 정보</h5>
+                    <Row>
+
+                        <Col>
+                            <Button className="my-3" style={{ background: "#91877F", borderColor: '#91877F' }} onClick={postClick}>우편번호</Button>
+                        </Col>
+                    </Row>
                     {post}
                 </div>
 
                 <div>
-                    <h5 className="bg-light font-weight-bold py-3 border-top border-bottom text-center">주문상품정보</h5>
+                    <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>주문상품정보</h5>
                     <Card >
                         <Row>
                             <Col className="text-center align-self-center">
@@ -138,10 +143,10 @@ function Payment() {
                                     <Card.Title className="font-weight-bold mt-3">제품명</Card.Title>
                                     <Card.Text>가격</Card.Text>
                                     <Card.Text>옵션</Card.Text>
-                                    <div>
-                                        <Button variant="outline-dark" size="sm">-</Button>
-                                        <input type="text" style={{ width: '30px' }} className="align-middle mx-1" readOnly></input>
-                                        <Button variant="outline-dark" size="sm">+</Button>
+                                    <div className="align-items-center" >
+                                        <input type="image" src="https://img.icons8.com/ios-glyphs/20/000000/minus-math.png" />
+                                        <input type="text"  placeholder="1"  style={{ width: '30px' }} className="text-center align-middle mx-1" readOnly></input>
+                                        <input type="image" src="https://img.icons8.com/ios-glyphs/20/000000/plus-math.png" />
                                     </div>
                                 </Card.Body>
                             </Col>
@@ -149,7 +154,7 @@ function Payment() {
                     </Card>
                 </div>
 
-                <div className="bg-light p-5 m-5">
+                <div className="p-5 m-5" style={{ background: '#F7F3F3' }}>
                     <ul className="pl-0" style={{ listStyle: 'none' }}>
                         <li>
                             <span className="text-secondary">총 상품금액</span>
@@ -166,7 +171,7 @@ function Payment() {
                 </div>
 
                 <div>
-                    <h5 className="bg-light font-weight-bold py-3 border-top border-bottom text-center">결제수단</h5>
+                    <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>결제수단</h5>
                     <div className="text-center">
                         <Button variant="success" onClick={handleClick} >무통장입금</Button>
                         <Button variant="warning" style={{ color: '#ffffff' }} onClick={handleClick2}>카카오페이</Button>

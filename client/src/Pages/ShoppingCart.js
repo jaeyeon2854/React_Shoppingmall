@@ -13,7 +13,7 @@ function ShoppingCart() {
             <Container className="justify-content-center">
                 <h3 className="my-5 font-weight-bold text-center">장바구니</h3>
                 <div>
-                    <h4 className="bg-light font-weight-bold py-3 border-top border-bottom text-center">주문상품정보</h4>
+                    <h4 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>주문상품정보</h4>
                     <Card >
                         <Row>
                             <Col>
@@ -22,15 +22,15 @@ function ShoppingCart() {
                             </Col>
                             <Col md={6}>
                                 <Card.Body>
-                                    <img src="https://img.icons8.com/fluent-systems-regular/24/000000/close-window.png" className="float-right" />
+                                    <input type="image" src="https://img.icons8.com/fluent-systems-regular/24/000000/close-window.png" className="float-right" />
                                     <Card.Title className="font-weight-bold mt-3">제품명</Card.Title>
                                     <Card.Text>가격</Card.Text>
                                     <Card.Text>옵션</Card.Text>
                                     <Card.Text>수량</Card.Text>
                                     <div>
-                                        <Button variant="outline-dark" size="sm">-</Button>
-                                        <input type="text" style={{ width: '30px' }} className="align-middle mx-1" readOnly></input>
-                                        <Button variant="outline-dark" size="sm">+</Button>
+                                        <input type="image" src="https://img.icons8.com/ios-glyphs/20/000000/minus-math.png" />
+                                        <input type="text" placeholder="1" style={{ width: '30px' }} className="text-center align-middle mx-1" readOnly></input>
+                                        <input type="image" src="https://img.icons8.com/ios-glyphs/20/000000/plus-math.png" />
                                     </div>
                                 </Card.Body>
                             </Col>
@@ -44,22 +44,22 @@ function ShoppingCart() {
                             </Col>
                             <Col>
                                 <Card.Body>
-                                    <img src="https://img.icons8.com/fluent-systems-regular/24/000000/close-window.png" className="float-right" />
+                                    <input type="image" src="https://img.icons8.com/fluent-systems-regular/24/000000/close-window.png" className="float-right" />
                                     <Card.Title className="font-weight-bold mt-3">제품명</Card.Title>
                                     <Card.Text>가격</Card.Text>
                                     <Card.Text>옵션</Card.Text>
                                     <Card.Text>수량</Card.Text>
-                                    <div>
-                                        <Button variant="outline-dark" size="sm">-</Button>
-                                        <input type="text" style={{ width: '30px' }} className="align-middle mx-1" readOnly></input>
-                                        <Button variant="outline-dark" size="sm">+</Button>
+                                    <div className="align-items-center" >
+                                        <input type="image" src="https://img.icons8.com/ios-glyphs/20/000000/minus-math.png" />
+                                        <input type="text"  placeholder="1"  style={{ width: '30px' }} className="text-center align-middle mx-1" readOnly></input>
+                                        <input type="image" src="https://img.icons8.com/ios-glyphs/20/000000/plus-math.png" />
                                     </div>
                                 </Card.Body>
                             </Col>
                         </Row>
                     </Card>
                 </div>
-                <div className="bg-light p-5 m-5">
+                <div className="p-5 m-5"  style={{background:'#F7F3F3'}}>
                     <ul className="pl-0" style={{ listStyle: 'none' }}>
                         <li>
                             <span className="text-secondary">총 상품금액</span>
@@ -75,7 +75,7 @@ function ShoppingCart() {
                     </div>
                 </div>
                 <div className="text-center">
-                    <Button className="px-5" style={{background:"#91877F", borderColor:'#91877F'}} href="/payment">결제하기</Button>
+                    <Button className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} href="/payment">결제하기</Button>
                 </div>
             </Container>
 

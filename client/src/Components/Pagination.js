@@ -13,7 +13,7 @@ function pagination() {
     }
 
     return (
-        <Pagination className="justify-content-center mt-5">{items}</Pagination>
+        <Pagination className="justify-content-center">{items}</Pagination>
     )
 }
 

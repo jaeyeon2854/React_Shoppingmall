@@ -5,15 +5,15 @@ import { Row, Col, Button, Form, Container } from 'react-bootstrap';
 
 
 function ProductsRegist() {
-
     return (
         <div>
             <Nav1 />
             <Nav2 />
             <Container>
                 <Row className="justify-content-md-center">
-                    <Col md={6} className="border m-5 p-3">
-                        <Form >
+                    <Col md={6} className="border m-5 p-3" style={{background:'#F7F3F3'}}>
+                        <h2 className="text-center mt-5 font-weight-bold">상품등록</h2>
+                        <Form className="p-5">
                             <Form.Group controlId="productNameform">
                                 <Form.Label>상품명</Form.Label>
                                 <Form.Control type="text" placeholder="상품명" />
@@ -53,7 +53,7 @@ function ProductsRegist() {
                                 <Form.Label>대표이미지</Form.Label>
                                 <Form.File id="productImageform" />
                             </Form.Group>
-                            <Button className="float-right" variant="primary" type="submit">등록</Button>
+                            <Button className="float-right" variant="primary" type="submit" style={{background:'#91877F', borderColor:'#91877F'}}>등록</Button>
                         </Form>
                     </Col>
                 </Row>

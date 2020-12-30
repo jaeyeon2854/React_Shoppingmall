@@ -78,22 +78,16 @@ function Signup() {
 
     return (
         <div>
-
             <Nav1 />
             <Nav2 />
             <Container className="my-5">
                 <Row className="justify-content-center">
                     <Col md={6} xs={10} className="border" style={{ background: '#F7F3F3' }}>
                         <h2 className="text-center mt-5">Sign Up</h2>
-
                         <Form noValidate validated={validated} onSubmit={handleSubmit} className="p-5">
-
-
-
                             <Form.Group controlId="formBasicName">
                                 <Form.Row>
                                     <Form.Label for="name">이 름</Form.Label>
-
                                     <Col>
                                         <Form.Control
                                             required
@@ -116,7 +110,6 @@ function Signup() {
                                     ******
                                     <Form.Control.Feedback type="invalid">주민등록번호를 입력하세요.</Form.Control.Feedback>
                                     </Col>
-
                                 </Form.Row>
                             </Form.Group>
                             <Form.Group controlId="formBasicId">
@@ -178,16 +171,12 @@ function Signup() {
                                         <Form.Control.Feedback type="invalid" > 상세 주소를 입력하세요. </Form.Control.Feedback>
                                 </Form.Row>
                             </Form.Group>
-
                             <Button style={{ background: '#91877F', borderColor: '#91877F' }} type="submit" block>Sign Up</Button>
                         </Form>
-
                     </Col>
                 </Row>
-
             </Container>
         </div>
-
     )
 }
 

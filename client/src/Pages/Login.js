@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import Nav1 from '../Components/MainNav';
 import Nav2 from '../Components/SubNav';
-import { Form, Col, Container, Button, Row } from 'react-bootstrap'
-import { Link, Redirect } from 'react-router-dom'
+import { Form, Col, Container, Button, Row } from 'react-bootstrap';
 
 function Login(){
 
@@ -22,14 +22,10 @@ function Login(){
             <Nav1 />
             <Nav2 />
             <Container className="my-5">
-
                 <Row className="justify-content-center">
-
                     <Col md={5} xs={10} className="border" style={{ background: '#F7F3F3' }}>
                         <h3 className="text-center mt-5">Login</h3>
                         <Form  noValidate validated={validated} onSubmit={handleSubmit} className="p-5">
-
-
                             <Form.Group controlId="formBasicId">
                                 <Form.Row>
                                     <Col sm={4} xs={6} as={Form.Label} for="id"> 아이디</Col>
@@ -65,14 +61,8 @@ function Login(){
                         </Form>
                     </Col>
                 </Row>
-
-
-
-
             </Container>
         </div>
-
-
     )
 }
 

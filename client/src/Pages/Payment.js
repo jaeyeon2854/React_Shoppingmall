@@ -1,13 +1,60 @@
 import React, { useState, useEffect, useRef } from 'react';
 import MainNav from '../Components/MainNav';
 import SubNav from '../Components/SubNav';
+import DaumPostcode from "react-daum-postcode";
 import { Container, Card, Row, Col, Button, Form } from 'react-bootstrap';
 
 function Payment() {
 
     const [paymentWay, setPaymentWay] = useState([])
+    const [isAddress, setIsAddress] = useState("");
+    const [isZoneCode, setIsZoneCode] = useState();
+    const [isPostOpen, setIsPostOpen] = useState();
+    const [post, setPost] = useState([])
+
+    function postClick() {
+        if (post.length !== 0) {
+            setPost([])
+        }
+        else {
+            setPost(
+                <div>
+                    <DaumPostcode style={postCodeStyle} onComplete={handleComplete} />
+                </div>
+            )
+        }
+
+    }
+
+    const handleComplete = (data) => {
+        let fullAddress = data.address;
+        let extraAddress = "";
+
+        if (data.addressType === "R") {
+            if (data.bname !== "") {
+                extraAddress += data.bname;
+            }
+            if (data.buildingName !== "") {
+                extraAddress +=
+                    extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+            }
+            fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+        }
+        setIsZoneCode(data.zonecode);
+        setIsAddress(fullAddress);
+        setIsPostOpen(false);
+    };
+    const postCodeStyle = {
+        display: "block",
+        position: "absolute",
+        // top: "50%",
+        width: "400px",
+        height: "500px",
+        padding: "7px",
+    };
 
     function handleClick() {
+
         if (paymentWay.length !== 0) {
             setPaymentWay([])
         }
@@ -70,6 +117,8 @@ function Payment() {
 
                 <div>
                     <h5 className="bg-light font-weight-bold py-3 border-top border-bottom text-center">배송지 정보</h5>
+                    <Button onClick={postClick}>우편번호</Button>
+                    {post}
                 </div>
 
                 <div>

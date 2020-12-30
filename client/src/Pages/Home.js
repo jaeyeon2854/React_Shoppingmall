@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import MainNav from '../Components/MainNav';
 import SubNav from '../Components/SubNav';
-import { Card, CardDeck, CardColumns, Container, Row } from 'react-bootstrap';
+import { Card, Container, Row } from 'react-bootstrap';
 
 
 function Home() {

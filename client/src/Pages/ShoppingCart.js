@@ -8,8 +8,8 @@ function ShoppingCart() {
 
     return (
         <div>
-            <Nav1 />
-            <Nav2 />
+            <MainNav />
+            <SubNav />
             <div className="justify-content-center">
                 <h3 className="my-5 font-weight-bold text-center" style={{ color: '#F2A400' }}>장바구니</h3>
                 <div>

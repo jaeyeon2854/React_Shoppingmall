@@ -22,7 +22,7 @@ function SubNav() {
     }
 
     return (
-        <Nav fixed="top" className="flex-nowrap">
+        <Nav fixed="top" className="flex-nowrap" style={{overflowX: "auto"}}>
             <NavDropdown title="DRESS" onMouseEnter={() => handleMouseEnter("dress")} onMouseLeave={() => handleMouseLeave("dress")} show={toggle.dress} toggle={() => handleToggle("dress")} onClick={() => handleClick("/dress")}>
                 <NavDropdown.Item href="/dress/long">LONG DRESS</NavDropdown.Item>
                 <NavDropdown.Item href="/dress/short">SHORT DRESS</NavDropdown.Item>

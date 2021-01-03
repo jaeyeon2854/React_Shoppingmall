@@ -4,9 +4,20 @@ import SubNav from '../Components/SubNav';
 import { Row, Col, Form, Card } from 'react-bootstrap';
 
 function Products() {
+    function handleClick(e) {
+        const box = e.target.parentNode.parentNode
+        box.style.display = "none"
+    }
 
     return (
         <div>
+            {/* <style type="text/css">
+                {`
+                .close {
+                    color: 
+                }
+                `}
+            </style> */}
             <MainNav />
             <SubNav />
             <Row className="justify-content-center mt-5">
@@ -33,32 +44,34 @@ function Products() {
                     <div></div>
                 </Col>
             </Row>
-            <div className="m-5">
-                <h6 style={{ borderBottom: "1px solid", paddingBottom: "5px", marginBottom: "1em" }}>회원님이 선호할만한 상품 추천</h6>
+            <div className="mx-5 pt-3" style={{ position: "fixed", bottom: "0", backgroundColor: "#fff" }}>
+                <h6 style={{ borderBottom: "1px solid", paddingBottom: "5px", marginBottom: "1em" }}>회원님이 선호할만한 상품 추천
+                <a className="close float-right" onClick={(e) => handleClick(e)} style={{ fontSize: "1rem" }}>X</a>
+                </h6>
                 <Row className="justify-content-space" style={{ objectFit: "contain", width: "100%" }}>
                     <Col as={Card} style={{ width: "16rem" }}>
-                        <Card.Img variant="top" src="https://img.sonyunara.com/files/goods/67504/1607328307_0.jpg" />
+                        <Card.Img variant="top" src="https://img.sonyunara.com/files/goods/67504/1607328307_0.jpg" style={{ objectFit: "contain", width: "10rem", height: "10rem" }} />
                         <Card.Body>
                             <Card.Title>클로타탄원피스</Card.Title>
                             <Card.Text>구매자 수: 30</Card.Text>
                         </Card.Body>
                     </Col>
                     <Col as={Card} style={{ width: "16rem" }}>
-                        <Card.Img variant="top" src="https://img.sonyunara.com/files/goods/67504/1607328307_0.jpg" />
+                        <Card.Img variant="top" src="https://img.sonyunara.com/files/goods/67504/1607328307_0.jpg" style={{ objectFit: "contain", width: "10rem", height: "10rem" }} />
                         <Card.Body>
                             <Card.Title>클로타탄원피스</Card.Title>
                             <Card.Text>구매자 수: 30</Card.Text>
                         </Card.Body>
                     </Col>
                     <Col as={Card} style={{ width: "16rem" }}>
-                        <Card.Img variant="top" src="https://img.sonyunara.com/files/goods/67504/1607328307_0.jpg" />
+                        <Card.Img variant="top" src="https://img.sonyunara.com/files/goods/67504/1607328307_0.jpg" style={{ objectFit: "contain", width: "10rem", height: "10rem" }} />
                         <Card.Body>
                             <Card.Title>클로타탄원피스</Card.Title>
                             <Card.Text>구매자 수: 30</Card.Text>
                         </Card.Body>
                     </Col>
                     <Col as={Card} style={{ width: "16rem" }}>
-                        <Card.Img variant="top" src="https://img.sonyunara.com/files/goods/67504/1607328307_0.jpg" />
+                        <Card.Img variant="top" src="https://img.sonyunara.com/files/goods/67504/1607328307_0.jpg" style={{ objectFit: "contain", width: "10rem", height: "10rem" }} />
                         <Card.Body>
                             <Card.Title>클로타탄원피스</Card.Title>
                             <Card.Text>구매자 수: 30</Card.Text>

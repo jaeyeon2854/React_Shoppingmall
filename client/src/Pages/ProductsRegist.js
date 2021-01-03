@@ -38,9 +38,9 @@ function ProductsRegist() {
                                     </Col>
                                     <Col md={6}>
                                         <Form.Control as="select" placeholder="하위분류">
-                                            <option>긴바지</option>
-                                            <option>반바지</option>
-                                            <option>청바지</option>
+                                            <option>JEANS</option>
+                                            <option>SKINNY JEANS</option>
+                                            <option>BANDING PANTS</option>
                                         </Form.Control>
                                     </Col>
                                 </Row>

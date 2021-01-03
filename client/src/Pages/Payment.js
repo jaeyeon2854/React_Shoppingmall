@@ -54,13 +54,13 @@ function Payment() {
     };
 
     function handleClick() {
-
         if (paymentWay.length !== 0) {
             setPaymentWay([])
         }
         else {
             const a = (
-                <div>
+                <Row className="justify-content-md-center">
+                    <Col md={6} className="border m-5 p-5">
                     <Form>
                         <Form.Group controlId="exampleForm.ControlSelect1">
                             <Form.Label>입금은행</Form.Label>
@@ -79,7 +79,9 @@ function Payment() {
                             <Form.Control type="date" />
                         </Form.Group>
                     </Form>
-                </div>)
+                    </Col>
+                    
+                </Row>)
             setPaymentWay(a)
         }
     }
@@ -89,7 +91,24 @@ function Payment() {
             setPaymentWay([])
         }
     }
+    const [num, setNum] = useState(0)
 
+    function plusNum() {
+        setNum(num + 1)
+    }
+    function minusNum() {
+        if (num === 0) {
+            setNum(0)
+        }
+        else {
+            setNum(num - 1)
+
+        }
+    }
+    function deleteCart() {
+        //장바구니 DB에서 해당 항목 삭제 
+        console.log('카트에 담긴 항목을 삭제했습니다.')
+    }
     return (
         <div>
             <MainNav />
@@ -98,20 +117,25 @@ function Payment() {
                 <h3 className="my-5 font-weight-bold text-center">주문/결제</h3>
                 <div>
                     <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>주문자 정보</h5>
-                    <Form>
-                        <Form.Group controlId="formBasicName">
-                            <Form.Label>이름</Form.Label>
-                            <Form.Control type="text" placeholder="윤지원" />
-                        </Form.Group>
-                        <Form.Group controlId="formBasicEmail">
-                            <Form.Label>이메일</Form.Label>
-                            <Form.Control type="email" placeholder="jiwon5393@naver.com" />
-                        </Form.Group>
-                        <Form.Group controlId="formBasicTel">
-                            <Form.Label>휴대전화</Form.Label>
-                            <Form.Control type="tel" placeholder="010-0000-0000" />
-                        </Form.Group>
-                    </Form>
+                    <Row className="justify-content-md-center">
+                        <Col md={4}>
+                            <Form>
+                                <Form.Group controlId="formBasicName">
+                                    <Form.Label>이름</Form.Label>
+                                    <Form.Control type="text" placeholder="윤지원" />
+                                </Form.Group>
+                                <Form.Group controlId="formBasicEmail">
+                                    <Form.Label>이메일</Form.Label>
+                                    <Form.Control type="email" placeholder="jiwon5393@naver.com" />
+                                </Form.Group>
+                                <Form.Group controlId="formBasicTel">
+                                    <Form.Label>휴대전화</Form.Label>
+                                    <Form.Control type="tel" placeholder="010-0000-0000" />
+                                </Form.Group>
+                            </Form>
+                        </Col>
+                    </Row>
+
 
                 </div>
 
@@ -129,24 +153,24 @@ function Payment() {
                 <div>
                     <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>주문상품정보</h5>
                     <Card >
-                        <Row>
-                            <Col className="text-center align-self-center">
-                                <input className="" type="checkbox" id="exampleCheck1"></input>
-
+                        <Row className="mx-1">
+                            <Col xs={2} sm={2} className="text-center my-auto">
+                                <input className="" type="checkbox" id="exampleCheck1" />
                             </Col>
-                            <Col>
+                            <Col className="text-center">
                                 <Card.Img className="img-fluid" variant="top" src="img/asd.jpg" style={{ width: '20rem' }} />
                             </Col>
-                            <Col>
+                            <Col md={6} className="p-2">
                                 <Card.Body>
-                                    <img src="https://img.icons8.com/fluent-systems-regular/24/000000/close-window.png" className="float-right" />
+                                    <input type="image" src="https://img.icons8.com/fluent-systems-regular/24/000000/close-window.png" className="float-right" onClick={deleteCart} />
                                     <Card.Title className="font-weight-bold mt-3">제품명</Card.Title>
                                     <Card.Text>가격</Card.Text>
                                     <Card.Text>옵션</Card.Text>
-                                    <div className="align-items-center" >
-                                        <input type="image" src="https://img.icons8.com/ios-glyphs/20/000000/minus-math.png" />
-                                        <input type="text"  placeholder="1"  style={{ width: '30px' }} className="text-center align-middle mx-1" readOnly></input>
-                                        <input type="image" src="https://img.icons8.com/ios-glyphs/20/000000/plus-math.png" />
+                                    <Card.Text>수량</Card.Text>
+                                    <div>
+                                        <input type="image" src="https://img.icons8.com/ios-glyphs/20/000000/minus-math.png" className="align-middle" onClick={minusNum} />
+                                        <input type="text" style={{ width: '30px' }} className="text-center align-middle mx-1" placeholder="1" value={num} readOnly></input>
+                                        <input type="image" src="https://img.icons8.com/ios-glyphs/20/000000/plus-math.png" className="align-middle" onClick={plusNum} />
                                     </div>
                                 </Card.Body>
                             </Col>
@@ -172,7 +196,7 @@ function Payment() {
 
                 <div>
                     <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>결제수단</h5>
-                    <div className="text-center">
+                    <div className="text-center mt-5">
                         <Button variant="success" onClick={handleClick} >무통장입금</Button>
                         <Button variant="warning" style={{ color: '#ffffff' }} onClick={handleClick2}>카카오페이</Button>
                     </div>

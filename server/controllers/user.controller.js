@@ -1,12 +1,19 @@
 import User from "../models/User.js";
+import isLength from 'validator/lib/isLength.js'
 
 const signup = async (req, res) => {
-    const { name, email, password } = req.body
+    const { name, number,id, password,password2,tel } = req.body
     try {
+        if(!isLength(password,{min:8, max:15})){
+            return res.status(422).send('비밀번호는 8-15자리로 입력해주세요.')
+        }
         const newUser = await new User ({
             name,
-            email,
-            password
+            number,
+            id,
+            password,
+            password2,
+            tel
         }).save()
         console.log(newUser)
         res.json(newUser)

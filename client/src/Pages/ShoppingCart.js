@@ -74,7 +74,7 @@ function ShoppingCart() {
                     </div>
                 </div>
                 <div className="text-center">
-                    <Button className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} href="/payment">결제하기</Button>
+                    <Button className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} href="/payment" block>결제하기</Button>
                 </div>
             </Container>
 

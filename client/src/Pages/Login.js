@@ -4,14 +4,14 @@ import Nav1 from '../Components/MainNav';
 import Nav2 from '../Components/SubNav';
 import { Form, Col, Container, Button, Row } from 'react-bootstrap';
 
-function Login(){
+function Login() {
 
-    const [validated,setValidated]=useState(false);
+    const [validated, setValidated] = useState(false);
 
-    const handleSubmit=(e)=>{
-        const form =e.currentTarget;
+    const handleSubmit = (e) => {
+        const form = e.currentTarget;
         console.log(form)
-        if(form.checkValidity() === false){
+        if (form.checkValidity() === false) {
             e.preventDefault();
             e.stopPropagation();
         }
@@ -25,30 +25,30 @@ function Login(){
                 <Row className="justify-content-center">
                     <Col md={5} xs={10} className="border" style={{ background: '#F7F3F3' }}>
                         <h3 className="text-center mt-5">Login</h3>
-                        <Form  noValidate validated={validated} onSubmit={handleSubmit} className="p-5">
+                        <Form noValidate validated={validated} onSubmit={handleSubmit} className="p-5">
                             <Form.Group controlId="formBasicId">
                                 <Form.Row>
                                     <Col sm={4} xs={6} as={Form.Label} for="id"> 아이디</Col>
-                                        <Col sm={8} xs={12} as={Form.Control}
-                                            required
-                                            type="text"
-                                            id="id"
-                                            placeholder="ID"
-                                            style={{ width: '160px' }}>
-                                        </Col>
-                                        <Form.Control.Feedback className="text-center" type="invalid"> 아이디를 입력하세요.</Form.Control.Feedback>
+                                    <Col sm={8} xs={12} as={Form.Control}
+                                        required
+                                        type="text"
+                                        id="id"
+                                        placeholder="ID"
+                                        style={{ width: '160px' }}>
+                                    </Col>
+                                    <Form.Control.Feedback className="text-center" type="invalid"> 아이디를 입력하세요.</Form.Control.Feedback>
                                 </Form.Row>
                             </Form.Group>
 
                             <Form.Group controlId="formBasicPassword">
                                 <Form.Row>
                                     <Col sm={4} xs={6} as={Form.Label} for="password">비밀번호</Col>
-                                        <Col sm={8} xs={12} as={Form.Control}
-                                            type="password"
-                                            id="password"
-                                            placeholder="Password"
-                                            style={{ width: '160px' }}
-                                            required />
+                                    <Col sm={8} xs={12} as={Form.Control}
+                                        type="password"
+                                        id="password"
+                                        placeholder="Password"
+                                        style={{ width: '160px' }}
+                                        required />
                                     <Form.Control.Feedback className="text-center" type="invalid">
                                         비밀번호를 입력하세요.
                                     </Form.Control.Feedback>

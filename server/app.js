@@ -33,7 +33,7 @@ app.use(express.json());
 // app.listen(port, () => console.log(port));
 app.listen(3001, () => console.log('Listenning'));
 
-app.use(userRouter)
+app.use('/api/users',userRouter)
 
 // catch 404 and forward to error handler
 // app.use(function(req, res, next) {

@@ -100,12 +100,12 @@ function Signup() {
                                 <Form.Row>
                                     <Col sm={4} xs={6} as={Form.Label} for="number">주민등록번호</Col>
 
-                                    <Col as={Row} sm={8} xs={12} >
+                                    <Col as={Row} sm={8} xs={10} >
                                         <Form.Control
                                             required type="text"
                                             name="number1"
                                             maxlength="6"
-                                            className="mx-2" style={{ width: '170px' }}
+                                            className="mx-2" style={{ width: '17 0px' }}
                                             value={user.number1}
                                             onChange={handleChange}>
                                         </Form.Control>
@@ -114,7 +114,7 @@ function Signup() {
                                             required type="text"
                                             name="number2"
                                             maxlength="1" className="mx-3"
-                                            style={{ width: '25px' }}
+                                            style={{ width: '50px' }}
                                             value={user.number2}
                                             onChange={handleChange}>
                                         </Form.Control>

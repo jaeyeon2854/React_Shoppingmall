@@ -7,6 +7,7 @@ import option from '../option.svg';
 function MainNav() {
     function handleClick() {
         alert('로그아웃이 완료되었습니다.')
+        window.location.href="/home"
     }
 
     return (

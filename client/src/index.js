@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-d
 import Home from './Pages/Home';
 import Login from './Pages/Login';
 import Signup from './Pages/Signup';
-import Product from "./Pages/Products";
+import Product from "./Pages/Product";
+import ProductsList from "./Pages/ProductsList";
 import Admin from './Pages/Admin';
 import ProductsRegist from './Pages/ProductsRegist';
 import ShoppingCart from './Pages/ShoppingCart';
@@ -21,6 +22,7 @@ ReactDOM.render(
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/product"component={Product} />
+        <Route path="/productslist"component={ProductsList} />
         <Route path="/admin" component={Admin} />
         <Route path="/regist" component={ProductsRegist} />
         <Route path="/shoppingcart" component={ShoppingCart} />

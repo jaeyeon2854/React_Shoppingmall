@@ -11,6 +11,7 @@ import ShoppingCart from './Pages/ShoppingCart';
 import Payment from './Pages/Payment';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Account from './Pages/Account';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -24,6 +25,8 @@ ReactDOM.render(
         <Route path="/regist" component={ProductsRegist} />
         <Route path="/shoppingcart" component={ShoppingCart} />
         <Route path="/payment" component={Payment} />
+        <Route path="/account" component={Account}/>
+        <Route path='/kakao' component={() => {window.location.href='https://compmath.korea.ac.kr'; return null;}}/>
         <Redirect path="/" to="/" />
       </Switch>
     </Router>

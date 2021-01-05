@@ -4,9 +4,9 @@ import config from '../config.js';
 const connection = {}
 
 async function connectDb() {
-    // if (connection.isConnection) {
-    //     return
-    // }
+    if (connection.isConnection) {
+         return
+     }
 
     const db = await mongoose.connect(config.mongoDbUri, {
         useNewUrlParser: true,

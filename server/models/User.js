@@ -5,9 +5,9 @@ const { String } = mongoose.Schema.Types
 const UserSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true,
+        required: true, // 꼭 필요한 값
     },
-    email: {
+    id: {
         type: String,
         required: true,
         unique: true,
@@ -15,7 +15,21 @@ const UserSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-        select: true,
+    },
+    number1:{
+        type:String,
+        required:true,
+        unique:true
+    },
+    number2:{
+        type:String,
+        required:true,
+        unique:true
+    },
+    tel:{
+        type:String,
+        required:true,
+        unique:true
     },
     role: {
         type: String,

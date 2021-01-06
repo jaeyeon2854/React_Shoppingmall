@@ -45,7 +45,7 @@ function Signup() {
         
         try {
             setError('')
-            const response = await fetch('/api/users/signup', {
+            const response = await fetch('/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

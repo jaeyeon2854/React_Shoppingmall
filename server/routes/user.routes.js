@@ -3,7 +3,7 @@ import userCtrl from '../controllers/user.controller.js';
 
 const router = express.Router()
 
-router.route('/api/users/signup')
+router.route('/signup')
     .post(userCtrl.signup)
     .get(userCtrl.hello)
 

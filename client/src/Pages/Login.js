@@ -11,7 +11,7 @@ function Login() {
     const handleSubmit = (e) => {
         const form = e.currentTarget;
         console.log(form)
-        if (form.checkValidity() === false) {
+        if (form.checkValidity() === false) { //checkValidity 는 입력 요소에 유효한 데이터가 포함되어 있는지 확인
             e.preventDefault();
             e.stopPropagation();
         }

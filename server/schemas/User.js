@@ -1,41 +1,44 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
 const { String } = mongoose.Schema.Types
 
 const UserSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true, // 꼭 필요한 값
+        required: true,
     },
     id: {
         type: String,
         required: true,
-        unique: true,
+        unique: true
     },
     password: {
         type: String,
         required: true,
+        select: false
     },
-    number1:{
-        type:String,
-        required:true,
-        unique:true
+    confirm_password:{
+        type: String,
+        required: true,
+        select: false
     },
-    number2:{
-        type:String,
-        required:true,
-        unique:true
-    },
-    tel:{
-        type:String,
-        required:true,
-        unique:true
+    phoneNumber: {
+        type: String,
+        required: true,
     },
     role: {
         type: String,
         required: true,
         default: 'user',
         enum: ['user', 'admin', 'root']
+    },
+    birth: {
+        type: String,
+        required: true,
+    },
+    sex: {
+        type: String,
+        required: true,
     }
 }, {
     timestamps: true

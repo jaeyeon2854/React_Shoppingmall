@@ -2,78 +2,61 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Redirect } from 'react-router-dom';
 import Nav1 from '../Components/MainNav';
 import Nav2 from '../Components/SubNav';
-import { Form, Col, Container, Button, Row } from 'react-bootstrap';
-import DaumPostcode from "react-daum-postcode";
+import { Form, Col, Container, Button, Row, Alert } from 'react-bootstrap'
+import FormCheckInput from 'react-bootstrap/esm/FormCheckInput';
 
+const INIT_USER = {
+    name: '',
+    number: '',
+    id: '',
+    password: '',
+    password2: '',
+    tel: ''
+}
 
 function Signup() {
-    const [address,setAddress] =useState("")
+    const [user, setUser] = useState(true)
+    //const [disabled, setDisabled] = useState(true)
+    const [error, setError] = useState('')
 
-    const handleComplete = (data) => {
-        let fullAddress = data.address;
-        let extraAddress = "";
+    //useEffect(() => {
+    //    const isUser = Object.values(user).every(el => Boolean(el))
+    //    isUser ? setDisabled(false) : setDisabled(true)
+    //}, user)
 
-        console.log(data)
-
-        if (data.addressType === "R") {
-            if (data.bname !== "") {
-                extraAddress += data.bname;
-                console.log(extraAddress)
-            }
-            if (data.buildingName !== "") {
-                extraAddress +=
-                    extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
-            }
-            fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
-        }
-        setAddress({full: fullAddress, zone: data.zonecode});
-
-        console.log(fullAddress);
+    function handleChange(event) {
+        const { name, value } = event.target
+        setUser({ ...user, [name]: value })
     }
-
-    const Postcode = () => {
-
-
-        return (
-            <DaumPostcode
-                onComplete={handleComplete}
-            />
-        );
-    }
-
-
-    const [post, setPost] = useState([]);
-
-    function postClick() {
-        if (post.length !== 0) {
-            setPost([])
-        } else {
-            setPost(
-                <div>
-                    <DaumPostcode style={postCodeStyle} onComplete={handleComplete} />
-                </div>
-            )
-
-        }
-    }
-    const postCodeStyle = {
-        position: "absolute",
-        width: "400px",
-        height: "500px",
-        padding: "7px",
-    };
-
 
     const [validated, setValidated] = useState(false);
 
-    const handleSubmit = (e) => {
-        const form = e.currentTarget;
+    async function handleSubmit(event) {
+        event.preventDefault()
+        const form = event.currentTarget;
         console.log(form)
         if (form.checkValidity() === false) {
-            e.preventDefault();
-            e.stopPropagation();
+            event.preventDefault();
+            event.stopPropagation();
         }
         setValidated(true);
+        console.log(user)
+        
+        try {
+            setError('')
+            const response = await fetch('/api/users/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(user)
+            })
+            const data = await response.json()
+            console.log(data)
+        } catch (error) {
+            console.log(error)
+            setError('다시 시도하세요.')
+        }
     }
 
     return (
@@ -81,32 +64,50 @@ function Signup() {
             <Nav1 />
             <Nav2 />
             <Container className="my-5">
+                {error && <Alert variant='danger'>
+                    {error}
+                </Alert>}
                 <Row className="justify-content-center">
                     <Col md={6} xs={10} className="border" style={{ background: '#F7F3F3' }}>
                         <h2 className="text-center mt-5">Sign Up</h2>
-                        <Form noValidate validated={validated} onSubmit={handleSubmit} className="p-5">
+                        <Form
+                            noValidate validated={validated}
+                            onSubmit={handleSubmit}
+                            className="p-5">
                             <Form.Group controlId="formBasicName">
                                 <Form.Row>
-                                    <Form.Label for="name">이 름</Form.Label>
-                                    <Col>
-                                        <Form.Control
-                                            required
-                                            type="text" id="name"
-                                            size="sm" placeholder="" className="mx-sm-3">
-                                        </Form.Control>
-                                        <Form.Control.Feedback type="invalid">이름을 입력하세요. </Form.Control.Feedback>
-                                    </Col>
+                                    <Col sm={4} xs={6} as={Form.Label} for="id">이 름</Col>
+                                    <Col sm={8} xs={12} as={Form.Control}
+                                        required type="text"
+                                        name="name"
+                                        placeholder="Name"
+                                        style={{ width: '160px' }}
+                                        value={user.name}
+                                        onChange={handleChange} />
+                                    <Form.Control.Feedback type="invalid">이름을 입력하세요. </Form.Control.Feedback>
                                 </Form.Row>
                             </Form.Group>
-
                             <Form.Group controlId="formBasicNumber">
                                 <Form.Row>
-                                    <Form.Label for="number">주민등록번호</Form.Label>
-
-                                    <Col as={Row}>
-                                        <Form.Control required type="text" id="number1" size="sm" maxlength="6" className="mx-sm-3" style={{ width: '120px' }}></Form.Control>
+                                    <Col sm={4} xs={6} as={Form.Label} for="number">주민등록번호</Col>
+                                    <Col as={Row} sm={8} xs={10} >
+                                        <Form.Control
+                                            required type="text"
+                                            name="number1"
+                                            maxlength="6"
+                                            className="mx-2" style={{ width: '17 0px' }}
+                                            value={user.number1}
+                                            onChange={handleChange}>
+                                        </Form.Control>
                                     -
-                                    <Form.Control required type="text" id="number2" size="sm" maxlength="1" className="mx-sm-3" style={{ width: '25px' }}></Form.Control>
+                                    <Form.Control
+                                            required type="text"
+                                            name="number2"
+                                            maxlength="1" className="mx-3"
+                                            style={{ width: '50px' }}
+                                            value={user.number2}
+                                            onChange={handleChange}>
+                                        </Form.Control>
                                     ******
                                     <Form.Control.Feedback type="invalid">주민등록번호를 입력하세요.</Form.Control.Feedback>
                                     </Col>
@@ -114,64 +115,66 @@ function Signup() {
                             </Form.Group>
                             <Form.Group controlId="formBasicId">
                                 <Form.Row>
-                                    <Form.Label for="id">아이디</Form.Label>
-
-                                    <Col>
-                                        <Form.Control required type="text" id="id" size="sm" placeholder="ID" className="mx-sm-3"></Form.Control>
-                                        <Form.Control.Feedback type="invalid"> 아이디를 입력하세요.</Form.Control.Feedback>
-                                    </Col>
+                                    <Col sm={4} xs={6} as={Form.Label} for="id">아이디</Col>
+                                    <Col sm={8} xs={12} as={Form.Control}
+                                        required
+                                        type="text"
+                                        name="id"
+                                        placeholder="ID"
+                                        style={{ width: '160px' }}
+                                        value={user.id}
+                                        onChange={handleChange} />
+                                    <Form.Control.Feedback type="invalid"> 아이디를 입력하세요.</Form.Control.Feedback>
                                 </Form.Row>
                             </Form.Group>
-
                             <Form.Group controlId="formBasicPassword">
                                 <Form.Row>
-                                    <Form.Label for="password">비밀번호</Form.Label>
-
-                                    <Col>
-                                        <Form.Control required type="password" id="password" size="sm" placeholder="Password" aria-describedby="passwordHelpBlock" className="mx-sm-3"></Form.Control>
-                                        <Form.Text id="password" muted> 8-15자로 입력해주세요.</Form.Text>
-                                        <Form.Control.Feedback type="invalid"> 비밀번호를 입력하세요.
+                                    <Col sm={4} xs={6} as={Form.Label} for="password">비밀번호</Col>
+                                    <Col sm={8} xs={12} as={Form.Control}
+                                        type="password"
+                                        name="password"
+                                        placeholder="Password"
+                                        style={{ width: '160px' }}
+                                        value={user.password}
+                                        required
+                                        onChange={handleChange} />
+                                    <Form.Control.Feedback className="text-center" type="invalid">
+                                        비밀번호를 입력하세요.
                                     </Form.Control.Feedback>
-                                    </Col>
                                 </Form.Row>
                             </Form.Group>
-
                             <Form.Group controlId="formBasicPassword2">
                                 <Form.Row>
-                                    <Form.Label for="password2">비밀번호 확인</Form.Label>
-
-                                    <Col>
-                                        <Form.Control required type="password" id="password2" size="sm" placeholder="" className="mx-sm-3"></Form.Control>
-                                        <Form.Control.Feedback type="invalid"> 비밀번호를 한번 더 입력하세요.
+                                    <Col sm={4} xs={6} as={Form.Label} for="password">비밀번호 확인</Col>
+                                    <Col sm={8} xs={12} as={Form.Control}
+                                        type="password"
+                                        name="password2"
+                                        placeholder="Password"
+                                        style={{ width: '160px' }}
+                                        value={user.password2}
+                                        required
+                                        onChange={handleChange} />
+                                    <Form.Control.Feedback type="invalid"> 비밀번호를 한번 더 입력하세요.
                                     </Form.Control.Feedback>
-                                    </Col>
                                 </Form.Row>
                             </Form.Group>
-
                             <Form.Group controlId="formBasicTel">
                                 <Form.Row>
-                                    <Form.Label for="tel">휴대전화</Form.Label>
-
-                                    <Col>
-                                        <Form.Control required type="text" id="tel" size="sm" placeholder="" className="mx-sm-3"></Form.Control>
-                                        <Form.Control.Feedback type="invalid"> 휴대전화를 입력하세요. </Form.Control.Feedback>
-                                    </Col>
+                                    <Col sm={4} xs={6} as={Form.Label} for="tel">휴대전화</Col>
+                                    <Col sm={8} xs={12} as={Form.Control}
+                                        required
+                                        type="text"
+                                        name="tel"
+                                        size="sm" style={{ width: '160px' }}
+                                        value={user.tel}
+                                        onChange={handleChange} />
+                                    <Form.Control.Feedback type="invalid"> 휴대전화를 입력하세요. </Form.Control.Feedback>
                                 </Form.Row>
                             </Form.Group>
-
-                            <Form.Group controlId="formBasicAdd">
-                                <Form.Row>
-                                    {console.log("address=", address)}
-                                    <Form.Label className="mx-3">주 소</Form.Label>
-                                    <Form.Control required type="text" id="add" size="sm " style={{ width: '120px' }} value={address.zone} disabled={(address.zone == null) ? false : true} ></Form.Control>                                        
-                                    <Button size="sm" style={{ background: '#91877F', borderColor: '#91877F' }} className="mx-3" type="button" onClick={postClick}>주소 찾기</Button>
-                                        {post}
-                                    <Form.Control required type="text" id="add" size="sm " value={address.full} disabled={(address.zone == null) ? false : true} className="mx-3"style={{width:'330px'}}></Form.Control>
-                                    <Form.Control required type="text" id="add2" size="sm" placeholder="상세주소" className="mx-sm-3"></Form.Control>
-                                        <Form.Control.Feedback type="invalid" > 상세 주소를 입력하세요. </Form.Control.Feedback>
-                                </Form.Row>
-                            </Form.Group>
-                            <Button style={{ background: '#91877F', borderColor: '#91877F' }} type="submit" block>Sign Up</Button>
+                            <Button
+                                style={{ background: '#91877F', borderColor: '#91877F' }} type="submit" block>
+                                Sign Up
+                            </Button>
                         </Form>
                     </Col>
                 </Row>

@@ -13,6 +13,7 @@ import Payment from './Pages/Payment';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Account from './Pages/Account';
+import Mypage from './Pages/Mypage'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -30,6 +31,7 @@ ReactDOM.render(
         <Route path="/payment" component={Payment} />
         <Route path="/account" component={Account}/>
         <Route path='/kakao' component={() => {window.location.href='https://compmath.korea.ac.kr'; return null;}}/>
+        <Route path='/mypage' component={Mypage} />
         <Redirect path="/" to="/" />
       </Switch>
     </Router>

@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Redirect } from 'react-router-dom';
+import axios from 'axios'
 import Nav1 from '../Components/MainNav';
 import Nav2 from '../Components/SubNav';
 import { Form, Col, Container, Button, Row, Alert } from 'react-bootstrap'
-import FormCheckInput from 'react-bootstrap/esm/FormCheckInput';
+import catchErrors from '../utils/catchErrors'
 
 const INIT_USER = {
     name: '',
@@ -16,13 +16,7 @@ const INIT_USER = {
 
 function Signup() {
     const [user, setUser] = useState(true)
-    //const [disabled, setDisabled] = useState(true)
     const [error, setError] = useState('')
-
-    //useEffect(() => {
-    //    const isUser = Object.values(user).every(el => Boolean(el))
-    //    isUser ? setDisabled(false) : setDisabled(true)
-    //}, user)
 
     function handleChange(event) {
         const { name, value } = event.target
@@ -41,21 +35,13 @@ function Signup() {
         }
         setValidated(true);
         console.log(user)
-        
+
         try {
             setError('')
-            const response = await fetch('/signup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(user)
-            })
-            const data = await response.json()
-            console.log(data)
+            const response = await axios.post('/api/users/signup', user)
+            console.log(response.data)
         } catch (error) {
-            console.log(error)
-            setError('다시 시도하세요.')
+            catchErrors(error, setError)
         }
     }
 
@@ -64,12 +50,13 @@ function Signup() {
             <Nav1 />
             <Nav2 />
             <Container className="my-5">
-                {error && <Alert variant='danger'>
-                    {error}
-                </Alert>}
+
                 <Row className="justify-content-center">
                     <Col md={6} xs={10} className="border" style={{ background: '#F7F3F3' }}>
                         <h2 className="text-center mt-5">Sign Up</h2>
+                        {error && <Alert variant='danger'>
+                            {error}
+                        </Alert>}
                         <Form
                             noValidate validated={validated}
                             onSubmit={handleSubmit}

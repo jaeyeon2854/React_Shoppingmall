@@ -4,7 +4,6 @@ import Nav1 from '../Components/MainNav';
 import Nav2 from '../Components/SubNav';
 import { Form, Col, Container, Button, Row, Alert } from 'react-bootstrap'
 import FormCheckInput from 'react-bootstrap/esm/FormCheckInput';
-import DaumPostcode from "react-daum-postcode";
 
 const INIT_USER = {
     name: '',
@@ -62,7 +61,6 @@ function Signup() {
 
     return (
         <div>
-
             <Nav1 />
             <Nav2 />
             <Container className="my-5">
@@ -72,18 +70,13 @@ function Signup() {
                 <Row className="justify-content-center">
                     <Col md={6} xs={10} className="border" style={{ background: '#F7F3F3' }}>
                         <h2 className="text-center mt-5">Sign Up</h2>
-
                         <Form
                             noValidate validated={validated}
                             onSubmit={handleSubmit}
                             className="p-5">
-
-
-
                             <Form.Group controlId="formBasicName">
                                 <Form.Row>
                                     <Col sm={4} xs={6} as={Form.Label} for="id">이 름</Col>
-
                                     <Col sm={8} xs={12} as={Form.Control}
                                         required type="text"
                                         name="name"
@@ -91,15 +84,12 @@ function Signup() {
                                         style={{ width: '160px' }}
                                         value={user.name}
                                         onChange={handleChange} />
-
                                     <Form.Control.Feedback type="invalid">이름을 입력하세요. </Form.Control.Feedback>
                                 </Form.Row>
                             </Form.Group>
-
                             <Form.Group controlId="formBasicNumber">
                                 <Form.Row>
                                     <Col sm={4} xs={6} as={Form.Label} for="number">주민등록번호</Col>
-
                                     <Col as={Row} sm={8} xs={10} >
                                         <Form.Control
                                             required type="text"
@@ -121,13 +111,11 @@ function Signup() {
                                     ******
                                     <Form.Control.Feedback type="invalid">주민등록번호를 입력하세요.</Form.Control.Feedback>
                                     </Col>
-
                                 </Form.Row>
                             </Form.Group>
                             <Form.Group controlId="formBasicId">
                                 <Form.Row>
                                     <Col sm={4} xs={6} as={Form.Label} for="id">아이디</Col>
-
                                     <Col sm={8} xs={12} as={Form.Control}
                                         required
                                         type="text"
@@ -139,7 +127,6 @@ function Signup() {
                                     <Form.Control.Feedback type="invalid"> 아이디를 입력하세요.</Form.Control.Feedback>
                                 </Form.Row>
                             </Form.Group>
-
                             <Form.Group controlId="formBasicPassword">
                                 <Form.Row>
                                     <Col sm={4} xs={6} as={Form.Label} for="password">비밀번호</Col>
@@ -156,7 +143,6 @@ function Signup() {
                                     </Form.Control.Feedback>
                                 </Form.Row>
                             </Form.Group>
-
                             <Form.Group controlId="formBasicPassword2">
                                 <Form.Row>
                                     <Col sm={4} xs={6} as={Form.Label} for="password">비밀번호 확인</Col>
@@ -172,11 +158,9 @@ function Signup() {
                                     </Form.Control.Feedback>
                                 </Form.Row>
                             </Form.Group>
-
                             <Form.Group controlId="formBasicTel">
                                 <Form.Row>
                                     <Col sm={4} xs={6} as={Form.Label} for="tel">휴대전화</Col>
-
                                     <Col sm={8} xs={12} as={Form.Control}
                                         required
                                         type="text"
@@ -187,22 +171,15 @@ function Signup() {
                                     <Form.Control.Feedback type="invalid"> 휴대전화를 입력하세요. </Form.Control.Feedback>
                                 </Form.Row>
                             </Form.Group>
-
                             <Button
                                 style={{ background: '#91877F', borderColor: '#91877F' }} type="submit" block>
                                 Sign Up
                             </Button>
-
-
-
                         </Form>
-
                     </Col>
                 </Row>
-
             </Container>
         </div>
-
     )
 }
 

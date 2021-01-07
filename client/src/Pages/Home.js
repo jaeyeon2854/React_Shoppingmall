@@ -11,7 +11,7 @@ function Home() {
             <SubNav />
             <Container className="my-5">
                 <div className="my-4">
-                    <h2 style={{ marginRight: "5rem", marginLeft: "5rem", marginBottom: "2rem" }}><u>Best</u></h2>
+                    <h2 style={{ marginRight: "5rem", marginLeft: "3rem", marginBottom: "2rem" }}><u>Best</u></h2>
                     <Row className="justify-content-center mx-0">
                         <Card className="mx-1 my-2" style={{ width: '18rem' }}>
                             <Card.Img className="img-fluid" variant="top" src="img/asd.jpg" />
@@ -58,7 +58,7 @@ function Home() {
                     </Row>
                 </div>
                 <div className="my-4">
-                    <h2 style={{ marginRight: "5rem", marginLeft: "5rem", marginBottom: "2rem", marginTop: "2rem" }}><u>New Arrival</u></h2>
+                    <h2 style={{ marginRight: "5rem", marginLeft: "3rem", marginBottom: "2rem", marginTop: "2rem" }}><u>New Arrival</u></h2>
                     <Row className="justify-content-center mx-0">
                         <Card className="mx-1 my-2" style={{ width: '18rem' }}>
                             <Card.Img className="img-fluid" variant="top" src="img/asd.jpg" />

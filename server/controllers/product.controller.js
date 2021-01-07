@@ -2,7 +2,9 @@ import Product from "../schemas/Product.js";
 
 const regist = async (req, res) => {
     console.log('req.body=', req.body)
-    const { pro_name, price, stock, main_category, sub_category, description, main_image, detail_image } = req.body.product
+    console.log('req.data=', req.data)
+    console.log('req.body.data=', req.body.data)
+    const { pro_name, price, stock, main_category, sub_category, description, main_image, detail_image } = req.body
     try {
         const newProduct = await new Product ({
             pro_name, price, stock, main_category, sub_category, description, main_image, detail_image
@@ -15,4 +17,4 @@ const regist = async (req, res) => {
     }
 }
 
-export default  { regist }
+export default { regist }

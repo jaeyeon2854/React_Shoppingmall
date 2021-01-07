@@ -1,28 +1,31 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
 
 const { String } = mongoose.Schema.Types
 
 const UserSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true,
+        required: true, 
     },
     id: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
     },
     password: {
         type: String,
         required: true,
-        select: false
     },
-    confirm_password:{
+
+    number1: {
         type: String,
         required: true,
-        select: false
     },
-    phoneNumber: {
+    number2: {
+        type: String,
+        required: true,
+    },
+    tel: {
         type: String,
         required: true,
     },
@@ -31,14 +34,6 @@ const UserSchema = new mongoose.Schema({
         required: true,
         default: 'user',
         enum: ['user', 'admin', 'root']
-    },
-    birth: {
-        type: String,
-        required: true,
-    },
-    sex: {
-        type: String,
-        required: true,
     }
 }, {
     timestamps: true

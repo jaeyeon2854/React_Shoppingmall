@@ -1,10 +1,10 @@
-import User from "../models/User.js";
+import User from "../schemas/User.js";
 import isLength from 'validator/lib/isLength.js'
+import bcrypt from 'bcryptjs'
 
 const signup = async (req, res) => {
     console.log(req.body)
-    console.log('req.body.name=', req.body.name)
-    const { name, number1, number2, id, password, password2, tel } = req.body
+    const { name, number1, number2, id, password,  tel } = req.body
     try {
         if(!isLength(password,{min:8, max:15})){
             return res.status(422).send('비밀번호는 8-15자리로 입력해주세요.')
@@ -13,6 +13,7 @@ const signup = async (req, res) => {
         if(user){
             return res.status(422).send(`${id}가 이미 사용중입니다.`)
         }
+        
 
         const hash=await bcrypt.hash(password,10)
 
@@ -22,8 +23,7 @@ const signup = async (req, res) => {
             number2,
             id,
             password:hash,
-            password2:hash,
-            tel
+            tel,
         }).save()
         console.log(newUser)
         res.json(newUser)
@@ -35,4 +35,4 @@ const signup = async (req, res) => {
 }
 
 
-export default signup
+export default { signup }

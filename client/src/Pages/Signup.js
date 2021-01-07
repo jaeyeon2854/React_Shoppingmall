@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios'
 import Nav1 from '../Components/MainNav';
 import Nav2 from '../Components/SubNav';
@@ -18,12 +18,13 @@ function Signup() {
     const [user, setUser] = useState(true)
     const [error, setError] = useState('')
 
+const [validated, setValidated] = useState(false);
+
     function handleChange(event) {
         const { name, value } = event.target
         setUser({ ...user, [name]: value })
     }
 
-    const [validated, setValidated] = useState(false);
 
     async function handleSubmit(event) {
         event.preventDefault()
@@ -43,7 +44,25 @@ function Signup() {
         } catch (error) {
             catchErrors(error, setError)
         }
+        
+        
+
     }
+    function checkPassword(event){
+        const p1=user.password
+        const p2=user.password2
+
+        if(p1 !== p2){
+            event.preventDefault();
+            event.stopPropagation();
+            alert('비밀번호가 일치하지 않습니다.')
+            return false
+            
+        }else{
+            return true
+        }
+    }
+        
 
     return (
         <div>
@@ -124,7 +143,8 @@ function Signup() {
                                         style={{ width: '160px' }}
                                         value={user.password}
                                         required
-                                        onChange={handleChange} />
+                                        onChange={handleChange}
+                                    />
                                     <Form.Control.Feedback className="text-center" type="invalid">
                                         비밀번호를 입력하세요.
                                     </Form.Control.Feedback>
@@ -140,7 +160,8 @@ function Signup() {
                                         style={{ width: '160px' }}
                                         value={user.password2}
                                         required
-                                        onChange={handleChange} />
+                                        onChange={handleChange}
+                                         />
                                     <Form.Control.Feedback type="invalid"> 비밀번호를 한번 더 입력하세요.
                                     </Form.Control.Feedback>
                                 </Form.Row>
@@ -159,7 +180,9 @@ function Signup() {
                                 </Form.Row>
                             </Form.Group>
                             <Button
-                                style={{ background: '#91877F', borderColor: '#91877F' }} type="submit" block>
+                                style={{ background: '#91877F', borderColor: '#91877F' }} type="submit" block
+                                onClick={checkPassword}
+                                >
                                 Sign Up
                             </Button>
                         </Form>

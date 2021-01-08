@@ -16,7 +16,7 @@ function MainNav() {
                 <img src={logo} width="24" height="24" />
                 {' '}KU#
             </Navbar.Brand>
-            <Nav className="justify-content-end">
+            <Nav className="float-right">
                 <Nav.Link className="text-light" href="/login">Login</Nav.Link>
                 <Nav.Link className="text-light" href="/signup">Signup</Nav.Link>
                 <Nav.Link href="/shoppingcart">

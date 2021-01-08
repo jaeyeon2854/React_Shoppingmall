@@ -25,7 +25,7 @@ const ProductSchema = new mongoose.Schema({
         required: true,
     },
     sub_category: {
-        type: String,
+        type: Array,
         required: true,
     },
     description: {

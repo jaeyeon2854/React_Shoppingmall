@@ -112,9 +112,9 @@ function Payment() {
                 total_amount: 22000,
                 vat_amount: 200,
                 tax_free_amount: 0,
-                approval_url: 'http://localhost:3000/kakaopay/success',
-                fail_url: 'http://localhost:3000/kakaopay/fail',
-                cancel_url: 'http://localhost:3000/kakaopay/cancel',
+                approval_url: 'http://localhost:3000/account',
+                fail_url: 'http://localhost:3000/shoppingcart',
+                cancel_url: 'http://localhost:3000/kakaopay/payment',
             })
         })
         const data = await response.json()

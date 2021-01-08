@@ -8,15 +8,15 @@ const ProductSchema = new mongoose.Schema({
         required: true,
     },
     price: {
-        type: String,
+        type: Number,
         required: true,
     },
     stock: {
-        type: String,
+        type: Number,
         required: true
     },
     purchase: {
-        type: String,
+        type: Number,
         required: true,
         default: 0
     },
@@ -25,7 +25,7 @@ const ProductSchema = new mongoose.Schema({
         required: true,
     },
     sub_category: {
-        type: String,
+        type: Array,
         required: true,
     },
     description: {

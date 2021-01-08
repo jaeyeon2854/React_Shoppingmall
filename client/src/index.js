@@ -7,7 +7,7 @@ import Signup from './Pages/Signup';
 import Product from "./Pages/Product";
 import ProductsList from "./Pages/ProductsList";
 import Admin from './Pages/Admin';
-import ProductsRegist from './Pages/ProductsRegist';
+import ProductRegist from './Pages/ProductRegist';
 import ShoppingCart from './Pages/ShoppingCart';
 import Payment from './Pages/Payment';
 import reportWebVitals from './reportWebVitals';
@@ -26,7 +26,7 @@ ReactDOM.render(
         <Route path="/product"component={Product} />
         <Route path="/productslist"component={ProductsList} />
         <Route path="/admin" component={Admin} />
-        <Route path="/regist" component={ProductsRegist} />
+        <Route path="/regist" component={ProductRegist} />
         <Route path="/shoppingcart" component={ShoppingCart} />
         <Route path="/payment" component={Payment} />
         <Route path="/account" component={Account}/>

@@ -27,7 +27,7 @@ const signup = async (req, res) => {
         }).save()
         console.log(newUser)
         res.json(newUser)
-        
+
     } catch (error) {
         console.log(error)
         res.status(500).send('죄송합니다. 다시 입력해 주십시오.')

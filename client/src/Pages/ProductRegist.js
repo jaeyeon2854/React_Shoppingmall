@@ -1,24 +1,28 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Nav1 from '../Components/MainNav';
-import Nav2 from '../Components/SubNav';
+import MainNav from '../Components/MainNav';
+import SubNav from '../Components/SubNav';
 import { Row, Col, Button, Form, Container } from 'react-bootstrap';
 import axios from 'axios'
 
 
 function ProductsRegist() {
-
     const [product, setProduct] = useState()
 
     function handleChange(event) {
         const { name, value } = event.target
+        console.log("file=",event.target.files)
+        console.log("name=",name,"value=",value)
         setProduct({ ...product, [name]: value })
     }
 
     function handleSubmit(e) {
         e.preventDefault()
-        axios.post('/api/products/regist', {
-            product
-        }).then(function(res) {
+        const formData = new FormData();
+        for (let key of Object.keys(product)) {
+            formData.append(key, product[key])
+        }
+        console.log("formData=",formData)
+        axios.post('/api/product/regist',{data: formData}).then(function(res) {
             console.log("client의 res=", res)
         })
     }
@@ -26,8 +30,8 @@ function ProductsRegist() {
     return (
         <div>
             {console.log(product)}
-            <Nav1 />
-            <Nav2 />
+            <MainNav />
+            <SubNav />
             <Container>
                 <Row className="justify-content-md-center">
                     <Col md={6} className="border m-5 p-3" style={{ background: '#F7F3F3' }}>

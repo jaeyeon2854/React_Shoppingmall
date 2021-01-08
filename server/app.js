@@ -24,7 +24,7 @@ app.use(express.static(path.join(process.cwd(), 'dist')))
 app.use('/', kakaopayRoutes)
 app.use('/api/users',userRouter)
 app.use('/api/auth',authRouter)
-app.use('/api/products', productRouter)
+app.use('/api/product', productRouter)
 
 app.listen(config.port, () => {
   console.info('Server started on port %s.', config.port)

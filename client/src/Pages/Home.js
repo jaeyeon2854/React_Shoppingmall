@@ -1,14 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import MainNav from '../Components/MainNav';
-import SubNav from '../Components/SubNav';
 import { Card, Container, Row } from 'react-bootstrap';
 
 
 function Home() {
     return (
         <div>
-            <MainNav />
-            <SubNav />
             <Container className="my-5">
                 <div className="my-4">
                     <h2 style={{ marginRight: "5rem", marginLeft: "3rem", marginBottom: "2rem" }}><u>Best</u></h2>

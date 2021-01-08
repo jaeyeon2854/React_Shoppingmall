@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import MainNav from '../Components/MainNav';
-import SubNav from '../Components/SubNav';
 import { Row, Col, Button, Form, Container } from 'react-bootstrap';
 import axios from 'axios'
 
@@ -27,19 +25,11 @@ function ProductsRegist() {
             console.log("client의 res=", res)
         })
     }
-    //     }catch(error) {
-    //         catchErrors(error, setError)
-
-    //     }
-        
+    // if (success) {
+    //     return <Redirect to='/' />
     // }
-    if (success) {
-        return <Redirect to='/' />
-    }
     return (
         <div>
-            <MainNav />
-            <SubNav />
             <Container>
                 <Row className="justify-content-md-center">
                     <Col md={8} className="border p-1" style={{ background: '#F7F3F3' }}>
@@ -62,21 +52,21 @@ function ProductsRegist() {
                                 <Row>
                                     <Col md={4}>
                                         <Form.Control as="select" name="main_category" placeholder="상위분류" onChange={handleChange}>
-                                            {mainCategorys.map((main) => (
+                                            {/* {mainCategorys.map((main) => (
                                                 <option value={main}>{main}</option>
-                                            ))}
+                                            ))} */}
                                         </Form.Control>
                                     </Col>
                                     <Col md={6}>
                                         <Form.Control as="select" name="sub_category" placeholder="하위분류" onChange={handleChange}>
-                                            {subCategorys[categoryNum].map((sub) => (
+                                            {/* {subCategorys[categoryNum].map((sub) => (
                                                 <option value={sub}>{sub}</option>
-                                            ))}
+                                            ))} */}
                                         </Form.Control>
                                     </Col>
-                                    <Col md={2}>
+                                    {/* <Col md={2}>
                                         <Button style={{ background: '#91877F', borderColor: '#91877F' }} onClick={addCategory}>추가</Button>
-                                    </Col>
+                                    </Col> */}
                                 </Row>
                                 {list.map((element) => element)}
                             </Form.Group>

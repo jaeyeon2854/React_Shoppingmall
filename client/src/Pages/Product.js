@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import MainNav from '../Components/MainNav';
-import SubNav from '../Components/SubNav';
 import { Row, Col, Form, Card, Button } from 'react-bootstrap';
 
 function Product() {
@@ -69,8 +67,6 @@ function Product() {
                 }
                 `}
             </style>
-            <MainNav />
-            <SubNav />
             <Row className="justify-content-center mt-5 mx-0">
                 <Col sm={11} md={4}>
                     <img src="https://img.sonyunara.com/files/goods/65976/1601953605_0.jpg" style={{ objectFit: "contain", width: "100%" }} />

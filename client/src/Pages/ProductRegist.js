@@ -1,96 +1,46 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Nav1 from '../Components/MainNav';
-import Nav2 from '../Components/SubNav';
+import MainNav from '../Components/MainNav';
+import SubNav from '../Components/SubNav';
 import { Row, Col, Button, Form, Container } from 'react-bootstrap';
 import axios from 'axios'
 
 let list = []
 
 function ProductsRegist() {
-
-    const INIT_PRODUCT = {
-        pro_name: '',
-        price: 0,
-        stock: 0,
-        main_category: '',
-        sub_category: [],
-        description: '',
-        main_image: [],
-        detail_image: []
-    }
-    const [product, setProduct] = useState(INIT_PRODUCT)
-    const [categoryNum, setCategoryNum] = useState(0)
-    const [tag, setTag] = useState(0)
-
-    const categorys = {
-        "DRESS": ["LONG DRESS", "SHORT DRESS", "KNIT DRESS", "SHIRT DRESS", "PATTERN DRESS", "BUSTIER DRESS", "TWO-PIECE DRESS"],
-        "OUTER": ["PADDED JACKET", "JACKET", "JUMPER", "COAT", "FLEECE", "CARDIGAN / VEST"],
-        "TOP": ["KNIT", "HOODY", "BLOUSE", "SHIRT", "SWEATSHIRT", "LONG SLEEVE SHIRT", "SHORT SLEEVE / SLEEVELESS SHIRT"],
-        "PANTS": ["JEANS", "SKINNY JEANS", "BANDING PANTS", "WIDE-FIT PANTS", "BOOT-CUT PANTS", "STRAIGHT-FIT PANTS", "SHORTS", "TROUSERS", "LEGGINGS", "JUMPSUIT / OVERALLS"],
-        "SKIRT": ["LONG SKIRT", "MIDI SKIRT", "MINI SKIRT"],
-        "TRAINING": [],
-        "SHOES": ["SNEAKERS / SLIP-ON", "FLAT / LOAFER", "HEEL / PUMP", "BOOTS", "SANDAL / SLIPPER"]
-    }
-    const mainCategorys = Object.keys(categorys)
-    const subCategorys = Object.values(categorys)
-    const 
-
-    function addCategory() {
-        console.log(product)
-        list.push(
-            <div>
-                <span i={tag}>{product["main_category"]} / {product["sub_category"][tag]}</span>
-                <input type="image" src="https://img.icons8.com/fluent-systems-regular/24/000000/close-window.png" className="float-right align-middle" onClick={deleteCategory} />
-            </div>)
-        setTag(tag + 1)
-    }
-
-    function deleteCategory(e) {
-        const categ = e.target.parentNode
-        categ.remove()
-        product["sub_category"].splice(e.target.parentNode.firstElementChild.getAttribute("i"),1)
-        console.log(product)
-    }
+    const [product, setProduct] = useState()
 
     function handleChange(event) {
         const { name, value } = event.target
-        if (event.target.name === "sub_category") {
-            product["sub_category"].push(event.target.value)
-        } else {
-            setProduct({ ...product, [name]: value })
-        }
-
-        if (event.target.name === "main_category") {
-            setCategoryNum(event.target.selectedIndex)
-        }
+        console.log("file=",event.target.files)
+        console.log("name=",name,"value=",value)
+        setProduct({ ...product, [name]: value })
     }
 
     async function handleSubmit(e) {
         e.preventDefault()
-        try{
-            setError('')
-            await axios.post('/api/products/regist', {
-                product
-            }).then(function (res) {
-                console.log("client의 res=", res)
-            })
-            alert("상품등록이 완료되었습니다.")
-            setSuccess(true)
-
-        }catch(error) {
-            catchErrors(error, setError)
-
+        const formData = new FormData();
+        for (let key of Object.keys(product)) {
+            formData.append(key, product[key])
         }
-        
+        console.log("formData=",formData)
+        axios.post('/api/product/regist',{data: formData}).then(function(res) {
+            console.log("client의 res=", res)
+        })
     }
+    //     }catch(error) {
+    //         catchErrors(error, setError)
+
+    //     }
+        
+    // }
     if (success) {
         return <Redirect to='/' />
     }
     return (
         <div>
-            <Nav1 />
-            <Nav2 />
-            <Container className="vh-100">
+            <MainNav />
+            <SubNav />
+            <Container>
                 <Row className="justify-content-md-center">
                     <Col md={8} className="border p-1" style={{ background: '#F7F3F3' }}>
                         <h2 className="text-center mt-5 font-weight-bold">상품등록</h2>

@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import MainNav from '../Components/MainNav';
-import SubNav from '../Components/SubNav';
 import Pagination from '../Components/Pagination';
 import search from '../search.svg';
-import { Container, Row, Form, FormControl, Button, Card } from 'react-bootstrap';
+import { Container, Row, Col, Form, FormControl, Button, Card, Dropdown } from 'react-bootstrap';
 
 function ProductsList() {
     const [sub, setSub] = useState(['PADDED JACKET', 'JACKET', 'JUMPER', 'COAT', 'FLEECE', 'CARDIGAN / VEST'])
+
     function handleSubmit(e) {
         e.preventDefault()
     }
@@ -20,29 +19,38 @@ function ProductsList() {
                     border-color: #CDC5C2;
                 }
 
-                .btn:hover, .btn:active, .btn:focus {
+                .btn:hover, .btn:active, .btn:focus, .show>.btn-primary.dropdown-toggle {
                     background-color: #91877F;
                     border-color: #91877F;
                 }
                 `}
             </style>
-            <MainNav />
-            <SubNav />
             <Container>
-                <Row className="mx-0 my-4" style={{ flexDirection: "column", alignItems: "center" }}>
-                    <h1 style={{fontSize: "3rem"}}>OUTER</h1>
-                    <Row>
-                        {sub.map((ele) => (
-                            <Button>ele</Button>
-                        ))}
-                    </Row>
+                <Row className="justify-content-center mx-0 my-4">
+                    <Col sm={10}>
+                        <h1 style={{ fontSize: "3rem" }}>OUTER</h1>
+                        <div>{sub.map((ele) => (
+                            <Button className="m-1">{ele}</Button>
+                        ))}</div>
+                    </Col>
                 </Row>
-                <Row as={Form} onSubmit={handleSubmit} className="justify-content-end mx-0 my-5">
-                    <FormControl type="text" placeholder="Search" style={{ width: "13rem" }} />
-                    <Button type="submit" className="search px-2">
-                        <img src={search} width="20" height="20" />
-                    </Button>
-                    <Button sm={2} xs={6} type="button" href="/regist" className="ml-1">상품 등록</Button>
+                <Row className="justify-content-between mx-0 my-5">
+                    <Dropdown>
+                        <Dropdown.Toggle>정렬</Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            <Dropdown.Item>인기상품</Dropdown.Item>
+                            <Dropdown.Item>신상품</Dropdown.Item>
+                            <Dropdown.Item>낮은가격</Dropdown.Item>
+                            <Dropdown.Item>높은가격</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                    <Form as={Row} onSubmit={handleSubmit} className="justify-content-end mx-0">
+                        <FormControl type="text" placeholder="Search" style={{ width: "13rem" }} />
+                        <Button type="submit" className="search px-2">
+                            <img src={search} width="20" height="20" />
+                        </Button>
+                        <Button sm={2} xs={6} type="button" href="/regist" className="ml-1">상품 등록</Button>
+                    </Form>
                 </Row>
                 <Row className="justify-content-start m-5">
                     <Card className="mt-5" style={{ width: "18rem", margin: "auto" }}>

@@ -4,6 +4,7 @@ import Nav1 from '../Components/MainNav';
 import Nav2 from '../Components/SubNav';
 import { Form, Col, Container, Button, Row, Alert } from 'react-bootstrap'
 import FormCheckInput from 'react-bootstrap/esm/FormCheckInput';
+import axios from 'axios';
 
 const INIT_USER = {
     name: '',
@@ -44,6 +45,7 @@ function Signup() {
         
         try {
             setError('')
+            // const response = await axios.post('/api/user/signup', user)
             const response = await fetch('/api/users/signup', {
                 method: 'POST',
                 headers: {

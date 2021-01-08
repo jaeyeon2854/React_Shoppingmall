@@ -23,7 +23,7 @@ app.use(express.static(path.join(process.cwd(), 'dist')))
 // app.use('/', indexRouter);
 app.use('/', kakaopayRoutes)
 app.use('/api/users',userRouter)
-app.use('/api/auth/login',authRouter)
+app.use('/api/auth',authRouter)
 app.use('/api/products', productRouter)
 
 app.listen(config.port, () => {

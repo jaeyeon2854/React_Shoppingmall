@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import Nav1 from '../Components/MainNav';
 import Nav2 from '../Components/SubNav';
@@ -30,17 +30,18 @@ function Login() {
         setValidated(true);
         try {
             setError('')
-            await axios.post('api/auth/login', user)
+            await axios.post('/api/auth/login', user)
             handleLogin()
             setSuccess(true)
         } catch (error) {
 
             catchErrors(error, setError)
+            console.log(error)
         }
-        if (success) {
+        
+    }if (success) {
             return <Redirect to='/' />
         }
-    }
 
 
         function handleChange(event) {

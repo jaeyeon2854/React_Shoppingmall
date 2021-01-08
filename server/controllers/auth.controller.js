@@ -9,7 +9,7 @@ const login = async(req,res)=>{
     try{
         const user=await User.findOne({id}).select('+password')
         if(!user){
-            return res.Status(404).send(`${id}가 존재하지 않습니다.`)
+            return res.status(404).send(`${id}가 존재하지 않습니다.`)
 
         }
         const passwordMatch= await bcrypt.compare(password, user.password)
@@ -25,12 +25,17 @@ const login = async(req,res)=>{
             })
             res.send('로그인 되었습니다.')
         }else{
-            res.Status(401).send('비밀번호가 일치하지 않습니다.')
+            res.status(401).send('비밀번호가 일치하지 않습니다.')
         }
     }catch(error){
         console.log(error)
-        res.Status(500).send('로그인 실패. 다시 시도하세요.')
+        res.status(500).send('로그인 실패. 다시 시도하세요.')
     }
 }
+
+// const logout =(req,res)=>{
+//     res.clearCookie('token')
+//     res.send('로그아웃 되었습니다.')
+// }
 
 export default {login}

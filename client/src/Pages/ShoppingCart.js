@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Card, Button, Container, Row, Col } from 'react-bootstrap';
+import axios from 'axios';
 
 function ShoppingCart() {
 
@@ -23,8 +24,13 @@ function ShoppingCart() {
         console.log('카트에 담긴 항목을 삭제했습니다.')
     }
 
+    // async function getCart(){
+    //     const response = await axios.get('/')
+    // }
+
     return (
         <div>
+            {/* {getCart} */}
             <Container className="justify-content-center">
                 <h3 className="my-5 font-weight-bold text-center">장바구니</h3>
                 <div>

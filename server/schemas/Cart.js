@@ -1,37 +1,42 @@
 import mongoose from 'mongoose'
 
-const { String, Number, Array } = mongoose.Schema.Types
-
-const CartSchema = new mongoose.Schema({
+const { String, Number, Array, ObjectId } = mongoose.Schema.Types
+const productschema = new mongoose.Schema ({
     pro_name: {
         type: String,
-        required: true,
+        required: true
     },
-    price: {
-        type: Number,
-        required: true,
-    },
-    stock: {
+    price:{
         type: Number,
         required: true
     },
-    purchase: {
-        type: Number,
-        required: true,
-        default: 0
-    },
-    main_category: {
-        type: String,
-        required: true,
-    },
-    sub_category: {
-        type: Array,
-        required: true,
-    },
     main_image: {
         type: String,
-        required: true,
+        required: true
+    },
+    color:{
+        type: String,
+        required: true
+    },
+    size:{
+        type: String,
+        required: true
+    },
+    productObjectId: {
+        type: ObjectId,
+        required: true
     }
+})
+const CartSchema = new mongoose.Schema({
+    userId: {
+        type: String,
+        // required: true
+    },
+    products : {
+        type: [productschema],
+        required: true
+    }
+   
 }, {
     timestamps: true
 })

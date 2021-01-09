@@ -20,6 +20,14 @@ const ProductSchema = new mongoose.Schema({
         required: true,
         default: 0
     },
+    size: {
+        type: Array,
+        required: true
+    },
+    color: {
+        type: Array,
+        required: true
+    },
     main_category: {
         type: String,
         required: true,

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Tab, Tabs, Card, Image, Container, Row, Col, Table, Badge } from 'react-bootstrap'
+import { Card, Image, Container, Row, Col, Table, Badge } from 'react-bootstrap'
 import mypagetiger from '../mypagetiger.svg';
 import person from '../person.svg';
 

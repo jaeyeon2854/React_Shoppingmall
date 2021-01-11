@@ -40,11 +40,11 @@ function ProductsList() {
                 `}
             </style>
             <Container>
-                <Row >
-                    <Col sm={10} xs={12}>
+                <Row className="justify-content-center" >
+                    <Col sm={10} xs={12} >
                         <h1 style={{ fontSize: "3rem" }} className="text-center">OUTER</h1>
-                        <div>{sub.map((ele) => (
-                            <Button className="justify-content-center m-1">{ele}</Button>
+                        <div className="text-center">{sub.map((ele) => (
+                            <Button className="m-1">{ele}</Button>
                         ))}</div>
                     </Col>
                 </Row>

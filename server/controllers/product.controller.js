@@ -7,7 +7,7 @@ const upload = multer({ dest: 'uploads/'});
 const fileUpload = upload.fields([
     { name: 'main_image', maxCount: 1 },
     { name: 'detail_image', maxCount: 1 }
-])
+]) 
 
 const regist = async (req, res) => {
     console.log('req.body=', req.body)
@@ -28,4 +28,9 @@ const regist = async (req, res) => {
     }
 }
 
-export default { regist, fileUpload }
+
+const getProduct = (req, res) => {
+    res.json(req.body)
+}
+
+export default { regist, fileUpload , getProduct}

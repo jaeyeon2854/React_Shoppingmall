@@ -263,7 +263,7 @@ function Payment() {
                     {paymentWay}
                 </div>
                 <div className="text-center">
-                    <Button className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} href="/account" block>결제완료</Button>
+                    <Button className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} href="/mypage" block>결제완료</Button>
                 </div>
             </Container>
         </div>

@@ -68,7 +68,6 @@ function ProductsRegist() {
             setProduct({ ...product, [color]:Object.values(colors) })
         } else {
             setProduct({ ...product, "color": Object.values(colors) })
-
         }
     }
 
@@ -76,9 +75,9 @@ function ProductsRegist() {
         const { name, value, files } = event.target
         if (event.target.name === "sub_category") {
             product["sub_category"].push(event.target.value)
-        // } else if (event.target.name === "color") {
-        //     colors[event.target.name] = event.target.value
-        //     // console.log(color)
+        } else if (event.target.name === "color") {
+            colors[event.target.name] = event.target.value
+            // console.log(color)
         } else if (files) {
             setProduct({ ...product, [name]: files })
 
@@ -103,9 +102,9 @@ function ProductsRegist() {
 
         const formData = new FormData();
         for (let key in product) {
-            if (key === "main_image" || "detail_image") {
-                formData.append(`${key}`, product[key][0])
+            if (key === "main_image" ||key === "detail_image") {
                 console.log(product[key][0])
+                formData.append(key, product[key][0])
             } else {
                 formData.append(key, product[key])
             }
@@ -185,10 +184,10 @@ function ProductsRegist() {
                                     </Col>
                                     <Col>
 
-                                        {/* <Button className="float-right" style={{ background: '#91877F', borderColor: '#91877F' }} onClick={addColor}>추가</Button> */}
+                                        <Button className="float-right" style={{ background: '#91877F', borderColor: '#91877F' }} onClick={addColor}>추가</Button>
                                     </Col>
                                 </Row>
-                                {/* {addedcolors.map((element) => element)} */}
+                                {addedcolors.map((element) => element)}
                             </Form.Group>
 
                             <Form.Group controlId="productDescriptionform">

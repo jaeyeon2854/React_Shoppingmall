@@ -22,11 +22,11 @@ const ProductSchema = new mongoose.Schema({
     },
     size: {
         type: Array,
-        required: true
+        // required: true
     },
     color: {
         type: Array,
-        required: true
+        // required: true
     },
     main_category: {
         type: String,
@@ -41,11 +41,11 @@ const ProductSchema = new mongoose.Schema({
         required: true,
     },
     main_image: {
-        type: String,
+        type: Array,
         required: true,
     },
     detail_image: {
-        type: String,
+        type: Array,
         required: true,
     }
 }, {

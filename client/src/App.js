@@ -6,7 +6,8 @@ import Signup from './Pages/Signup';
 import Product from "./Pages/Product";
 import ProductsList from "./Pages/ProductsList";
 import Admin from './Pages/Admin';
-import ProductRegist from './Pages/ProductRegist';
+// import ProductRegist from './Pages/ProductRegist';
+import ProductRegist2 from './Pages/ProductRegist2';
 import ShoppingCart from './Pages/ShoppingCart';
 import Payment from './Pages/Payment';
 import Account from './Pages/Account';
@@ -33,7 +34,8 @@ function App() {
           <Route path="/product" component={Product} />
           <Route path="/productslist" component={ProductsList} />
           <Route path="/admin" component={Admin} />
-          <Route path="/regist" component={ProductRegist} />
+          {/* <Route path="/regist" component={ProductRegist} /> */}
+          <Route path="/regist" component={ProductRegist2} />
           <Route path="/shoppingcart" component={ShoppingCart} />
           <Route path="/payment" component={Payment} />
           <Route path="/account" component={Account} />

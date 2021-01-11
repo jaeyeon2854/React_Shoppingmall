@@ -6,6 +6,20 @@ import { Container, Row, Col, Form, FormControl, Button, Card, Dropdown } from '
 function ProductsList() {
     const [sub, setSub] = useState(['PADDED JACKET', 'JACKET', 'JUMPER', 'COAT', 'FLEECE', 'CARDIGAN / VEST'])
 
+    // useEffect(() => {
+    //     getProfile(user)
+    // }, [user])
+
+    // async function getProfile(user){
+    //     console.log(user)
+    //     try {
+    //         const response = await axios.get(`/api/users/profile/${user}`)
+    //         setProfile(response.data)
+    //     } catch (error) {
+    //         catchErrors(error, setError)
+    //     }
+    // }
+
     function handleSubmit(e) {
         e.preventDefault()
     }

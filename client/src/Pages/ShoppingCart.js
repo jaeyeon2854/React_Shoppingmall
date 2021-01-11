@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Redirect } from 'react-router-dom';
-import MainNav from '../Components/MainNav';
-import SubNav from '../Components/SubNav';
 import { Card, Button, Container, Row, Col } from 'react-bootstrap';
+import axios from 'axios';
 
 function ShoppingCart() {
 
@@ -25,10 +24,13 @@ function ShoppingCart() {
         console.log('카트에 담긴 항목을 삭제했습니다.')
     }
 
+    // async function getCart(){
+    //     const response = await axios.get('/')
+    // }
+
     return (
         <div>
-            <MainNav />
-            <SubNav />
+            {/* {getCart} */}
             <Container className="justify-content-center">
                 <h3 className="my-5 font-weight-bold text-center">장바구니</h3>
                 <div>
@@ -43,15 +45,15 @@ function ShoppingCart() {
                             </Col>
                             <Col md={6} className="p-2">
                                 <Card.Body>
-                                    <input type="image" src="https://img.icons8.com/fluent-systems-regular/24/000000/close-window.png" className="float-right" onClick={deleteCart} />
+                                    <input type="image" alt="삭제버튼" src="https://img.icons8.com/fluent-systems-regular/24/000000/close-window.png" className="float-right" onClick={deleteCart} />
                                     <Card.Title className="font-weight-bold mt-3">제품명</Card.Title>
                                     <Card.Text>가격</Card.Text>
                                     <Card.Text>옵션</Card.Text>
                                     <Card.Text>수량</Card.Text>
                                     <div>
-                                        <input type="image" src="https://img.icons8.com/ios-glyphs/20/000000/minus-math.png" className="align-middle" onClick={minusNum} />
+                                        <input type="image" alt="마이너스" src="https://img.icons8.com/ios-glyphs/20/000000/minus-math.png" className="align-middle" onClick={minusNum} />
                                         <input type="text" style={{ width: '30px' }} className="text-center align-middle mx-1" placeholder="1" value={num} readOnly></input>
-                                        <input type="image" src="https://img.icons8.com/ios-glyphs/20/000000/plus-math.png" className="align-middle" onClick={plusNum} />
+                                        <input type="image" alt="플러스" src="https://img.icons8.com/ios-glyphs/20/000000/plus-math.png" className="align-middle" onClick={plusNum} />
                                     </div>
                                 </Card.Body>
                             </Col>

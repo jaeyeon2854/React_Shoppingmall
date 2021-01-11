@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import Nav1 from '../Components/MainNav';
-import Nav2 from '../Components/SubNav';
 import { Form, Col, Container, Button, Row, Alert } from 'react-bootstrap';
 import axios from 'axios'
 import catchErrors from '../utils/catchErrors'

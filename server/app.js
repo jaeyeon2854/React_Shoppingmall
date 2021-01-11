@@ -3,6 +3,7 @@ import express from 'express';
 import connectDb from './schemas/index.js'
 import userRouter from "./routes/user.routes.js";
 import productRouter from './routes/product.routes.js';
+import cartRouter from './routes/cart.routes.js';
 import path from 'path'
 import kakaopayRoutes from './routes/kakaopay.routes.js'
 import config from './config.js'
@@ -25,6 +26,7 @@ app.use('/', kakaopayRoutes)
 app.use('/api/users',userRouter)
 app.use('/api/auth',authRouter)
 app.use('/api/product', productRouter)
+app.use('/api/addcart', cartRouter)
 
 app.listen(config.port, () => {
   console.info('Server started on port %s.', config.port)

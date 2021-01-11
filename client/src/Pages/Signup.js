@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios'
-import Nav1 from '../Components/MainNav';
-import Nav2 from '../Components/SubNav';
 import { Form, Col, Container, Button, Row, Alert } from 'react-bootstrap'
 import catchErrors from '../utils/catchErrors'
 
@@ -66,8 +64,6 @@ const [validated, setValidated] = useState(false);
 
     return (
         <div>
-            <Nav1 />
-            <Nav2 />
             <Container className="my-5">
 
                 <Row className="justify-content-center">

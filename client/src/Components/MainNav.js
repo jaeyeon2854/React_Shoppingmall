@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Navbar, Nav, Row } from 'react-bootstrap';
+import React from 'react';
+import { Navbar, Nav } from 'react-bootstrap';
 import logo from '../footprint.svg';
 import cart from '../cart.svg';
 import option from '../option.svg';
@@ -11,7 +11,7 @@ function MainNav() {
     return (
         <Navbar sticky="top" style={{ background: "#CDC5C2" }}>
             <Navbar.Brand href="/home" className="text-light">
-                <img src={logo} width="24" height="24" />
+                <img alt="로고" src={logo} width="24" height="24" />
                 {' '}KU#
             </Navbar.Brand>
             <Nav>
@@ -23,10 +23,10 @@ function MainNav() {
                         </>
                     )}
                 <Nav.Link href="/shoppingcart">
-                    <img src={cart} width="30" height="30" />
+                    <img alt="카트" src={cart} width="30" height="30" />
                 </Nav.Link>
                 <Nav.Link href="/admin">
-                    <img src={option} width="30" height="30" />
+                    <img alt="관리자" src={option} width="30" height="30" />
                 </Nav.Link>
             </Nav>
         </Navbar>

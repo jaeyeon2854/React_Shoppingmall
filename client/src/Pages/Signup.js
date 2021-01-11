@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios'
-import Nav1 from '../Components/MainNav';
-import Nav2 from '../Components/SubNav';
 import { Form, Col, Container, Button, Row, Alert } from 'react-bootstrap'
 import catchErrors from '../utils/catchErrors'
 

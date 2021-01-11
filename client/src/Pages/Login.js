@@ -31,8 +31,8 @@ function Login() {
         setValidated(true);
         try {
             setError('')
-            await axios.post('/api/auth/login', user)
-            handleLogin()
+            const response=await axios.post('/api/auth/login', user)
+            handleLogin(response.data.userId)
             setSuccess(true)
         } catch (error) {
             catchErrors(error, setError)

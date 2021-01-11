@@ -1,7 +1,7 @@
 import axios from "axios"
 
-export function handleLogin(){
-    localStorage.setItem('loginStatus','true')
+export function handleLogin(userId){
+    localStorage.setItem('loginStatus',userId)
 }
 
 export async function handleLogout(){

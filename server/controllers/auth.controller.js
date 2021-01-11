@@ -23,7 +23,8 @@ const login = async(req,res)=>{
                 httpOnly:true,
                 secure:config.env ==='production'
             })
-            res.send('로그인 되었습니다.')
+            res.json({userId:user._id})
+            
         }else{
             res.status(401).send('비밀번호가 일치하지 않습니다.')
         }

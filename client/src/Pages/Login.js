@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { Form, Col, Container, Button, Row } from 'react-bootstrap';
 
@@ -51,18 +51,19 @@ function Login() {
                                     <Form.Control.Feedback className="text-center" type="invalid">
                                         비밀번호를 입력하세요.
                                     </Form.Control.Feedback>
-                                </Form.Row>
-                            </Form.Group>
-                            <Button style={{ background: '#91877F', borderColor: '#91877F' }} type="submit" block>Login</Button>
-                            <div className="loginLine">
-                                <Link to="/signup" style={{ color: '#91877F' }}>회원이 아니십니까?</Link>
-                            </div>
-                        </Form>
-                    </Col>
-                </Row>
-            </Container>
-        </div>
-    )
+                                    </Form.Row>
+                                </Form.Group>
+                                <Button style={{ background: '#91877F', borderColor: '#91877F' }} type="submit" block>Login</Button>
+                                <div className="loginLine">
+                                    <Link to="/signup" style={{ color: '#91877F' }}>회원이 아니십니까?</Link>
+                                </div>
+                            </Form>
+                        </Col>
+                    </Row>
+                </Container>
+            </div>
+        )
+    
 }
 
 export default Login

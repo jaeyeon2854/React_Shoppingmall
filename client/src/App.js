@@ -38,6 +38,12 @@ function App() {
           <Route path="/payment" component={Payment} />
           <Route path="/mypage" component={Mypage} />
           <Route path='/kakao' component={() => { window.location.href = 'https://compmath.korea.ac.kr'; return null; }} />
+          <PrivateRoute path="/profile">
+            <Profile />
+          </PrivateRoute>
+          <PrivateRoute path="/profile-edit">
+            <EditProfile />
+          </PrivateRoute>
           <Redirect path="/" to="/" />
         </Switch>
       </Router>

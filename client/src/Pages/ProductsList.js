@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import MainNav from '../Components/MainNav';
-import SubNav from '../Components/SubNav';
 import Pagination from '../Components/Pagination';
 import search from '../search.svg';
 import { Container, Row, Col, Form, FormControl, Button, Card, Dropdown } from 'react-bootstrap';
@@ -27,8 +25,6 @@ function ProductsList() {
                 }
                 `}
             </style>
-            <MainNav />
-            <SubNav />
             <Container>
                 <Row className="justify-content-center mx-0 my-4">
                     <Col sm={10}>

@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import Nav1 from '../Components/MainNav';
-import Nav2 from '../Components/SubNav';
 import { Form, Col, Container, Button, Row } from 'react-bootstrap';
 
 function Login() {
@@ -21,8 +19,7 @@ function Login() {
 
     return (
         <div>
-            <Nav1 />
-            <Nav2 />
+
             <Container className="my-5">
                 <Row className="justify-content-center">
                     <Col md={5} xs={10} className="border" style={{ background: '#F7F3F3' }}>

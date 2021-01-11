@@ -33,9 +33,9 @@ const login = async(req,res)=>{
     }
 }
 
-// const logout =(req,res)=>{
-//     res.clearCookie('token')
-//     res.send('로그아웃 되었습니다.')
-// }
+ const logout =(req,res)=>{
+     res.clearCookie('token')
+     res.send('로그아웃 되었습니다.')
+ }
 
-export default {login}
+export default {login, logout}

@@ -1,14 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Navbar, Nav } from 'react-bootstrap';
+import { Navbar, Nav, Row } from 'react-bootstrap';
 import logo from '../footprint.svg';
 import cart from '../cart.svg';
 import option from '../option.svg';
+import { handleLogout, isAuthenticated } from '../utils/auth'
 
 function MainNav() {
-    function handleClick() {
-        alert('로그아웃이 완료되었습니다.')
-        window.location.href="/home"
-    }
+    const user = isAuthenticated()
 
     return (
         <Navbar sticky="top" style={{ background: "#CDC5C2" }}>
@@ -16,13 +14,17 @@ function MainNav() {
                 <img src={logo} width="24" height="24" />
                 {' '}KU#
             </Navbar.Brand>
-            <Nav className="justify-content-end">
-                <Nav.Link className="text-light" href="/login">Login</Nav.Link>
-                <Nav.Link className="text-light" href="/signup">Signup</Nav.Link>
+            <Nav>
+                {user ? <Nav.Link className="text-light" onClick={() => handleLogout()}>Logout</Nav.Link>
+                    : (
+                        <>
+                            <Nav.Link className="text-light" href='/login'>Login</Nav.Link>
+                            <Nav.Link className="text-light" href='/signup'>Sign Up</Nav.Link>
+                        </>
+                    )}
                 <Nav.Link href="/shoppingcart">
                     <img src={cart} width="30" height="30" />
                 </Nav.Link>
-                <Nav.Link className="text-light" onClick={() => handleClick()}>Logout</Nav.Link>
                 <Nav.Link href="/admin">
                     <img src={option} width="30" height="30" />
                 </Nav.Link>

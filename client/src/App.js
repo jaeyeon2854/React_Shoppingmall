@@ -9,7 +9,7 @@ import Admin from './Pages/Admin';
 import ProductRegist from './Pages/ProductRegist';
 import ShoppingCart from './Pages/ShoppingCart';
 import Payment from './Pages/Payment';
-import Account from './Pages/Account';
+import Mypage from './Pages/Mypage';
 import MainNav from './Components/MainNav';
 import SubNav from './Components/SubNav';
 
@@ -36,7 +36,7 @@ function App() {
           <Route path="/regist" component={ProductRegist} />
           <Route path="/shoppingcart" component={ShoppingCart} />
           <Route path="/payment" component={Payment} />
-          <Route path="/account" component={Account} />
+          <Route path="/mypage" component={Mypage} />
           <Route path='/kakao' component={() => { window.location.href = 'https://compmath.korea.ac.kr'; return null; }} />
           <Redirect path="/" to="/" />
         </Switch>

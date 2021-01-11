@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import person from '../person.svg';
 import mypagetiger from '../mypagetiger.svg';
 import catchErrors from '../utils/catchErrors';
-import { isAuthenticated } from '../utils/Auth'
+import { isAuthenticated } from '../utils/auth'
 import axios from 'axios';
 
 const INIT_PROFILE = {

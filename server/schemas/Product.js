@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const { String, Number, Array } = mongoose.Schema.Types
+const { String} = mongoose.Schema.Types
 
 const ProductSchema = new mongoose.Schema({
     pro_name: {

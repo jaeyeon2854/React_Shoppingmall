@@ -1,11 +1,37 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card, Image, Container, Row, Col, Table, Accordion } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import person from '../person.svg';
 import mypagetiger from '../mypagetiger.svg';
+import catchErrors from '../utils/catchErrors';
+import { isAuthenticated } from '../utils/auth'
 
+const INIT_PROFILE = {
+  name: "",
+  tel: ""
+}
 
 function Mypage() {
+
+  const [profile, setProfile] = useState(INIT_PROFILE)
+  const [error, setError] = useState("")
+
+  const user = isAuthenticated()
+
+  async function getProfile(user) {
+    try {
+      const response = await axios.get(`/api/users/profile/${user}`)
+      setProfile(response, data)
+    } catch (error) {
+      catchErrors(error, setError)
+    }
+  }
+
+  useEffect(() => {
+    getProfile(user)
+  }, [user])
+
+
   return (
     <Container className="px-3">
       <h3 className="my-4 mx-3 font-weight-bold">My Page</h3>

@@ -8,3 +8,12 @@ export function signIn({id,password}){
     if (user===undefined) throw new Error();
     return user;
 }
+
+export function isAuthenticated(){
+    const userId = localStorage.getItem("loginStatus")
+    if (userId) {
+        return userId
+    } else {
+        return false
+    }
+}

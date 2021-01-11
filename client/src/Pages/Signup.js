@@ -177,8 +177,8 @@ const [validated, setValidated] = useState(false);
                             </Form.Group>
                             <Button
                                 style={{ background: '#91877F', borderColor: '#91877F' }} type="submit" block
-                                onClick={checkPassword}
-                                >
+                                onClick={checkPassword}>
+                                
                                 Sign Up
                             </Button>
                         </Form>

@@ -4,10 +4,12 @@ import { Link } from 'react-router-dom';
 import person from '../person.svg';
 import mypagetiger from '../mypagetiger.svg';
 import catchErrors from '../utils/catchErrors';
-import { isAuthenticated } from '../utils/auth'
+import { isAuthenticated } from '../utils/Auth'
+import axios from 'axios';
 
 const INIT_PROFILE = {
   name: "",
+  avatar: "",
   tel: ""
 }
 
@@ -20,8 +22,8 @@ function Mypage() {
 
   async function getProfile(user) {
     try {
-      const response = await axios.get(`/api/users/profile/${user}`)
-      setProfile(response, data)
+      const response = await axios.get(`/api/users/Mypage/${user}`)
+      setProfile(response.data)
     } catch (error) {
       catchErrors(error, setError)
     }
@@ -38,13 +40,13 @@ function Mypage() {
       <Card md={3} className="pt-3 mb-4" style={{ background: '#F7F3F3' }}>
         <Row>
           <Col md={4} className="text-center">
-            <Image src={person} roundedCircle className="img-thumbnail" width={"170rem"} />
+            <Image src={person && `/image/${profile.avatarUrl}`} roundedCircle className="img-thumbnail" width={"170rem"} />
           </Col>
           <Col>
             <Row className="mt-4 text-center">
               <Col>
                 <h2>
-                  <strong>@Login.user</strong> <small>님</small>
+                  <strong>{user.name}</strong> <small>님</small>
                 </h2>
               </Col>
             </Row>
@@ -57,7 +59,7 @@ function Mypage() {
                   </strong>
                 </Link>
                   {/* 홈페이지로 돌아가기 */}
-                  에 오신 <em>@Login.user</em> 님,<br></br>
+                  에 오신 <em>{user.name}</em> 님,<br></br>
                 진심으로 환영합니다! 즐거운 쇼핑 되세요.</h4>
                 <Row className="mr-1 text-muted d-flex justify-content-end">
                   <a href="mailto:shoppingmall_KU@korea.ac.kr">

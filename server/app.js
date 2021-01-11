@@ -13,6 +13,7 @@ connectDb()
 
 const app = express();
 
+app.use('/images', express.static('uploads/')) 
 
 app.use(express.json());
 app.use(cors())

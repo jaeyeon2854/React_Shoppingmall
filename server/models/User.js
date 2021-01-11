@@ -16,28 +16,31 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    number1:{
-        type:String,
-        required:true,
-        unique:true
+    number1: {
+        type: String,
+        required: true,
+        unique: true
     },
-    number2:{
-        type:String,
-        required:true,
-        unique:true
+    number2: {
+        type: String,
+        required: true,
+        unique: true
     },
-    tel:{
-        type:String,
-        required:true,
-        unique:true
+    tel: {
+        type: String,
+        required: true,
+        unique: true
     },
     role: {
         type: String,
         required: true,
         default: 'user',
         enum: ['user', 'admin', 'root']
-    }
-}, {
+    },
+    avatarUrl: {
+        type: String
+
+    }, 
     timestamps: true
 })
 

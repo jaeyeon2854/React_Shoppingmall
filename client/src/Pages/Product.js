@@ -4,9 +4,22 @@ import { Row, Col, Form, Card, Button } from 'react-bootstrap';
 import catchErrors from '../utils/catchErrors';
 
 function Product() {
+    const [product, setProduct] = useState()
     const [select, setSelect] = useState({ color: "", size: "" })
     const [cart, setCart] = useState()
     const [error, setError] = useState('')
+
+
+    async function getProduct(user){
+        console.log(user)
+        try {
+            const response = await axios.get('/api/product/productone')
+            setProduct(response.data)
+            console.log(response.data)
+        } catch (error) {
+            catchErrors(error, setError)
+        }
+    }
 
     function handleClick(e) {
         const box = e.target.parentNode.parentNode
@@ -73,10 +86,12 @@ function Product() {
 
     useEffect(() => {
         handleCreate()
+        getProduct()
     }, [cart])
 
     return (
         <div>
+            {/* {getProduct} */}
             <style type="text/css">
                 {`
                 .btn {

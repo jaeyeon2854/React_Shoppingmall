@@ -5,8 +5,8 @@ import catchErrors from '../utils/catchErrors';
 import { Redirect } from 'react-router-dom';
 
 let color = {}
-let colors = []
-let addedcolors = []
+let preColors = []
+let colorHtml = []
 let list = []
 
 function ProductsRegist() {
@@ -16,8 +16,8 @@ function ProductsRegist() {
         stock: 0,
         main_category: '',
         sub_category: [],
-        size: [],
-        color: [],
+        sizes: [],
+        colors: [],
         description: '',
         main_image: [],
         detail_image: []
@@ -61,25 +61,24 @@ function ProductsRegist() {
     }
 
     function addColor() {
-        addedcolors.push(
-            <div>{color["color"]}</div>
+        preColors.push(color["colors"])
+        colorHtml.push(
+            <p>{color["colors"]}</p>
         )
-        if (product.color) {
-            setProduct({ ...product, [color]: colors })
-        } else {
-            setProduct({ ...product, "color": colors })
+        setProduct({...product, "colors":preColors})
+    }
 
-        }
-
+    function colorChange(e){
+        color[e.target.name]= e.target.value
     }
 
     function handleChange(event) {
-        const { name, value } = event.target
+        const { name, value, files } = event.target
         if (event.target.name === "sub_category") {
             product["sub_category"].push(event.target.value)
-        } else if (event.target.name === "color") {
-            color[event.target.name] = event.target.value
-            // console.log(color)
+        } else if (files) {
+            setProduct({ ...product, [name]: files })
+
         } else {
             setProduct({ ...product, [name]: value })
         }
@@ -96,16 +95,20 @@ function ProductsRegist() {
                 sizes.push(key)
             }
         }
-        product["size"].push(sizes)
+        product["sizes"]=sizes
+        console.log(product)
         const formData = new FormData();
         for (let key in product) {
-            formData.append(key, product[key])
+            if (key === "main_image" ||key === "detail_image") {
+                console.log(product[key][0])
+                formData.append(key, product[key][0])
+            } else {
+                formData.append(key, product[key])
+            }
         }
-        console.log("formData=", formData)
-        console.log(product)
         try {
-            const response = axios.post('/api/product/regist', { data: formData })
-            setSuccess(true)
+            const response = axios.post('/api/product/regist', formData)
+            // setSuccess(true)
             console.log(response)
         } catch (error) {
             catchErrors(error, setError)
@@ -161,19 +164,18 @@ function ProductsRegist() {
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label>사이즈</Form.Label>
-                                {/* {console.log(checked)} */}
-                                <Form.Check type="checkbox" name="size" label="Free" value="Free" onChange={handleCheckBox} />
-                                <Form.Check type="checkbox" name="size" label="XL" value="XL" onChange={handleCheckBox} />
-                                <Form.Check type="checkbox" name="size" label="L" value="L" onChange={handleCheckBox} />
-                                <Form.Check type="checkbox" name="size" label="M" value="M" onChange={handleCheckBox} />
-                                <Form.Check type="checkbox" name="size" label="S" value="S" onChange={handleCheckBox} />
-                                <Form.Check type="checkbox" name="size" label="XS" value="XS" onChange={handleCheckBox} />
+                                <Form.Check type="checkbox" name="sizes" label="Free" value="Free" onChange={handleCheckBox} />
+                                <Form.Check type="checkbox" name="sizes" label="XL" value="XL" onChange={handleCheckBox} />
+                                <Form.Check type="checkbox" name="sizes" label="L" value="L" onChange={handleCheckBox} />
+                                <Form.Check type="checkbox" name="sizes" label="M" value="M" onChange={handleCheckBox} />
+                                <Form.Check type="checkbox" name="sizes" label="S" value="S" onChange={handleCheckBox} />
+                                <Form.Check type="checkbox" name="sizes" label="XS" value="XS" onChange={handleCheckBox} />
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label>색상</Form.Label>
                                 <Row>
                                     <Col md={10}>
-                                        <Form.Control as="textarea" rows={1} name="color" placeholder="색상" onChange={handleChange} />
+                                        <Form.Control as="textarea" rows={1} name="colors" placeholder="색상" onChange={colorChange} />
 
                                     </Col>
                                     <Col>
@@ -181,7 +183,7 @@ function ProductsRegist() {
                                         <Button className="float-right" style={{ background: '#91877F', borderColor: '#91877F' }} onClick={addColor}>추가</Button>
                                     </Col>
                                 </Row>
-                                {addedcolors.map((element) => element)}
+                                {colorHtml.map((element) => element)}
                             </Form.Group>
 
                             <Form.Group controlId="productDescriptionform">

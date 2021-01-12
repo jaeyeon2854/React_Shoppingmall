@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import MainNav from '../Components/MainNav';
-import SubNav from '../Components/SubNav';
 import Pagination from '../Components/Pagination';
 import { Row, Form, FormControl, Button, Card, Container } from 'react-bootstrap';
 
@@ -30,8 +28,6 @@ function Admin() {
                 }
                 `}
             </style>
-            <MainNav />
-            <SubNav />
             <Container>
                 <Row as={Form} onSubmit={handleSubmit} className="justify-content-end mx-0 my-5">
                     <FormControl type="text" placeholder="Search" style={{ width: "13rem" }} />

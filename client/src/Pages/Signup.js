@@ -1,10 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Redirect } from 'react-router-dom';
-import Nav1 from '../Components/MainNav';
-import Nav2 from '../Components/SubNav';
+import React, { useState } from 'react';
+import axios from 'axios'
 import { Form, Col, Container, Button, Row, Alert } from 'react-bootstrap'
-import FormCheckInput from 'react-bootstrap/esm/FormCheckInput';
-import axios from 'axios';
+import catchErrors from '../utils/catchErrors'
 
 const INIT_USER = {
     name: '',
@@ -17,20 +14,15 @@ const INIT_USER = {
 
 function Signup() {
     const [user, setUser] = useState(true)
-    //const [disabled, setDisabled] = useState(true)
     const [error, setError] = useState('')
 
-    //useEffect(() => {
-    //    const isUser = Object.values(user).every(el => Boolean(el))
-    //    isUser ? setDisabled(false) : setDisabled(true)
-    //}, user)
+const [validated, setValidated] = useState(false);
 
     function handleChange(event) {
         const { name, value } = event.target
         setUser({ ...user, [name]: value })
     }
 
-    const [validated, setValidated] = useState(false);
 
     async function handleSubmit(event) {
         event.preventDefault()
@@ -42,36 +34,44 @@ function Signup() {
         }
         setValidated(true);
         console.log(user)
-        
+
         try {
             setError('')
-            // const response = await axios.post('/api/user/signup', user)
-            const response = await fetch('/api/users/signup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(user)
-            })
-            const data = await response.json()
-            console.log(data)
+            const response = await axios.post('/api/users/signup', user)
+            console.log(response.data)
         } catch (error) {
-            console.log(error)
-            setError('다시 시도하세요.')
+            catchErrors(error, setError)
+        }
+        
+        
+
+    }
+    function checkPassword(event){
+        const p1=user.password
+        const p2=user.password2
+
+        if(p1 !== p2){
+            event.preventDefault();
+            event.stopPropagation();
+            alert('비밀번호가 일치하지 않습니다.')
+            return false
+            
+        }else{
+            return true
         }
     }
+        
 
     return (
         <div>
-            <Nav1 />
-            <Nav2 />
             <Container className="my-5">
-                {error && <Alert variant='danger'>
-                    {error}
-                </Alert>}
+
                 <Row className="justify-content-center">
                     <Col md={6} xs={10} className="border" style={{ background: '#F7F3F3' }}>
                         <h2 className="text-center mt-5">Sign Up</h2>
+                        {error && <Alert variant='danger'>
+                            {error}
+                        </Alert>}
                         <Form
                             noValidate validated={validated}
                             onSubmit={handleSubmit}
@@ -139,7 +139,8 @@ function Signup() {
                                         style={{ width: '160px' }}
                                         value={user.password}
                                         required
-                                        onChange={handleChange} />
+                                        onChange={handleChange}
+                                    />
                                     <Form.Control.Feedback className="text-center" type="invalid">
                                         비밀번호를 입력하세요.
                                     </Form.Control.Feedback>
@@ -155,7 +156,8 @@ function Signup() {
                                         style={{ width: '160px' }}
                                         value={user.password2}
                                         required
-                                        onChange={handleChange} />
+                                        onChange={handleChange}
+                                         />
                                     <Form.Control.Feedback type="invalid"> 비밀번호를 한번 더 입력하세요.
                                     </Form.Control.Feedback>
                                 </Form.Row>
@@ -174,7 +176,9 @@ function Signup() {
                                 </Form.Row>
                             </Form.Group>
                             <Button
-                                style={{ background: '#91877F', borderColor: '#91877F' }} type="submit" block>
+                                style={{ background: '#91877F', borderColor: '#91877F' }} type="submit" block
+                                onClick={checkPassword}
+                                >
                                 Sign Up
                             </Button>
                         </Form>

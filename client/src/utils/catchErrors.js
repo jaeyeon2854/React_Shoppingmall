@@ -1,16 +1,17 @@
 function catchErrors(error, displayError) {
     let errorMsg
+
     if (error.response) {
         errorMsg = error.response.data
-        console.log('Error response', errorMsg)
+        console.log(errorMsg)
     } else if (error.request) {
         errorMsg = error.request
-        console.log('Error request', errorMsg)
+        console.log(errorMsg)
     } else {
         errorMsg = error.message
-        console.log('Error message', errorMsg)
+        console.log(errorMsg)
     }
     displayError(errorMsg)
 }
 
-export default catchErrors  
+export default catchErrors

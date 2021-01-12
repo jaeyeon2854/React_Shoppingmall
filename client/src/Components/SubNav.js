@@ -22,7 +22,7 @@ function SubNav() {
     }
 
     return (
-        <Navbar sticky="top" className="flex-nowrap" style={{ top: "62px", paddingTop: "0", paddingBottom: "0", backgroundColor: "#fff", overflowX: "auto"}}>
+        <Navbar sticky="top" className="flex-nowrap" style={{ top: "62px", paddingTop: "0", paddingBottom: "0", backgroundColor: "#fff", overflowX: "auto" }}>
             <style type="text/css">
                 {`
                 .nav-link, .nav-link:hover, .nav-link:active {
@@ -50,6 +50,7 @@ function SubNav() {
                 }
                 `}
             </style>
+
             <Nav>
                 <NavDropdown title="DRESS" onMouseEnter={() => handleMouseEnter("dress")} onMouseLeave={() => handleMouseLeave("dress")} show={toggle.dress} toggle={() => handleToggle("dress")} onClick={() => handleClick("/dress")}>
                     <NavDropdown.Item href="/dress/long">LONG DRESS</NavDropdown.Item>

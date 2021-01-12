@@ -1,13 +1,6 @@
-import mongoose, { mongo } from 'mongoose'
+import mongoose from 'mongoose'
 
 const { String, Number } = mongoose.Schema.Types
-
-const productschema = new mongoose.Schema ({
-    pro_name: {
-        type: String,
-        required: true
-    }
-})
 
 const ProductSchema = new mongoose.Schema({
     pro_name: {
@@ -26,6 +19,14 @@ const ProductSchema = new mongoose.Schema({
         type: Number,
         required: true,
         default: 0
+    },
+    sizes: {
+        type: Array,
+        required: true
+    },
+    colors: {
+        type: Array,
+        required: true
     },
     main_category: {
         type: String,

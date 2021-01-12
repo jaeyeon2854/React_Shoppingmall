@@ -21,7 +21,6 @@ const regist = async (req, res) => {
         const newProduct = await new Product({
             pro_name, price, stock, main_category, sub_category, description, main_imgUrl, detail_imgUrls
         }).save()
-        console.log(newProduct)
         res.json(newProduct)
     } catch (error) {
         console.log(error)

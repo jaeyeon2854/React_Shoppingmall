@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Card } from 'react-bootstrap';
 
 function card(props) {
     const [card, setCard] = useState([...props])

@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import MainNav from '../Components/MainNav';
-import SubNav from '../Components/SubNav';
 import DaumPostcode from "react-daum-postcode";
 import { Container, Card, Row, Col, Button, Form, FormGroup } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
@@ -112,9 +110,9 @@ function Payment() {
                 total_amount: 22000,
                 vat_amount: 200,
                 tax_free_amount: 0,
-                approval_url: 'http://localhost:3000/kakaopay/success',
-                fail_url: 'http://localhost:3000/kakaopay/fail',
-                cancel_url: 'http://localhost:3000/kakaopay/cancel',
+                approval_url: 'http://localhost:3000/account',
+                fail_url: 'http://localhost:3000/shoppingcart',
+                cancel_url: 'http://localhost:3000/kakaopay/payment',
             })
         })
         const data = await response.json()
@@ -147,8 +145,6 @@ function Payment() {
 
     return (
         <div>
-            <MainNav />
-            <SubNav />
             <Container>
                 <h3 className="my-5 font-weight-bold text-center">주문/결제</h3>
                 <div>
@@ -222,15 +218,15 @@ function Payment() {
                             </Col>
                             <Col md={6} className="p-2">
                                 <Card.Body>
-                                    <input type="image" src="https://img.icons8.com/fluent-systems-regular/24/000000/close-window.png" className="float-right" onClick={deleteCart} />
+                                    <input type="image" alt="삭제버튼" src="https://img.icons8.com/fluent-systems-regular/24/000000/close-window.png" className="float-right" onClick={deleteCart} />
                                     <Card.Title className="font-weight-bold mt-3">제품명</Card.Title>
                                     <Card.Text>가격</Card.Text>
                                     <Card.Text>옵션</Card.Text>
                                     <Card.Text>수량</Card.Text>
                                     <div>
-                                        <input type="image" src="https://img.icons8.com/ios-glyphs/20/000000/minus-math.png" className="align-middle" onClick={minusNum} />
+                                        <input type="image" alt="마이너스" src="https://img.icons8.com/ios-glyphs/20/000000/minus-math.png" className="align-middle" onClick={minusNum} />
                                         <input type="text" style={{ width: '30px' }} className="text-center align-middle mx-1" placeholder="1" value={num} readOnly></input>
-                                        <input type="image" src="https://img.icons8.com/ios-glyphs/20/000000/plus-math.png" className="align-middle" onClick={plusNum} />
+                                        <input type="image" alt="플러스" src="https://img.icons8.com/ios-glyphs/20/000000/plus-math.png" className="align-middle" onClick={plusNum} />
                                     </div>
                                 </Card.Body>
                             </Col>
@@ -258,7 +254,7 @@ function Payment() {
                     <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>결제수단</h5>
                     <div className="text-center mt-5">
                         <Button variant="success" className="align-top" onClick={handleClick} >무통장입금</Button>
-                        <input type="image" src="icon/payment_icon_yellow_small.png" onClick={kakaopay} />
+                        <input type="image" alt="카카오페이결제" src="icon/payment_icon_yellow_small.png" onClick={kakaopay} />
                     </div>
                     {paymentWay}
                 </div>

@@ -13,7 +13,6 @@ const signup = async (req, res) => {
         if(user){
             return res.status(422).send(`${id}가 이미 사용중입니다.`)
         }
-        
 
         const hash=await bcrypt.hash(password,10)
 

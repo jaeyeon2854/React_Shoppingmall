@@ -23,7 +23,6 @@ const [validated, setValidated] = useState(false);
         setUser({ ...user, [name]: value })
     }
 
-
     async function handleSubmit(event) {
         event.preventDefault()
         const form = event.currentTarget;
@@ -65,7 +64,6 @@ const [validated, setValidated] = useState(false);
     return (
         <div>
             <Container className="my-5">
-
                 <Row className="justify-content-center">
                     <Col md={6} xs={10} className="border" style={{ background: '#F7F3F3' }}>
                         <h2 className="text-center mt-5">Sign Up</h2>

@@ -14,6 +14,9 @@ const INIT_USER = {
 function Login() {
 
     const [validated, setValidated] = useState(false);
+    const [user, setUser] = useState(INIT_USER)
+    const [error, setError] = useState('')
+    const [success, setSuccess] = useState(false)
 
     function handleChange(event) {
         const { name, value } = event.target

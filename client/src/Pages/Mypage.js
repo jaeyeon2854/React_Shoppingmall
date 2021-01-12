@@ -40,13 +40,13 @@ function Mypage() {
       <Card md={3} className="pt-3 mb-4" style={{ background: '#F7F3F3' }}>
         <Row>
           <Col md={4} className="text-center">
-            <Image src={person && `/image/${profile.avatarUrl}`} roundedCircle className="img-thumbnail" width={"170rem"} />
+            <Image src={person} roundedCircle className="img-thumbnail" width={"170rem"} />
           </Col>
           <Col>
             <Row className="mt-4 text-center">
               <Col>
                 <h2>
-                  <strong>{user.name}</strong> <small>님</small>
+                  <strong>방가방가{user.name}</strong> <small>님</small>
                 </h2>
               </Col>
             </Row>
@@ -59,7 +59,7 @@ function Mypage() {
                   </strong>
                 </Link>
                   {/* 홈페이지로 돌아가기 */}
-                  에 오신 <em>{user.name}</em> 님,<br></br>
+                  에 오신 <em> 방가방가{user.name}</em> 님,<br></br>
                 진심으로 환영합니다! 즐거운 쇼핑 되세요.</h4>
                 <Row className="mr-1 text-muted d-flex justify-content-end">
                   <a href="mailto:shoppingmall_KU@korea.ac.kr">

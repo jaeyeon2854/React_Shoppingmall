@@ -5,7 +5,6 @@ import SubNav from '../Components/SubNav';
 import { Card, Button, Container, Row, Col } from 'react-bootstrap';
 
 function ShoppingCart() {
-
     const [num, setNum] = useState(0)
 
     function plusNum() {
@@ -39,7 +38,7 @@ function ShoppingCart() {
                                 <input className="" type="checkbox" id="exampleCheck1" />
                             </Col>
                             <Col className="text-center">
-                                <Card.Img className="img-fluid" variant="top" src="img/asd.jpg" style={{ width: '20rem' }} />
+                                <Card.Img className="img-fluid" variant="top" src="icon/asd.jpg" style={{ width: '20rem' }} />
                             </Col>
                             <Col md={6} className="p-2">
                                 <Card.Body>

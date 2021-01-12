@@ -1,8 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
-import logo from '../footprint.svg';
-import cart from '../cart.svg';
-import option from '../option.svg';
 
 function MainNav() {
     function handleClick() {
@@ -13,18 +10,18 @@ function MainNav() {
     return (
         <Navbar sticky="top" style={{ background: "#CDC5C2" }}>
             <Navbar.Brand href="/home" className="text-light">
-                <img src={logo} width="24" height="24" />
+                <img src="icon/footprint.svg" width="24" height="24" />
                 {' '}KU#
             </Navbar.Brand>
             <Nav className="justify-content-end">
                 <Nav.Link className="text-light" href="/login">Login</Nav.Link>
                 <Nav.Link className="text-light" href="/signup">Signup</Nav.Link>
                 <Nav.Link href="/shoppingcart">
-                    <img src={cart} width="30" height="30" />
+                    <img src="icon/cart.svg" width="30" height="30" />
                 </Nav.Link>
                 <Nav.Link className="text-light" onClick={() => handleClick()}>Logout</Nav.Link>
                 <Nav.Link href="/admin">
-                    <img src={option} width="30" height="30" />
+                    <img src="icon/option.svg" width="30" height="30" />
                 </Nav.Link>
             </Nav>
         </Navbar>

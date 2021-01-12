@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import MainNav from '../Components/MainNav';
 import SubNav from '../Components/SubNav';
 import Pagination from '../Components/Pagination';
-import search from '../search.svg';
 import { Container, Row, Col, Form, FormControl, Button, Card, Dropdown } from 'react-bootstrap';
 
 function ProductsList() {
@@ -51,7 +50,7 @@ function ProductsList() {
                     <Form as={Row} onSubmit={handleSubmit} className="justify-content-end mx-0">
                         <FormControl type="text" placeholder="Search" style={{ width: "13rem" }} />
                         <Button type="submit" className="search px-2">
-                            <img src={search} width="20" height="20" />
+                            <img src="icon/search.svg" width="20" height="20" />
                         </Button>
                         <Button sm={2} xs={6} type="button" href="/regist" className="ml-1">상품 등록</Button>
                     </Form>

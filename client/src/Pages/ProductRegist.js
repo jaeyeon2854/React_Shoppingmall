@@ -1,30 +1,54 @@
 import React, { useState, useEffect, useRef } from 'react';
 import MainNav from '../Components/MainNav';
 import SubNav from '../Components/SubNav';
-import { Row, Col, Button, Form, Container } from 'react-bootstrap';
-import axios from 'axios'
+import { Row, Col, Button, Form, Container, Alert } from 'react-bootstrap';
+import axios from 'axios';
+import catchErrors from "../utils/catchErrors";
 
 
 function ProductsRegist() {
     const [product, setProduct] = useState()
+    const [error, setError] = useState('')
 
-    function handleChange(event) {
-        const { name, value } = event.target
-        console.log("file=",event.target.files)
-        console.log("name=",name,"value=",value)
-        setProduct({ ...product, [name]: value })
+    function handleChange(e) {
+        const { name, value, files } = e.target
+        if (files) {
+            setProduct({ ...product, [name]: files })
+        } else {
+            setProduct({ ...product, [name]: value })
+        }
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault()
         const formData = new FormData();
-        for (let key of Object.keys(product)) {
-            formData.append(key, product[key])
+        for (const key in product) {
+            console.log("product[key]=", product[key])
+            if (key == "main_image" || key == "detail_image") {
+                for (const file of product[key]) {
+                    formData.append(key, file)
+                }
+            } else {
+                formData.append(key, product[key])
+            }
         }
-        console.log("formData=",formData)
-        axios.post('/api/product/regist',{data: formData}).then(function(res) {
-            console.log("client의 res=", res)
-        })
+        // formData 값 확인용
+        // for (const key of formData.keys()) {
+
+        //     console.log("key=",key);
+
+        //   }
+
+        //   for (const value of formData.values()) {
+
+        //     console.log(value);
+
+        //   }
+        try {
+            const response = await axios.post('/api/product/regist', formData)
+        } catch (error) {
+            catchErrors(error, setError)
+        }
     }
 
     return (
@@ -35,6 +59,7 @@ function ProductsRegist() {
             <Container>
                 <Row className="justify-content-md-center">
                     <Col md={6} className="border m-5 p-3" style={{ background: '#F7F3F3' }}>
+                        {error && <Alert variant="danger" className="text-center">{error}</Alert>}
                         <h2 className="text-center mt-5 font-weight-bold">상품등록</h2>
                         <Form className="p-5" onSubmit={handleSubmit}>
                             <Form.Group controlId="productNameform">

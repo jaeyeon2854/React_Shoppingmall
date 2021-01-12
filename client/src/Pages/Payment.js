@@ -258,7 +258,7 @@ function Payment() {
                     <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>결제수단</h5>
                     <div className="text-center mt-5">
                         <Button variant="success" className="align-top" onClick={handleClick} >무통장입금</Button>
-                        <input type="image" src="img/payment_icon_yellow_small.png" onClick={kakaopay} />
+                        <input type="image" src="icon/payment_icon_yellow_small.png" onClick={kakaopay} />
                     </div>
                     {paymentWay}
                 </div>

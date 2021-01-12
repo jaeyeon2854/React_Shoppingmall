@@ -1,5 +1,5 @@
 import express from 'express';
-// import bodyParser from "body-parser";
+import fs from 'fs';
 import connectDb from './schemas/index.js'
 import userRouter from "./routes/user.routes.js";
 import productRouter from './routes/product.routes.js';
@@ -8,14 +8,17 @@ import kakaopayRoutes from './routes/kakaopay.routes.js'
 import config from './config.js'
 import cors from 'cors'
 
+fs.readdir('uploads', (error) => {
+  if (error) {
+      fs.mkdirSync('uploads');
+  }
+})
+
 connectDb()
 
 const app = express();
 
-
-app.use(express.json());
 app.use(cors())
-
 app.use(express.static(path.join(process.cwd(), 'dist')))
 // app.use(bodyParser.urlencoded({ extended: true }))
 

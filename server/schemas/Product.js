@@ -1,6 +1,13 @@
-import mongoose from 'mongoose'
+import mongoose, { mongo } from 'mongoose'
 
-const { String, Number, Array } = mongoose.Schema.Types
+const { String, Number } = mongoose.Schema.Types
+
+const productschema = new mongoose.Schema ({
+    pro_name: {
+        type: String,
+        required: true
+    }
+})
 
 const ProductSchema = new mongoose.Schema({
     pro_name: {
@@ -25,20 +32,19 @@ const ProductSchema = new mongoose.Schema({
         required: true,
     },
     sub_category: {
-        type: Array,
+        type: [String],
         required: true,
     },
     description: {
         type: String,
         required: true,
     },
-    main_image: {
+    main_imgUrl: {
         type: String,
-        required: true,
+        required: true
     },
-    detail_image: {
-        type: String,
-        required: true,
+    detail_imgUrls: {
+        type: [String]
     }
 }, {
     timestamps: true

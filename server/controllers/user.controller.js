@@ -1,4 +1,4 @@
-import User from "../models/User.js";
+import User from "../schemas/User.js";
 import isLength from 'validator/lib/isLength.js';
 import bcrypt from 'bcryptjs';
 

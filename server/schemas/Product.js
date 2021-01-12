@@ -20,13 +20,13 @@ const ProductSchema = new mongoose.Schema({
         required: true,
         default: 0
     },
-    size: {
+    sizes: {
         type: Array,
-        // required: true
+        required: true
     },
-    color: {
+    colors: {
         type: Array,
-        // required: true
+        required: true
     },
     main_category: {
         type: String,

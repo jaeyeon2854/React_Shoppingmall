@@ -5,21 +5,12 @@ import axios from 'axios';
 import catchErrors from '../utils/catchErrors';
 import { isAuthenticated } from '../utils/auth'
 import CartCard from '../Components/CartCard';
-const INIT_PRODUCT = [{
-    pro_name: '체크셔츠',
-    price: 21000,
-    count: 1,
-    main_category: 'TOP',
-    sub_category: ['SHIRT'],
-    sizes: ['XL', 'L', 'M', 'S'],
-    colors: ['베이지', '블랙', '카키'],
-    main_image: 'e46b641ae11e6568c86f689d3dce7748'
-}]
+
 function ShoppingCart() {
 
     const [num, setNum] = useState(0)
     const [error, setError] = useState('')
-    const [cart, setCart] = useState(INIT_PRODUCT)
+    const [cart, setCart] = useState()
     const user = isAuthenticated()
 
     useEffect(() => {
@@ -71,7 +62,7 @@ function ShoppingCart() {
                 <h3 className="my-5 font-weight-bold text-center">장바구니</h3>
                 <div>
                     <h4 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>주문상품정보</h4>
-                    <CartCard cart={cart} deleteCart={deleteCart} minusNum={minusNum} plusNum={plusNum} num={num} />
+                    {cart?<CartCard cart={cart} deleteCart={deleteCart} minusNum={minusNum} plusNum={plusNum} num={num} />:<div></div>}
 
                 </div>
                 <div className="p-5 m-5" style={{ background: '#F7F3F3' }}>

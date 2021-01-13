@@ -1,50 +1,63 @@
 import Cart from "../schemas/Cart.js";
-import Product from '../schemas/Product.js'
 
-const cart = async (req, res) => {
-    const { userId, productObjectId, color, size, count } = req.body
-    // console.log('req.body=', req.body)
-    // const {userId, productObjectId, }
-    // const { user, pro_name, price, main_image } = req.body
-    // color, size, count, productObjectId(productlist에서 props), userId(로컬)
+const addcart = async (req, res) => {
+    console.log(req.body)
+    const { count, productId } = req.body
     try {
-        const product = await Product.find({ _id: productObjectId })
-        if (product) {
-            // console.log(product)
-            const { pro_name, price, main_image } = product[0]
-            const products = { productObjectId, color, size, count, pro_name, price, main_image }
-            // console.log(products)
-            const newCart = await new Cart({
-                userId, products
-            }).save()
-            console.log(newCart)
-            res.json(newCart)
-
-        }
-        // const newCart = await new Cart({
-        //     user, pro_name, price, stock, main_category, sub_category, main_image
-        // }).save()
-        // const asdf = await Cart.find({ user })
-        // console.log(newCart)
-        // res.json(newCart)
+        const newProduct = { count, product: productId }
+        await Cart.findOneAndUpdate(
+            { _id: cart._id },
+            { $addToSet: { products: newProduct } }
+        )
+        res.json(newCart)
     } catch (error) {
         console.log(error)
         res.status(500).send('죄송합니다. 다시 입력해 주십시오.')
     }
-
-    //     try {
-    //         const user = await 
-    //     User.findById(id)
-    //     if (!user) {
-    //       console.log(error)
-    //       res.status(404).send('사용자를 찾을 수 없습니다')
-    //     }
-    //     req.profile = user
-    //     next()
-    //   } catch (error) {
-    //     console.log(error)
-    //     res.status(500).send('사용자 아이디 실패')
-    //   }
 }
 
-export default { cart }
+const showcart = async (req, res) => {
+    // const {userId} = req.body
+    console.log(req.cart)
+    try {
+        const cart = await Cart.findOne({ user: userId }).populate({
+            path: 'products.product',
+            model: 'Product'
+        })
+        res.status(200).json(cart.products)
+
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).send('쇼핑카트를 불러오지 못했습니다.')
+    }
+}
+
+const deletecart = async (req, res) => {
+    console.log(req.body)
+    const { cartId } = req.body
+    try {
+        await Cart.remove({ _id: cartId })
+        res.send("삭제완료")
+        // res.json()
+    } catch (error) {
+        console.log(error)
+        res.status(500).send('해당 카트를 삭제하지 못했습니다.')
+
+    }
+}
+const userById = async (req, res, next, id) => {
+    try {
+        const cart = await Cart.findOne({ userId: id })
+        if (!cart) {
+            res.status(404).send("사용자를 찾을 수 없습니다.")
+        }
+        req.cart = cart
+        next()
+    } catch (error) {
+        res.status(500).send("사용자 아이디 검색 실패")
+    }
+}
+
+
+export default { addcart, showcart, deletecart, userById }

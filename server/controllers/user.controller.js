@@ -4,27 +4,28 @@ import bcrypt from 'bcryptjs'
 
 const signup = async (req, res) => {
     console.log(req.body)
-    const { name, number1, number2, id, password,  tel } = req.body
+    const { name, number1, number2, id, password, tel } = req.body
     try {
-        if(!isLength(password,{min:8, max:15})){
+        if (!isLength(password, { min: 8, max: 15 })) {
             return res.status(422).send('비밀번호는 8-15자리로 입력해주세요.')
         }
-        const user=await User.findOne({id})
-        if(user){
+        const user = await User.findOne({ id })
+        if (user) {
             return res.status(422).send(`${id}가 이미 사용중입니다.`)
         }
-        
 
-        const hash=await bcrypt.hash(password,10)
 
-        const newUser = await new User ({
+        const hash = await bcrypt.hash(password, 10)
+
+        const newUser = await new User({
             name,
             number1,
             number2,
             id,
-            password:hash,
+            password: hash,
             tel,
         }).save()
+        await new Cart({ user: newUser._id }).save()
         console.log(newUser)
         res.json(newUser)
 

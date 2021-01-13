@@ -18,7 +18,7 @@ function App() {
 
   return (
     <div>
-      {console.log("match.params=",match.params(product))}
+      {/* {console.log("match.params=",match.params(product))} */}
       <MainNav />
       <SubNav />
       <Router>

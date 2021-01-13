@@ -13,7 +13,7 @@ const INIT_USER = {
 }
 
 function Signup() {
-    const [user, setUser] = useState(true)
+    const [user, setUser] = useState('')
     const [error, setError] = useState('')
 
 const [validated, setValidated] = useState(false);
@@ -63,6 +63,7 @@ const [validated, setValidated] = useState(false);
 
     return (
         <div>
+            {console.log(user)}
             <Container className="my-5">
                 <Row className="justify-content-center">
                     <Col md={6} xs={10} className="border" style={{ background: '#F7F3F3' }}>

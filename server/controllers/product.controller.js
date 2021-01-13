@@ -9,8 +9,9 @@ const imageUpload = upload.fields([
   ])
 
 const regist = async (req, res) => {
+    console.log("req.body=",req.body)
     try {
-        const { pro_name, price, stock, main_category, sub_category, description } = req.body
+        const { pro_name, price, stock, main_category, sub_category, description, colors, sizes } = req.body
         const main_img = req.files['main_image'][0]
         const detail_img = req.files['detail_image']
         const main_imgUrl = main_img.filename
@@ -19,7 +20,7 @@ const regist = async (req, res) => {
             detail_imgUrls.push(file.filename)
         })
         const newProduct = await new Product({
-            pro_name, price, stock, main_category, sub_category, description, main_imgUrl, detail_imgUrls
+            pro_name, price, stock, main_category, sub_category, description, main_imgUrl, detail_imgUrls, colors, sizes
         }).save()
         res.json(newProduct)
     } catch (error) {

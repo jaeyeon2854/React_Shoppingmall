@@ -1,6 +1,6 @@
 import User from "../schemas/User.js";
-import isLength from 'validator/lib/isLength.js'
-import bcrypt from 'bcryptjs'
+import isLength from 'validator/lib/isLength.js';
+import bcrypt from 'bcryptjs';
 
 const signup = async (req, res) => {
     console.log(req.body)
@@ -13,7 +13,6 @@ const signup = async (req, res) => {
         if(user){
             return res.status(422).send(`${id}가 이미 사용중입니다.`)
         }
-        
 
         const hash=await bcrypt.hash(password,10)
 
@@ -33,6 +32,5 @@ const signup = async (req, res) => {
         res.status(500).send('죄송합니다. 다시 입력해 주십시오.')
     }
 }
-
 
 export default { signup }

@@ -15,10 +15,6 @@ import SubNav from './Components/SubNav';
 
 
 function App() {
-  // const [user,setUser]=useState(null);
-  // const authenticated =user !=null;
-  // const login =({id, password}) => setUser(signIn({id,password}));
-  // const logout=()=>setUser(null);
 
 
   return (
@@ -42,7 +38,6 @@ function App() {
         </Switch>
       </Router>
     </div>
-
   )
 
 

@@ -14,7 +14,7 @@ const INIT_USER = {
 }
 
 function Signup() {
-    const [user, setUser] = useState(true)
+    const [user, setUser] = useState(INIT_USER)
     const [error, setError] = useState('')
     const [success, setSuccess] = useState(false)
     const [validated, setValidated] = useState(false);
@@ -24,11 +24,9 @@ function Signup() {
         setUser({ ...user, [name]: value })
     }
 
-
     async function handleSubmit(event) {
         event.preventDefault()
         const form = event.currentTarget;
-        console.log(form)
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();

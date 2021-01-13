@@ -52,6 +52,7 @@ function ProductsList(props) {
 
     return (
         <div>
+            {console.log("match.params=",props.match.params.product)}
             <style type="text/css">
                 {`
                 .btn {
@@ -97,7 +98,7 @@ function ProductsList(props) {
                     <ListCard productlist={productlist} />
                 </Row>
             </Container>
-            <Pagination />
+            {/* <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate} /> */}
         </div>
     )
 }

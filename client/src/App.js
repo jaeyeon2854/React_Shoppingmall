@@ -18,10 +18,9 @@ function App() {
 
   return (
     <div>
-      {console.log("match.params=",match.params(product))}
+      <Router>
       <MainNav />
       <SubNav />
-      <Router>
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/login" component={Login} />

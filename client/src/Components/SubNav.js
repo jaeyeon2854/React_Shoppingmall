@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Redirect } from 'react-router-dom';
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { Navbar, Nav } from 'react-bootstrap';
 import axios from 'axios';
 import catchErrors from '../utils/catchErrors';
 
@@ -16,7 +16,7 @@ function SubNav() {
             Object.keys(response.data[0]).forEach((ele) => {
                 const url = ele.toLowerCase()
                 list.push(
-                    <Nav.Link href={`/product/${url}`}>{ele}</Nav.Link>
+                    <Nav.Link as={Link} to={`/product/${url}`}>{ele}</Nav.Link>
                 )
             })
             setCategorysDiv(list)

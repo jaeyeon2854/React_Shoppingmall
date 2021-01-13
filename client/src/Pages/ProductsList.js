@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import Pagination from '../Components/Pagination';
 import { Container, Row, Col, Form, FormControl, Button, Card, Dropdown } from 'react-bootstrap';
 
-function ProductsList() {
+function ProductsList(props) {
+    const
     const [sub, setSub] = useState(['PADDED JACKET', 'JACKET', 'JUMPER', 'COAT', 'FLEECE', 'CARDIGAN / VEST'])
 
     // useEffect(() => {
@@ -25,7 +26,7 @@ function ProductsList() {
 
     return (
         <div>
-            
+            {console.log("match.params=",props.match.params.product)}
             <style type="text/css">
                 {`
                 .btn {

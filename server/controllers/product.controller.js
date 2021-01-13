@@ -37,6 +37,7 @@ const getlist=(req,res)=>{
 
 }
 
+
 const categoryId = async (req, res, next, category) => {
     try {
         const productslist = await Product.find({main_category:category})
@@ -49,4 +50,25 @@ const categoryId = async (req, res, next, category) => {
         res.status(500).send('상품을 불러오지 못했습니다.')
     }
 }
-export default { imageUpload, regist, categoryId, getlist }
+
+const subgetlist=(req,res)=>{
+    try{
+        res.json(req.subproductslist)
+    }catch(error){
+        res.status(500).send('상품을 불러오지 못했습니다.')
+    }
+}
+const subcategoryId = async (req, res, next, subcategory) => {
+    try {
+        const subproductslist = await Product.find({sub_category:subcategory})
+        if (!subproductslist) {
+            res.status(404).send('상품을 찾을 수 없습니다.')
+        }
+        req.subproductslist = subproductslist
+        next()
+    } catch (error) {
+        res.status(500).send('상품을 불러오지 못했습니다.')
+    }
+}
+
+export default { imageUpload, regist, categoryId, getlist, subcategoryId, subgetlist }

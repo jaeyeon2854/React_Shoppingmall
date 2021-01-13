@@ -18,26 +18,24 @@ function App() {
 
 
   return (
-    <div>
+    <Router>
       <MainNav />
       <SubNav />
-      <Router>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={Signup} />
-          <Route path="/product" component={Product} />
-          <Route path="/productslist" component={ProductsList} />
-          <Route path="/admin" component={Admin} />
-          <Route path="/regist" component={ProductRegist} />
-          <Route path="/shoppingcart" component={ShoppingCart} />
-          <Route path="/payment" component={Payment} />
-          <Route path="/account" component={Account} />
-          <Route path='/kakao' component={() => { window.location.href = 'https://compmath.korea.ac.kr'; return null; }} />
-          <Redirect path="/" to="/" />
-        </Switch>
-      </Router>
-    </div>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
+        {/* <Route path="/product" component={Product} /> */}
+        <Route path="/product/:product" component={ProductsList} />
+        <Route path="/admin" component={Admin} />
+        <Route path="/regist" component={ProductRegist} />
+        <Route path="/shoppingcart" component={ShoppingCart} />
+        <Route path="/payment" component={Payment} />
+        <Route path="/account" component={Account} />
+        <Route path='/kakao' component={() => { window.location.href = 'https://compmath.korea.ac.kr'; return null; }} />
+        <Redirect path="/" to="/" />
+      </Switch>
+    </Router>
   )
 
 

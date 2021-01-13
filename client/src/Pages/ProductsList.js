@@ -5,28 +5,20 @@ import ListCard from '../Components/ListCard';
 import axios from 'axios';
 import catchError from '../utils/catchErrors'
 import {isAuthenticated} from '../utils/auth'
+import catchErrors from '../utils/catchErrors';
 
-function ProductsList() {
-    const [sub, setSub] = useState(['PADDED JACKET', 'JACKET', 'JUMPER', 'COAT', 'FLEECE', 'CARDIGAN / VEST'])
+function ProductsList(props) {
     const [productlist, setProductlist] = useState([])
     const [error, setError] = useState('')
-    const [category, setCategory] = useState('OUTER')
+    const [category, setCategory] = useState(props.match.params.product)
+    const [subcategory, setSubcategory] = useState(['PADDED JACKET', 'JACKET', 'JUMPER', 'COAT', 'FLEECE', 'CARDIGAN / VEST'])
+    const [click, setClick] = useState(true)
 
     const user=isAuthenticated()
 
     useEffect(() => {
-        getProductlist(user)
+        return getProductlist(user)         
     }, [user])
-
-    // async function getProfile(user){
-    //     console.log(user)
-    //     try {
-    //         const response = await axios.get(`/api/users/profile/${user}`)
-    //         setProfile(response.data)
-    //     } catch (error) {
-    //         catchErrors(error, setError)
-    //     }
-    // }
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -34,11 +26,27 @@ function ProductsList() {
 
     async function getProductlist() {
         try {
+            console.log('dd=',category)
             const response = await axios.get(`/api/product/getproduct/${category}`)
             console.log(response.data)
             setProductlist(response.data)
         } catch (error) {
             catchError(error, setError)
+        }
+    }
+
+    function handleClick(e){
+        e.preventDefault()
+        return getsubproductlist()       
+    }
+
+    async function getsubproductlist(){
+        try {
+            const response = await axios.get(`/api/product/getproduct/${subcategory}`)
+            console.log(response.data)
+            setProductlist(response.data)
+        } catch (error) {
+            catchErrors(error,setError)
         }
     }
 
@@ -61,8 +69,8 @@ function ProductsList() {
                 <Row className="justify-content-center" >
                     <Col sm={10} xs={12} >
                         <h1 style={{ fontSize: "3rem" }} className="text-center">OUTER</h1>
-                        <div className="text-center">{sub.map((ele) => (
-                            <Button className="m-1">{ele}</Button>
+                        <div className="text-center">{subcategory.map((ele) => (
+                            <Button className="m-1" onClick={handleClick}>{ele}</Button>
                         ))}</div>
                     </Col>
                 </Row>

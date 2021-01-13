@@ -7,8 +7,6 @@ import { isAuthenticated } from '../utils/auth'
 import CartCard from '../Components/CartCard';
 
 function ShoppingCart() {
-
-function ShoppingCart() {
     const [num, setNum] = useState(0)
     const [error, setError] = useState('')
     const [cart, setCart] = useState()

@@ -99,7 +99,7 @@ function ProductsRegist() {
         console.log(product)
         const formData = new FormData();
         for (let key in product) {
-            if (key === "main_imgUrl" ||key === "detail_imgUrl") {
+            if (key === "main_image" ||key === "detail_image") {
                 console.log(product[key][0])
                 formData.append(key, product[key][0])
             } else {
@@ -192,11 +192,11 @@ function ProductsRegist() {
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label>대표이미지</Form.Label>
-                                <Form.File id="productImageform" name="main_imgUrl" onChange={handleChange} />
+                                <Form.File id="productImageform" name="main_image" onChange={handleChange} />
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label>상세이미지</Form.Label>
-                                <Form.File id="productImageform" name="detail_imgUrl" onChange={handleChange} />
+                                <Form.File id="productImageform" name="detail_image" onChange={handleChange} />
                             </Form.Group>
                             <Button className="float-right" type="submit" style={{ background: '#91877F', borderColor: '#91877F' }}>등록</Button>
                         </Form>

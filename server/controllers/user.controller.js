@@ -3,8 +3,10 @@ import isLength from 'validator/lib/isLength.js';
 import bcrypt from 'bcryptjs';
 
 const signup = async (req, res) => {
-    console.log(req.body)
+    
     const { name, number1, number2, id, password,  tel } = req.body
+    
+    console.log(req.body)
     try {
         if(!isLength(password,{min:8, max:15})){
             return res.status(422).send('비밀번호는 8-15자리로 입력해주세요.')

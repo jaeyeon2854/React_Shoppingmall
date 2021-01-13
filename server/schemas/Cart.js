@@ -13,9 +13,15 @@ const CartSchema = new mongoose.Schema({
                     type: Number,
                     default: 1
                 },
-                product: {
+                productId: {
                     type: ObjectId,
                     ref: 'Product'
+                },
+                sizes: {
+                    type: String
+                },
+                colors: {
+                    type: String
                 }
             }
         ]

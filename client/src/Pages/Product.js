@@ -6,18 +6,29 @@ import catchErrors from '../utils/catchErrors';
 const INIT_PRODUCT = {
     pro_name: '스키니진',
     price: 12000,
-    count:1,
+    count: 1,
     main_category: 'PANTS',
     sub_category: ['SKINNY JEANS'],
-    sizes: [ 'L', 'M'],
+    sizes: ['L', 'M'],
     colors: ['연청', '진청'],
-    main_image: "a8f4d63ead77717f940a2b27deb707a6"
+    main_image: "a8f4d63ead77717f940a2b27deb707a6",
+    productId:"5ffda03428faf35de8319360"
 }
+const preCart = []
 
 function Product() {
     const [product, setProduct] = useState(INIT_PRODUCT)
     const [cart, setCart] = useState(INIT_PRODUCT)
     const [error, setError] = useState('')
+    const [selected, setSelected] = useState({ sizes: false, colors: false })
+    const [n, setN] = useState(1)
+
+    useEffect(() => {
+        if (selected.sizes === true && selected.colors === true) {
+            pushOptions()
+            console.log(preCart)
+        }
+    }, [cart])
 
 
     function handleClick(e) {
@@ -25,10 +36,24 @@ function Product() {
         box.style.display = "none"
     }
 
+    function pushOptions() {
+        preCart.push(cart)
+        selected.sizes = false
+        selected.colors = false
+        setN(n+1)
+    }
     function handleChange(e) {
         const { name, value } = e.target
+        if (e.target.name === "sizes") {
+            setCart({ ...cart, [name]: value })
+            selected.sizes = true
+        } else if (e.target.name === "colors") {
+            setCart({ ...cart, [name]: value })
+            selected.colors = true
+        }
+        // setCart({ ...cart, [name]: value })
+
         // handleCreate()
-        setCart({ ...cart, [name]: value })
     }
 
     function listDelete(e) {
@@ -39,29 +64,29 @@ function Product() {
 
     function handleCreate() {
         console.log("실행", "cart=", product)
-        if (product !== undefined) {
-            if (product.colors !== "" && product.sizes !== "") {
-                cart.push(
-                    <div className="d-flex justify-content-between my-2" >
-                        <p>{product.color}  {product.size} </p>  
-                        <input name="count" type="number" min="0" max="10" style="width: 40px" onChange={handleChange} />
-                        <p style="margin-bottom: 0px">{product.price}</p>
-                    </div>
-                )
-                // const list = document.getElementById('list')
-                // list.style.borderBottom = "1px solid"
-                // const shopping = document.createElement('div')
-                // shopping.className = "d-flex justify-content-between my-2"
-                // shopping.innerHTML = `${product.color} / ${product.size}
-                // <input type="number" min="0" max="10" value="1" style="width: 40px" />
-                // <p style="margin-bottom: 0px">14,000원</p>`
-                // const deleteA = document.createElement('a')
-                // deleteA.innerText = 'X'
-                // deleteA.addEventListener('click', listDelete)
-                // shopping.appendChild(deleteA)
-                // list.appendChild(shopping)
-            }
-        }
+        // if (product !== undefined) {
+        //     if (product.colors !== "" && product.sizes !== "") {
+        //         cart.push(
+        //             <div className="d-flex justify-content-between my-2" >
+        //                 <p>{product.color}  {product.size} </p>
+        //                 <input name="count" type="number" min="0" max="10" style="width: 40px" onChange={handleChange} />
+        //                 <p style="margin-bottom: 0px">{product.price}</p>
+        //             </div>
+        //         )
+        // const list = document.getElementById('list')
+        // list.style.borderBottom = "1px solid"
+        // const shopping = document.createElement('div')
+        // shopping.className = "d-flex justify-content-between my-2"
+        // shopping.innerHTML = `${product.color} / ${product.size}
+        // <input type="number" min="0" max="10" value="1" style="width: 40px" />
+        // <p style="margin-bottom: 0px">14,000원</p>`
+        // const deleteA = document.createElement('a')
+        // deleteA.innerText = 'X'
+        // deleteA.addEventListener('click', listDelete)
+        // shopping.appendChild(deleteA)
+        // list.appendChild(shopping)
+        // }
+        // }
     }
 
     async function addCart() {
@@ -69,8 +94,9 @@ function Product() {
         try {
             // setError('')
             const response = await axios.put('/api/cart/addcart', {
-                count: cart.count,
-                productId: "5ffd153b41bada58d8b12d92",
+                userId: localStorage.getItem('loginStatus'),
+                productId: "a8f4d63ead77717f940a2b27deb707a6",
+                products: preCart
             })
             console.log(response)
         } catch (error) {
@@ -124,8 +150,9 @@ function Product() {
                                 ))}
                             </Form.Control>
                         </Form.Group>
-                        {/* {cart.map((e)=>(<div>{e}</div>
-                        ))} */}
+                        {preCart.map((e) => (
+                            <div>{e.colors}/{e.sizes}</div>
+                        ))}
                         <Row className="justify-content-between mx-0 my-3" style={{ width: "100%" }}>
                             <Col>총 금액</Col>
                             <Col className="text-right">14,000원</Col>

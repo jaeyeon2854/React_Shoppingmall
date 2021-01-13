@@ -1,3 +1,4 @@
+import Cart from "../schemas/Cart.js";
 import User from "../schemas/User.js";
 import isLength from 'validator/lib/isLength.js';
 import bcrypt from 'bcryptjs';
@@ -16,7 +17,6 @@ const signup = async (req, res) => {
             return res.status(422).send(`${id}가 이미 사용중입니다.`)
         }
 
-
         const hash = await bcrypt.hash(password, 10)
 
         const newUser = await new User({
@@ -27,7 +27,7 @@ const signup = async (req, res) => {
             password: hash,
             tel,
         }).save()
-        await new Cart({ user: newUser._id }).save()
+        await new Cart({ userId: newUser._id }).save()
         console.log(newUser)
         res.json(newUser)
 

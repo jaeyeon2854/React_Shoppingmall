@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios'
 import { Form, Col, Container, Button, Row, Alert } from 'react-bootstrap'
 import catchErrors from '../utils/catchErrors'
+import { Redirect } from 'react-router-dom';
 
 const INIT_USER = {
     name: '',
@@ -15,7 +16,7 @@ const INIT_USER = {
 function Signup() {
     const [user, setUser] = useState(INIT_USER)
     const [error, setError] = useState('')
-
+    const [success, setSuccess] = useState(false)
     const [validated, setValidated] = useState(false);
 
     function handleChange(event) {
@@ -39,11 +40,10 @@ function Signup() {
             setError('')
             const response = await axios.post('/api/users/signup', user)
             console.log(response.data)
+            setSuccess(true)
         } catch (error) {
             catchErrors(error, setError)
         }
-
-
 
     }
     function checkPassword(event) {
@@ -59,6 +59,10 @@ function Signup() {
         } else {
             return true
         }
+    }
+    if (success) {
+        alert('회원가입 되었습니다.')
+        return <Redirect to='/login'/>
     }
 
 

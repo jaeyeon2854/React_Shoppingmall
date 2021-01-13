@@ -1,6 +1,7 @@
 import express from 'express';
 import fs from 'fs';
-import connectDb from './schemas/index.js'
+import connectDb from './schemas/index.js';
+import categoryRouter from "./routes/category.routes.js";
 import userRouter from "./routes/user.routes.js";
 import productRouter from './routes/product.routes.js';
 import cartRouter from './routes/cart.routes.js';
@@ -19,9 +20,7 @@ fs.readdir('uploads', (error) => {
 connectDb()
 
 const app = express();
-
-app.use(express.json());
-
+app.use(express.json())
 app.use(cors())
 app.use(express.static(path.join(process.cwd(), 'dist')))
 // app.use(bodyParser.urlencoded({ extended: true }))
@@ -29,6 +28,7 @@ app.use('/images', express.static('uploads/'))
 
 // app.use('/', indexRouter);
 app.use('/', kakaopayRoutes)
+app.use('/api/categorys',categoryRouter)
 app.use('/api/users',userRouter)
 app.use('/api/auth',authRouter)
 app.use('/api/product', productRouter)

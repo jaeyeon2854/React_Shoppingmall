@@ -44,6 +44,7 @@ function ProductsList() {
 
     return (
         <div>
+            
             <style type="text/css">
                 {`
                 .btn {
@@ -89,7 +90,7 @@ function ProductsList() {
                     <ListCard productlist={productlist} />
                 </Row>
             </Container>
-            <Pagination />
+            {/* <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate} /> */}
         </div>
     )
 }

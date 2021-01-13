@@ -6,8 +6,10 @@ const router = express.Router()
 
 router.route('/regist')
     .post(productCtrl.imageUpload, productCtrl.regist)
-    
-// router.route('/productone')
-//     .get(productCtrl.getProduct)
+
+router.route('/getproduct/:category')
+    .get(productCtrl.getlist)
+
+router.param('category', productCtrl.categoryId)
     
 export default router

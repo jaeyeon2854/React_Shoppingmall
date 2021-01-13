@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Redirect } from 'react-router-dom';
-import { Row, Col, Button, Form, Container, Alert } from 'react-bootstrap';
+import { Row, Col, Button, Form, Container } from 'react-bootstrap';
 import axios from 'axios'
 import catchErrors from '../utils/catchErrors';
+import { Redirect } from 'react-router-dom';
 
 let color = {}
 let preColors = []
@@ -98,30 +98,18 @@ function ProductsRegist() {
         product["sizes"]=sizes
         console.log(product)
         const formData = new FormData();
-        for (const key in product) {
-            console.log("product[key]=", product[key])
-            if (key == "main_image" || key == "detail_image") {
-                for (const file of product[key]) {
-                    formData.append(key, file)
-                }
+        for (let key in product) {
+            if (key === "main_imgUrl" ||key === "detail_imgUrl") {
+                console.log(product[key][0])
+                formData.append(key, product[key][0])
             } else {
                 formData.append(key, product[key])
             }
         }
-        // formData 값 확인용
-        // for (const key of formData.keys()) {
-
-        //     console.log("key=",key);
-
-        //   }
-
-        //   for (const value of formData.values()) {
-
-        //     console.log(value);
-
-        //   }
         try {
-            const response = await axios.post('/api/product/regist', formData)
+            const response = axios.post('/api/product/regist', formData)
+            // setSuccess(true)
+            console.log(response)
         } catch (error) {
             catchErrors(error, setError)
         }
@@ -135,7 +123,6 @@ function ProductsRegist() {
             <Container>
                 <Row className="justify-content-md-center">
                     <Col md={8} className="border p-1" style={{ background: '#F7F3F3' }}>
-                    {error && <Alert variant="danger" className="text-center">{error}</Alert>}
                         <h2 className="text-center mt-5 font-weight-bold">상품등록</h2>
                         <Form className="p-5" onSubmit={handleSubmit}>
                             <Form.Group controlId="productNameform">
@@ -205,11 +192,11 @@ function ProductsRegist() {
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label>대표이미지</Form.Label>
-                                <Form.File id="productImageform" name="main_image" onChange={handleChange} />
+                                <Form.File id="productImageform" name="main_imgUrl" onChange={handleChange} />
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label>상세이미지</Form.Label>
-                                <Form.File id="productImageform" name="detail_image" onChange={handleChange} />
+                                <Form.File id="productImageform" name="detail_imgUrl" onChange={handleChange} />
                             </Form.Group>
                             <Button className="float-right" type="submit" style={{ background: '#91877F', borderColor: '#91877F' }}>등록</Button>
                         </Form>

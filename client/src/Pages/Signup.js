@@ -16,7 +16,7 @@ function Signup() {
     const [user, setUser] = useState('')
     const [error, setError] = useState('')
 
-const [validated, setValidated] = useState(false);
+    const [validated, setValidated] = useState(false);
 
     function handleChange(event) {
         const { name, value } = event.target
@@ -41,25 +41,25 @@ const [validated, setValidated] = useState(false);
         } catch (error) {
             catchErrors(error, setError)
         }
-        
-        
+
+
 
     }
-    function checkPassword(event){
-        const p1=user.password
-        const p2=user.password2
+    function checkPassword(event) {
+        const p1 = user.password
+        const p2 = user.password2
 
-        if(p1 !== p2){
+        if (p1 !== p2) {
             event.preventDefault();
             event.stopPropagation();
             alert('비밀번호가 일치하지 않습니다.')
             return false
-            
-        }else{
+
+        } else {
             return true
         }
     }
-        
+
 
     return (
         <div>
@@ -156,7 +156,7 @@ const [validated, setValidated] = useState(false);
                                         value={user.password2}
                                         required
                                         onChange={handleChange}
-                                         />
+                                    />
                                     <Form.Control.Feedback type="invalid"> 비밀번호를 한번 더 입력하세요.
                                     </Form.Control.Feedback>
                                 </Form.Row>
@@ -177,7 +177,7 @@ const [validated, setValidated] = useState(false);
                             <Button
                                 style={{ background: '#91877F', borderColor: '#91877F' }} type="submit" block
                                 onClick={checkPassword}
-                                >
+                            >
                                 Sign Up
                             </Button>
                         </Form>

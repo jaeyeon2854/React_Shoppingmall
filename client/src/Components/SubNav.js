@@ -14,9 +14,9 @@ function SubNav() {
             const response = await axios.get('/api/categorys')
             let list = []
             Object.keys(response.data[0]).forEach((ele) => {
-                const url = "/" + ele.toLowerCase()
+                const url = ele.toLowerCase()
                 list.push(
-                    <Nav.Link href={url}>{ele}</Nav.Link>
+                    <Nav.Link href={`/product/${url}`}>{ele}</Nav.Link>
                 )
             })
             setCategorysDiv(list)

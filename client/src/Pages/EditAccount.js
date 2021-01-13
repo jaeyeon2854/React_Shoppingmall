@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Card, Image, Container, Row, Col, Table, Accordion, Button } from 'react-bootstrap'
+import React, { useState } from 'react'
+import { Card, Image, Container, Row, Col, Table, Accordion, Button, Form } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import person from '../person.svg';
 import mypagetiger from '../mypagetiger.svg';
@@ -9,86 +9,84 @@ import { isAuthenticated } from '../utils/auth';
 
 const INIT_ACCOUNT = {
     name: "",
-    tel: ""
+    avatar: { person }
 }
 
-function Account() {
+function EditAccount() {
+
     const [account, setAccount] = useState(INIT_ACCOUNT)
     const [error, setError] = useState("")
 
-    const userId = isAuthenticated()
 
+    const user = isAuthenticated()
 
-    async function getUsername(user) {
-        try {
-            const response = await axios.get(`/api/users/account/${user}`)
-            setAccount(response.data)
-            console.log('555555555', response.data);
-        } catch (error) {
-            catchErrors(error, setError)
-            console.log('error2222', error)
+    const handleChange = (event) => {
+        const { name, value, files } = event.target
+        if (files) {
+            for (const file of files) {
+                console.log("name=", name, "value=", value, 'file=', file);
+            }
+            setAccount({ ...account, [name]: files })
+        } else {
+            console.log("name=", name, "value=", value);
+            setAccount({ ...account, [name]: value })
         }
     }
 
-    useEffect(() => {
-        getUsername(userId)
-    }, [userId])
+    const handleSubmit = async (event) => {
+        event.preventDefault()
+        //form-data에 설정
+        const formData = new FormData()
+        formData.append('name', account.name)
+        formData.append('avatar', account.avatar[0])
 
 
-    // const [account, setAccount] = useState(INIT_ACCOUNT)
-    // const [error, setError] = useState("")
-
-
-    // const user = isAuthenticated()
-
-
-    // async function getAccount(user) {
-    //     console.log(user);
-    //     try {
-    //         const response = await axios.get("/api/auth/login")
-    //         setAccount(response.data)
-    //         console.log(response.data);
-    //     } catch (error) {
-    //         catchErrors(error, setError)
-    //     }
-    // }
-    // useEffect(() => {
-    //     getAccount(user)
-    // }, [user])
+        //서버전송
+        try {
+            if (user) {
+                console.log(user)
+                const response = await axios.put(`/api/users/account/${user}`, formData)
+            }
+        } catch (error) {
+            catchErrors(error, setError)
+        }
+    }
 
 
     return (
-
-
         <Container className="px-3">
             <h3 className="my-4 mx-3 font-weight-bold">My Page</h3>
             <Card md={3} className="p-1 mb-4" style={{ background: '#F7F3F3' }}>
+                <Form onSubmit={handleSubmit}></Form>
+
+
 
                 <Row className="p-2">
                     <Col md={4} className="d-flex align-content-center justify-content-center">
                         <Button type="button" variant="outline-light">
-                            <Image src={person} roundedCircle className="img-thumbnail" width={"170rem"} />
+                            <Image src={account.avatarUrl && `/image/${account.avatarUrl}`} roundedCircle className="img-thumbnail" width={"170rem"} />
                         </Button>
                     </Col>
                     <Col >
                         <Row className="mt-4 text-center">
                             <Col>
                                 <h2>
-                                    <strong>{account.name}</strong> <small>({account.id}){" "}님</small>
+                                    <strong>{person.name}</strong> <small>님</small>
                                 </h2>
                             </Col>
                         </Row>
                         <Row className="px-3">
                             <Card.Body className="p-2 text-center">
-                                <h4><Link to="/" class="link-warning">
+                                <h4><Link to="/">
                                     <strong title="홈으로">
+                                    <Form.File id="exampleFormControlFile1" label="Example file input" />
                                         <Image src={mypagetiger} width={"30rem"} roundedCircle className="img-thumbnail" >
-                                        </Image>KU#
-                  </strong>
+                                        </Image>KU#</strong>
+                                        
                                 </Link>
                                     {/* 홈페이지로 돌아가기 */}
-                를 방문해주신 <em>{account.name}</em> 님,<br></br>
-                진심으로 환영합니다! 즐거운 쇼핑 되세요.</h4>
+                                    를 방문해주신 <em> {account.name}</em> 님,<br></br>
+                                    진심으로 환영합니다! 즐거운 쇼핑 되세요.</h4>
                             </Card.Body>
                         </Row>
                         <Row className="mr-1 text-muted d-flex justify-content-end">
@@ -138,4 +136,4 @@ function Account() {
 
 
 
-export default Account
+export default EditAccount

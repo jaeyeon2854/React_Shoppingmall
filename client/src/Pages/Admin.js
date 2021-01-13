@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import Pagination from '../Components/Pagination';
 import search from '../search.svg';
 import { Row, Form, FormControl, Button, Card, Container } from 'react-bootstrap';

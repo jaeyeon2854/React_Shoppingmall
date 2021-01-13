@@ -47,7 +47,7 @@ function ProductsList() {
                         ))}</div>
                     </Col>
                 </Row>
-                <Row className="justify-content-between mx-0 my-5">
+                <Row className="justify-content-end mx-0 my-5">
                     <Form as={Row} onSubmit={handleSubmit} className="justify-content-end mx-0">
                         <Dropdown>
                             <Dropdown.Toggle className="mx-2">정렬</Dropdown.Toggle>

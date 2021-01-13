@@ -18,8 +18,6 @@ function App() {
 
   return (
     <div>
-      {/* {console.log("match.params=",match.params(product))} */}
-
       <Router>
         <MainNav />
         <SubNav />
@@ -27,7 +25,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
-          {/* <Route path="/product" component={Product} /> */}
+          <Route path="/product" component={Product} />
           <Route path="/product/:product" component={ProductsList} />
           <Route path="/admin" component={Admin} />
           <Route path="/regist" component={ProductRegist} />

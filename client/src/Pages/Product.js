@@ -21,7 +21,7 @@ function Product() {
     const [cart, setCart] = useState(INIT_PRODUCT)
     const [error, setError] = useState('')
     const [selected, setSelected] = useState({ sizes: false, colors: false })
-    const [n, setN] = useState(1)
+    const [price, setPrice] = useState(0)
 
     useEffect(() => {
         if (selected.sizes === true && selected.colors === true) {
@@ -40,7 +40,7 @@ function Product() {
         preCart.push(cart)
         selected.sizes = false
         selected.colors = false
-        setN(n+1)
+        setPrice(product.price+price)
     }
     function handleChange(e) {
         const { name, value } = e.target
@@ -90,9 +90,9 @@ function Product() {
     }
 
     async function addCart() {
-        // color, size, count, productId(productlist에서 props), userId(로컬) 를 보내줌
+        // preCart(color, size, count), productId(productlist에서 props), userId(로컬) 를 보내줌
         try {
-            // setError('')
+            setError('')
             const response = await axios.put('/api/cart/addcart', {
                 userId: localStorage.getItem('loginStatus'),
                 productId: "a8f4d63ead77717f940a2b27deb707a6",
@@ -102,13 +102,7 @@ function Product() {
         } catch (error) {
             catchErrors(error, setError)
         }
-
     }
-
-
-    // useEffect(() => {
-    //     handleCreate()
-    // }, [product])
 
     return (
         <div>
@@ -128,11 +122,11 @@ function Product() {
             </style>
             <Row className="justify-content-center mt-5 mx-0">
                 <Col sm={11} md={4}>
-                    <img src="https://img.sonyunara.com/files/goods/65976/1601953605_0.jpg" style={{ objectFit: "contain", width: "100%" }} />
+                    <img src="/images/a8f4d63ead77717f940a2b27deb707a6" style={{ objectFit: "contain", width: "100%" }} />
                 </Col>
                 <Col sm={11} md={4} className="align-middle mt-4">
-                    <h3 className="mb-4">sop682 리본끈셋원피스</h3>
-                    <h5 className="mb-4">가격 : 14,000원</h5>
+                    <h3 className="mb-4">스키니진</h3>
+                    <h5 className="mb-4">가격 : 12000원</h5>
                     <Form style={{ borderBottom: "1px solid" }}>
                         <Form.Group style={{ borderBottom: "1px solid", paddingBottom: "2rem" }}>
                             <Form.Label>색상</Form.Label>
@@ -155,7 +149,7 @@ function Product() {
                         ))}
                         <Row className="justify-content-between mx-0 my-3" style={{ width: "100%" }}>
                             <Col>총 금액</Col>
-                            <Col className="text-right">14,000원</Col>
+                            <Col className="text-right">{price}원</Col>
                         </Row>
                         <Row className="justify-content-between mx-0 my-3" style={{ width: "100%" }}>
                             <Button onClick={addCart} style={{ width: "49%" }}>장바구니</Button>

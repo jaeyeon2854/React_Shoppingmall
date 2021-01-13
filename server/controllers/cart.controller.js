@@ -1,33 +1,21 @@
 import Cart from "../schemas/Cart.js";
 
 const addcart = async (req, res) => {
-    // console.log(req.body)
     const { userId, products} = req.body
     try {
         const cart = await Cart.findOne({ userId: userId })
-        console.log(cart)
-        // const newProduct = { products: products }
-        // const newProduct = {...newProduct}
-        // console.log(newProduct)
-        console.log(products)
         await Cart.updateOne(
             { _id: cart._id },
-            // { $addToSet: { products: newProduct } }
             {$set: {products: products}}
         )
-        res.status(200).send('Cart updated')
-
+        res.status(200).send('카트에 저장되었습니다.')
     } catch (error) {
         console.log(error)
-        res.status(500).send('죄송합니다. 다시 입력해 주십시오.')
+        res.status(500).send('카트에 저장할 수 없습니다.')
     }
 }
 
 const showcart = async (req, res) => {
-    // const {userId} = req.body
-    // console.log(req.cart)
-    // console.log(req.id)
-
     try {
         const cart = await Cart.findOne({ userId: req.id }).populate({
             path: 'products.productId',
@@ -44,9 +32,8 @@ const deletecart = async (req, res) => {
     console.log(req.body)
     const { cartId } = req.body
     try {
-        await Cart.remove({ _id: cartId })
+        await Cart.deleteOne({ _id: cartId })
         res.send("삭제완료")
-        // res.json()
     } catch (error) {
         console.log(error)
         res.status(500).send('해당 카트를 삭제하지 못했습니다.')

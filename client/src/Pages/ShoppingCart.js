@@ -2,9 +2,30 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Card, Button, Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
+import catchErrors from '../utils/catchErrors';
+import { isAuthenticated } from '../utils/auth'
+import CartCard from '../Components/CartCard';
+
+const INIT_PRODUCT = [{
+    pro_name: '체크셔츠',
+    price: 21000,
+    count: 1,
+    main_category: 'TOP',
+    sub_category: ['SHIRT'],
+    sizes: ['XL', 'L', 'M', 'S'],
+    colors: ['베이지', '블랙', '카키'],
+    main_image: 'e46b641ae11e6568c86f689d3dce7748'
+}]
 
 function ShoppingCart() {
     const [num, setNum] = useState(0)
+    const [error, setError] = useState('')
+    const [cart, setCart] = useState(INIT_PRODUCT)
+    const user = isAuthenticated()
+
+    useEffect(() => {
+        getCart()
+    }, [user])
 
     function plusNum() {
         setNum(num + 1)
@@ -18,46 +39,41 @@ function ShoppingCart() {
 
         }
     }
-    function deleteCart() {
+    async function deleteCart(e) {
         //장바구니 DB에서 해당 항목 삭제 
+        console.log(e.target.name)
+        try {
+            const response = await axios.post('/api/cart/deletecart', { cartId: e.target.name })
+            console.log(response.data)
+        } catch (error) {
+            catchErrors(error, setError)
+        }
+
         console.log('카트에 담긴 항목을 삭제했습니다.')
     }
 
-    // async function getCart(){
-    //     const response = await axios.get('/')
-    // }
+    async function getCart() {
+        // const userId= localStorage.getItem('loginStatus')
+        try {
+            const response = await axios.get(`/api/cart/showcart/${user}`)
+            console.log(response.data)
+            setCart(response.data)
+        } catch (error) {
+            catchErrors(error, setError)
+        }
+    }
 
     return (
         <div>
-            {/* {getCart} */}
+            {/* {getCart()} */}
+            {/* {console.log(user)} */}
+            {/* {console.log(cart)} */}
             <Container className="justify-content-center">
                 <h3 className="my-5 font-weight-bold text-center">장바구니</h3>
                 <div>
                     <h4 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>주문상품정보</h4>
-                    <Card>
-                        <Row className="mx-1">
-                            <Col xs={2} sm={2} className="text-center my-auto">
-                                <input className="" type="checkbox" id="exampleCheck1" />
-                            </Col>
-                            <Col className="text-center">
-                                <Card.Img className="img-fluid" variant="top" src="icon/asd.jpg" style={{ width: '20rem' }} />
-                            </Col>
-                            <Col md={6} className="p-2">
-                                <Card.Body>
-                                    <input type="image" alt="삭제버튼" src="https://img.icons8.com/fluent-systems-regular/24/000000/close-window.png" className="float-right" onClick={deleteCart} />
-                                    <Card.Title className="font-weight-bold mt-3">제품명</Card.Title>
-                                    <Card.Text>가격</Card.Text>
-                                    <Card.Text>옵션</Card.Text>
-                                    <Card.Text>수량</Card.Text>
-                                    <div>
-                                        <input type="image" alt="마이너스" src="https://img.icons8.com/ios-glyphs/20/000000/minus-math.png" className="align-middle" onClick={minusNum} />
-                                        <input type="text" style={{ width: '30px' }} className="text-center align-middle mx-1" placeholder="1" value={num} readOnly></input>
-                                        <input type="image" alt="플러스" src="https://img.icons8.com/ios-glyphs/20/000000/plus-math.png" className="align-middle" onClick={plusNum} />
-                                    </div>
-                                </Card.Body>
-                            </Col>
-                        </Row>
-                    </Card>
+                    <CartCard cart={cart} deleteCart={deleteCart} minusNum={minusNum} plusNum={plusNum} num={num} />
+
                 </div>
                 <div className="p-5 m-5" style={{ background: '#F7F3F3' }}>
                     <ul className="pl-0" style={{ listStyle: 'none' }}>

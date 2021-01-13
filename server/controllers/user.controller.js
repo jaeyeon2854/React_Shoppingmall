@@ -4,9 +4,9 @@ import isLength from 'validator/lib/isLength.js';
 import bcrypt from 'bcryptjs';
 
 const signup = async (req, res) => {
-
-    const { name, number1, number2, id, password, tel } = req.body
-
+    
+    const { name, number1, number2, id, password,  tel } = req.body
+    
     console.log(req.body)
     try {
         if (!isLength(password, { min: 8, max: 15 })) {

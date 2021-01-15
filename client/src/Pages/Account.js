@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Card, Image, Container, Row, Col, Table, Accordion, Button, Form, Modal, Alert } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
-import person from '../person.svg';
-import mypagetiger from '../mypagetiger.svg';
 import axios from 'axios'
 import catchErrors from '../utils/catchErrors';
 import { isAuthenticated } from '../utils/auth';
@@ -95,16 +93,14 @@ function Account() {
         <Container className="px-3">
             <h3 className="my-4 mx-3 font-weight-bold">My Page</h3>
             <Card md={3} className="p-1 mb-4" style={{ background: '#F7F3F3' }}>
-
                 <Row className="p-2">
                     <Col md={5} className="d-flex align-content-center justify-content-center">
-
                         <Button variant="outline-light" onClick={handleShow}>
                             {account.avatarUrl ? (
                                 <Image src={account.avatarUrl && `/image/${account.avatarUrl}`} className="img-thumbnail"
                                     roundedCircle style={{ objectFit: "cover", width: "10rem", height: "10rem" }} />
                             ) : (
-                                    <Image src={person} className="img-thumbnail"
+                                    <Image src="/icon/person.svg" className="img-thumbnail"
                                         roundedCircle style={{ objectFit: "cover", width: "10rem", height: "10rem" }} />
                                 )}
                         </Button>
@@ -140,7 +136,7 @@ function Account() {
                             <Card.Body className="p-2 text-center">
                                 <h4><Link to="/" class="link-warning">
                                     <strong title="홈으로">
-                                        <Image src={mypagetiger} width={"30rem"} roundedCircle className="img-thumbnail" >
+                                        <Image src="/icon/mypagetiger.svg" width={"30rem"} roundedCircle className="img-thumbnail" >
                                         </Image>KU#
                   </strong>
                                 </Link>
@@ -187,12 +183,8 @@ function Account() {
                     </Table>
                 </Row>
             </Accordion>
-
         </Container >
-
     )
-
-
 }
 
 export default Account

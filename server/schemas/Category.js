@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 const { Array } = mongoose.Schema.Types
 
-const CategorysSchema = new mongoose.Schema ({
+const CategoriesSchema = new mongoose.Schema ({
     "DRESS": {
         type: Array,
         required: true
@@ -33,4 +33,4 @@ const CategorysSchema = new mongoose.Schema ({
     },
 })
 
-export default mongoose.models.Categorys || mongoose.model('Categorys', CategorysSchema)
+export default mongoose.models.Categories || mongoose.model('Categories', CategoriesSchema)

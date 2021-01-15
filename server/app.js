@@ -28,7 +28,7 @@ app.use('/images', express.static('uploads/'))
 
 // app.use('/', indexRouter);
 app.use('/', kakaopayRoutes)
-app.use('/api/categorys',categoryRouter)
+app.use('/api/categories',categoryRouter)
 app.use('/api/users',userRouter)
 app.use('/api/auth',authRouter)
 app.use('/api/product', productRouter)

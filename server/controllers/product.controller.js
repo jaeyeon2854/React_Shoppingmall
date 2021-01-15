@@ -41,12 +41,10 @@ const getlist=(req,res)=>{
 
 const categoryId = async (req, res, next, category) => {
     try {
-        console.log(category)
-        const productslist = await Product.find({"main_category": `${category}`})
+        const productslist = await Product.find({main_category: category})
         if (!productslist) {
             res.status(404).send('상품을 찾을 수 없습니다.')
         }
-        console.log("list=",productslist)
         req.productslist = productslist
         next()
     } catch (error) {
@@ -63,7 +61,7 @@ const subgetlist=(req,res)=>{
 }
 const subcategoryId = async (req, res, next, subcategory) => {
     try {
-        const subproductslist = await Product.find({"sub_category":`${subcategory}`})
+        const subproductslist = await Product.find({sub_category:subcategory})
         if (!subproductslist) {
             res.status(404).send('상품을 찾을 수 없습니다.')
         }

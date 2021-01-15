@@ -13,7 +13,6 @@ import Account from './Pages/Account';
 import MainNav from './Components/MainNav';
 import SubNav from './Components/SubNav';
 
-
 function App() {
 
   return (
@@ -24,8 +23,8 @@ function App() {
         <Route exact path="/" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        {/* <Route path="/product" component={Product} /> */}
-        <Route path="/product/:product" component={ProductsList} />
+        <Route path="/products/:productId" component={Product} />
+        <Route path="/categories/:main" component={ProductsList} />
         <Route path="/admin" component={Admin} />
         <Route path="/regist" component={ProductRegist} />
         <Route path="/shoppingcart" component={ShoppingCart} />
@@ -36,8 +35,6 @@ function App() {
       </Switch>
     </Router>
   )
-
-
 }
 
 export default App;

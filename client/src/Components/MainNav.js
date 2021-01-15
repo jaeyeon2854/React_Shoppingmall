@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
-import { handleLogout, isAuthenticated } from '../utils/auth'
+import { handleLogout, isAuthenticated } from '../utils/auth';
 
 function MainNav() {
     const user = isAuthenticated()

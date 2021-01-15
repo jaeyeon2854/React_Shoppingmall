@@ -32,7 +32,7 @@ function ProductsRegist() {
 
     useEffect(async () => {
         try {
-            const response = await axios.get('/api/categorys')
+            const response = await axios.get('/api/categories/main')
             const data = response.data[0]
             setCategorys([Object.keys(data), Object.values(data)])
         } catch (error) {

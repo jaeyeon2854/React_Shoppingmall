@@ -16,7 +16,7 @@ const INIT_PRODUCT = {
 }
 const preCart = []
 
-function Product() {
+function Product({ match, location }) {
     const [product, setProduct] = useState(INIT_PRODUCT)
     const [cart, setCart] = useState(INIT_PRODUCT)
     const [error, setError] = useState('')
@@ -63,7 +63,6 @@ function Product() {
     }
 
     function handleCreate() {
-        console.log("실행", "cart=", product)
         // if (product !== undefined) {
         //     if (product.colors !== "" && product.sizes !== "") {
         //         cart.push(
@@ -105,14 +104,13 @@ function Product() {
 
     }
 
-
     // useEffect(() => {
     //     handleCreate()
     // }, [product])
 
     return (
         <div>
-            {console.log(cart)}
+            {console.log("실행", "product=", product)}
             <style type="text/css">
                 {`
                 .btn {

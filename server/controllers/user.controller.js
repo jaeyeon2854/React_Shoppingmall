@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs';
 
 const signup = async (req, res) => {
     
-    const { name, number1, number2, id, password,  tel } = req.body
+    const { name, number1, number2, id, password,  tel ,role} = req.body
     
     console.log(req.body)
     try {
@@ -27,7 +27,7 @@ const signup = async (req, res) => {
             password: hash,
             tel,
         }).save()
-        await new Cart({ userId: newUser._id }).save()
+        await new Cart({ userId: newUser._id,role}).save()
         console.log(newUser)
         res.json(newUser)
 

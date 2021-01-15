@@ -7,11 +7,11 @@ const login = async(req,res)=>{
     const {id, password} =req.body
     console.log(id,password)
     try{
-        const user=await User.findOne({id}).select('+password')
+        const user=await User.findOne({id}).select('password role name')
+        console.log('u=',user)
         if(!user){
             return res.status(404).send(`${id}가 존재하지 않습니다.`)
-
-        }
+       }
         const passwordMatch= await bcrypt.compare(password, user.password)
 
         if(passwordMatch){
@@ -23,7 +23,8 @@ const login = async(req,res)=>{
                 httpOnly:true,
                 secure:config.env ==='production'
             })
-            res.json({userId:user._id})
+            res.json({userId:user._id, role: user.role, name: user.name})
+
         }else{
             res.status(401).send('비밀번호가 일치하지 않습니다.')
         }

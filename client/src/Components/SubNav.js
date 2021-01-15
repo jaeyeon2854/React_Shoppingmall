@@ -11,7 +11,7 @@ function SubNav() {
 
     useEffect(async () => {
         try {
-            const response = await axios.get('/api/categories')
+            const response = await axios.get('/api/categories/main')
             let list = []
             Object.keys(response.data[0]).forEach((ele) => {
                 const url = ele.toLowerCase()

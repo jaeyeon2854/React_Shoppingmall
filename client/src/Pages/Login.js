@@ -35,7 +35,7 @@ function Login() {
         try {
             setError('')
             const response=await axios.post('/api/auth/login', user)
-            handleLogin(response.data.userId)
+            handleLogin(response.data)
             setSuccess(true)
         } catch (error) {
             catchErrors(error, setError)

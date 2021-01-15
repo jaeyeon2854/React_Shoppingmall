@@ -1,6 +1,5 @@
 import React from 'react';
 import Pagination from '../Components/Pagination';
-import search from '../search.svg';
 import { Row, Form, FormControl, Button, Card, Container } from 'react-bootstrap';
 
 function Admin() {
@@ -33,7 +32,7 @@ function Admin() {
                 <Row as={Form} onSubmit={handleSubmit} className="justify-content-end mx-0 my-5">
                     <FormControl type="text" placeholder="Search" style={{ width: "13rem" }} />
                     <Button type="submit" className="px-2">
-                        <img src={search} width="20" height="20" />
+                        <img src="icon/search.svg" width="20" height="20" />
                     </Button>
                     <Button sm={2} xs={6} type="button" href="/regist" className="ml-1">상품 등록</Button>
                 </Row>

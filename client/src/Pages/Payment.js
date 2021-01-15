@@ -210,9 +210,6 @@ function Payment() {
                     <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>주문상품정보</h5>
                     <Card >
                         <Row className="mx-1">
-                            <Col xs={2} sm={2} className="text-center my-auto">
-                                <input className="" type="checkbox" id="exampleCheck1" />
-                            </Col>
                             <Col className="text-center">
                                 <Card.Img className="img-fluid" variant="top" src="img/asd.jpg" style={{ width: '20rem' }} />
                             </Col>
@@ -254,7 +251,7 @@ function Payment() {
                     <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>결제수단</h5>
                     <div className="text-center mt-5">
                         <Button variant="success" className="align-top" onClick={handleClick} >무통장입금</Button>
-                        <input type="image" alt="카카오페이결제" src="img/payment_icon_yellow_small.png" onClick={kakaopay} />
+                        <input type="image" alt="카카오페이결제" src="icon/payment_icon_yellow_small.png" onClick={kakaopay} />
                     </div>
                     {paymentWay}
                 </div>

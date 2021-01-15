@@ -6,6 +6,7 @@ import option from '../option.svg';
 import { handleLogout, isAuthenticated } from '../utils/auth'
 
 function MainNav() {
+    
     const user = isAuthenticated()
 
     return (

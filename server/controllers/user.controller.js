@@ -6,7 +6,7 @@ import multer from "multer";
 const uploadimg = multer({ dest: 'uploads/' });
 
 const imgUpload = uploadimg.fields([
-    { name: 'main_image', maxCount: 1 }
+    { name: 'avatar', maxCount: 1 }
 ])
 
 const username = (req, res) => {
@@ -14,14 +14,14 @@ const username = (req, res) => {
     console.log(req.account)
 }
 
-const userById = async (req, res, next, id) => {  //순서가 정해져있음.
+const userById = async (req, res, next, id) => {
     try {
         const user = await User.findById(id)
         if (!user) {
             res.status(404).send('사용자를 찾을 수 없습니다')
         }
         req.account = user
-        next()   //함수 , 넥스트를 만나면 아래로 안내려가고 바로 리턴을 한다. 그리고 끝나는게 아니라 다음 미들웨어가 있으면 다음 미들웨어로 넘긴다.
+        next()
     } catch (error) {
         console.log(error);
         res.status(500).send('사용자 아이디 검색 실패')
@@ -62,11 +62,21 @@ const signup = async (req, res) => {
 
 
 const update = async (req, res) => {
+    console.log("req", req.body)
     try {
-        const avatar = req.files['avatar'][0]
-        user.avatarUrl = avatar.filename
-        const updateUser = await avatar.save()
-        res.json(updateUser)
+        if (req.body.avatar == '') {
+            const user = req.account
+            user.avatarUrl = req.body.avatar
+            const updateUser = await user.save()
+            res.json(updateUser)
+        } else {
+            const avatar = req.files['avatar'][0]
+            const user = req.account
+            user.avatarUrl = avatar.filename
+            const updateUser = await user.save()
+            res.json(updateUser)
+        }
+        
     } catch (error) {
         console.log(error);
         res.status(500).send('이미지 업데이트 실패')

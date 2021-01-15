@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Card, Image, Container, Row, Col, Table, Accordion, Button } from 'react-bootstrap'
+import { Card, Image, Container, Row, Col, Table, Accordion, Button, Form, Modal, Alert } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import person from '../person.svg';
 import mypagetiger from '../mypagetiger.svg';
@@ -9,24 +9,25 @@ import { isAuthenticated } from '../utils/auth';
 
 const INIT_ACCOUNT = {
     name: "",
-    tel: ""
+    avatarUrl: ''
 }
+
 
 function Account() {
     const [account, setAccount] = useState(INIT_ACCOUNT)
     const [error, setError] = useState("")
-
     const userId = isAuthenticated()
 
 
     async function getUsername(user) {
+        // console.log("tlg")
         try {
             const response = await axios.get(`/api/users/account/${user}`)
             setAccount(response.data)
-            console.log('555555555', response.data);
+            // console.log('555555555', response.data);
         } catch (error) {
             catchErrors(error, setError)
-            console.log('error2222', error)
+            // console.log('error2222', error)
         }
     }
 
@@ -34,41 +35,98 @@ function Account() {
         getUsername(userId)
     }, [userId])
 
+    const [show, setShow] = useState(false);
 
-    // const [account, setAccount] = useState(INIT_ACCOUNT)
-    // const [error, setError] = useState("")
+    const handleClose = () => setShow(false)
+
+    const handleShow = () => setShow(true)
 
 
-    // const user = isAuthenticated()
+    const handleChange = (event) => {
+        const { name, value, files } = event.target
+        if (files) {
+            for (const file of files) {
+                // console.log("name=", name, "value=", value, 'file=', file);
+            }
+            setAccount({ ...account, [name]: files })
+        } else {
+            console.log("name=", name, "value=", value);
+            setAccount({ ...account, [name]: value })
+        }
+    }
+
+    const handleBasic = async (event) => {
+        const formData = new FormData()
+        formData.append('avatar', '')
+        try {
+            if (userId) {
+                const response = await axios.put(`/api/users/account/${userId}`, formData)
+                console.log(response.data)
+                window.location.reload()
+            }
+        } catch (error) {
+            catchErrors(error, setError)
+        }
+        setShow(false)
+    }
 
 
-    // async function getAccount(user) {
-    //     console.log(user);
-    //     try {
-    //         const response = await axios.get("/api/auth/login")
-    //         setAccount(response.data)
-    //         console.log(response.data);
-    //     } catch (error) {
-    //         catchErrors(error, setError)
-    //     }
-    // }
-    // useEffect(() => {
-    //     getAccount(user)
-    // }, [user])
-
+    const handleSubmit = async (event) => {
+        event.preventDefault()
+        if (account.avatar) {
+            const formData = new FormData()
+            formData.append('avatar', account.avatar[0])
+            try {
+                if (userId) {
+                    const response = await axios.put(`/api/users/account/${userId}`, formData)
+                    console.log(response.data)
+                    window.location.reload()
+                }
+            } catch (error) {
+                catchErrors(error, setError)
+            }
+        } else {
+            alert("파일을 선택해주세요.")
+        } 
+    }
 
     return (
-
 
         <Container className="px-3">
             <h3 className="my-4 mx-3 font-weight-bold">My Page</h3>
             <Card md={3} className="p-1 mb-4" style={{ background: '#F7F3F3' }}>
 
                 <Row className="p-2">
-                    <Col md={4} className="d-flex align-content-center justify-content-center">
-                        <Button type="button" variant="outline-light">
-                            <Image src={person} roundedCircle className="img-thumbnail" width={"170rem"} />
+                    <Col md={5} className="d-flex align-content-center justify-content-center">
+
+                        <Button variant="outline-light" onClick={handleShow}>
+                            {account.avatarUrl ? (
+                                <Image src={account.avatarUrl && `/image/${account.avatarUrl}`} className="img-thumbnail"
+                                    roundedCircle style={{ objectFit: "cover", width: "10rem", height: "10rem" }} />
+                            ) : (
+                                    <Image src={person} className="img-thumbnail"
+                                        roundedCircle style={{ objectFit: "cover", width: "10rem", height: "10rem" }} />
+                                )}
                         </Button>
+                        <Modal show={show} onHide={handleClose}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>이미지를 변경하시겠습니까?</Modal.Title>
+                            </Modal.Header>
+                            <Form onSubmit={handleSubmit}>
+                                <Modal.Body>
+                                    <Form.Control type="file" name="avatar" onChange={handleChange} />
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <Col className="px-0">
+                                        <Button variant="outline-secondary" onClick={handleBasic}
+                                            className="d-flex justify-content-start"><small>기본이미지로</small></Button>
+                                        {/* 기본이미지로 보내기 */}
+                                    </Col>
+                                    <Button variant="secondary" onClick={handleClose}>취소</Button>
+                                    <Button variant="primary" type="submit" onClick={handleClose}>저장</Button>
+                                </Modal.Footer>
+                            </Form>
+                        </Modal>
                     </Col>
                     <Col >
                         <Row className="mt-4 text-center">
@@ -134,8 +192,7 @@ function Account() {
 
     )
 
+
 }
-
-
 
 export default Account

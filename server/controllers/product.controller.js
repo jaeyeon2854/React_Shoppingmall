@@ -83,4 +83,4 @@ const subcategoryId = async (req, res, next, subcategory) => {
     }
 }
 
-export default { imageUpload, regist, categoryId, getlist, subcategoryId, subgetlist }
+export default { imageUpload, regist, categoryId, getlist, subcategoryId, subgetlist, getToHome }

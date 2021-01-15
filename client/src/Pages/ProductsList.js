@@ -1,24 +1,28 @@
-import React, { useState, useEffect, useRef } from 'react';
-import Pagination from '../Components/Pagination';
-import { Container, Row, Col, Form, FormControl, Button, Card, Dropdown } from 'react-bootstrap';
+import React, { useState, useEffect} from 'react';
+import { Container, Row, Col, Form, FormControl, Button, Dropdown } from 'react-bootstrap';
 import ListCard from '../Components/ListCard';
 import axios from 'axios';
 import catchError from '../utils/catchErrors'
-import {isAuthenticated} from '../utils/auth'
 import catchErrors from '../utils/catchErrors';
 
 function ProductsList(props) {
     const [productlist, setProductlist] = useState([])
     const [error, setError] = useState('')
-    const [category, setCategory] = useState(props.match.params.product)
-    const [subcategory, setSubcategory] = useState(['PADDED JACKET', 'JACKET', 'JUMPER', 'COAT', 'FLEECE', 'CARDIGAN / VEST'])
-    const [click, setClick] = useState(true)
+    const [category, setCategory] = useState('')
+    const [subcategory, setSubcategory] = useState([])
 
-    const user=isAuthenticated()
 
     useEffect(() => {
-        return getProductlist(user)         
-    }, [user])
+        setCategory(props.match.params.product.toUpperCase())
+    }, [props.match.params.product])
+    
+    useEffect(() => {
+        getProductlist()         
+    }, [category])
+
+    useEffect(async() => {
+        getsubproductlist()
+    }, [subcategory])
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -26,7 +30,6 @@ function ProductsList(props) {
 
     async function getProductlist() {
         try {
-            console.log('dd=',category)
             const response = await axios.get(`/api/product/getproduct/${category}`)
             console.log(response.data)
             setProductlist(response.data)
@@ -52,9 +55,10 @@ function ProductsList(props) {
 
     return (
         <div>
-            {console.log("match.params=",props.match.params.product)}
+            {console.log("match.params=",category)}
+            {console.log("props=",props)}
             <style type="text/css">
-                {`
+                {`  
                 .btn {
                     background-color: #CDC5C2;
                     border-color: #CDC5C2;
@@ -69,7 +73,7 @@ function ProductsList(props) {
             <Container>
                 <Row className="justify-content-center" >
                     <Col sm={10} xs={12} >
-                        <h1 style={{ fontSize: "3rem" }} className="text-center">OUTER</h1>
+                        <h1 style={{ fontSize: "3rem" }} className="text-center">{category}</h1>
                         <div className="text-center">{subcategory.map((ele) => (
                             <Button className="m-1" onClick={handleClick}>{ele}</Button>
                         ))}</div>
@@ -89,13 +93,13 @@ function ProductsList(props) {
                         <Form as={Row} onSubmit={handleSubmit} className="justify-content-end mx-0">
                             <FormControl type="text" placeholder="Search" style={{ width: "13rem" }} />
                             <Button type="submit" className="search px-2">
-                                <img src="icon/search.svg" width="20" height="20" />
+                                <img src="/icon/search.svg" width="20" height="20" />
                             </Button>
                         </Form>
                     </Form>
                 </Row>
                 <Row md={8} sm={12} className="justify-content-start m-2">
-                    <ListCard productlist={productlist} />
+                    <ListCard productlist={productlist}/>
                 </Row>
             </Container>
             {/* <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate} /> */}

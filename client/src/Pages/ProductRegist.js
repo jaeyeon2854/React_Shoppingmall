@@ -3,7 +3,6 @@ import { Redirect } from 'react-router-dom';
 import { Row, Col, Button, Form, Container, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import catchErrors from '../utils/catchErrors';
-import { Redirect } from 'react-router-dom';
 
 let color = {}
 let preColors = []

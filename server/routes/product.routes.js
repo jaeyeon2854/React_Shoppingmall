@@ -7,8 +7,8 @@ const router = express.Router()
 router.route('/regist')
     .post(productCtrl.imageUpload, productCtrl.regist)
 
-// router.route('/getproduct/:category')
-//     .get(productCtrl.getlist)
+router.route('/getproduct/:category')
+    .get(productCtrl.getlist)
 
 router.route('/getproduct/:subcategory')
     .get(productCtrl.subgetlist)

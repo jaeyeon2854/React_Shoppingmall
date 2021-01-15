@@ -98,18 +98,18 @@ function ProductsRegist() {
         }
         product["sizes"] = sizes
         const formData = new FormData();
-        for (const key in product) {
-            console.log("product[key]=", product[key])
-            if (key == "main_image" || key == "detail_image") {
-                for (const file of product[key]) {
-                    formData.append(key, file)
-                }
+        for (let key in product) {
+            if (key === "main_image" || key === "detail_image") {
+                console.log(product[key][0])
+                formData.append(key, product[key][0])
             } else {
                 formData.append(key, product[key])
             }
         }
         try {
-            const response = await axios.post('/api/product/regist', formData)
+            const response = axios.post('/api/product/regist', formData)
+            // setSuccess(true)
+            console.log(response)
         } catch (error) {
             catchErrors(error, setError)
         }

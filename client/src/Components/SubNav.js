@@ -16,7 +16,7 @@ function SubNav() {
             Object.keys(response.data[0]).forEach((ele) => {
                 const url = ele.toLowerCase()
                 list.push(
-                    <Nav.Link as={Link} to={`/product/${url}`}>{ele}</Nav.Link>
+                    <Nav.Link as={Link} to={`/categories/${url}`}>{ele}</Nav.Link>
                 )
             })
             setCategorysDiv(list)

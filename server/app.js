@@ -24,6 +24,7 @@ app.use(express.json())
 app.use(cors())
 app.use(express.static(path.join(process.cwd(), 'dist')))
 // app.use(bodyParser.urlencoded({ extended: true }))
+app.use('/images', express.static('uploads/'))
 
 // app.use('/', indexRouter);
 app.use('/', kakaopayRoutes)
@@ -31,7 +32,7 @@ app.use('/api/categorys',categoryRouter)
 app.use('/api/users',userRouter)
 app.use('/api/auth',authRouter)
 app.use('/api/product', productRouter)
-app.use('/api/addcart', cartRouter)
+app.use('/api/cart', cartRouter)
 
 app.listen(config.port, () => {
   console.info('Server started on port %s.', config.port)

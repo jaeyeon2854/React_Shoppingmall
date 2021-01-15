@@ -87,7 +87,7 @@ function Account() {
             }
         } else {
             alert("파일을 선택해주세요.")
-        } 
+        }
     }
 
     return (
@@ -98,7 +98,6 @@ function Account() {
 
                 <Row className="p-2">
                     <Col md={5} className="d-flex align-content-center justify-content-center">
-
                         <Button variant="outline-light" onClick={handleShow}>
                             {account.avatarUrl ? (
                                 <Image src={account.avatarUrl && `/image/${account.avatarUrl}`} className="img-thumbnail"

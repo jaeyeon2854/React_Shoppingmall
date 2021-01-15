@@ -34,7 +34,7 @@ function SubNav() {
                 }
                 `}
             </style>
-            <Nav>
+            <Nav style={{overflowX: "auto"}}>
                 {categoriesDiv.map(item => item)}
             </Nav>
         </Navbar>

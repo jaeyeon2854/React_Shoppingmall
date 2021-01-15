@@ -10,7 +10,7 @@ function Product({ match, location }) {
     const [cart, setCart] = useState(location.state)
     const [error, setError] = useState('')
     const [selected, setSelected] = useState({ sizes: false, colors: false })
-    const [n, setN] = useState(1)
+    const [price, setPrice] = useState(0)
 
     useEffect(() => {
         if (selected.sizes === true && selected.colors === true) {
@@ -29,7 +29,7 @@ function Product({ match, location }) {
         preCart.push(cart)
         selected.sizes = false
         selected.colors = false
-        setN(n+1)
+        setPrice(product.price+price)
     }
     function handleChange(e) {
         const { name, value } = e.target
@@ -78,9 +78,9 @@ function Product({ match, location }) {
     }
 
     async function addCart() {
-        // color, size, count, productId(productlist에서 props), userId(로컬) 를 보내줌
+        // preCart(color, size, count), productId(productlist에서 props), userId(로컬) 를 보내줌
         try {
-            // setError('')
+            setError('')
             const response = await axios.put('/api/cart/addcart', {
                 userId: localStorage.getItem('loginStatus'),
                 productId: "a8f4d63ead77717f940a2b27deb707a6",
@@ -90,7 +90,6 @@ function Product({ match, location }) {
         } catch (error) {
             catchErrors(error, setError)
         }
-
     }
 
     // useEffect(() => {
@@ -142,7 +141,7 @@ function Product({ match, location }) {
                         ))}
                         <Row className="justify-content-between mx-0 my-3" style={{ width: "100%" }}>
                             <Col>총 금액</Col>
-                            <Col className="text-right">14,000원</Col>
+                            <Col className="text-right">{price}원</Col>
                         </Row>
                         <Row className="justify-content-between mx-0 my-3" style={{ width: "100%" }}>
                             <Button onClick={addCart} style={{ width: "49%" }}>장바구니</Button>

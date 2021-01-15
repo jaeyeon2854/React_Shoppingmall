@@ -4,7 +4,6 @@ import { Row, Col, Button, Form, Container, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import catchErrors from '../utils/catchErrors';
 
-let color = {}
 let preColors = []
 let colorHtml = []
 let list = []
@@ -22,38 +21,55 @@ function ProductsRegist() {
         main_image: [],
         detail_image: []
     }
-    const [categorys, setCategorys] = useState({ 0: [], 1: [[]] })
+    const [categories, setCategories] = useState({ 0: [], 1: [[]] })
     const [product, setProduct] = useState(INIT_PRODUCT)
     const [categoryNum, setCategoryNum] = useState(0)
     const [tag, setTag] = useState(0)
+    const [subCate, setSubCate] = useState('')
+    const [color, setColor] = useState({})
     const [error, setError] = useState('')
     const [success, setSuccess] = useState(false)
     const [checked, setChecked] = useState({ "Free": false, "XL": false, "L": false, "M": false, "S": false, "XS": false })
 
     useEffect(async () => {
         try {
-            const response = await axios.get('/api/categorys')
+            const response = await axios.get('/api/categories')
             const data = response.data[0]
-            setCategorys([Object.keys(data), Object.values(data)])
+            setCategories([Object.keys(data), Object.values(data)])
         } catch (error) {
             catchErrors(error, setError)
         }
     }, [])
 
     function addCategory() {
-        console.log(product)
         list.push(
             <div>
-                <span i={tag}>{product["main_category"]} / {product["sub_category"][tag]}</span>
-                <input type="image" src="https://img.icons8.com/fluent-systems-regular/24/000000/close-window.png" className="float-right align-middle" onClick={deleteCategory} />
+                <span name={subCate} >{product["main_category"]} / {subCate} </span>
+                <input name={subCate} type="image" src="https://img.icons8.com/fluent-systems-regular/24/000000/close-window.png" className="float-right align-middle" onClick={deleteCategory} />
             </div>)
         setTag(tag + 1)
+        console.log(list)
     }
 
     function deleteCategory(e) {
-        const categ = e.target.parentNode
-        categ.remove()
-        product["sub_category"].splice(categ.firstElementChild.getAttribute("i"), 1)
+        e.target.parentNode.remove()
+        const index = product["sub_category"].findIndex((item)=>{return item === e.target.name})
+        product["sub_category"].splice(index, 1)
+        setSubCate('')
+        console.log(product["sub_category"].length)
+    }
+    function handleCategory(e) {
+        const { name, value } = e.target
+        if (e.target.name === "main_category") {
+            setCategoryNum(e.target.selectedIndex - 1)
+        }
+        if (name === "sub_category") {
+            product[name].push(value)
+            setSubCate(value)
+        } else {
+            setProduct({ ...product, [name]: value })
+        }
+        console.log(value)
     }
 
     function handleCheckBox(e) {
@@ -63,29 +79,36 @@ function ProductsRegist() {
     function addColor() {
         preColors.push(color["colors"])
         colorHtml.push(
-            <p>{color["colors"]}</p>
+            <div>
+                <span>{color["colors"]}</span>
+                <input name={subCate} type="image" src="https://img.icons8.com/fluent-systems-regular/24/000000/close-window.png" className="float-right align-middle" onClick={deleteColor} />
+            </div>
         )
+        setColor({})
         setProduct({ ...product, "colors": preColors })
     }
+    function deleteColor(e) {
+        e.target.parentNode.remove()
+        product["colors"].splice(e.name, 1)
+        setColor({})
+        console.log(product)
+    }
 
-    function colorChange(e) {
+    function handleColor(e) {
         color[e.target.name] = e.target.value
     }
+
+
 
     function handleChange(event) {
         const { name, value, files } = event.target
         console.log("event.target.name=", name, "event.target.value=", value)
-        if (name === "sub_category") {
-            product[name].push(value)
-        } else if (files) {
+        if (files) {
             setProduct({ ...product, [name]: files })
-
         } else {
             setProduct({ ...product, [name]: value })
         }
-        if (event.target.name === "main_category") {
-            setCategoryNum(event.target.selectedIndex - 1)
-        }
+
     }
 
     async function handleSubmit(e) {
@@ -120,7 +143,7 @@ function ProductsRegist() {
     }
 
     return (
-        <Container className="mt-5">
+        <Container className=". ">
             <Row className="justify-content-md-center">
                 <Col md={8} className="border p-1" style={{ background: '#F7F3F3' }}>
                     {error && <Alert variant="danger" className="text-center">{error}</Alert>}
@@ -142,17 +165,17 @@ function ProductsRegist() {
                             <Form.Label>분류</Form.Label>
                             <Row>
                                 <Col md={4}>
-                                    <Form.Control as="select" name="main_category" onChange={handleChange}>
+                                    <Form.Control as="select" name="main_category" onChange={handleCategory} disabled={product["sub_category"].length > 0}>
                                         <option value="" >상위분류</option>
-                                        {categorys[0].map((main) => (
+                                        {categories[0].map((main) => (
                                             <option value={main}>{main}</option>
                                         ))}
                                     </Form.Control>
                                 </Col>
                                 <Col md={6}>
-                                    <Form.Control as="select" name="sub_category" onChange={handleChange}>
+                                    <Form.Control as="select" name="sub_category" onChange={handleCategory} disabled={product["main_category"] === "TRAINING"}>
                                         <option value="" >하위분류</option>
-                                        {categorys[1][categoryNum].map((sub) => (
+                                        {categories[1][categoryNum].map((sub) => (
                                             <option value={sub}>{sub}</option>
                                         ))}
                                     </Form.Control>
@@ -176,11 +199,9 @@ function ProductsRegist() {
                             <Form.Label>색상</Form.Label>
                             <Row>
                                 <Col md={10}>
-                                    <Form.Control as="textarea" rows={1} name="colors" placeholder="색상" onChange={colorChange} />
-
+                                    <Form.Control as="textarea" rows={1} name="colors" value={color["colors"]} placeholder="색상" onChange={handleColor} />
                                 </Col>
                                 <Col>
-
                                     <Button className="float-right" style={{ background: '#91877F', borderColor: '#91877F' }} onClick={addColor}>추가</Button>
                                 </Col>
                             </Row>

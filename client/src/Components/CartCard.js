@@ -11,7 +11,7 @@ function CartCard(props) {
                                 <input className="" type="checkbox" id="exampleCheck1" />
                             </Col>
                             <Col className="text-center">
-                                <Card.Img className="img-fluid" variant="top" src={e.productId.main_image && `/images/${e.productId.main_image}`} style={{ width: '20rem' }} />
+                                <Card.Img className="img-fluid" variant="top" src={e.productId.main_imgUrl && `/images/${e.productId.main_imgUrl}`} style={{ width: '20rem' }} />
                             </Col>
                             <Col md={6} className="p-2">
                                 <Card.Body>

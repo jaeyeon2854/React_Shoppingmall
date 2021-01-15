@@ -11,7 +11,7 @@ function MainNav() {
                 <img alt="로고" src="/icon/footprint.svg" width="24" height="24" />
                 {' '}KU#
             </Navbar.Brand>
-            <Nav>
+            <Nav className="ml-auto">
                 {user ? <Nav.Link className="text-light" onClick={() => handleLogout()}>Logout</Nav.Link>
                     : (
                         <>

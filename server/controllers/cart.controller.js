@@ -19,7 +19,7 @@ const showcart = async (req, res) => {
     try {
         const cart = await Cart.findOne({ userId: req.id }).populate({
             path: 'products.productId',
-            model: 'Product'
+            model: 'Product' 
         })
         res.status(200).json(cart.products)
     } catch (error) {

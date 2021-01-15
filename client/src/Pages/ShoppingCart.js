@@ -6,8 +6,6 @@ import catchErrors from '../utils/catchErrors';
 import { isAuthenticated } from '../utils/auth'
 import CartCard from '../Components/CartCard';
 
-
-
 function ShoppingCart() {
     const [num, setNum] = useState()
     const [error, setError] = useState('')

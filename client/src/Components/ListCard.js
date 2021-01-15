@@ -1,20 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import {Card} from 'react-bootstrap'
+import { Card } from 'react-bootstrap';
 
-function ListCard(props) {
+function ListCard({ id, name, price, main_img }) {
 
     return (
-        <>
-        {props.productlist.map((e)=>(
-          <Card className="mt-5" style={{ width: "18rem", margin: "auto" }}>
-            <Card.Img variant="top" src={e.main_imgUrl && `/images/${e.main_imgUrl}`} style={{ objectFit: "contain", height: "22rem" }} />
+        <Card id={id} className="mt-5" style={{ width: "18rem", margin: "auto" }}>
+            <Card.Img variant="top" src={main_img && `/images/${main_img}`} style={{ objectFit: "contain", height: "22rem" }} />
             <Card.Body>
-                <Card.Title>{e.pro_name}</Card.Title>
-                <Card.Text>{e.price}</Card.Text>
+                <Card.Title style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{name}</Card.Title>
+                <Card.Text>{price} 원</Card.Text>
             </Card.Body>
-        </Card>    
-        ))}      
-        </>
+        </Card>
     )
 }
 

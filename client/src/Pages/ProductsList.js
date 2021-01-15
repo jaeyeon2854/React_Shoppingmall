@@ -1,22 +1,27 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Pagination from '../Components/Pagination';
-import { Container, Row, Col, Form, FormControl, Button, Card, Dropdown } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import ListCard from '../Components/ListCard';
+import Pagination from '../Components/Pagination';
 import axios from 'axios';
-import catchError from '../utils/catchErrors'
-import {isAuthenticated} from '../utils/auth'
+import catchError from '../utils/catchErrors';
+import { isAuthenticated } from '../utils/auth';
+import { Container, Row, Col, Form, FormControl, Button, Dropdown } from 'react-bootstrap';
 
-function ProductsList() {
+function ProductsList({ match }) {
+    const [mainCategory, setMainCategory] = useState('')
     const [sub, setSub] = useState(['PADDED JACKET', 'JACKET', 'JUMPER', 'COAT', 'FLEECE', 'CARDIGAN / VEST'])
     const [productlist, setProductlist] = useState([])
     const [error, setError] = useState('')
-    const [category, setCategory] = useState('OUTER')
 
-    const user=isAuthenticated()
+    // const user=isAuthenticated()
 
     useEffect(() => {
-        getProductlist(user)
-    }, [user])
+        setMainCategory(match.params.main.toUpperCase())
+    }, [match.params.main])
+
+    useEffect(() => {
+        getProductlist()
+    }, [mainCategory])
 
     // async function getProfile(user){
     //     console.log(user)
@@ -28,14 +33,28 @@ function ProductsList() {
     //     }
     // }
 
+    function handleSearch() {
+
+    }
+
+    async function handleClick(subCategory) {
+        try {
+            const response = await axios.get(`/api/product/getproduct/${subCategory}`)
+            console.log("response.data=", response.data)
+            setProductlist(response.data)
+        } catch (error) {
+            catchError(error, setError)
+        }
+    }
+
     function handleSubmit(e) {
         e.preventDefault()
     }
 
     async function getProductlist() {
         try {
-            const response = await axios.get(`/api/product/getproduct/${category}`)
-            console.log(response.data)
+            const response = await axios.get(`/api/product/getproduct/${mainCategory}`)
+            console.log("response.data=", response.data)
             setProductlist(response.data)
         } catch (error) {
             catchError(error, setError)
@@ -44,9 +63,13 @@ function ProductsList() {
 
     return (
         <div>
-            
             <style type="text/css">
                 {`
+                a, a:hover, a:active {
+                    color: #000;
+                    text-decoration: none;
+                }
+
                 .btn {
                     background-color: #CDC5C2;
                     border-color: #CDC5C2;
@@ -61,14 +84,14 @@ function ProductsList() {
             <Container>
                 <Row className="justify-content-center" >
                     <Col sm={10} xs={12} >
-                        <h1 style={{ fontSize: "3rem" }} className="text-center">OUTER</h1>
+                        <h1 style={{ fontSize: "3rem" }} className="text-center">{mainCategory}</h1>
                         <div className="text-center">{sub.map((ele) => (
-                            <Button className="m-1">{ele}</Button>
+                            <Button className="m-1" onClick={(ele) => handleClick(ele)}>{ele}</Button>
                         ))}</div>
                     </Col>
                 </Row>
                 <Row className="justify-content-end mx-0 my-5">
-                    <Form as={Row} onSubmit={handleSubmit} className="justify-content-end mx-0">
+                    {/* <Form as={Row} onSubmit={handleSubmit} className="justify-content-end mx-0"> */}
                         <Dropdown>
                             <Dropdown.Toggle className="mx-2">정렬</Dropdown.Toggle>
                             <Dropdown.Menu>
@@ -78,16 +101,32 @@ function ProductsList() {
                                 <Dropdown.Item>높은가격</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
-                        <Form as={Row} onSubmit={handleSubmit} className="justify-content-end mx-0">
+                        <Form as={Row} onSubmit={handleSearch} className="justify-content-end mx-0">
                             <FormControl type="text" placeholder="Search" style={{ width: "13rem" }} />
                             <Button type="submit" className="search px-2">
-                                <img src="icon/search.svg" width="20" height="20" />
+                                <img src="/icon/search.svg" width="20" height="20" />
                             </Button>
                         </Form>
-                    </Form>
+                    {/* </Form> */}
                 </Row>
                 <Row md={8} sm={12} className="justify-content-start m-2">
-                    <ListCard productlist={productlist} />
+                    {productlist.map(pro => (
+                        <Link to={{
+                            pathname: `/products/${pro._id}`,
+                            state: {
+                                id: pro._id,
+                                name: pro.pro_name,
+                                price: pro.price,
+                                colors: pro.colors,
+                                sizes: pro.sizes,
+                                description: pro.description,
+                                main_img: pro.main_imgUrl,
+                                detail_imgs: pro.detail_imgUrls
+                            }
+                        }}>
+                            <ListCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} />
+                        </Link>
+                    ))}
                 </Row>
             </Container>
             {/* <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate} /> */}

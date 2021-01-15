@@ -37,41 +37,6 @@ function Home() {
                                 <Card.Text>가격</Card.Text>
                             </Card.Body>
                         </Card>
-                        <Card className="mx-1 my-2" style={{ width: '18rem' }}>
-                            <Card.Img className="img-fluid" variant="top" src="/icon/asd.jpg" />
-                            <Card.Body>
-                                <Card.Title className="font-weight-bold">제품명</Card.Title>
-                                <Card.Text>가격</Card.Text>
-                            </Card.Body>
-                        </Card>
-                        <Card className="mx-1 my-2" style={{ width: '18rem' }}>
-                            <Card.Img className="img-fluid" variant="top" src="/icon/asd.jpg" />
-                            <Card.Body>
-                                <Card.Title className="font-weight-bold">제품명</Card.Title>
-                                <Card.Text>가격</Card.Text>
-                            </Card.Body>
-                        </Card>
-                        <Card className="mx-1 my-2" style={{ width: '18rem' }}>
-                            <Card.Img className="img-fluid" variant="top" src="/icon/asd.jpg" />
-                            <Card.Body>
-                                <Card.Title className="font-weight-bold">제품명</Card.Title>
-                                <Card.Text>가격</Card.Text>
-                            </Card.Body>
-                        </Card>
-                        <Card className="mx-1 my-2" style={{ width: '18rem' }}>
-                            <Card.Img className="img-fluid" variant="top" src="/icon/asd.jpg" />
-                            <Card.Body>
-                                <Card.Title className="font-weight-bold">제품명</Card.Title>
-                                <Card.Text>가격</Card.Text>
-                            </Card.Body>
-                        </Card>
-                        <Card className="mx-1 my-2" style={{ width: '18rem' }}>
-                            <Card.Img className="img-fluid" variant="top" src="/icon/asd.jpg" />
-                            <Card.Body>
-                                <Card.Title className="font-weight-bold">제품명</Card.Title>
-                                <Card.Text>가격</Card.Text>
-                            </Card.Body>
-                        </Card>
                     </Row>
                 </div>
                 <div className="my-4">

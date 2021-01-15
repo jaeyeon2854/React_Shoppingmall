@@ -32,7 +32,7 @@ function ProductsRegist() {
 
     useEffect(async () => {
         try {
-            const response = await axios.get('/api/categorys')
+            const response = await axios.get('/api/categories')
             const data = response.data[0]
             setCategorys([Object.keys(data), Object.values(data)])
         } catch (error) {
@@ -107,16 +107,16 @@ function ProductsRegist() {
             }
         }
         try {
-            const response = axios.post('/api/product/regist', formData)
-            // setSuccess(true)
+            const response = await axios.post('/api/product/regist', formData)
             console.log(response)
+            setSuccess(true)
         } catch (error) {
             catchErrors(error, setError)
         }
     }
 
     if (success) {
-        return <Redirect to='/' />
+        return <Redirect to='/admin' />
     }
 
     return (

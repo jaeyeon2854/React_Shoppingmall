@@ -3,22 +3,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Row, Col, Form, Card, Button } from 'react-bootstrap';
 import catchErrors from '../utils/catchErrors';
 
-const INIT_PRODUCT = {
-    pro_name: '스키니진',
-    price: 12000,
-    count: 1,
-    main_category: 'PANTS',
-    sub_category: ['SKINNY JEANS'],
-    sizes: ['L', 'M'],
-    colors: ['연청', '진청'],
-    main_image: "a8f4d63ead77717f940a2b27deb707a6",
-    productId:"5ffda03428faf35de8319360"
-}
 const preCart = []
 
 function Product({ match, location }) {
-    const [product, setProduct] = useState(INIT_PRODUCT)
-    const [cart, setCart] = useState(INIT_PRODUCT)
+    const [product, setProduct] = useState(location.state)
+    const [cart, setCart] = useState(location.state)
     const [error, setError] = useState('')
     const [selected, setSelected] = useState({ sizes: false, colors: false })
     const [n, setN] = useState(1)
@@ -110,7 +99,7 @@ function Product({ match, location }) {
 
     return (
         <div>
-            {console.log("실행", "product=", product)}
+            {console.log("match=",match.params, "location=",location.state, "product=",product)}
             <style type="text/css">
                 {`
                 .btn {
@@ -126,11 +115,11 @@ function Product({ match, location }) {
             </style>
             <Row className="justify-content-center mt-5 mx-0">
                 <Col sm={11} md={4}>
-                    <img src="https://img.sonyunara.com/files/goods/65976/1601953605_0.jpg" style={{ objectFit: "contain", width: "100%" }} />
+                    <img src={product.main_img} style={{ objectFit: "contain", width: "100%" }} />
                 </Col>
                 <Col sm={11} md={4} className="align-middle mt-4">
-                    <h3 className="mb-4">sop682 리본끈셋원피스</h3>
-                    <h5 className="mb-4">가격 : 14,000원</h5>
+                    <h3 className="mb-4">{product.name}</h3>
+                    <h5 className="mb-4">가격 : {product.price}원</h5>
                     <Form style={{ borderBottom: "1px solid" }}>
                         <Form.Group style={{ borderBottom: "1px solid", paddingBottom: "2rem" }}>
                             <Form.Label>색상</Form.Label>

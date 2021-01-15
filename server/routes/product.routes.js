@@ -7,6 +7,9 @@ const router = express.Router()
 router.route('/regist')
     .post(productCtrl.imageUpload, productCtrl.regist)
 
+router.route('/getproduct')
+    .get(productCtrl.getToHome)
+
 router.route('/getproduct/:category')
     .get(productCtrl.getlist)
 

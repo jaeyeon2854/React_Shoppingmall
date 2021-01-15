@@ -24,7 +24,6 @@ const login = async(req,res)=>{
                 secure:config.env ==='production'
             })
             res.json({userId:user._id})
-            
         }else{
             res.status(401).send('비밀번호가 일치하지 않습니다.')
         }

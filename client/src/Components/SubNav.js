@@ -5,13 +5,13 @@ import axios from 'axios';
 import catchErrors from '../utils/catchErrors';
 
 function SubNav() {
-    const [categorysDiv, setCategorysDiv] = useState([])
+    const [categoriesDiv, setCategoriesDiv] = useState([])
     const [error, setError] = useState('')
 
 
     useEffect(async () => {
         try {
-            const response = await axios.get('/api/categorys')
+            const response = await axios.get('/api/categories')
             let list = []
             Object.keys(response.data[0]).forEach((ele) => {
                 const url = ele.toLowerCase()
@@ -19,7 +19,7 @@ function SubNav() {
                     <Nav.Link as={Link} to={`/categories/${url}`}>{ele}</Nav.Link>
                 )
             })
-            setCategorysDiv(list)
+            setCategoriesDiv(list)
         } catch (error) {
             catchErrors(error, setError)
         }
@@ -35,7 +35,7 @@ function SubNav() {
                 `}
             </style>
             <Nav>
-                {categorysDiv.map(item => item)}
+                {categoriesDiv.map(item => item)}
             </Nav>
         </Navbar>
     )

@@ -29,13 +29,24 @@ const regist = async (req, res) => {
     }
 }
 
+const getToHome = async (res, req) => {
+    try {
+        const bestProduct = await Product.find({}).sort({ purchase: 1 }).limit(6)
+        const newProduct = await Product.find({}).sort({ createdAt: -1 }).limit(6)
+        console.log("best=",bestProduct)
+        console.log("new=",newProduct)
+        res.json(bestProduct, newProduct)
+    } catch {
+        res.status(500).send('상품을 불러오지 못했습니다.')
+    }
+}
+
 const getlist=(req,res)=>{
     try {
         res.json(req.productslist)
     } catch (error) {
         res.status(500).send('상품을 불러오지 못했습니다.')
     }
-
 }
 
 const categoryId = async (req, res, next, category) => {
@@ -50,4 +61,4 @@ const categoryId = async (req, res, next, category) => {
         res.status(500).send('상품을 불러오지 못했습니다.')
     }
 }
-export default { imageUpload, regist, categoryId, getlist }
+export default { imageUpload, regist, categoryId, getlist, getToHome }

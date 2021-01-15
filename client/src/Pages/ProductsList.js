@@ -8,7 +8,7 @@ import { isAuthenticated } from '../utils/auth';
 import { Container, Row, Col, Form, FormControl, Button, Dropdown } from 'react-bootstrap';
 
 function ProductsList({ match }) {
-    const [mainCategory, setMainCategory] = useState('')
+    const [mainCategory, setMainCategory] = useState(match.params.main)
     const [sub, setSub] = useState(['PADDED JACKET', 'JACKET', 'JUMPER', 'COAT', 'FLEECE', 'CARDIGAN / VEST'])
     const [productlist, setProductlist] = useState([])
     const [error, setError] = useState('')
@@ -112,7 +112,7 @@ function ProductsList({ match }) {
                 <Row md={8} sm={12} className="justify-content-start m-2">
                     {productlist.map(pro => (
                         <Link to={{
-                            pathname: `/products/${pro._id}`,
+                            pathname: `/product/${pro._id}`,
                             state: {
                                 id: pro._id,
                                 name: pro.pro_name,

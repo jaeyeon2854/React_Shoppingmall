@@ -6,4 +6,12 @@ const router = express.Router()
 router.route('/signup')
     .post(userCtrl.signup)
 
+router.route('/account/:userId')
+    .get(userCtrl.username)
+    .put(userCtrl.imgUpload, userCtrl.update)
+
+
+router.param('userId', userCtrl.userById)
+
+
 export default router

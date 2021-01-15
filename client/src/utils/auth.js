@@ -11,14 +11,15 @@ export async function handleLogout(){
     localStorage.removeItem('role')
     localStorage.removeItem('name')
     await axios.get('/api/auth/logout')
-    window.location.href='/'
+    window.location.href = '/'
 }
 
 export function isAuthenticated(){
     const userId= localStorage.getItem('id')
     if(userId){
         return userId
-    } else{
-        return false
+    } else {
+        return false 
+
     }
 }

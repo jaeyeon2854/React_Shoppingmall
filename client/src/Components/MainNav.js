@@ -3,6 +3,7 @@ import { Navbar, Nav } from 'react-bootstrap';
 import { handleLogout, isAuthenticated } from '../utils/auth';
 
 function MainNav() {
+    
     const user = isAuthenticated()
 
     return (
@@ -11,8 +12,10 @@ function MainNav() {
                 <img alt="로고" src="/icon/footprint.svg" width="24" height="24" />
                 {' '}KU#
             </Navbar.Brand>
-            <Nav className="ml-auto">
-                {user ? <Nav.Link className="text-light" onClick={() => handleLogout()}>Logout</Nav.Link>
+            <Nav>
+                {user ? <> <Nav.Link className="text-light" onClick={() => handleLogout()}>Logout</Nav.Link>
+                <Nav.Link className="text-light" href="/account"> Mypage </Nav.Link>
+                </>
                     : (
                         <>
                             <Nav.Link className="text-light" href='/login'>Login</Nav.Link>

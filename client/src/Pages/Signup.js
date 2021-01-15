@@ -44,8 +44,6 @@ function Signup() {
         }
     }
 
-
-
     function checkPassword(event) {
         const p1 = user.password
         const p2 = user.password2

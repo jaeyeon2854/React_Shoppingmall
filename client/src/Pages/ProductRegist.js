@@ -33,7 +33,7 @@ function ProductsRegist() {
 
     useEffect(async () => {
         try {
-            const response = await axios.get('/api/categories')
+            const response = await axios.get('/api/categories/main')
             const data = response.data[0]
             setCategories([Object.keys(data), Object.values(data)])
         } catch (error) {
@@ -122,7 +122,7 @@ function ProductsRegist() {
         product["sizes"] = sizes
         const formData = new FormData();
         for (let key in product) {
-            if (key === "main_image" || key === "detail_image") {
+            if (key === "main_image" ||key === "detail_image") {
                 console.log(product[key][0])
                 formData.append(key, product[key][0])
             } else {

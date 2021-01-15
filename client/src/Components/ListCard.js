@@ -12,6 +12,8 @@ function ListCard({ id, name, price, main_img }) {
             </Card.Body>
         </Card>
     )
-}
+            }
+   
+
 
 export default ListCard

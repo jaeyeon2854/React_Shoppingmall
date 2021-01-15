@@ -6,49 +6,52 @@ import axios from 'axios';
 import catchError from '../utils/catchErrors';
 import { isAuthenticated } from '../utils/auth';
 import { Container, Row, Col, Form, FormControl, Button, Dropdown } from 'react-bootstrap';
+import catchErrors from '../utils/catchErrors';
 
 function ProductsList({ match }) {
-    const [mainCategory, setMainCategory] = useState(match.params.main)
-    const [sub, setSub] = useState(['PADDED JACKET', 'JACKET', 'JUMPER', 'COAT', 'FLEECE', 'CARDIGAN / VEST'])
+    const [mainCategory, setMainCategory] = useState(match.params.main.toUpperCase())
+    const [subcategory, setSubcategory] = useState([])
     const [productlist, setProductlist] = useState([])
+    const [sub, setSub] = useState([])
     const [error, setError] = useState('')
 
     // const user=isAuthenticated()
 
     useEffect(() => {
-        setMainCategory(match.params.main.toUpperCase())
-    }, [match.params.main])
-
-    useEffect(() => {
+        getSubsCategories()
         getProductlist()
     }, [mainCategory])
 
-    // async function getProfile(user){
-    //     console.log(user)
-    //     try {
-    //         const response = await axios.get(`/api/users/profile/${user}`)
-    //         setProfile(response.data)
-    //     } catch (error) {
-    //         catchErrors(error, setError)
-    //     }
-    // }
+    useEffect(() => {
+        setMainCategory(match.params.main.toUpperCase())
+    }, [match.params.main])
 
     function handleSearch() {
 
     }
 
-    async function handleClick(subCategory) {
-        try {
-            const response = await axios.get(`/api/product/getproduct/${subCategory}`)
-            console.log("response.data=", response.data)
-            setProductlist(response.data)
-        } catch (error) {
-            catchError(error, setError)
-        }
-    }
+    // async function handleClick(subCategory) {
+    //     try {
+    //         const response = await axios.get(`/api/product/getproduct/${subCategory}`)
+    //         console.log("response.data=", response.data)
+    //         setProductlist(response.data)
+    //     } catch (error) {
+    //         catchErrors(error, setError)
+    //     }
+    // }
 
-    function handleSubmit(e) {
-        e.preventDefault()
+    // function handleSubmit(e) {
+    //     e.preventDefault()
+    // }
+
+    async function getSubsCategories() {
+        try {
+            const response = await axios.get(`/api/categories/sub/${mainCategory}`)
+            console.log("sub", response.data)
+            setSubcategory(response.data)
+        } catch (error) {
+            catchError(error, setError) 
+        }
     }
 
     async function getProductlist() {
@@ -61,8 +64,24 @@ function ProductsList({ match }) {
         }
     }
 
+    function handleClick(e){
+        e.preventDefault()
+        return getsubproductlist()       
+    }
+
+    async function getsubproductlist(){
+        try {
+            const response = await axios.get(`/api/product/getproduct/${subcategory}`)
+            console.log("response.data sub=",response.data)
+            setProductlist(response.data)
+        } catch (error) {
+            catchErrors(error,setError)
+        }
+    }
+
     return (
         <div>
+            {console.log("main=",mainCategory)}
             <style type="text/css">
                 {`
                 a, a:hover, a:active {
@@ -85,7 +104,7 @@ function ProductsList({ match }) {
                 <Row className="justify-content-center" >
                     <Col sm={10} xs={12} >
                         <h1 style={{ fontSize: "3rem" }} className="text-center">{mainCategory}</h1>
-                        <div className="text-center">{sub.map((ele) => (
+                        <div className="text-center">{subcategory.map((ele) => (
                             <Button className="m-1" onClick={(ele) => handleClick(ele)}>{ele}</Button>
                         ))}</div>
                     </Col>

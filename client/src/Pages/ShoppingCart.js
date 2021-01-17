@@ -33,8 +33,11 @@ function ShoppingCart() {
         //장바구니 DB에서 해당 항목 삭제 
         console.log(e.target.name)
         try {
-            const response = await axios.post('/api/cart/deletecart', { cartId: e.target.name })
+            const response = await axios.post('/api/cart/deletecart', { 
+                userId : user,
+                cartId: e.target.name })
             console.log(response.data)
+            setCart(response.data.products)
         } catch (error) {
             catchErrors(error, setError)
         }

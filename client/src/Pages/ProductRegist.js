@@ -120,15 +120,22 @@ function ProductsRegist() {
             }
         }
         product["sizes"] = sizes
+        console.log(product)
         const formData = new FormData();
         for (let key in product) {
             if (key === "main_image" ||key === "detail_image") {
-                console.log(product[key][0])
+                // console.log(product[key][0])
                 formData.append(key, product[key][0])
-            } else {
+            } else if(key === "sizes" || key === "colors"){
+                for (let i = 0; i < product[key].length ; i++){
+                    formData.append([key], product[key][i])
+                }
+            } 
+            else {
                 formData.append(key, product[key])
             }
         }
+        // console.log(formData)
         try {
             const response = await axios.post('/api/product/regist', formData)
             console.log(response)
@@ -199,7 +206,7 @@ function ProductsRegist() {
                             <Form.Label>색상</Form.Label>
                             <Row>
                                 <Col md={10}>
-                                    <Form.Control as="textarea" rows={1} name="colors" value={color["colors"]} placeholder="색상" onChange={handleColor} />
+                                    <Form.Control as="textarea" rows={1} name="colors" placeholder="색상" onChange={handleColor} />
                                 </Col>
                                 <Col>
                                     <Button className="float-right" style={{ background: '#91877F', borderColor: '#91877F' }} onClick={addColor}>추가</Button>

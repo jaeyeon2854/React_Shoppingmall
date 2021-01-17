@@ -110,7 +110,6 @@ function ProductsList({ match }) {
                     </Col>
                 </Row>
                 <Row className="justify-content-end mx-0 my-5">
-                    {/* <Form as={Row} onSubmit={handleSubmit} className="justify-content-end mx-0"> */}
                         <Dropdown>
                             <Dropdown.Toggle className="mx-2">정렬</Dropdown.Toggle>
                             <Dropdown.Menu>
@@ -126,7 +125,6 @@ function ProductsList({ match }) {
                                 <img src="/icon/search.svg" width="20" height="20" />
                             </Button>
                         </Form>
-                    {/* </Form> */}
                 </Row>
                 <Row md={8} sm={12} className="justify-content-start m-2">
                     {productlist.map(pro => (
@@ -148,7 +146,6 @@ function ProductsList({ match }) {
                     ))}
                 </Row>
             </Container>
-            {/* <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate} /> */}
         </div>
     )
 }

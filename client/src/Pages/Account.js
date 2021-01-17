@@ -97,7 +97,7 @@ function Account() {
                     <Col md={5} className="d-flex align-content-center justify-content-center">
                         <Button variant="outline-light" onClick={handleShow}>
                             {account.avatarUrl ? (
-                                <Image src={account.avatarUrl && `/image/${account.avatarUrl}`} className="img-thumbnail"
+                                <Image src={account.avatarUrl && `/images/${account.avatarUrl}`} className="img-thumbnail"
                                     roundedCircle style={{ objectFit: "cover", width: "10rem", height: "10rem" }} />
                             ) : (
                                     <Image src="/icon/person.svg" className="img-thumbnail"

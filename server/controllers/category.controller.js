@@ -3,7 +3,7 @@ import Category from "../schemas/Category.js";
 const getCategory = async (req, res) => {
     console.log("dsadd=")
     try {
-        const category = await Category.find({}, {_id: 0})
+        const category = await Category.find({}, { _id: 0 })
         res.json(category)
     } catch (error) {
         console.log(error)
@@ -11,16 +11,17 @@ const getCategory = async (req, res) => {
     }
 }
 
-const getSubCategory=(req,res)=>{
+const getSubCategory = (req, res) => {
     
+
 }
 
-const getsubId=(req,res,next,sub)=>{
-    const subcategory = await category.find({"Dress"})
-    console.log('sub=',sub)
+const getsubId = (req, res, next, sub) => {
+    // const subcategory = await category.find({"Dress"})
+    console.log('sub=', sub)
 
     next()
 }
 
 
-export default { getCategory , getsubId, getSubCategory}
+export default { getCategory, getsubId, getSubCategory }

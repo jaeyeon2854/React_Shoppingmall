@@ -29,7 +29,7 @@ function Product({ match, location }) {
         preCart.push(cart)
         selected.sizes = false
         selected.colors = false
-        setPrice(product.price+price)
+        setPrice(product.price + price)
     }
     function handleChange(e) {
         const { name, value } = e.target
@@ -98,7 +98,7 @@ function Product({ match, location }) {
 
     return (
         <div>
-            {console.log("match=",match.params, "location=",location.state, "product=",product)}
+            {console.log("match=", match.params, "location=", location.state, "product=", product)}
             <style type="text/css">
                 {`
                 .btn {
@@ -114,7 +114,7 @@ function Product({ match, location }) {
             </style>
             <Row className="justify-content-center mt-5 mx-0">
                 <Col sm={11} md={4}>
-                    <img src={product.main_img} style={{ objectFit: "contain", width: "100%" }} />
+                    <img src={`/images/${product.main_img}`} style={{ objectFit: "contain", width: "100%" }} />
                 </Col>
                 <Col sm={11} md={4} className="align-middle mt-4">
                     <h3 className="mb-4">{product.name}</h3>

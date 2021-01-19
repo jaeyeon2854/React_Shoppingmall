@@ -40,11 +40,9 @@ function Product({ match, location }) {
     function handleChange(e) {
         const { name, value } = e.target
         if (name === "sizes") {
-            // setPreCart({ ...preCart, [name]: value })
             setSize(value)
             selected.sizes = true
         } else if (name === "colors") {
-            // setPreCart({ ...preCart, [name]: value })
             setColor(value)
             selected.colors = true
         }
@@ -58,17 +56,14 @@ function Product({ match, location }) {
 
     function handleCount(e) {
         e.preventDefault()
-        // const asd = cart.filter((el) => el.color !== e.target.id || el.size !== e.target.name)
-        const asd= cart.map((el)=>{
+        const addCount = cart.map((el)=>{
             if(el.color !== e.target.id || el.size !== e.target.name){
                 return {el}
             } else {
                 return {...el, count : e.target.value}
             }
         })
-        // const index = product["sub_category"].findIndex((item)=>{return item === e.target.name})
-        // product["sub_category"].splice(index, 1)
-        setCart(asd)
+        setCart(addCount)
         setCount(e.value)
     }
 
@@ -80,7 +75,6 @@ function Product({ match, location }) {
                 setError('')
                 const response = await axios.put('/api/cart/addcart', {
                     userId: localStorage.getItem('id'),
-                    // productId: product.id,
                     products: cart
                 })
                 console.log(response)

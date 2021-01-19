@@ -124,7 +124,6 @@ function ProductsRegist() {
         const formData = new FormData();
         for (let key in product) {
             if (key === "main_image" ||key === "detail_image") {
-                // console.log(product[key][0])
                 formData.append(key, product[key][0])
             } else if(key === "sizes" || key === "colors"){
                 for (let i = 0; i < product[key].length ; i++){
@@ -135,7 +134,6 @@ function ProductsRegist() {
                 formData.append(key, product[key])
             }
         }
-        // console.log(formData)
         try {
             const response = await axios.post('/api/product/regist', formData)
             console.log(response)

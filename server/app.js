@@ -9,6 +9,7 @@ import path from 'path'
 import kakaopayRoutes from './routes/kakaopay.routes.js'
 import config from './config.js'
 import authRouter from './routes/auth.routes.js'
+import orderRouter from './routes/order.routes.js'
 import cors from 'cors'
 
 fs.readdir('uploads', (error) => {
@@ -33,6 +34,7 @@ app.use('/api/users',userRouter)
 app.use('/api/auth',authRouter)
 app.use('/api/product', productRouter)
 app.use('/api/cart', cartRouter)
+app.use('/api/order', orderRouter)
 
 app.listen(config.port, () => {
   console.info('Server started on port %s.', config.port)

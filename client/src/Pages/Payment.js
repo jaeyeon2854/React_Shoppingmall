@@ -1,18 +1,53 @@
+import axios from 'axios';
 import React, { useState, useEffect, useRef } from 'react';
 import DaumPostcode from "react-daum-postcode";
 import { Container, Card, Row, Col, Button, Form, FormGroup } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
+import PaymentCard from '../Components/PaymentCard';
+import { isAuthenticated } from '../utils/auth';
+import catchErrors from '../utils/catchErrors';
 
-function Payment() {
+function Payment({ match, location }) {
 
+    const [cart, setCart] = useState(location.state)
+    const [order, setOrder] = useState({products: location.state})
+    const [userData, setUserData] = useState({})
+    const [error, setError] = useState()
     const [paymentWay, setPaymentWay] = useState([])
-    const [isAddress, setIsAddress] = useState("");
-    const [isZoneCode, setIsZoneCode] = useState();
-    const [isPostOpen, setIsPostOpen] = useState();
+    // const [isAddress, setIsAddress] = useState("");
+    // const [isZoneCode, setIsZoneCode] = useState();
+    // const [isPostOpen, setIsPostOpen] = useState();
     const [post, setPost] = useState([])
     const [redirect, setRedirect] = useState(null)
     const [address, setAddress] = useState("")
+    const [finalPrice, setFinalPrice] = useState(0)
     const [num, setNum] = useState(0)
+    const user = isAuthenticated()
+
+    useEffect(() => {
+        getUser()
+        let price = 0
+        cart.map((el) => {
+            price = Number(el.count) * Number(el.productId.price) + price
+        })
+        setFinalPrice(price)
+    }, [user])
+
+    async function getUser() {
+        try {
+            const response = await axios.get(`/api/users/getuser/${user}`)
+            console.log(response.data)
+            setUserData(response.data)
+        } catch (error) {
+            catchErrors(error, setError)
+        }
+    }
+
+    function handleReceiverInfo(e) {
+        const { name, value } = e.target
+        console.log(name,value)
+        setOrder({ ...order, receiverInfo: {...order.receiverInfo, [name]: value } })
+    }
 
     function postClick() {
         if (post.length !== 0) {
@@ -42,8 +77,8 @@ function Payment() {
             }
             fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
         }
-        setAddress({ full: fullAddress, zone: data.zonecode });
-
+        setAddress({ full: fullAddress, code: data.zonecode });
+        setOrder({ ...order, receiverInfo: {...order.receiverInfo, address: fullAddress, postalCode: data.zonecode  } })
         console.log(fullAddress);
     }
 
@@ -89,12 +124,6 @@ function Payment() {
         }
     }
 
-    function handleClick2() {
-        if (paymentWay.length !== 0) {
-            setPaymentWay([])
-        }
-    }
-
     async function kakaopay() {
         const response = await fetch('/api/kakaopay/test/single', {
             method: "POST",
@@ -121,21 +150,20 @@ function Payment() {
         // setRedirect(data.redirect_url)
     }
 
-    function plusNum() {
-        setNum(num + 1)
-    }
-    function minusNum() {
-        if (num === 0) {
-            setNum(0)
+    async function paymentCompleted(){
+        console.log(user)
+        console.log(order)
+        console.log(finalPrice)
+        try {
+            const response = await axios.post(`/api/order/addorder`, {
+                userId : user,
+                ...order,
+                total : finalPrice+2500
+            })
+            console.log(response.data)
+        } catch (error) {
+            catchErrors(error, setError)
         }
-        else {
-            setNum(num - 1)
-
-        }
-    }
-    function deleteCart() {
-        //장바구니 DB에서 해당 항목 삭제 
-        console.log('카트에 담긴 항목을 삭제했습니다.')
     }
 
     if (redirect) {
@@ -145,6 +173,7 @@ function Payment() {
 
     return (
         <div>
+            {/* {console.log(order)} */}
             <Container>
                 <h3 className="my-5 font-weight-bold text-center">주문/결제</h3>
                 <div>
@@ -154,15 +183,15 @@ function Payment() {
                             <Form>
                                 <Form.Group controlId="formBasicName">
                                     <Form.Label>이름</Form.Label>
-                                    <Form.Control type="text" placeholder="윤지원" />
-                                </Form.Group>
-                                <Form.Group controlId="formBasicEmail">
-                                    <Form.Label>이메일</Form.Label>
-                                    <Form.Control type="email" placeholder="jiwon5393@naver.com" />
+                                    <Form.Control type="text" value={userData.name} readOnly />
                                 </Form.Group>
                                 <Form.Group controlId="formBasicTel">
                                     <Form.Label>휴대전화</Form.Label>
-                                    <Form.Control type="tel" placeholder="010-0000-0000" />
+                                    <Form.Control type="tel" value={userData.tel} readOnly />
+                                </Form.Group>
+                                <Form.Group controlId="formBasicEmail">
+                                    <Form.Label>이메일</Form.Label>
+                                    <Form.Control type="email" placeholder="이메일 주소를 입력해주세요" />
                                 </Form.Group>
                             </Form>
                         </Col>
@@ -176,13 +205,17 @@ function Payment() {
                             <Form>
                                 <Form.Group>
                                     <Form.Label>이름</Form.Label>
-                                    <Form.Control></Form.Control>
+                                    <Form.Control type="text" name="name" onChange={handleReceiverInfo}></Form.Control>
+                                </Form.Group>
+                                <Form.Group>
+                                    <Form.Label>휴대전화</Form.Label>
+                                    <Form.Control type="text" name="tel" onChange={handleReceiverInfo}></Form.Control>
                                 </Form.Group>
                                 <Form.Group controlId="formBasicAdd">
                                     <Form.Label>주소</Form.Label>
                                     <Form.Row>
                                         <Col xs={4} sm={4}>
-                                            <Form.Control type="text" id="add" value={address.zone} disabled={(address.zone == null) ? false : true} placeholder="우편번호" required ></Form.Control>
+                                            <Form.Control type="text" name="postalCode" id="add" onChange={handleReceiverInfo} value={address.code} disabled={(address.code == null) ? false : true} placeholder="우편번호" required ></Form.Control>
                                         </Col>
                                         <Col >
                                             <Button style={{ background: '#91877F', borderColor: '#91877F' }} className="mx-1" onClick={postClick}>우편번호</Button>
@@ -191,15 +224,11 @@ function Payment() {
                                     </Form.Row>
                                     <Form.Row>
                                         <Col>
-                                            <Form.Control type="text" id="add1" value={address.full} disabled={(address.zone == null) ? false : true} placeholder="주소" required></Form.Control>
-                                            <Form.Control type="text" id="add2" placeholder="상세주소" required></Form.Control>
+                                            <Form.Control type="text" name="address" id="add1" onChange={handleReceiverInfo} value={address.full} disabled={(address.code == null) ? false : true} placeholder="주소" required></Form.Control>
+                                            <Form.Control type="text" name="address2" id="add2" onChange={handleReceiverInfo} placeholder="상세주소" required></Form.Control>
                                             <Form.Control.Feedback type="invalid" > 상세 주소를 입력하세요. </Form.Control.Feedback>
                                         </Col>
                                     </Form.Row>
-                                </Form.Group>
-                                <Form.Group>
-                                    <Form.Label>휴대전화</Form.Label>
-                                    <Form.Control></Form.Control>
                                 </Form.Group>
                             </Form>
                         </Col>
@@ -208,42 +237,22 @@ function Payment() {
 
                 <div>
                     <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>주문상품정보</h5>
-                    <Card >
-                        <Row className="mx-1">
-                            <Col className="text-center">
-                                <Card.Img className="img-fluid" variant="top" src="img/asd.jpg" style={{ width: '20rem' }} />
-                            </Col>
-                            <Col md={6} className="p-2">
-                                <Card.Body>
-                                    <input type="image" alt="삭제버튼" src="https://img.icons8.com/fluent-systems-regular/24/000000/close-window.png" className="float-right" onClick={deleteCart} />
-                                    <Card.Title className="font-weight-bold mt-3">제품명</Card.Title>
-                                    <Card.Text>가격</Card.Text>
-                                    <Card.Text>옵션</Card.Text>
-                                    <Card.Text>수량</Card.Text>
-                                    <div>
-                                        <input type="image" alt="마이너스" src="https://img.icons8.com/ios-glyphs/20/000000/minus-math.png" className="align-middle" onClick={minusNum} />
-                                        <input type="text" style={{ width: '30px' }} className="text-center align-middle mx-1" placeholder="1" value={num} readOnly></input>
-                                        <input type="image" alt="플러스" src="https://img.icons8.com/ios-glyphs/20/000000/plus-math.png" className="align-middle" onClick={plusNum} />
-                                    </div>
-                                </Card.Body>
-                            </Col>
-                        </Row>
-                    </Card>
+                    <PaymentCard cart={cart} />
                 </div>
 
-                <div className="p-5 m-5" style={{ background: '#F7F3F3' }}>
+                <div className="p-5 m-3" style={{ background: '#F7F3F3' }}>
                     <ul className="pl-0" style={{ listStyle: 'none' }}>
                         <li>
                             <span className="text-secondary">총 상품금액</span>
-                            <span className="text-secondary float-right">12,000원</span>
+                            <span className="text-secondary float-right">{finalPrice}원</span>
                         </li>
                         <li>
                             <span className="text-secondary">배송비</span>
-                            <span className="text-secondary float-right">2,500원</span>
+                            <span className="text-secondary float-right">2500원</span>
                         </li>
                     </ul>
                     <div className="my-1 pt-2 border-top font-weight-bold">
-                        결제금액<span className="float-right">14,500원</span>
+                        결제금액<span className="float-right">{finalPrice + 2500}원</span>
                     </div>
                 </div>
 
@@ -256,7 +265,7 @@ function Payment() {
                     {paymentWay}
                 </div>
                 <div className="text-center">
-                    <Button className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} href="/account" block>결제완료</Button>
+                    <Button className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} onClick={paymentCompleted} block>결제완료</Button>
                 </div>
             </Container>
         </div>

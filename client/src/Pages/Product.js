@@ -114,7 +114,7 @@ function Product({ match, location }) {
             </style>
             <Row className="justify-content-center mt-5 mx-0">
                 <Col sm={11} md={4}>
-                    <img src={product.main_img} style={{ objectFit: "contain", width: "100%" }} />
+                    <img src={`/images/${product.main_img}`} style={{ objectFit: "contain", width: "100%" }} />
                 </Col>
                 <Col sm={11} md={4} className="align-middle mt-4">
                     <h3 className="mb-4">{product.name}</h3>

@@ -21,7 +21,6 @@ function Login() {
     function handleChange(event) {
         const { name, value } = event.target
         setUser({ ...user, [name]: value })
-
     }
 
     async function handleSubmit(event) {
@@ -46,8 +45,6 @@ function Login() {
         alert('로그인 되었습니다.')
         window.location.href='/'
     }
-
-
 
     return (
         <Container className="my-5">

@@ -8,7 +8,6 @@ function SubNav() {
     const [categoriesDiv, setCategoriesDiv] = useState([])
     const [error, setError] = useState('')
 
-
     useEffect(async () => {
         try {
             const response = await axios.get('/api/categories/main')
@@ -34,7 +33,7 @@ function SubNav() {
                 }
                 `}
             </style>
-            <Nav style={{overflowX: "auto"}}>
+            <Nav style={{ overflowX: "auto" }}>
                 {categoriesDiv.map(item => item)}
             </Nav>
         </Navbar>

@@ -16,7 +16,7 @@ const getSubCategory=(req,res)=>{
 }
 
 const getsubId=(req,res,next,sub)=>{
-    const subcategory = await category.find({"Dress"})
+    // const subcategory = await category.find({})
     console.log('sub=',sub)
 
     next()

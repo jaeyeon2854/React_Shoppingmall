@@ -6,10 +6,10 @@ const upload = multer({ dest: 'uploads/' })
 const imageUpload = upload.fields([
     { name: 'main_image' },
     { name: 'detail_image' }
-  ])
+])
 
 const regist = async (req, res) => {
-    console.log("req.body=",req.body)
+    console.log("req.body=", req.body)
     try {
         const { pro_name, price, stock, main_category, sub_category, description, colors, sizes } = req.body
         const main_img = req.files['main_image'][0]
@@ -29,19 +29,28 @@ const regist = async (req, res) => {
     }
 }
 
-const getToHome = async (res, req) => {
+const getToHome = async (req, res) => {
     try {
-        const bestProduct = await Product.find({}).sort({ purchase: 1 }).limit(6)
+        const bestProduct = await Product.find({}).sort({ purchase: -1 }).limit(6)
         const newProduct = await Product.find({}).sort({ createdAt: -1 }).limit(6)
-        console.log("best=",bestProduct)
-        console.log("new=",newProduct)
-        res.json(bestProduct, newProduct)
+        console.log("best=", bestProduct)
+        console.log("new=", newProduct)
+        res.json({ bestProduct, newProduct })
     } catch {
         res.status(500).send('상품을 불러오지 못했습니다.')
     }
 }
 
-const getlist=(req,res)=>{
+const getAll = async (req, res) => {
+    try {
+        const productslist = await Product.find({}).sort({ createdAt: -1 })
+        res.json(productslist)
+    } catch (error) {
+        res.status(500).send('상품을 불러오지 못했습니다.')
+    }
+}
+
+const getlist = (req, res) => {
     try {
         res.json(req.productslist)
     } catch (error) {
@@ -49,10 +58,9 @@ const getlist=(req,res)=>{
     }
 }
 
-
 const categoryId = async (req, res, next, category) => {
     try {
-        const productslist = await Product.find({main_category: category})
+        const productslist = await Product.find({ main_category: category })
         if (!productslist) {
             res.status(404).send('상품을 찾을 수 없습니다.')
         }
@@ -63,16 +71,17 @@ const categoryId = async (req, res, next, category) => {
     }
 }
 
-const subgetlist=(req,res)=>{
-    try{
+const subgetlist = (req, res) => {
+    try {
         res.json(req.subproductslist)
-    }catch(error){
+    } catch (error) {
         res.status(500).send('상품을 불러오지 못했습니다.')
     }
 }
+
 const subcategoryId = async (req, res, next, subcategory) => {
     try {
-        const subproductslist = await Product.find({sub_category:subcategory})
+        const subproductslist = await Product.find({ sub_category: subcategory })
         if (!subproductslist) {
             res.status(404).send('상품을 찾을 수 없습니다.')
         }
@@ -83,4 +92,4 @@ const subcategoryId = async (req, res, next, subcategory) => {
     }
 }
 
-export default { imageUpload, regist, categoryId, getlist, subcategoryId, subgetlist }
+export default { imageUpload, regist, getToHome, getAll, categoryId, getlist, subcategoryId, subgetlist }

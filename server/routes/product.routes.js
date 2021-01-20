@@ -10,6 +10,9 @@ router.route('/regist')
 router.route('/getproduct')
     .get(productCtrl.getToHome)
 
+router.route('/getproduct/all')
+    .get(productCtrl.getAll)
+
 router.route('/getproduct/:category')
     .get(productCtrl.getlist)
 

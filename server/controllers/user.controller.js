@@ -31,9 +31,7 @@ const userById = async (req, res, next, id) => {
 
 
 const signup = async (req, res) => {
-    
-    const { name, number1, number2, id, password,  tel } = req.body
-    
+    const { name, number1, number2, id, password, tel } = req.body
     console.log(req.body)
     try {
         if (!isLength(password, { min: 8, max: 15 })) {
@@ -54,7 +52,7 @@ const signup = async (req, res) => {
             password: hash,
             tel,
         }).save()
-        await new Cart({ userId: newUser._id,role}).save()
+        await new Cart({ userId: newUser._id, role }).save()
         console.log(newUser)
         res.json(newUser)
 
@@ -79,7 +77,7 @@ const update = async (req, res) => {
             const updateUser = await user.save()
             res.json(updateUser)
         }
-        
+
     } catch (error) {
         console.log(error);
         res.status(500).send('이미지 업데이트 실패')

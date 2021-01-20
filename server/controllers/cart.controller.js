@@ -6,7 +6,7 @@ const addcart = async (req, res) => {
         const cart = await Cart.findOne({ userId: userId })
         await Cart.updateOne(
             { _id: cart._id },
-            {$set: {products: products}}
+            {$push: {products: products}}
         )
         res.status(200).send('카트에 저장되었습니다.')
     } catch (error) {
@@ -30,10 +30,18 @@ const showcart = async (req, res) => {
 
 const deletecart = async (req, res) => {
     console.log(req.body)
-    const { cartId } = req.body
+    const { userId,cartId } = req.body
     try {
-        await Cart.deleteOne({ _id: cartId })
-        res.send("삭제완료")
+        const cart = await Cart.findOneAndUpdate(
+            { userId: userId },
+            { $pull: { products: {_id:cartId} } },
+            { new: true }
+          ).populate({
+            path: 'products.productId',
+            model: 'Product'
+          })
+        // res.send("삭제완료")
+        res.json(cart)
     } catch (error) {
         console.log(error)
         res.status(500).send('해당 카트를 삭제하지 못했습니다.')

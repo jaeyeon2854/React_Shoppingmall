@@ -50,13 +50,6 @@ function ProductsRegist() {
         isProduct ? setDisabled(false) : setDisabled(true)
     }, [product])
 
-    function handleKeyPress(e) {
-        if (e.key === "Enter") {
-            addColor()
-            e.preventDefault()
-        }
-    }
-
     function addCategory(e) {
         if (selectRef.current.value === '') {
             alert('하위 분류를 반드시 선택해 주세요.')
@@ -138,11 +131,17 @@ function ProductsRegist() {
             }
         }
         product["sizes"] = sizes
+        console.log(product)
         const formData = new FormData();
         for (let key in product) {
             if (key === "main_image" || key === "detail_image") {
                 formData.append(key, product[key][0])
-            } else {
+            } else if(key === "sizes" || key === "colors"){
+                for (let i = 0; i < product[key].length ; i++){
+                    formData.append([key], product[key][i])
+                }
+            } 
+            else {
                 formData.append(key, product[key])
             }
         }
@@ -240,7 +239,7 @@ function ProductsRegist() {
                             <Form.Label>색상</Form.Label>
                             <Row>
                                 <Col md={10}>
-                                    <Form.Control as="input" ref={colorRef} name="colors" placeholder="색상" onChange={handleColor} onKeyPress={handleKeyPress} />
+                                    <Form.Control as="input" ref={colorRef} name="colors" placeholder="색상" onChange={handleColor} />
                                 </Col>
                                 <Col>
                                     <Button className="float-right" style={{ background: '#91877F', borderColor: '#91877F' }} onClick={addColor}>추가</Button>

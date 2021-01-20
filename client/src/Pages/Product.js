@@ -14,6 +14,7 @@ function Product({ match, location }) {
     const [selected, setSelected] = useState({ sizes: false, colors: false })
     const [count, setCount] = useState(1)
     const [price, setPrice] = useState(0)
+    // let price = 0
 
     useEffect(() => {
         if (size && color) {
@@ -22,16 +23,16 @@ function Product({ match, location }) {
         }
     }, [size, color])
 
-
     function handleClick(e) {
         const box = e.target.parentNode.parentNode
         box.style.display = "none"
     }
 
     function pushOptions() {
-        setCart([...cart, { color, size, productId: product.id }])
+        setCart([...cart, { color, size, productId: product.id, count:1 }])
         selected.sizes = false
         selected.colors = false
+        console.log(product)
         setColor("")
         setSize("")
         setPrice(product.price + price)
@@ -50,19 +51,28 @@ function Product({ match, location }) {
 
     function deleteOption(e) {
         e.preventDefault()
+        let preprice = 0
         const asd = cart.filter((el) => el.color !== e.target.id || el.size !== e.target.name)
+        asd.map((el)=>{
+            preprice = preprice + el.count *product.price
+        })
         setCart(asd)
+        setPrice(Number(preprice))
     }
 
     function handleCount(e) {
-        e.preventDefault()
-        const addCount = cart.map((el)=>{
-            if(el.color !== e.target.id || el.size !== e.target.name){
-                return {el}
+        const addCount = cart.map((el) => {
+            if (el.color !== e.target.id || el.size !== e.target.name) {
+                return { ...el }
             } else {
-                return {...el, count : e.target.value}
+                return { ...el, count: e.target.value }
             }
         })
+        let preprice = 0
+        addCount.map((el)=>{
+            preprice = preprice + el.count *product.price
+        })
+        setPrice(Number(preprice))
         setCart(addCount)
         setCount(e.value)
     }
@@ -90,7 +100,7 @@ function Product({ match, location }) {
 
     return (
         <div>
-            {/* {console.log("match=", match.params, "location=", location.state, "product=", product)} */}
+            {console.log(cart)}
             <style type="text/css">
                 {`
                 .btn {
@@ -129,14 +139,15 @@ function Product({ match, location }) {
                             </Form.Control>
                         </Form.Group>
                         {cart.map((e) => (
-                            <div>
-                                <span>{e.color}/{e.size}</span>
-                                <input onClick={deleteOption} id={e.color} name={e.size} type="image" alt="삭제버튼" src="https://img.icons8.com/fluent-systems-regular/24/000000/close-window.png" className="float-right align-middle" />
-                                <span>{e.price}원</span>
-                                <span className="float-right mx-2">
+                            <Row className="mx-1">
+                                <Col xs={6}>{e.color}/{e.size}</Col>
+                                <Col xs={4} className="text-right" >
                                     <input type='number' id={e.color} name={e.size} onChange={handleCount} value={count} style={{ width: '3rem' }} className="text-center" />
-                                </span>
-                            </div>
+                                </Col>
+                                <Col xs={2} className="text-right">
+                                    <input onClick={deleteOption} id={e.color} name={e.size} type="image" alt="삭제버튼" src="https://img.icons8.com/fluent-systems-regular/24/000000/close-window.png" className="align-middle" />
+                                </Col>
+                            </Row>
 
                         ))}
                         <Row className="justify-content-between mx-0 my-3" style={{ width: "100%" }}>

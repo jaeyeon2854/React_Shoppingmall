@@ -14,14 +14,11 @@ function Payment({ match, location }) {
     const [userData, setUserData] = useState({})
     const [error, setError] = useState()
     const [paymentWay, setPaymentWay] = useState([])
-    // const [isAddress, setIsAddress] = useState("");
-    // const [isZoneCode, setIsZoneCode] = useState();
-    // const [isPostOpen, setIsPostOpen] = useState();
     const [post, setPost] = useState([])
     const [redirect, setRedirect] = useState(null)
     const [address, setAddress] = useState("")
     const [finalPrice, setFinalPrice] = useState(0)
-    const [num, setNum] = useState(0)
+    const [completeState, setCompleteState] = useState(false)
     const user = isAuthenticated()
 
     useEffect(() => {
@@ -40,8 +37,8 @@ function Payment({ match, location }) {
     async function getUser() {
         const name = localStorage.getItem('name')
         const tel = localStorage.getItem('tel')
-        // const email = localStorage.getItem('email')
-        setUserData({ name: name, tel: tel })
+        const email = localStorage.getItem('email')
+        setUserData({ name: name, tel: tel, email:email })
     }
 
     async function getCart() {
@@ -106,6 +103,7 @@ function Payment({ match, location }) {
 
     function handleClick() {
         if (paymentWay.length !== 0) {
+            setCompleteState(false)
             setPaymentWay([])
         }
         else {
@@ -134,6 +132,7 @@ function Payment({ match, location }) {
 
                 </Row>)
             setPaymentWay(a)
+            setCompleteState(true)
         }
     }
 
@@ -164,7 +163,9 @@ function Payment({ match, location }) {
             })
         })
         const data = await response.json()
-        console.log(data)
+        if(data) {
+            setCompleteState(true)
+        }
         window.location.href = data.redirect_url
         // setRedirect(data.redirect_url)
     }
@@ -190,21 +191,15 @@ function Payment({ match, location }) {
             })
             console.log(response.data)
             alert("주문이 완료되었습니다.")
-            return <Redirect to={'/account'} />
         } catch (error) {
             catchErrors(error, setError)
             alert("주문에 실패하셨습니다. 다시 확인해주세요.")
         }
     }
 
-    if (redirect) {
-        console.log(redirect)
-        return <Redirect to={'/kakao'} />
-    }
-
     return (
         <div>
-            {/* {console.log(order)} */}
+            {console.log(completeState)}
             <Container>
                 <h3 className="my-5 font-weight-bold text-center">주문/결제</h3>
                 <div>
@@ -222,7 +217,7 @@ function Payment({ match, location }) {
                                 </Form.Group>
                                 <Form.Group controlId="formBasicEmail">
                                     <Form.Label>이메일</Form.Label>
-                                    <Form.Control type="email" placeholder="이메일 주소를 입력해주세요" />
+                                    <Form.Control type="email" value={userData.email} readOnly />
                                 </Form.Group>
                             </Form>
                         </Col>
@@ -296,7 +291,7 @@ function Payment({ match, location }) {
                     {paymentWay}
                 </div>
                 <div className="text-center">
-                    <Button className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} onClick={paymentCompleted} block>결제완료</Button>
+                    <Button type="button" onClick={paymentCompleted} disabled={!completeState}  className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }}  block>결제완료</Button>
                 </div>
             </Container>
         </div>

@@ -6,15 +6,6 @@ import multer from "multer";
 
 const uploadimg = multer({ dest: 'uploads/' });
 
-const getUser = async (req, res) => {
-    try {
-        const user = await User.findOne({ _id: req.id })
-        res.json(user)
-    } catch (error) {
-        res.status(500).send('사용자 정보를 불러올 수 없습니다.')
-    }
-}
-
 const imgUpload = uploadimg.fields([
     { name: 'avatar', maxCount: 1 }
 ])
@@ -31,7 +22,6 @@ const userById = async (req, res, next, id) => {
             res.status(404).send('사용자를 찾을 수 없습니다')
         }
         req.account = user
-        req.id = id
         next()
     } catch (error) {
         console.log(error);
@@ -41,9 +31,7 @@ const userById = async (req, res, next, id) => {
 
 
 const signup = async (req, res) => {
-
     const { name, number1, number2, id, password, tel } = req.body
-
     console.log(req.body)
     try {
         if (!isLength(password, { min: 8, max: 15 })) {
@@ -96,4 +84,4 @@ const update = async (req, res) => {
     }
 }
 
-export default { getUser, signup, username, imgUpload, userById, update }
+export default { signup, username, imgUpload, userById, update }

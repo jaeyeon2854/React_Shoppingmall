@@ -9,6 +9,6 @@ router.route('/main')
 router.route('/sub/:sub')
     .get(categoryCtrl.getSubCategory)
 
-router.param('sub',categoryCtrl.getsubId)
+// router.param('sub',categoryCtrl.getsubId)
 
 export default router

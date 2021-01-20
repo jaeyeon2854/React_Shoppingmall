@@ -22,6 +22,9 @@ const CartSchema = new mongoose.Schema({
                 },
                 color: {
                     type: String
+                },
+                checked: {
+                    type: Boolean
                 }
             }
         ]

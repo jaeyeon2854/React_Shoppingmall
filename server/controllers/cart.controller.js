@@ -1,12 +1,12 @@
 import Cart from "../schemas/Cart.js";
 
-const addcart = async (req, res) => {
-    const { userId, products} = req.body
+const addCart = async (req, res) => {
+    const { userId, products } = req.body
     try {
         const cart = await Cart.findOne({ userId: userId })
         await Cart.updateOne(
             { _id: cart._id },
-            {$push: {products: products}}
+            { $push: { products: products } }
         )
         res.status(200).send('카트에 저장되었습니다.')
     } catch (error) {
@@ -15,11 +15,26 @@ const addcart = async (req, res) => {
     }
 }
 
-const showcart = async (req, res) => {
+const changeCart = async (req, res) => {
+    const { userId, products } = req.body
+    console.log(products)
+    try {
+        const cart = await Cart.findOne({ userId: userId })
+        await Cart.updateOne(
+            { _id: cart._id },
+            { $set: { products: products } }
+        )
+        res.send("카트에 체크가 활성화되었습니다")
+    } catch (error) {
+        res.send("카트 체인지 실패")
+    }
+}
+
+const showCart = async (req, res) => {
     try {
         const cart = await Cart.findOne({ userId: req.id }).populate({
             path: 'products.productId',
-            model: 'Product' 
+            model: 'Product'
         })
         res.status(200).json(cart.products)
     } catch (error) {
@@ -28,18 +43,19 @@ const showcart = async (req, res) => {
     }
 }
 
-const deletecart = async (req, res) => {
+
+const deleteCart = async (req, res) => {
     console.log(req.body)
-    const { userId,cartId } = req.body
+    const { userId, cartId } = req.body
     try {
         const cart = await Cart.findOneAndUpdate(
             { userId: userId },
-            { $pull: { products: {_id:cartId} } },
+            { $pull: { products: { _id: cartId } } },
             { new: true }
-          ).populate({
+        ).populate({
             path: 'products.productId',
             model: 'Product'
-          })
+        })
         // res.send("삭제완료")
         res.json(cart)
     } catch (error) {
@@ -63,4 +79,4 @@ const userById = async (req, res, next, id) => {
 }
 
 
-export default { addcart, showcart, deletecart, userById }
+export default { addCart, changeCart, showCart, deleteCart, userById }

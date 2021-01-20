@@ -5,15 +5,18 @@ import cartCtrl from '../controllers/cart.controller.js';
 const router = express.Router()
 
 router.route('/addcart')
-    .put(cartCtrl.addcart)
+    .put(cartCtrl.addCart)
 // .get()
 
 router.route('/showcart/:userId')
-    .get(cartCtrl.showcart)
-router.param('userId', cartCtrl.userById)
+    .get(cartCtrl.showCart)
 
+router.route('/changecart')
+    .post(cartCtrl.changeCart)
 
 router.route('/deletecart')
-    .post(cartCtrl.deletecart)
-    
+    .post(cartCtrl.deleteCart)
+
+router.param('userId', cartCtrl.userById)
+
 export default router

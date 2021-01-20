@@ -2,15 +2,15 @@ import axios from 'axios';
 import React, { useState, useEffect, useRef } from 'react';
 import DaumPostcode from "react-daum-postcode";
 import { Container, Card, Row, Col, Button, Form, FormGroup } from 'react-bootstrap';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import PaymentCard from '../Components/PaymentCard';
 import { isAuthenticated } from '../utils/auth';
 import catchErrors from '../utils/catchErrors';
 
 function Payment({ match, location }) {
 
-    const [cart, setCart] = useState(location.state)
-    const [order, setOrder] = useState({products: location.state})
+    const [cart, setCart] = useState([])
+    const [order, setOrder] = useState({ products: location.state })
     const [userData, setUserData] = useState({})
     const [error, setError] = useState()
     const [paymentWay, setPaymentWay] = useState([])
@@ -26,18 +26,33 @@ function Payment({ match, location }) {
 
     useEffect(() => {
         getUser()
+        getCart()
+    }, [user])
+
+    useEffect(() => {
         let price = 0
         cart.map((el) => {
             price = Number(el.count) * Number(el.productId.price) + price
         })
         setFinalPrice(price)
-    }, [user])
+    }, [cart])
 
     async function getUser() {
         try {
             const response = await axios.get(`/api/users/getuser/${user}`)
-            console.log(response.data)
+            // console.log(response.data)
             setUserData(response.data)
+        } catch (error) {
+            catchErrors(error, setError)
+        }
+    }
+
+    async function getCart() {
+        try {
+            const response = await axios.get(`/api/cart/showcart/${user}`)
+            console.log(response.data)
+            const preCart = response.data.filter((el) => el.checked === true)
+            setCart(preCart)
         } catch (error) {
             catchErrors(error, setError)
         }
@@ -45,8 +60,8 @@ function Payment({ match, location }) {
 
     function handleReceiverInfo(e) {
         const { name, value } = e.target
-        console.log(name,value)
-        setOrder({ ...order, receiverInfo: {...order.receiverInfo, [name]: value } })
+        console.log(name, value)
+        setOrder({ ...order, receiverInfo: { ...order.receiverInfo, [name]: value } })
     }
 
     function postClick() {
@@ -78,7 +93,7 @@ function Payment({ match, location }) {
             fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
         }
         setAddress({ full: fullAddress, code: data.zonecode });
-        setOrder({ ...order, receiverInfo: {...order.receiverInfo, address: fullAddress, postalCode: data.zonecode  } })
+        setOrder({ ...order, receiverInfo: { ...order.receiverInfo, address: fullAddress, postalCode: data.zonecode } })
         console.log(fullAddress);
     }
 
@@ -125,45 +140,52 @@ function Payment({ match, location }) {
     }
 
     async function kakaopay() {
-        const response = await fetch('/api/kakaopay/test/single', {
-            method: "POST",
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                cid: 'TC0ONETIME',
-                partner_order_id: 'partner_order_id',
-                partner_user_id: 'partner_user_id',
-                item_name: '앙고라 반목 폴라 베이직 모헤어 니트 (T)',
-                quantity: 1,
-                total_amount: 22000,
-                vat_amount: 200,
-                tax_free_amount: 0,
-                approval_url: 'http://localhost:3000/account',
-                fail_url: 'http://localhost:3000/shoppingcart',
-                cancel_url: 'http://localhost:3000/kakaopay/payment',
+        let itemNames = ""
+        if (cart.length > 1){
+            itemNames = cart[0].productId.pro_name + ' 외 ' + String(cart.length-1) + '개'
+        } else {
+            itemNames = cart[0].productId.pro_name
+        }
+            const response = await fetch('/api/kakaopay/test/single', {
+                method: "POST",
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    cid: 'TC0ONETIME',
+                    partner_order_id: 'partner_order_id',
+                    partner_user_id: user,
+                    item_name: itemNames,
+                    quantity: cart.length,
+                    total_amount: finalPrice+2500,
+                    vat_amount: 200,
+                    tax_free_amount: 0,
+                    approval_url: 'http://localhost:3000/payment',
+                    fail_url: 'http://localhost:3000/payment',
+                    cancel_url: 'http://localhost:3000/payment',
+                })
             })
-        })
         const data = await response.json()
         console.log(data)
         window.location.href = data.redirect_url
         // setRedirect(data.redirect_url)
     }
 
-    async function paymentCompleted(){
+    async function paymentCompleted() {
         console.log(user)
         console.log(order)
         console.log(finalPrice)
         try {
             const response = await axios.post(`/api/order/addorder`, {
-                userId : user,
+                userId: user,
                 ...order,
-                total : finalPrice+2500
+                total: finalPrice + 2500
             })
             console.log(response.data)
         } catch (error) {
             catchErrors(error, setError)
         }
+        alert("주문이 완료되었습니다.")
     }
 
     if (redirect) {
@@ -265,7 +287,7 @@ function Payment({ match, location }) {
                     {paymentWay}
                 </div>
                 <div className="text-center">
-                    <Button className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} onClick={paymentCompleted} block>결제완료</Button>
+                    <Button href="/account" className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} onClick={paymentCompleted} block>결제완료</Button>
                 </div>
             </Container>
         </div>

@@ -74,7 +74,7 @@ function ProductsList({ match }) {
                     <Col sm={10} xs={12} >
                         <h1 style={{ fontSize: "3rem" }} className="text-center">{mainCategory}</h1>
                         <div className="text-center">
-                            <ButtonGroup className="d-flex flex-wrap" variant="outline-light secondary">
+                            <ButtonGroup className="m-3" variant="outline-light secondary" style={{ display: "inline-block" }}>
                                 {subcategory.map(el => (<Button className="m-1" variant="secondary">{el}</Button>))}
                             </ButtonGroup>
                         </div>

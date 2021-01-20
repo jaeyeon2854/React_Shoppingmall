@@ -75,7 +75,7 @@ function ProductsList({ match }) {
                         <h1 style={{ fontSize: "3rem" }} className="text-center">{mainCategory}</h1>
                         <div className="text-center">
                             <ButtonGroup className="d-flex flex-wrap" variant="outline-light secondary">
-                                {subcategory.map(el => <Button className="m-1" variant="secondary">{el}</Button>)}
+                                {subcategory.map(el => (<Button className="m-1" variant="secondary">{el}</Button>))}
                             </ButtonGroup>
                         </div>
                     </Col>

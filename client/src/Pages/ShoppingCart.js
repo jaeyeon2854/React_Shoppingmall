@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { Card, Button, Container, Row, Col } from 'react-bootstrap';
+import { Button, Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import catchErrors from '../utils/catchErrors';
-import { isAuthenticated } from '../utils/auth'
+import { isAuthenticated } from '../utils/auth';
 import CartCard from '../Components/CartCard';
 
 function ShoppingCart() {
@@ -119,7 +119,6 @@ function ShoppingCart() {
                     }} className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} block>결제하기</Button>
                 </div>
             </Container>
-
         </div>
     )
 }

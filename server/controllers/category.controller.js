@@ -3,7 +3,7 @@ import Category from "../schemas/Category.js";
 const getCategory = async (req, res) => {
     try {
         const category = await Category.find({}, { _id: 0 })
-        console.log("main= ", category);
+        // console.log("main= ", category);
         res.json(category)
     } catch (error) {
         console.log(error)
@@ -12,11 +12,11 @@ const getCategory = async (req, res) => {
 }
 
 const getSubCategory = async (req, res) => {
-    console.log("req.params=", req.params);
+    // console.log("req.params=", req.params);
     const { sub } = req.params
     try {
         const subcategory = await Category.findOne({}, { _id: 0}).select(`${sub}`)
-        console.log("sub= ",subcategory);
+        // console.log("sub= ",subcategory);
         res.json(subcategory);
     } catch (error) {
         res.status(500).send('카테고리를 불러오지 못했습니다.')
@@ -27,8 +27,8 @@ const getToHome = async (res, req) => {
     try {
         const bestProduct = await Product.find({}).sort({ purchase: 1 }).limit(6)
         const newProduct = await Product.find({}).sort({ createdAt: -1 }).limit(6)
-        console.log("best=", bestProduct)
-        console.log("new=", newProduct)
+        // console.log("best=", bestProduct)
+        // console.log("new=", newProduct)
         res.json(bestProduct, newProduct)
     } catch {
         res.status(500).send('상품을 불러오지 못했습니다.')

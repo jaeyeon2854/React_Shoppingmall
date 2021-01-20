@@ -33,8 +33,8 @@ const getToHome = async (req, res) => {
     try {
         const bestProduct = await Product.find({}).sort({ purchase: -1 }).limit(6)
         const newProduct = await Product.find({}).sort({ createdAt: -1 }).limit(6)
-        console.log("best=", bestProduct)
-        console.log("new=", newProduct)
+        // console.log("best=", bestProduct)
+        // console.log("new=", newProduct)
         res.json({ bestProduct, newProduct })
     } catch {
         res.status(500).send('상품을 불러오지 못했습니다.')
@@ -92,4 +92,26 @@ const subcategoryId = async (req, res, next, subcategory) => {
     }
 }
 
-export default { imageUpload, regist, getToHome, getAll, categoryId, getlist, subcategoryId, subgetlist }
+const plusPurchase = async (req, res) => {
+    const { products } = req.body
+    // console.log(products)
+    try {
+        for (let i = 0; i < products.length; i++) {
+            const count = products[i].count
+            const product = await Product.findOne(
+                {_id: products[i].productId._id }
+            )
+            const purchase = product.purchase
+            await Product.updateOne(
+                { _id: products[i].productId._id },
+                { $set: { purchase: count + purchase } }
+            )
+            // console.log("i=", i)
+        }
+        res.send("구매수 늘리기 성공")
+    } catch (error) {
+        res.status(500).send('구매숫자를 늘리지 못함')
+    }
+}
+
+export default { imageUpload, regist, getToHome, getAll, categoryId, getlist, subcategoryId, subgetlist, plusPurchase }

@@ -10,7 +10,7 @@ import catchErrors from '../utils/catchErrors';
 function Payment({ match, location }) {
 
     const [cart, setCart] = useState([])
-    const [order, setOrder] = useState({ products: location.state })
+    const [order, setOrder] = useState({ products: [] })
     const [userData, setUserData] = useState({})
     const [error, setError] = useState()
     const [paymentWay, setPaymentWay] = useState([])
@@ -38,13 +38,10 @@ function Payment({ match, location }) {
     }, [cart])
 
     async function getUser() {
-        try {
-            const response = await axios.get(`/api/users/getuser/${user}`)
-            // console.log(response.data)
-            setUserData(response.data)
-        } catch (error) {
-            catchErrors(error, setError)
-        }
+        const name = localStorage.getItem('name')
+        const tel = localStorage.getItem('tel')
+        // const email = localStorage.getItem('email')
+        setUserData({ name: name, tel: tel })
     }
 
     async function getCart() {
@@ -53,6 +50,7 @@ function Payment({ match, location }) {
             console.log(response.data)
             const preCart = response.data.filter((el) => el.checked === true)
             setCart(preCart)
+            setOrder({ products: preCart })
         } catch (error) {
             catchErrors(error, setError)
         }
@@ -141,30 +139,30 @@ function Payment({ match, location }) {
 
     async function kakaopay() {
         let itemNames = ""
-        if (cart.length > 1){
-            itemNames = cart[0].productId.pro_name + ' 외 ' + String(cart.length-1) + '개'
+        if (cart.length > 1) {
+            itemNames = cart[0].productId.pro_name + ' 외 ' + String(cart.length - 1) + '개'
         } else {
             itemNames = cart[0].productId.pro_name
         }
-            const response = await fetch('/api/kakaopay/test/single', {
-                method: "POST",
-                headers: {
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify({
-                    cid: 'TC0ONETIME',
-                    partner_order_id: 'partner_order_id',
-                    partner_user_id: user,
-                    item_name: itemNames,
-                    quantity: cart.length,
-                    total_amount: finalPrice+2500,
-                    vat_amount: 200,
-                    tax_free_amount: 0,
-                    approval_url: 'http://localhost:3000/payment',
-                    fail_url: 'http://localhost:3000/payment',
-                    cancel_url: 'http://localhost:3000/payment',
-                })
+        const response = await fetch('/api/kakaopay/test/single', {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                cid: 'TC0ONETIME',
+                partner_order_id: 'partner_order_id',
+                partner_user_id: user,
+                item_name: itemNames,
+                quantity: cart.length,
+                total_amount: finalPrice + 2500,
+                vat_amount: 200,
+                tax_free_amount: 0,
+                approval_url: 'http://localhost:3000/payment',
+                fail_url: 'http://localhost:3000/payment',
+                cancel_url: 'http://localhost:3000/payment',
             })
+        })
         const data = await response.json()
         console.log(data)
         window.location.href = data.redirect_url
@@ -172,20 +170,31 @@ function Payment({ match, location }) {
     }
 
     async function paymentCompleted() {
-        console.log(user)
         console.log(order)
-        console.log(finalPrice)
+        const cartIds = []
+        order.products.map((el) => {
+            cartIds.push(el._id)
+        })
         try {
             const response = await axios.post(`/api/order/addorder`, {
                 userId: user,
                 ...order,
                 total: finalPrice + 2500
             })
+            const response2 = await axios.post(`/api/cart/deletecart2`, {
+                userId: user,
+                cartId: cartIds
+            })
+            const response3 = await axios.post(`/api/product/pluspurchase`, {
+                products: order.products
+            })
             console.log(response.data)
+            alert("주문이 완료되었습니다.")
+            return <Redirect to={'/account'} />
         } catch (error) {
             catchErrors(error, setError)
+            alert("주문에 실패하셨습니다. 다시 확인해주세요.")
         }
-        alert("주문이 완료되었습니다.")
     }
 
     if (redirect) {
@@ -280,14 +289,14 @@ function Payment({ match, location }) {
 
                 <div>
                     <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>결제수단</h5>
-                    <div className="text-center mt-5">
+                    <div className="text-center m-3">
                         <Button variant="success" className="align-top" onClick={handleClick} >무통장입금</Button>
                         <input type="image" alt="카카오페이결제" src="icon/payment_icon_yellow_small.png" onClick={kakaopay} />
                     </div>
                     {paymentWay}
                 </div>
                 <div className="text-center">
-                    <Button href="/account" className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} onClick={paymentCompleted} block>결제완료</Button>
+                    <Button className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} onClick={paymentCompleted} block>결제완료</Button>
                 </div>
             </Container>
         </div>

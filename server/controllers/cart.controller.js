@@ -43,7 +43,6 @@ const showCart = async (req, res) => {
     }
 }
 
-
 const deleteCart = async (req, res) => {
     console.log(req.body)
     const { userId, cartId } = req.body
@@ -64,6 +63,29 @@ const deleteCart = async (req, res) => {
 
     }
 }
+const deleteCart2 = async (req, res) => {
+    console.log(req.body)
+    const { userId, cartId } = req.body
+    try {
+        for( let i = 0; i < cartId.length; i++ ){
+            await Cart.findOneAndUpdate(
+                { userId: userId },
+                { $pull: { products: { _id: cartId[i] } } },
+                { new: true }
+            ).populate({
+                path: 'products.productId',
+                model: 'Product'
+            })
+        }
+        res.send("주문완료 쇼핑카트 삭제")
+        // res.json(cart)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send('해당 카트를 삭제하지 못했습니다.')
+
+    }
+}
+
 const userById = async (req, res, next, id) => {
     try {
         const cart = await Cart.findOne({ userId: id })
@@ -79,4 +101,4 @@ const userById = async (req, res, next, id) => {
 }
 
 
-export default { addCart, changeCart, showCart, deleteCart, userById }
+export default { addCart, changeCart, showCart, deleteCart,deleteCart2, userById }

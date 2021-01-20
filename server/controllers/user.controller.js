@@ -52,7 +52,7 @@ const signup = async (req, res) => {
             password: hash,
             tel,
         }).save()
-        await new Cart({ userId: newUser._id, role }).save()
+        await new Cart({ userId: newUser._id }).save()
         console.log(newUser)
         res.json(newUser)
 

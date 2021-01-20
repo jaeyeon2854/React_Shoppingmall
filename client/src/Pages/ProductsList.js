@@ -99,7 +99,20 @@ function ProductsList({ match }) {
                 </Row>
                 <Row md={8} sm={12} className="justify-content-center m-2">
                     {productlist.map(pro => (
-                        <ListCard as={Link} id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} to={{
+                        // <ListCard as={Link} id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} to={{
+                        //     pathname: `/product/${pro._id}`,
+                        //     state: {
+                        //         id: pro._id,
+                        //         name: pro.pro_name,
+                        //         price: pro.price,
+                        //         colors: pro.colors,
+                        //         sizes: pro.sizes,
+                        //         description: pro.description,
+                        //         main_img: pro.main_imgUrl,
+                        //         detail_imgs: pro.detail_imgUrls
+                        //     }
+                        // }} />
+                        <Link to={{
                             pathname: `/product/${pro._id}`,
                             state: {
                                 id: pro._id,
@@ -111,7 +124,9 @@ function ProductsList({ match }) {
                                 main_img: pro.main_imgUrl,
                                 detail_imgs: pro.detail_imgUrls
                             }
-                        }} />
+                        }}>
+                            <ListCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} />
+                        </Link>
                     ))}
                 </Row>
             </Container>

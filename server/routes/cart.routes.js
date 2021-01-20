@@ -16,6 +16,8 @@ router.route('/changecart')
 
 router.route('/deletecart')
     .post(cartCtrl.deleteCart)
+router.route('/deletecart2')
+    .post(cartCtrl.deleteCart2)
 
 router.param('userId', cartCtrl.userById)
 

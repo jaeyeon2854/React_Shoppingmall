@@ -5,7 +5,6 @@ import Pagination from '../Components/Pagination';
 import axios from 'axios';
 import catchError from '../utils/catchErrors';
 import { isAuthenticated } from '../utils/auth';
-import catchError from '../utils/catchErrors';
 import { Container, Row, Col, Form, FormControl, Button, Dropdown } from 'react-bootstrap';
 
 function ProductsList({ match }) {

@@ -1,15 +1,14 @@
 import axios from "axios";
 
-export function handleLogin({ userId, role, name }) {
+export function handleLogin({ userId, role, name, tel }) {
     localStorage.setItem('id', userId)
     localStorage.setItem('role', role)
     localStorage.setItem('name', name)
+    localStorage.setItem('tel', tel)
 }
 
 export async function handleLogout() {
-    localStorage.removeItem('id')
-    localStorage.removeItem('role')
-    localStorage.removeItem('name')
+    localStorage.clear()
     await axios.get('/api/auth/logout')
     window.location.href = '/'
 }

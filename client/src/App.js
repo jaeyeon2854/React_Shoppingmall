@@ -24,6 +24,7 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/product/:productId" component={Product} />
+        <Route path="/categories/:main/:sub" component={ProductsList} />
         <Route path="/categories/:main" component={ProductsList} />
         <Route path="/admin" component={Admin} />
         <Route path="/regist" component={ProductRegist} />

@@ -20,6 +20,7 @@ function Payment({ match, location }) {
     const [finalPrice, setFinalPrice] = useState(0)
     const [completeState, setCompleteState] = useState(false)
     const user = isAuthenticated()
+    const preCart = []
 
     useEffect(() => {
         getUser()
@@ -45,8 +46,12 @@ function Payment({ match, location }) {
         try {
             const response = await axios.get(`/api/cart/showcart/${user}`)
             console.log(response.data)
-            const preCart = response.data.filter((el) => el.checked === true)
-            setCart(preCart)
+            if(response.data[0].checked){
+                const preCart = response.data.filter((el) => el.checked === true)
+                setCart(preCart)
+            } else {
+                setCart(response.data)
+            }
             setOrder({ products: preCart })
         } catch (error) {
             catchErrors(error, setError)

@@ -7,7 +7,7 @@ import { Container, Row, Col, Form, FormControl, Button, Dropdown, ButtonGroup }
 
 function ProductsList({ match }) {
     const [mainCategory, setMainCategory] = useState(match.params.main.toUpperCase())
-    const [subcategory, setSubcategory] = useState([])
+    const [subCategory, setSubCategory] = useState([])
     const [productlist, setProductlist] = useState([])
     const [error, setError] = useState('')
 
@@ -21,18 +21,27 @@ function ProductsList({ match }) {
         getProductlist()
     }, [mainCategory])
 
+    async function handleClick(sub) {
+        console.log("sub=",sub)
+        try {
+            const response = await axios.get(`/api/product/getproduct/${mainCategory}/${sub}`)
+            console.log("response.data=", response.data)
+            setProductlist(response.data)
+
+        } catch (error) {
+            catchError(error, setError)
+        }
+    }
+
     function handleSearch() {
 
     }
 
-    async function getSubsCategories([]) {
+    async function getSubsCategories() {
         try {
             const response = await axios.get(`/api/categories/sub/${mainCategory}`)
-            setSubcategory(Object.values(response.data)[0])
-
-            console.log("response data=", response.data)
+            setSubCategory(Object.values(response.data)[0])
             console.log("object value=", Object.values(response.data));
-
         } catch (error) {
             catchError(error, setError)
         }
@@ -41,7 +50,6 @@ function ProductsList({ match }) {
     async function getProductlist() {
         try {
             const response = await axios.get(`/api/product/getproduct/${mainCategory}`)
-            console.log("response.data=", response.data)
             setProductlist(response.data)
 
         } catch (error) {
@@ -57,14 +65,12 @@ function ProductsList({ match }) {
                     color: #000;
                     text-decoration: none;
                 }
-
                 .btn {
                     background-color: #CDC5C2;
                     border-color: #CDC5C2;
                 }
-
-                .btn:hover, .btn:active, .btn:focus, .show>.btn-primary.dropdown-toggle {
-                    background-color: #91877F;
+                .btn:hover {
+                    background: #91877F;
                     border-color: #91877F;
                 }
                 `}
@@ -74,8 +80,8 @@ function ProductsList({ match }) {
                     <Col sm={10} xs={12} >
                         <h1 style={{ fontSize: "3rem" }} className="text-center">{mainCategory}</h1>
                         <div className="text-center">
-                            <ButtonGroup className="d-flex flex-wrap" variant="outline-light secondary">
-                                {subcategory.map(el => (<Button className="m-1" variant="secondary">{el}</Button>))}
+                            <ButtonGroup className="d-flex flex-wrap">
+                                {subCategory.map(el => (<Button className="m-1" onClick={() => handleClick(el)}>{el}</Button>))}
                             </ButtonGroup>
                         </div>
                     </Col>

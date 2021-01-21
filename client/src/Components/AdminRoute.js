@@ -10,7 +10,7 @@ function PrivateRoute({path, children}) {
       </Route>
     )
   } else {
-    alert('궈한이 없습니다. 죄송합니다.');
+    alert('권한이 없습니다. 죄송합니다.');
     return (
       <Redirect to='/' />
     )

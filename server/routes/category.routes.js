@@ -6,9 +6,7 @@ const router = express.Router()
 router.route('/main')
     .get(categoryCtrl.getCategory)
 
-router.route('/sub/:sub')
+router.route('/sub/:name')
     .get(categoryCtrl.getSubCategory)
-
-// router.param('sub',categoryCtrl.getsubId)
 
 export default router

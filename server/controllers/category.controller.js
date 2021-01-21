@@ -3,7 +3,6 @@ import Category from "../schemas/Category.js";
 const getCategory = async (req, res) => {
     try {
         const category = await Category.find({}, { _id: 0 })
-        console.log("main= ", category);
         res.json(category)
     } catch (error) {
         console.log(error)
@@ -12,11 +11,9 @@ const getCategory = async (req, res) => {
 }
 
 const getSubCategory = async (req, res) => {
-    console.log("req.params=", req.params);
-    const { sub } = req.params
+    const name = req.params.name
     try {
-        const subcategory = await Category.findOne({}, { _id: 0}).select(`${sub}`)
-        console.log("sub= ",subcategory);
+        const subcategory = await Category.findOne({}, { _id: 0}).select(`${name}`)
         res.json(subcategory);
     } catch (error) {
         res.status(500).send('카테고리를 불러오지 못했습니다.')

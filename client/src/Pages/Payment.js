@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect, useRef } from 'react';
 import DaumPostcode from "react-daum-postcode";
 import { Container, Card, Row, Col, Button, Form, FormGroup } from 'react-bootstrap';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect, Link, useHistory } from 'react-router-dom';
 import PaymentCard from '../Components/PaymentCard';
 import { isAuthenticated } from '../utils/auth';
 import catchErrors from '../utils/catchErrors';
@@ -20,6 +20,7 @@ function Payment({ match, location }) {
     const [finalPrice, setFinalPrice] = useState(0)
     const [completeState, setCompleteState] = useState(false)
     const user = isAuthenticated()
+    let history = useHistory();
     const preCart = []
 
     useEffect(() => {
@@ -39,19 +40,37 @@ function Payment({ match, location }) {
         const name = localStorage.getItem('name')
         const tel = localStorage.getItem('tel')
         const email = localStorage.getItem('email')
-        setUserData({ name: name, tel: tel, email:email })
+        setUserData({ name: name, tel: tel, email: email })
     }
 
     async function getCart() {
         try {
+            setError('')
             const response = await axios.get(`/api/cart/showcart/${user}`)
             console.log(response.data)
-            if(response.data[0].checked){
-                const preCart = response.data.filter((el) => el.checked === true)
+            const preCart = response.data.filter((el) => el.checked === true)
+            if (preCart.length) {
                 setCart(preCart)
+                setOrder({ products: preCart })
             } else {
-                setCart(response.data)
+                alert("주문하실 상품이 없습니다.")
+                history.push("/home")
             }
+        } catch (error) {
+            catchErrors(error, setError)
+        }
+    }
+
+    async function deleteOrder(e) {
+        try {
+            setError('')
+            const response = await axios.post('/api/cart/deletecart', {
+                userId: user,
+                cartId: e.target.name
+            })
+            console.log(response.data)
+            const preCart = response.data.products.filter((el) => el.checked === true)
+            setCart(preCart)
             setOrder({ products: preCart })
         } catch (error) {
             catchErrors(error, setError)
@@ -162,13 +181,13 @@ function Payment({ match, location }) {
                 total_amount: finalPrice + 2500,
                 vat_amount: 200,
                 tax_free_amount: 0,
-                approval_url: 'http://localhost:3000/payment',
-                fail_url: 'http://localhost:3000/payment',
-                cancel_url: 'http://localhost:3000/payment',
+                approval_url: 'http://localhost:3000/paymentcompleted',
+                fail_url: 'http://localhost:3000/shoppingcart',
+                cancel_url: 'http://localhost:3000/shoppingcart',
             })
         })
         const data = await response.json()
-        if(data) {
+        if (data) {
             setCompleteState(true)
         }
         window.location.href = data.redirect_url
@@ -182,6 +201,7 @@ function Payment({ match, location }) {
             cartIds.push(el._id)
         })
         try {
+            setError('')
             const response = await axios.post(`/api/order/addorder`, {
                 userId: user,
                 ...order,
@@ -195,7 +215,10 @@ function Payment({ match, location }) {
                 products: order.products
             })
             console.log(response.data)
+            console.log(response2.data)
+            console.log(response3.data)
             alert("주문이 완료되었습니다.")
+            history.push('/paymentcompleted')
         } catch (error) {
             catchErrors(error, setError)
             alert("주문에 실패하셨습니다. 다시 확인해주세요.")
@@ -204,7 +227,7 @@ function Payment({ match, location }) {
 
     return (
         <div>
-            {console.log(completeState)}
+            {/* {console.log(completeState)} */}
             <Container>
                 <h3 className="my-5 font-weight-bold text-center">주문/결제</h3>
                 <div>
@@ -268,7 +291,7 @@ function Payment({ match, location }) {
 
                 <div>
                     <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>주문상품정보</h5>
-                    <PaymentCard cart={cart} />
+                    <PaymentCard cart={cart} deleteOrder={deleteOrder} />
                 </div>
 
                 <div className="p-5 m-3" style={{ background: '#F7F3F3' }}>
@@ -296,7 +319,7 @@ function Payment({ match, location }) {
                     {paymentWay}
                 </div>
                 <div className="text-center">
-                    <Button type="button" onClick={paymentCompleted} disabled={!completeState}  className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }}  block>결제완료</Button>
+                    <Button type="button" onClick={paymentCompleted} disabled={!completeState} className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} block>결제완료</Button>
                 </div>
             </Container>
         </div>

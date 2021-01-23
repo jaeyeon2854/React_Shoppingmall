@@ -15,7 +15,7 @@ function ShoppingCart() {
 
     useEffect(() => {
         getCart()
-        console.log(cart)
+        // console.log(cart)
     }, [user])
 
     function plusNum(e) {
@@ -59,7 +59,7 @@ function ShoppingCart() {
 
     async function deleteCart(e) {
         //장바구니 DB에서 해당 항목 삭제 
-        console.log(e.target.name)
+        // console.log(e.target.name)
         try {
             const response = await axios.post('/api/cart/deletecart', {
                 userId: user,
@@ -70,7 +70,7 @@ function ShoppingCart() {
         } catch (error) {
             catchErrors(error, setError)
         }
-        console.log('카트에 담긴 항목을 삭제했습니다.')
+        // console.log('카트에 담긴 항목을 삭제했습니다.')
     }
 
     async function getCart() {
@@ -102,7 +102,7 @@ function ShoppingCart() {
 
     return (
         <div>
-            {console.log(cart)}
+            {/* {console.log(cart)} */}
             <Container className="justify-content-center">
                 <h1 className="my-5 font-weight-bold text-center">장바구니</h1>
                 <div>

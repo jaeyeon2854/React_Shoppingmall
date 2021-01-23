@@ -18,9 +18,9 @@ function CartCard(props) {
                                 <Card.Body>
                                     <input type="image" name={String(e._id)} alt="삭제버튼" src="https://img.icons8.com/fluent-systems-regular/24/000000/close-window.png" className="float-right" onClick={props.deleteCart} />
                                     <Card.Title className="font-weight-bold mt-3">{e.productId.pro_name}</Card.Title>
-                                    <Card.Text>가격: {e.productId.price}원</Card.Text>
-                                    <Card.Text>옵션: {e.size}/{e.color}</Card.Text>
-                                    <Card.Text>수량</Card.Text>
+                                    <Card.Text className="mb-0">가격: {e.productId.price}원</Card.Text>
+                                    <Card.Text className="mb-0">옵션: {e.size}/{e.color}</Card.Text>
+                                    <Card.Text >수량</Card.Text>
                                     <div>
                                         <input type="image" name={String(e._id)} alt="마이너스" src="https://img.icons8.com/ios-glyphs/20/000000/minus-math.png" className="align-middle" onClick={props.minusNum} />
                                         <input type="number" style={{ width: '30px' }} className="text-center align-middle mx-1" placeholder={e.count} value={e.count} readOnly></input>

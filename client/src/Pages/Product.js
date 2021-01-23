@@ -50,7 +50,7 @@ function Product({ match, location }) {
         } else {
             selected.sizes = false
             selected.colors = false
-            setCart([...cart, { color, size, productId: product.id, count: 1 }])
+            setCart([...cart, { color, size, productId: product.id, count: 1 , checked:false}])
             setColor("")
             setSize("")
             setPrice(product.price + price)
@@ -119,6 +119,9 @@ function Product({ match, location }) {
             } else {
                 try {
                     setError('')
+                    cart.map((el)=>{
+                        el.checked = true
+                    })
                     const response = await axios.put('/api/cart/addcart', {
                         userId: localStorage.getItem('id'),
                         products: cart

@@ -13,6 +13,17 @@ const addorder = async (req, res) => {
     }
 }
 
+const Ordered = async (req, res) => {
+    const { db } = req.body
+    try {
+        const ordered = await req.body.findOne({}, { _id: 0}).select(`${db}`)
+        console.log("sub= ",ordered);
+        res.json(ordered);
+    } catch (error) {
+        res.status(500).send('카테고리를 불러오지 못했습니다.')
+    }
+}
+
 const showorder = async (req, res) => {
     try {
         const order = await Order.findOne({ userId: req.id }).populate({
@@ -30,4 +41,4 @@ const showorder = async (req, res) => {
 
 
 
-export default { addorder, showorder }
+export default { addorder, showorder, Ordered }

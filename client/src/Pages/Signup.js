@@ -118,9 +118,7 @@ function Signup() {
                                             onChange={handleChange}>
                                         </Form.Control>
                                     </Col>
-                                    <Col xs={2}>
                                         <div className='font-weight-bold d-flex align-items-center'>* * * * * * </div>
-                                    </Col>
                                     <Form.Control.Feedback type="invalid">주민등록번호를 입력하세요.</Form.Control.Feedback>
                                 </Form.Row>
                             </Form.Group>

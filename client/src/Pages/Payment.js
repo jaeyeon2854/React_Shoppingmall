@@ -8,9 +8,8 @@ import { isAuthenticated } from '../utils/auth';
 import catchErrors from '../utils/catchErrors';
 
 function Payment({ match, location }) {
-
     const [cart, setCart] = useState([])
-    const [order, setOrder] = useState({ products: [] })
+    const [order, setOrder] = useState({products: []})
     const [userData, setUserData] = useState({})
     const [error, setError] = useState()
     const [paymentWay, setPaymentWay] = useState([])
@@ -201,6 +200,8 @@ function Payment({ match, location }) {
         console.log(redirect)
         return <Redirect to={'/kakao'} />
     }
+
+    
 
     return (
         <div>

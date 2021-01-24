@@ -16,6 +16,7 @@ function Account() {
     const [proshow, setProshow] = useState(false)
     const [error, setError] = useState("")
     const userId = isAuthenticated()
+    const [ordered, setOrdered] = useState('')
 
     async function getUsername(user) {
         // console.log("tlg")
@@ -31,6 +32,7 @@ function Account() {
 
     useEffect(() => {
         getUsername(userId)
+        getOrdered(userId)
     }, [userId])
 
     const handleChange = (event) => {
@@ -81,6 +83,17 @@ function Account() {
         }
     }
 
+    async function getOrdered({}) {
+        console.log("object")
+        try {
+            const response = await axios.get(`/api/users/addorder`)
+            setOrdered(response.data)
+            console.log('@@@@', response.data);
+        } catch (error) {
+            catchError(error, setError)
+        }
+    }
+
     return (
         <Container className="px-3">
             <style type="text/css">
@@ -105,7 +118,7 @@ function Account() {
                                 )}
                         </Button>
                         <Modal show={show} onHide={() => setShow(false)}>
-                            <Modal.Header closeButton style={{background:"#F7F3F3"}}>
+                            <Modal.Header closeButton style={{ background: "#F7F3F3" }}>
                                 <Modal.Title >이미지를 변경하시겠습니까?</Modal.Title>
                             </Modal.Header>
                             <Form onSubmit={handleSubmit}>
@@ -132,11 +145,11 @@ function Account() {
                                         {account.name}
                                     </strong>
                                     <Modal
-                                        
+
                                         size="sm"
                                         show={proshow}
                                         onHide={() => setProshow(false)}>
-                                        <Modal.Header closeButton style={{background:"#F7F3F3"}}>
+                                        <Modal.Header closeButton style={{ background: "#F7F3F3" }}>
                                             <Modal.Title>회원정보</Modal.Title>
                                         </Modal.Header>
                                         <Modal.Body>

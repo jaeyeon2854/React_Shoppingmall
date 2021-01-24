@@ -12,7 +12,7 @@ const getCategory = async (req, res) => {
 }
 
 const getSubCategory = async (req, res) => {
-    // console.log("req.params=", req.params);
+     console.log("req.params=", req.params);
     const { sub } = req.params
     try {
         const subcategory = await Category.findOne({}, { _id: 0}).select(`${sub}`)

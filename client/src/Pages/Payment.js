@@ -13,11 +13,11 @@ function Payment({ match, location }) {
     const [order, setOrder] = useState({ products: [] })
     const [userData, setUserData] = useState({})
     const [error, setError] = useState()
-    const [paymentWay, setPaymentWay] = useState([])
     const [post, setPost] = useState([])
     const [redirect, setRedirect] = useState(null)
     const [address, setAddress] = useState("")
     const [finalPrice, setFinalPrice] = useState(0)
+    const [paymentWay, setPaymentWay] = useState([])
     const [completeState, setCompleteState] = useState(false)
     const user = isAuthenticated()
     let history = useHistory();
@@ -129,8 +129,7 @@ function Payment({ match, location }) {
         if (paymentWay.length !== 0) {
             setCompleteState(false)
             setPaymentWay([])
-        }
-        else {
+        } else {
             const a = (
                 <Row className="justify-content-md-center">
                     <Col md={6} className="border m-5 p-5">
@@ -156,41 +155,19 @@ function Payment({ match, location }) {
 
                 </Row>)
             setPaymentWay(a)
-            setCompleteState(true)
         }
     }
 
     async function kakaopay() {
-        let itemNames = ""
-        if (cart.length > 1) {
-            itemNames = cart[0].productId.pro_name + ' 외 ' + String(cart.length - 1) + '개'
-        } else {
-            itemNames = cart[0].productId.pro_name
-        }
-        const response = await fetch('/api/kakaopay/test/single', {
-            method: "POST",
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                cid: 'TC0ONETIME',
-                partner_order_id: 'partner_order_id',
-                partner_user_id: user,
-                item_name: itemNames,
-                quantity: cart.length,
-                total_amount: finalPrice + 2500,
-                vat_amount: 200,
-                tax_free_amount: 0,
-                approval_url: 'http://localhost:3000/paymentcompleted',
-                fail_url: 'http://localhost:3000/shoppingcart',
-                cancel_url: 'http://localhost:3000/shoppingcart',
-            })
-        })
-        const data = await response.json()
-        if (data) {
-            setCompleteState(true)
-        }
-        window.location.href = data.redirect_url
+
+        setCompleteState("kakaopay")
+        setPaymentWay(
+            <div className="text-center">
+                <p className=" font-weight-bold" style={{ display: 'inline' }}>'카카오페이'</p><p style={{ display: 'inline' }}>를 선택하셨습니다. </p>
+                <p>주문하기를 눌러 결제를 이어가주세요.</p>
+            </div>
+        )
+        // window.location.href = data.redirect_url
         // setRedirect(data.redirect_url)
     }
 
@@ -214,11 +191,41 @@ function Payment({ match, location }) {
             const response3 = await axios.post(`/api/product/pluspurchase`, {
                 products: order.products
             })
-            console.log(response.data)
-            console.log(response2.data)
-            console.log(response3.data)
-            alert("주문이 완료되었습니다.")
-            history.push('/paymentcompleted')
+            if (completeState === "kakaopay") {
+                let itemNames = ""
+                if (cart.length > 1) {
+                    itemNames = cart[0].productId.pro_name + ' 외 ' + String(cart.length - 1) + '개'
+                } else {
+                    itemNames = cart[0].productId.pro_name
+                }
+                const response = await fetch('/api/kakaopay/test/single', {
+                    method: "POST",
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        cid: 'TC0ONETIME',
+                        partner_order_id: 'partner_order_id',
+                        partner_user_id: user,
+                        item_name: itemNames,
+                        quantity: cart.length,
+                        total_amount: finalPrice + 2500,
+                        vat_amount: 200,
+                        tax_free_amount: 0,
+                        approval_url: 'http://localhost:3000/paymentcompleted',
+                        fail_url: 'http://localhost:3000/shoppingcart',
+                        cancel_url: 'http://localhost:3000/shoppingcart',
+                    })
+                })
+                const data = await response.json()
+                window.location.href = data.redirect_url
+            } else {
+                console.log(response.data)
+                console.log(response2.data)
+                console.log(response3.data)
+                alert("주문이 완료되었습니다.")
+                history.push('/paymentcompleted')
+            }
         } catch (error) {
             catchErrors(error, setError)
             alert("주문에 실패하셨습니다. 다시 확인해주세요.")
@@ -313,13 +320,13 @@ function Payment({ match, location }) {
                 <div>
                     <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>결제수단</h5>
                     <div className="text-center m-3">
-                        <Button variant="success" className="align-top" onClick={handleClick} >무통장입금</Button>
-                        <input type="image" alt="카카오페이결제" src="icon/payment_icon_yellow_small.png" onClick={kakaopay} />
+                        <Button className="align-top m-1" variant="success" onClick={handleClick} style={{ height: '42px' }}>무통장입금</Button>
+                        <Button className="align-top m-1 p-0" style={{ borderColor: "#ffeb00" }} type="button" onClick={kakaopay} alt="카카오페이"><img src="icon/payment_icon_yellow_small2.png" /></Button>
                     </div>
                     {paymentWay}
                 </div>
                 <div className="text-center">
-                    <Button type="button" onClick={paymentCompleted} disabled={!completeState} className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} block>결제완료</Button>
+                    <Button type="button" onClick={paymentCompleted} className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} block>결제완료</Button>
                 </div>
             </Container>
         </div>

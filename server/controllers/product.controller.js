@@ -82,7 +82,6 @@ const categoryId = async (req, res, next, category) => {
         if (req.query.product) {
             const productslist = await Product.find({ main_category: category, pro_name: { $regex: new RegExp(req.query.product) } })
             if (productslist.length == 0) {
-                console.log('ds')
                 res.status(404).send('상품을 찾을 수 없습니다.')
             } else {
                 req.productslist = productslist

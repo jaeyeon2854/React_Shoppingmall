@@ -16,7 +16,6 @@ function SubNav() {
                 const url = ele.toLowerCase()
                 list.push(
                     <Nav.Link as={Link} to={`/categories/${url}`}>{ele}</Nav.Link>
-                    //categories/${SubNav.url}/&{url}
                 )
             })
             setCategoriesDiv(list)

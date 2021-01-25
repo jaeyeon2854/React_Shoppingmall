@@ -62,37 +62,10 @@ function ProductsList({ match }) {
         } catch (error) {
             console.log("error22")
         }
-
-
-        // const listvalue = Object.values(productlist)
-        // for (let i = 0; i < listvalue.length; i++) {
-        //     const list = listvalue[i].sub_category[0]
-        //     console.log("list=", list)
-
-        //     console.log("include=", subcategory.includes("LONG DRESS"))
-        // if (listvalue[i].sub_category[0] === subcategory[0]) {
-        //     console.log("yes")
-        // }
-        // else {
-        //     console.log("no")
-        // }
     }
-    // if (productlist.sub_category) {
-
-    // }
-    // console.log("list", list)
-    // for (let i = 0; i < list.length; i++) {
-    //     if (response.data[i] === "subcategory") {
-    //         console.log("handlesub=", response.data[i].sub_category)
-    //     }
-    //     else {
-    //         console.log("handlesub=2 ", response.data[i].sub_category)
-    //     }
-    // }
-    // }
 
     return (
-        <div>
+        <Container>
             <style type="text/css">
                 {`
                 a, a:hover, a:active {
@@ -111,68 +84,53 @@ function ProductsList({ match }) {
                 }
                 `}
             </style>
-            <Container>
-                <Row className="justify-content-center">
-                    <Col sm={10} xs={12} >
-                        <h1 style={{ fontSize: "3rem" }} className="text-center">{mainCategory}</h1>
-                        <div className="text-center">
-                            <ButtonGroup className="m-3" variant="outline-light secondary" style={{ display: "inline-block" }}>
-                                {subcategory.map(el => (<Button className="m-1" variant="secondary" name={el} onClick={handleSubname}>{el}</Button>))}
-                            </ButtonGroup>
-                        </div>
-                    </Col>
-                </Row>
-                <Row className="justify-content-end mx-0 my-5">
-                    <Dropdown>
-                        <Dropdown.Toggle className="mx-2">정렬</Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            <Dropdown.Item>인기상품</Dropdown.Item>
-                            <Dropdown.Item>신상품</Dropdown.Item>
-                            <Dropdown.Item>낮은가격</Dropdown.Item>
-                            <Dropdown.Item>높은가격</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                    <Form as={Row} onSubmit={handleSearch} className="justify-content-end mx-0">
-                        <FormControl type="text" placeholder="Search" style={{ width: "13rem" }} />
-                        <Button type="submit" className="search px-2">
-                            <img src="/icon/search.svg" width="20" height="20" />
-                        </Button>
-                    </Form>
-                </Row>
-                <Row md={8} sm={12} className="justify-content-center m-2">
-                    {productlist.map(pro => (
-                        // <ListCard as={Link} id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} to={{
-                        //     pathname: `/product/${pro._id}`,
-                        //     state: {
-                        //         id: pro._id,
-                        //         name: pro.pro_name,
-                        //         price: pro.price,
-                        //         colors: pro.colors,
-                        //         sizes: pro.sizes,
-                        //         description: pro.description,
-                        //         main_img: pro.main_imgUrl,
-                        //         detail_imgs: pro.detail_imgUrls
-                        //     }
-                        // }} />
-                        <Link to={{
-                            pathname: `/product/${pro._id}`,
-                            state: {
-                                id: pro._id,
-                                name: pro.pro_name,
-                                price: pro.price,
-                                colors: pro.colors,
-                                sizes: pro.sizes,
-                                description: pro.description,
-                                main_img: pro.main_imgUrl,
-                                detail_imgs: pro.detail_imgUrls
-                            }
-                        }}>
-                            <ListCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} />
-                        </Link>
-                    ))}
-                </Row>
-            </Container>
-        </div>
+            <Row className="justify-content-center">
+                <Col sm={10} xs={12} >
+                    <h1 style={{ fontSize: "3rem" }} className="text-center">{mainCategory}</h1>
+                    <div className="text-center">
+                        <ButtonGroup className="m-3" variant="outline-light secondary" style={{ display: "inline-block" }}>
+                            {subcategory.map(el => (<Button className="m-1" variant="secondary" name={el} onClick={handleSubname}>{el}</Button>))}
+                        </ButtonGroup>
+                    </div>
+                </Col>
+            </Row>
+            <Row className="justify-content-end mx-0 my-5">
+                <Dropdown>
+                    <Dropdown.Toggle className="mx-2">정렬</Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        <Dropdown.Item>인기상품</Dropdown.Item>
+                        <Dropdown.Item>신상품</Dropdown.Item>
+                        <Dropdown.Item>낮은가격</Dropdown.Item>
+                        <Dropdown.Item>높은가격</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
+                <Form onSubmit={handleSearch} className="justify-content-end mx-0" inline>
+                    <FormControl type="text" placeholder="Search" style={{ width: "13rem" }} />
+                    <Button type="submit" className="search px-2">
+                        <img src="/icon/search.svg" width="20" height="20" />
+                    </Button>
+                </Form>
+            </Row>
+            <Row md={8} sm={12} className="justify-content-center m-2">
+                {productlist.map(pro => (
+                    <Link to={{
+                        pathname: `/product/${pro._id}`,
+                        state: {
+                            id: pro._id,
+                            name: pro.pro_name,
+                            price: pro.price,
+                            colors: pro.colors,
+                            sizes: pro.sizes,
+                            description: pro.description,
+                            main_img: pro.main_imgUrl,
+                            detail_imgs: pro.detail_imgUrls
+                        }
+                    }}>
+                        <ListCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} />
+                    </Link>
+                ))}
+            </Row>
+        </Container>
     )
 }
 

@@ -34,6 +34,10 @@ const UserSchema = new mongoose.Schema({
         default: 'user',
         enum: ['user', 'admin', 'root']
     },
+    email : {
+        type : String,
+        required: true,
+    },
     avatarUrl: {
         type: String
     }

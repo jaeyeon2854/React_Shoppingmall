@@ -1,12 +1,12 @@
 import Cart from "../schemas/Cart.js";
 
-const addcart = async (req, res) => {
-    const { userId, products} = req.body
+const addCart = async (req, res) => {
+    const { userId, products } = req.body
     try {
         const cart = await Cart.findOne({ userId: userId })
         await Cart.updateOne(
             { _id: cart._id },
-            {$push: {products: products}}
+            { $push: { products: products } }
         )
         res.status(200).send('카트에 저장되었습니다.')
     } catch (error) {
@@ -15,31 +15,49 @@ const addcart = async (req, res) => {
     }
 }
 
-const showcart = async (req, res) => {
+const changeCart = async (req, res) => {
+    const { userId, products } = req.body
+    console.log(products)
     try {
+        const cart = await Cart.findOne({ userId: userId })
+        await Cart.updateOne(
+            { _id: cart._id },
+            { $set: { products: products } }
+        )
+        res.send("카트에 체크가 활성화되었습니다")
+    } catch (error) {
+        res.send("카트 체인지 실패")
+    }
+}
+
+const showCart = async (req, res) => {
+    try {
+        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
         const cart = await Cart.findOne({ userId: req.id }).populate({
             path: 'products.productId',
-            model: 'Product' 
+            model: 'Product'
         })
         res.status(200).json(cart.products)
+        console.log("cart-products : ", cart.products);
     } catch (error) {
+        console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
         console.log(error)
         res.status(500).send('쇼핑카트를 불러오지 못했습니다.')
     }
 }
 
-const deletecart = async (req, res) => {
+const deleteCart = async (req, res) => {
     console.log(req.body)
-    const { userId,cartId } = req.body
+    const { userId, cartId } = req.body
     try {
         const cart = await Cart.findOneAndUpdate(
             { userId: userId },
-            { $pull: { products: {_id:cartId} } },
+            { $pull: { products: { _id: cartId } } },
             { new: true }
-          ).populate({
+        ).populate({
             path: 'products.productId',
             model: 'Product'
-          })
+        })
         // res.send("삭제완료")
         res.json(cart)
     } catch (error) {
@@ -48,6 +66,29 @@ const deletecart = async (req, res) => {
 
     }
 }
+const deleteCart2 = async (req, res) => {
+    console.log(req.body)
+    const { userId, cartId } = req.body
+    try {
+        for( let i = 0; i < cartId.length; i++ ){
+            await Cart.findOneAndUpdate(
+                { userId: userId },
+                { $pull: { products: { _id: cartId[i] } } },
+                { new: true }
+            ).populate({
+                path: 'products.productId',
+                model: 'Product'
+            })
+        }
+        res.send("주문완료 쇼핑카트 삭제")
+        // res.json(cart)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send('해당 카트를 삭제하지 못했습니다.')
+
+    }
+}
+
 const userById = async (req, res, next, id) => {
     try {
         const cart = await Cart.findOne({ userId: id })
@@ -63,4 +104,4 @@ const userById = async (req, res, next, id) => {
 }
 
 
-export default { addcart, showcart, deletecart, userById }
+export default { addCart, changeCart, showCart, deleteCart,deleteCart2, userById }

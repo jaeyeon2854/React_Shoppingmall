@@ -75,6 +75,7 @@ function ShoppingCart() {
 
     async function getCart() {
         try {
+            setError('')
             const response = await axios.get(`/api/cart/showcart/${user}`)
             const addChecked = response.data.map((el) => {
                     return { ...el, checked: false }
@@ -86,8 +87,22 @@ function ShoppingCart() {
         }
     }
 
+    function putCheckedCart(){
+        try {
+            setError('')
+            const response =  axios.post(`/api/cart/changecart`, {
+                userId:user,
+                products: cart
+            })
+            console.log(response.data)
+        } catch (error) {
+            catchErrors(error, setError)
+        }
+    }
+
     return (
         <div>
+            {console.log(cart)}
             <Container className="justify-content-center">
                 <h1 className="my-5 font-weight-bold text-center">장바구니</h1>
                 <div>
@@ -116,7 +131,7 @@ function ShoppingCart() {
                     <Button as={Link} to={{
                         pathname: `/payment`,
                         state: finalCart 
-                    }} className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} block>결제하기</Button>
+                    }} className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} onClick={putCheckedCart} block>결제하기</Button>
                 </div>
             </Container>
         </div>

@@ -75,6 +75,7 @@ function ProductsList({ match }) {
     }
 
     async function getProductlist() {
+        console.log("tlfgpd")
         try {
             const response = await axios.get(`/api/product/getproduct/${mainCategory}`)
             setProductlist(response.data)
@@ -89,6 +90,19 @@ function ProductsList({ match }) {
             setProductlist(response.data)
         } catch (error) {
             catchError(error, setError)
+        }
+    }
+
+    async function handleSubname(e) {
+        const subname = e.target.name
+        console.log("subname=", subname)
+        try {
+            console.log("first test!!!!!!!!")
+            const response = await axios.get(`/api/product/getproduct/sub/${subname}`)
+            console.log("subname response data=", response.data)
+            setProductlist([response.data])
+        } catch (error) {
+            console.log("error22")
         }
     }
 
@@ -114,8 +128,8 @@ function ProductsList({ match }) {
                 <Col sm={10} xs={12} >
                     <h1 style={{ fontSize: "3rem" }} className="text-center">{mainCategory}</h1>
                     <div className="text-center">
-                        <ButtonGroup className="d-flex flex-wrap">
-                            {subCategory.map(el => (<Button className="m-1" onClick={() => handleClick(el)}>{el}</Button>))}
+                        <ButtonGroup className="m-3" variant="outline-light secondary" style={{ display: "inline-block" }}>
+                            {subCategory.map(el => (<Button className="m-1" variant="secondary" name={el} onClick={handleSubname}>{el}</Button>))}
                         </ButtonGroup>
                     </div>
                 </Col>
@@ -139,7 +153,7 @@ function ProductsList({ match }) {
             </Row>
             <Row md={8} sm={12} className="justify-content-center m-2">
                 {productlist.map(pro => (
-                    <ListCard as={Link} id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} to={{
+                    <Link to={{
                         pathname: `/product/${pro._id}`,
                         state: {
                             id: pro._id,
@@ -151,10 +165,12 @@ function ProductsList({ match }) {
                             main_img: pro.main_imgUrl,
                             detail_imgs: pro.detail_imgUrls
                         }
-                    }} />
+                    }}>
+                        <ListCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} />
+                    </Link>
                 ))}
+                {/* <Pagination className="justify-content-center" index={} endPage={} handlePage={}/> */}
             </Row>
-            {/* <Pagination className="justify-content-center" index={} endPage={} handlePage={}/> */}
         </Container>
     )
 }

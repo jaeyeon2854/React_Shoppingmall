@@ -86,7 +86,7 @@ function ProductsList({ match }) {
             console.log("first test!!!!!!!!")
             const response = await axios.get(`/api/product/getproduct/sub/${subname}`)
             console.log("subname response data=", response.data)
-            setProductlist([response.data])
+            setProductlist(response.data)
         } catch (error) {
             console.log("error22")
         }

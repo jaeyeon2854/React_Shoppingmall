@@ -87,7 +87,7 @@ const categoryId = async (req, res, next, category) => {
 const subcategoryId = async (req, res, next, subname) => {
     try {
         console.log("Please===>>>", subname)
-        const findSubname = await Product.findOne({ sub_category: subname })
+        const findSubname = await Product.find({ sub_category: subname })
         console.log("findSubname111=", findSubname)
 
         if (!findSubname) {

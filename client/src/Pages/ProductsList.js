@@ -58,39 +58,12 @@ function ProductsList({ match }) {
             console.log("first test!!!!!!!!")
             const response = await axios.get(`/api/product/getproduct/sub/${subname}`)
             console.log("subname response data=", response.data)
-            setProductlist([response.data])
+            setProductlist(response.data)
         } catch (error) {
             console.log("error22")
         }
-
-
-        // const listvalue = Object.values(productlist)
-        // for (let i = 0; i < listvalue.length; i++) {
-        //     const list = listvalue[i].sub_category[0]
-        //     console.log("list=", list)
-
-        //     console.log("include=", subcategory.includes("LONG DRESS"))
-        // if (listvalue[i].sub_category[0] === subcategory[0]) {
-        //     console.log("yes")
-        // }
-        // else {
-        //     console.log("no")
-        // }
     }
-    // if (productlist.sub_category) {
-
-    // }
-    // console.log("list", list)
-    // for (let i = 0; i < list.length; i++) {
-    //     if (response.data[i] === "subcategory") {
-    //         console.log("handlesub=", response.data[i].sub_category)
-    //     }
-    //     else {
-    //         console.log("handlesub=2 ", response.data[i].sub_category)
-    //     }
-    // }
-    // }
-
+  
     return (
         <div>
             <style type="text/css">

@@ -84,15 +84,13 @@ const categoryId = async (req, res, next, category) => {
 const subcategoryId = async (req, res, next, subname) => {
     try {
         console.log("Please===>>>", subname)
-        const findSubname = await Product.findOne({ sub_category: subname })
-        // const findSubname = await Product.find({ sub_category: { $elemMatch: { subname: req.subname }}})
+        const findSubname = await Product.find({ sub_category: subname })
         console.log("findSubname111=", findSubname)
         // const onlySub = findSubname.sub_category
         // console.log(";;", onlySub)
         // console.log(".", Object.values(onlySub))
 
         if (!findSubname) {
-            console.log("ㅏㅁㄴ우하ㅣㅜㅁㄴ어ㅏㅣ훔ㄴ어ㅏㅣ휴")
             const findSubname = {
                 _id: 'nothing',
                 pro_name: '상품준비중',
@@ -103,12 +101,10 @@ const subcategoryId = async (req, res, next, subname) => {
             res.send(findSubname)
         }
         res.send(findSubname)
-        // next()
     } catch (error) {
         res.send('상품을 불러오지 못했습니다.')
     }
 }
-//https://docs.mongodb.com/manual/reference/operator/projection/elemMatch/index.html
 
 const plusPurchase = async (req, res) => {
     const { products } = req.body

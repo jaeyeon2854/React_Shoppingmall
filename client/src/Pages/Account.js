@@ -17,6 +17,7 @@ function Account() {
     const [error, setError] = useState("")
     const userId = isAuthenticated()
     const [ordered, setOrdered] = useState('')
+    
 
     async function getUsername(user) {
         // console.log("tlg")
@@ -94,6 +95,7 @@ function Account() {
         }
     }
 
+    
     return (
         <Container className="px-3">
             <style type="text/css">

@@ -15,6 +15,7 @@ export async function handleLogout() {
 
 export function isAuthenticated() {
     const userId = localStorage.getItem('id')
+    // console.log("suer ID =", userId)
     if (userId) {
         return userId
     } else {

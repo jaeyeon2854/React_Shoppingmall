@@ -13,15 +13,17 @@ const INIT_ACCOUNT = {
 function Account() {
     const [account, setAccount] = useState(INIT_ACCOUNT)
     const [show, setShow] = useState(false);
+    const [proshow, setProshow] = useState(false)
     const [error, setError] = useState("")
     const userId = isAuthenticated()
+    const [ordered, setOrdered] = useState('')
 
     async function getUsername(user) {
         // console.log("tlg")
         try {
             const response = await axios.get(`/api/users/account/${user}`)
             setAccount(response.data)
-            // console.log('555555555', response.data);
+            console.log('555555555', response.data);
         } catch (error) {
             catchError(error, setError)
             // console.log('error2222', error)
@@ -30,6 +32,7 @@ function Account() {
 
     useEffect(() => {
         getUsername(userId)
+        getOrdered(userId)
     }, [userId])
 
     const handleChange = (event) => {
@@ -80,6 +83,17 @@ function Account() {
         }
     }
 
+    async function getOrdered({}) {
+        console.log("object")
+        try {
+            const response = await axios.get(`/api/users/addorder`)
+            setOrdered(response.data)
+            console.log('@@@@', response.data);
+        } catch (error) {
+            catchError(error, setError)
+        }
+    }
+
     return (
         <Container className="px-3">
             <style type="text/css">
@@ -104,8 +118,8 @@ function Account() {
                                 )}
                         </Button>
                         <Modal show={show} onHide={() => setShow(false)}>
-                            <Modal.Header closeButton>
-                                <Modal.Title>이미지를 변경하시겠습니까?</Modal.Title>
+                            <Modal.Header closeButton style={{ background: "#F7F3F3" }}>
+                                <Modal.Title >이미지를 변경하시겠습니까?</Modal.Title>
                             </Modal.Header>
                             <Form onSubmit={handleSubmit}>
                                 <Modal.Body>
@@ -127,7 +141,28 @@ function Account() {
                         <Row className="mt-4 text-center">
                             <Col>
                                 <h2>
-                                    <strong>{account.name}</strong> <small>({account.id}){" "}님</small>
+                                    <strong title='회원정보' style={{ cursor: "pointer", textDecoration: 'underline' }} onClick={() => setProshow(true)}>
+                                        {account.name}
+                                    </strong>
+                                    <Modal
+
+                                        size="sm"
+                                        show={proshow}
+                                        onHide={() => setProshow(false)}>
+                                        <Modal.Header closeButton style={{ background: "#F7F3F3" }}>
+                                            <Modal.Title>회원정보</Modal.Title>
+                                        </Modal.Header>
+                                        <Modal.Body>
+                                            <Col className="p-1">
+                                                <li><strong>Role :</strong> {account.role}</li>
+                                                <li><strong>ID :</strong> {account.id}</li>
+                                                <li><strong>Username :</strong> {account.name}</li>
+                                                <li><strong>Email :</strong> {account.email}</li>
+                                                <li><strong>Tel :</strong> {account.tel}</li>
+                                            </Col>
+                                        </Modal.Body>
+                                    </Modal>
+                                    <small>{' '}({account.id}){" "}님</small>
                                 </h2>
                             </Col>
                         </Row>

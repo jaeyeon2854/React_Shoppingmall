@@ -15,7 +15,7 @@ function ListCard({ id, name, price, main_img }) {
             <Card.Body>
                 <Card.Title style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{name}</Card.Title>
                 <Card.Text>{price} 원</Card.Text>
-                <Button className="float-right" onClick={handleDelete}>삭제</Button>
+                {/* <Button className="float-right" onClick={handleDelete}>삭제</Button> */}
             </Card.Body>
         </Card>
     )

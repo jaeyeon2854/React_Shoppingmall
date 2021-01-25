@@ -89,8 +89,8 @@ function Login() {
                                     </Form.Control.Feedback>
                             </Form.Row>
                         </Form.Group>
-                        <Button style={{ background: '#91877F', borderColor: '#91877F' }} type="submit" block>Login</Button>
-                        <div className="loginLine">
+                        <Button style={{ background: '#91877F', borderColor: '#91877F' }} type="submit" block >Login</Button>
+                        <div className="loginLine m-1">
                             <Link to="/signup" style={{ color: '#91877F' }}>회원이 아니십니까?</Link>
                         </div>
                     </Form>

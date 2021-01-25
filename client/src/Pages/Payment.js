@@ -2,14 +2,14 @@ import axios from 'axios';
 import React, { useState, useEffect, useRef } from 'react';
 import DaumPostcode from "react-daum-postcode";
 import { Container, Card, Row, Col, Button, Form, FormGroup } from 'react-bootstrap';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import PaymentCard from '../Components/PaymentCard';
 import { isAuthenticated } from '../utils/auth';
 import catchErrors from '../utils/catchErrors';
 
 function Payment({ match, location }) {
-    const [cart, setCart] = useState(location.state)
-    const [order, setOrder] = useState({products: location.state})
+    const [cart, setCart] = useState([])
+    const [order, setOrder] = useState({products: []})
     const [userData, setUserData] = useState({})
     const [error, setError] = useState()
     const [paymentWay, setPaymentWay] = useState([])
@@ -25,18 +25,31 @@ function Payment({ match, location }) {
 
     useEffect(() => {
         getUser()
+        getCart()
+    }, [user])
+
+    useEffect(() => {
         let price = 0
         cart.map((el) => {
             price = Number(el.count) * Number(el.productId.price) + price
         })
         setFinalPrice(price)
-    }, [user])
+    }, [cart])
 
     async function getUser() {
+        const name = localStorage.getItem('name')
+        const tel = localStorage.getItem('tel')
+        // const email = localStorage.getItem('email')
+        setUserData({ name: name, tel: tel })
+    }
+
+    async function getCart() {
         try {
-            const response = await axios.get(`/api/users/getuser/${user}`)
+            const response = await axios.get(`/api/cart/showcart/${user}`)
             console.log(response.data)
-            setUserData(response.data)
+            const preCart = response.data.filter((el) => el.checked === true)
+            setCart(preCart)
+            setOrder({ products: preCart })
         } catch (error) {
             catchErrors(error, setError)
         }
@@ -44,8 +57,8 @@ function Payment({ match, location }) {
 
     function handleReceiverInfo(e) {
         const { name, value } = e.target
-        console.log(name,value)
-        setOrder({ ...order, receiverInfo: {...order.receiverInfo, [name]: value } })
+        console.log(name, value)
+        setOrder({ ...order, receiverInfo: { ...order.receiverInfo, [name]: value } })
     }
 
     function postClick() {
@@ -77,7 +90,7 @@ function Payment({ match, location }) {
             fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
         }
         setAddress({ full: fullAddress, code: data.zonecode });
-        setOrder({ ...order, receiverInfo: {...order.receiverInfo, address: fullAddress, postalCode: data.zonecode  } })
+        setOrder({ ...order, receiverInfo: { ...order.receiverInfo, address: fullAddress, postalCode: data.zonecode } })
         console.log(fullAddress);
     }
 
@@ -124,6 +137,12 @@ function Payment({ match, location }) {
     }
 
     async function kakaopay() {
+        let itemNames = ""
+        if (cart.length > 1) {
+            itemNames = cart[0].productId.pro_name + ' 외 ' + String(cart.length - 1) + '개'
+        } else {
+            itemNames = cart[0].productId.pro_name
+        }
         const response = await fetch('/api/kakaopay/test/single', {
             method: "POST",
             headers: {
@@ -132,15 +151,15 @@ function Payment({ match, location }) {
             body: JSON.stringify({
                 cid: 'TC0ONETIME',
                 partner_order_id: 'partner_order_id',
-                partner_user_id: 'partner_user_id',
-                item_name: '앙고라 반목 폴라 베이직 모헤어 니트 (T)',
-                quantity: 1,
-                total_amount: 22000,
+                partner_user_id: user,
+                item_name: itemNames,
+                quantity: cart.length,
+                total_amount: finalPrice + 2500,
                 vat_amount: 200,
                 tax_free_amount: 0,
-                approval_url: 'http://localhost:3000/account',
-                fail_url: 'http://localhost:3000/shoppingcart',
-                cancel_url: 'http://localhost:3000/kakaopay/payment',
+                approval_url: 'http://localhost:3000/payment',
+                fail_url: 'http://localhost:3000/payment',
+                cancel_url: 'http://localhost:3000/payment',
             })
         })
         const data = await response.json()
@@ -149,19 +168,31 @@ function Payment({ match, location }) {
         // setRedirect(data.redirect_url)
     }
 
-    async function paymentCompleted(){
-        console.log(user)
+    async function paymentCompleted() {
         console.log(order)
-        console.log(finalPrice)
+        const cartIds = []
+        order.products.map((el) => {
+            cartIds.push(el._id)
+        })
         try {
             const response = await axios.post(`/api/order/addorder`, {
-                userId : user,
+                userId: user,
                 ...order,
-                total : finalPrice+2500
+                total: finalPrice + 2500
+            })
+            const response2 = await axios.post(`/api/cart/deletecart2`, {
+                userId: user,
+                cartId: cartIds
+            })
+            const response3 = await axios.post(`/api/product/pluspurchase`, {
+                products: order.products
             })
             console.log(response.data)
+            alert("주문이 완료되었습니다.")
+            return <Redirect to={'/account'} />
         } catch (error) {
             catchErrors(error, setError)
+            alert("주문에 실패하셨습니다. 다시 확인해주세요.")
         }
     }
 
@@ -259,7 +290,7 @@ function Payment({ match, location }) {
 
                 <div>
                     <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>결제수단</h5>
-                    <div className="text-center mt-5">
+                    <div className="text-center m-3">
                         <Button variant="success" className="align-top" onClick={handleClick} >무통장입금</Button>
                         <input type="image" alt="카카오페이결제" src="icon/payment_icon_yellow_small.png" onClick={kakaopay} />
                     </div>

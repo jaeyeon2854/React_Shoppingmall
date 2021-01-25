@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect, useRef } from 'react';
-import { Row, Col, Form, Card, Button } from 'react-bootstrap';
+import { Row, Col, Form, Card, Button, Image } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 import catchErrors from '../utils/catchErrors';
 
@@ -14,6 +14,7 @@ function Product({ match, location }) {
     const [selected, setSelected] = useState({ sizes: false, colors: false })
     const [count, setCount] = useState(1)
     const [price, setPrice] = useState(0)
+    // let price = 0
 
     useEffect(() => {
         if (size && color) {
@@ -22,16 +23,16 @@ function Product({ match, location }) {
         }
     }, [size, color])
 
-
     function handleClick(e) {
         const box = e.target.parentNode.parentNode
         box.style.display = "none"
     }
 
     function pushOptions() {
-        setCart([...cart, { color, size, productId: product.id }])
+        setCart([...cart, { color, size, productId: product.id, count: 1 }])
         selected.sizes = false
         selected.colors = false
+        console.log(product)
         setColor("")
         setSize("")
         setPrice(product.price + price)
@@ -50,19 +51,28 @@ function Product({ match, location }) {
 
     function deleteOption(e) {
         e.preventDefault()
+        let preprice = 0
         const asd = cart.filter((el) => el.color !== e.target.id || el.size !== e.target.name)
+        asd.map((el) => {
+            preprice = preprice + el.count * product.price
+        })
         setCart(asd)
+        setPrice(Number(preprice))
     }
 
     function handleCount(e) {
-        e.preventDefault()
-        const addCount = cart.map((el)=>{
-            if(el.color !== e.target.id || el.size !== e.target.name){
-                return {el}
+        const addCount = cart.map((el) => {
+            if (el.color !== e.target.id || el.size !== e.target.name) {
+                return { ...el }
             } else {
-                return {...el, count : e.target.value}
+                return { ...el, count: e.target.value }
             }
         })
+        let preprice = 0
+        addCount.map((el) => {
+            preprice = preprice + el.count * product.price
+        })
+        setPrice(Number(preprice))
         setCart(addCount)
         setCount(e.value)
     }
@@ -90,7 +100,7 @@ function Product({ match, location }) {
 
     return (
         <div>
-            {/* {console.log("match=", match.params, "location=", location.state, "product=", product)} */}
+            {console.log(cart)}
             <style type="text/css">
                 {`
                 .btn {
@@ -129,14 +139,15 @@ function Product({ match, location }) {
                             </Form.Control>
                         </Form.Group>
                         {cart.map((e) => (
-                            <div>
-                                <span>{e.color}/{e.size}</span>
-                                <input onClick={deleteOption} id={e.color} name={e.size} type="image" alt="삭제버튼" src="https://img.icons8.com/fluent-systems-regular/24/000000/close-window.png" className="float-right align-middle" />
-                                <span>{e.price}원</span>
-                                <span className="float-right mx-2">
+                            <Row className="mx-1">
+                                <Col xs={6}>{e.color}/{e.size}</Col>
+                                <Col xs={4} className="text-right" >
                                     <input type='number' id={e.color} name={e.size} onChange={handleCount} value={count} style={{ width: '3rem' }} className="text-center" />
-                                </span>
-                            </div>
+                                </Col>
+                                <Col xs={2} className="text-right">
+                                    <input onClick={deleteOption} id={e.color} name={e.size} type="image" alt="삭제버튼" src="https://img.icons8.com/fluent-systems-regular/24/000000/close-window.png" className="align-middle" />
+                                </Col>
+                            </Row>
 
                         ))}
                         <Row className="justify-content-between mx-0 my-3" style={{ width: "100%" }}>
@@ -152,14 +163,30 @@ function Product({ match, location }) {
             </Row>
             <Row className="justify-content-center mt-5 mx-0">
                 <Col sm={11} md={8}>
-                    <h3 style={{ borderBottom: "1px solid #91877F", paddingBottom: "5px", marginBottom: "1em" }}>설명</h3>
-                    <div></div>
+                    <h3 style={{ borderBottom: "1px solid #91877F", paddingBottom: "5px", marginBottom: "1em" }} className="p-3">
+                        설명
+                        </h3>
+                    <Col className='m-3 text-center d-flex justify-content-center'>
+                        <div style={{ wordBreak: 'break-all', wordWrap: 'break-word', fontFamily: "맑은 고딕" }} className="p-3">
+                            <h1 className='m-3'>{product.name} </h1>
+                            <>
+                            <Image src={`/images/${product.main_img}`} style={{ objectFit: "contain", width: '100%'}} />
+                            </>
+                            <Card className='m-3 d-flex justify-content-center'>
+                                <Card.Body>
+                                    {product.description}
+                                </Card.Body>
+                            </Card>
+                            <h3 className='mt-5'>[ Detail Images ]</h3>
+                            <Image src={`/images/${product.detail_imgs}`} style={{ objectFit: "contain"}} className='m-3' />
+                        </div>
+                    </Col>
                 </Col>
             </Row>
             <Row className="justify-content-center mx-0 pt-3 px-2" style={{ position: "fixed", bottom: "0", width: "100%", backgroundColor: "#fff" }}>
                 <Col sm={12} md={9}>
                     <h6 style={{ borderBottom: "1px solid", paddingBottom: "5px", marginBottom: "1em" }}>회원님이 선호할만한 상품 추천
-                        <a className="close float-right" onClick={(e) => handleClick(e)} style={{ fontSize: "1rem" }}>X</a>
+                        <a className="close float-right" onClick={(e) => handleClick(e)} style={{ fontSize: "1rem", cursor: "pointer" }}>X</a>
                     </h6>
                     <Row className="justify-content-space mx-0" style={{ flexWrap: "nowrap", width: "100%", overflowX: "auto" }}>
                         <Col as={Card} style={{ minWidth: "10rem", marginRight: "1rem" }}>

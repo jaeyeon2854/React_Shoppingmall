@@ -33,8 +33,8 @@ const getToHome = async (req, res) => {
     try {
         const bestProduct = await Product.find({}).sort({ purchase: -1 }).limit(6)
         const newProduct = await Product.find({}).sort({ createdAt: -1 }).limit(6)
-        console.log("best=", bestProduct)
-        console.log("new=", newProduct)
+        // console.log("best=", bestProduct)
+        // console.log("new=", newProduct)
         res.json({ bestProduct, newProduct })
     } catch {
         res.status(500).send('상품을 불러오지 못했습니다.')
@@ -58,6 +58,15 @@ const getlist = (req, res) => {
     }
 }
 
+const subname = async (req, res) => {
+    try {
+        console.log("last subname::: LET ME SEE")
+        res.json(req.findsubname)
+    } catch (error) {
+        res.status(500).send('상품을 불러오지 못했습니다.')
+    }
+}
+
 const categoryId = async (req, res, next, category) => {
     try {
         const productslist = await Product.find({ main_category: category })
@@ -65,31 +74,62 @@ const categoryId = async (req, res, next, category) => {
             res.status(404).send('상품을 찾을 수 없습니다.')
         }
         req.productslist = productslist
+        console.log("nononono", req.productslist)
         next()
     } catch (error) {
         res.status(500).send('상품을 불러오지 못했습니다.')
     }
 }
 
-const subgetlist = (req, res) => {
+const subcategoryId = async (req, res, next, subname) => {
     try {
-        res.json(req.subproductslist)
-    } catch (error) {
-        res.status(500).send('상품을 불러오지 못했습니다.')
-    }
-}
+        console.log("Please===>>>", subname)
+        const findSubname = await Product.findOne({ sub_category: subname })
+        // const findSubname = await Product.find({ sub_category: { $elemMatch: { subname: req.subname }}})
+        console.log("findSubname111=", findSubname)
+        // const onlySub = findSubname.sub_category
+        // console.log(";;", onlySub)
+        // console.log(".", Object.values(onlySub))
 
-const subcategoryId = async (req, res, next, subcategory) => {
-    try {
-        const subproductslist = await Product.find({ sub_category: subcategory })
-        if (!subproductslist) {
-            res.status(404).send('상품을 찾을 수 없습니다.')
+        if (!findSubname) {
+            console.log("ㅏㅁㄴ우하ㅣㅜㅁㄴ어ㅏㅣ훔ㄴ어ㅏㅣ휴")
+            const findSubname = {
+                _id: 'nothing',
+                pro_name: '상품준비중',
+                price: 0,
+                main_imgUrl:''
+            }
+            console.log("findSubname2222=", findSubname)
+            res.send(findSubname)
         }
-        req.subproductslist = subproductslist
-        next()
+        res.send(findSubname)
+        // next()
     } catch (error) {
-        res.status(500).send('상품을 불러오지 못했습니다.')
+        res.send('상품을 불러오지 못했습니다.')
+    }
+}
+//https://docs.mongodb.com/manual/reference/operator/projection/elemMatch/index.html
+
+const plusPurchase = async (req, res) => {
+    const { products } = req.body
+    // console.log(products)
+    try {
+        for (let i = 0; i < products.length; i++) {
+            const count = products[i].count
+            const product = await Product.findOne(
+                { _id: products[i].productId._id }
+            )
+            const purchase = product.purchase
+            await Product.updateOne(
+                { _id: products[i].productId._id },
+                { $set: { purchase: count + purchase } }
+            )
+            // console.log("i=", i)
+        }
+        res.send("구매수 늘리기 성공")
+    } catch (error) {
+        res.status(500).send('구매숫자를 늘리지 못함')
     }
 }
 
-export default { imageUpload, regist, getToHome, getAll, categoryId, getlist, subcategoryId, subgetlist }
+export default { imageUpload, regist, getToHome, getAll, categoryId, getlist, subcategoryId, subname, plusPurchase }

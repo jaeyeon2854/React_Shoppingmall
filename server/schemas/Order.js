@@ -24,32 +24,35 @@ const OrderSchema = new mongoose.Schema({
             color: {
                 type: String,
                 required: true
+            },
+            checked: {
+                type: Boolean
             }
         }
     ],
-    receiverInfo: 
-        {
-            name: {
-                type:String,
-                required:true
-            },
-            tel: {
-                type: String,
-                required:true
-            },
-            postalCode:{
-                type:String,
-                required:true
-            },
-            address: {
-                type: String,
-                required: true
-            },
-            address2: {
-                type: String,
-                required: true
-            }
+    receiverInfo:
+    {
+        name: {
+            type: String,
+            required: true
+        },
+        tel: {
+            type: String,
+            required: true
+        },
+        postalCode: {
+            type: String,
+            required: true
+        },
+        address: {
+            type: String,
+            required: true
+        },
+        address2: {
+            type: String,
+            required: true
         }
+    }
     ,
     total: {
         type: Number,

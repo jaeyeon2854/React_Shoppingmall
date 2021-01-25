@@ -17,6 +17,8 @@ function ProductsList({ match }) {
     const indexOfLast = currentPage * postsPerPage;
     const indexOfFirst = indexOfLast - postsPerPage;
 
+    const [sortingName, setSortingName] = useState('정렬')
+
     function currentPosts(tmp) {
         let currentPosts = 0;
         currentPosts = tmp.slice(indexOfFirst, indexOfLast);
@@ -71,11 +73,60 @@ function ProductsList({ match }) {
     }
 
     async function handleSort(method) {
-        try {
-            const response = await axios.get(`/api/product/getproduct/?q=${method}`)
-            setProductlist(response.data)
-        } catch (error) {
-            catchError(error, setError)
+        console.log(method)
+        if (method === "purchase") {
+            console.log("thisispurchase")
+            productlist.sort(function (a, b) {
+                if (a.purchase > b.purchase) {
+                  return -1;
+                }
+                if (a.purchase < b.purchase) {
+                  return 1;
+                }
+                // a must be equal to b
+                return 0;
+              });
+              setSortingName("인기상품")
+        } else if(method === "newest"){
+            console.log("thisisnewest")
+            productlist.sort(function (a, b) {
+                if (a.createdAt > b.createdAt) {
+                  return -1;
+                }
+                if (a.createdAt < b.createdAt) {
+                  return 1;
+                }
+                // a must be equal to b
+                return 0;
+              });
+              setSortingName("신상품")
+
+        } else if(method === "lowest"){
+            console.log("thisislowest")
+            productlist.sort(function (a, b) {
+                if (a.price > b.price) {
+                  return 1;
+                }
+                if (a.price < b.price) {
+                  return -1;
+                }
+                // a must be equal to b
+                return 0;
+              });
+              setSortingName("낮은가격")
+        } else {
+            console.log("thisispurchase")
+            productlist.sort(function (a, b) {
+                if (a.price > b.price) {
+                  return -1;
+                }
+                if (a.price < b.price) {
+                  return 1;
+                }
+                // a must be equal to b
+                return 0;
+              });
+              setSortingName("높은가격")
         }
     }
 
@@ -94,6 +145,7 @@ function ProductsList({ match }) {
 
     return (
         <Container>
+            {console.log(productlist)}
             <style type="text/css">
                 {`
                 a, a:hover, a:active {
@@ -120,22 +172,22 @@ function ProductsList({ match }) {
                     </div>
                 </Col>
             </Row>
-            <Row className="justify-content-end mx-0 my-5">
-                <Dropdown>
-                    <Dropdown.Toggle className="mx-2">정렬</Dropdown.Toggle>
-                    <Dropdown.Menu>
-                        <Dropdown.Item onClick={() => handleSort('purchase')}>인기상품</Dropdown.Item>
-                        <Dropdown.Item onClick={() => handleSort('newest')}>신상품</Dropdown.Item>
-                        <Dropdown.Item onClick={() => handleSort('lowest')}>낮은가격</Dropdown.Item>
-                        <Dropdown.Item onClick={() => handleSort('highest')}>높은가격</Dropdown.Item>
-                    </Dropdown.Menu>
-                </Dropdown>
-                <Form inline onSubmit={handleSearch} className="justify-content-end mx-0">
+            <Row className="justify-content-end mx-0 mt-5 mb-3">
+                <Form inline onSubmit={handleSearch} className="justify-content-end mx-0 my-2">
                     <FormControl type="text" onChange={handleChange} placeholder="Search" style={{ width: "13rem" }} />
-                    <Button  type="submit" className="px-2">
+                    <Button  type="submit" className="px-2 mr-2">
                         <img src="/icon/search.svg" width="20" height="20" />
                     </Button>
                 </Form>
+                <Dropdown className="my-2">
+                    <Dropdown.Toggle className="mx-2">{sortingName}</Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        <Dropdown.Item as="button" onClick={() => handleSort('purchase')}>인기상품</Dropdown.Item>
+                        <Dropdown.Item as="button" onClick={() => handleSort('newest')}>신상품</Dropdown.Item>
+                        <Dropdown.Item as="button" onClick={() => handleSort('lowest')}>낮은가격</Dropdown.Item>
+                        <Dropdown.Item as="button" onClick={() => handleSort('highest')}>높은가격</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
             </Row>
             <Row md={8} sm={12} className="justify-content-center m-2">
                 {productlist.map(pro => (

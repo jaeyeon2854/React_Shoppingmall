@@ -40,6 +40,9 @@ function App() {
         <PrivateRoute path="/payment">
           <Payment />
         </PrivateRoute>
+        <PrivateRoute path="/paymentcompleted">
+          <PaymentCompleted />
+        </PrivateRoute>
         <PrivateRoute path="/account">
           <Account />
         </PrivateRoute>

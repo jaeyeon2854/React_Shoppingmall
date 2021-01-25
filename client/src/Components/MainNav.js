@@ -1,10 +1,11 @@
 import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
-import { handleLogout, isAuthenticated } from '../utils/auth';
+import { handleLogout, isAuthenticated, isAuthenticatedAdmin } from '../utils/auth';
 
 function MainNav() {
     
     const user = isAuthenticated()
+    const admin = isAuthenticatedAdmin()
 
     return (
         <Navbar sticky="top" style={{ background: "#CDC5C2" }}>
@@ -13,7 +14,7 @@ function MainNav() {
                 {' '}KU#
             </Navbar.Brand>
             <Nav>
-                {user ? <> <Nav.Link className="text-light" onClick={() => handleLogout()}>Logout</Nav.Link>
+                {user,admin ? <> <Nav.Link className="text-light" onClick={() => handleLogout()}>Logout</Nav.Link>
                 <Nav.Link className="text-light" href="/account"> Mypage </Nav.Link>
                 </>
                     : (
@@ -25,9 +26,13 @@ function MainNav() {
                 <Nav.Link href="/shoppingcart">
                     <img alt="카트" src="/icon/cart.svg" width="30" height="30" />
                 </Nav.Link>
-                <Nav.Link href="/admin">
+                {admin ? <Nav.Link href="/admin">
                     <img alt="관리자" src="/icon/option.svg" width="30" height="30" />
-                </Nav.Link>
+                </Nav.Link> :(
+                    <> 
+                    </>
+                )}
+                
             </Nav>
         </Navbar>
     )

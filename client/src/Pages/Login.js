@@ -3,10 +3,15 @@ import { Link, Redirect } from 'react-router-dom';
 import { Form, Col, Container, Button, Row, Alert } from 'react-bootstrap';
 import axios from 'axios'
 import catchErrors from '../utils/catchErrors'
-import { handleLogin } from '../utils/auth'
+import { handleLogin, handleLoginAdmin } from '../utils/auth'
 
 
 const INIT_USER = {
+    id: '',
+    password: ''
+}
+
+const INIT_ADMIN = {
     id: '',
     password: ''
 }
@@ -17,10 +22,12 @@ function Login() {
     const [user, setUser] = useState(INIT_USER)
     const [error, setError] = useState('')
     const [success, setSuccess] = useState(false)
+    const [admin, setAdmin] = useState(INIT_ADMIN)
 
     function handleChange(event) {
         const { name, value } = event.target
         setUser({ ...user, [name]: value })
+        setAdmin({ ...admin, [name]: value })
 
     }
 
@@ -34,9 +41,13 @@ function Login() {
         setValidated(true);
         try {
             setError('')
-            const response=await axios.post('/api/auth/login', user)
-            handleLogin(response.data)
-            setSuccess(true)
+            if (user) {
+                const response = await axios.post('/api/auth/login', user)
+                handleLogin(response.data)
+                setSuccess(true)
+            }else{
+                return false
+            }
         } catch (error) {
             catchErrors(error, setError)
         }
@@ -44,7 +55,7 @@ function Login() {
 
     if (success) {
         alert('로그인 되었습니다.')
-        window.location.href='/'
+        window.location.href = '/'
     }
 
 

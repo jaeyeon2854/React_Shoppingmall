@@ -11,16 +11,15 @@ const getCategory = async (req, res) => {
     }
 }
 
-const getSubCategory=(req,res)=>{
+// const getSubCategory=(req,res)=>{
     
-}
+// }
 
-const getsubId=(req,res,next,sub)=>{
-    const subcategory = await category.find({"Dress"})
-    console.log('sub=',sub)
+// const getsubId=(req,res,next,sub)=>{
+//     console.log('sub=',sub)
 
-    next()
-}
+//     next()
+// }
 
 
-export default { getCategory , getsubId, getSubCategory}
+export default { getCategory }

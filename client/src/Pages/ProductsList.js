@@ -12,13 +12,15 @@ function ProductsList({ match }) {
     const [mainCategory, setMainCategory] = useState(match.params.main.toUpperCase())
     const [subcategory, setSubcategory] = useState([])
     const [productlist, setProductlist] = useState([])
+    const [bestlist, setBestlist] = useState([])
+    const [newlist, setNewlist] = useState([])
     const [sub, setSub] = useState([])
     const [error, setError] = useState('')
 
     // const user=isAuthenticated()
 
     useEffect(() => {
-        getSubsCategories()
+        // getSubsCategories()
         getProductlist()
     }, [mainCategory])
 
@@ -44,15 +46,15 @@ function ProductsList({ match }) {
     //     e.preventDefault()
     // }
 
-    async function getSubsCategories() {
-        try {
-            const response = await axios.get(`/api/categories/sub/${mainCategory}`)
-            console.log("sub", response.data)
-            setSubcategory(response.data)
-        } catch (error) {
-            catchError(error, setError) 
-        }
-    }
+    // async function getSubsCategories() {
+    //     try {
+    //         const response = await axios.get(`/api/categories/sub/${mainCategory}`)
+    //         console.log("sub", response.data)
+    //         setSubcategory(response.data)
+    //     } catch (error) {
+    //         catchError(error, setError) 
+    //     }
+    // }
 
     async function getProductlist() {
         try {
@@ -78,6 +80,7 @@ function ProductsList({ match }) {
             catchErrors(error,setError)
         }
     }
+
 
     return (
         <div>
@@ -114,8 +117,8 @@ function ProductsList({ match }) {
                         <Dropdown>
                             <Dropdown.Toggle className="mx-2">정렬</Dropdown.Toggle>
                             <Dropdown.Menu>
-                                <Dropdown.Item>인기상품</Dropdown.Item>
-                                <Dropdown.Item>신상품</Dropdown.Item>
+                                <Dropdown.Item >인기상품</Dropdown.Item>
+                                <Dropdown.Item >신상품</Dropdown.Item>
                                 <Dropdown.Item>낮은가격</Dropdown.Item>
                                 <Dropdown.Item>높은가격</Dropdown.Item>
                             </Dropdown.Menu>

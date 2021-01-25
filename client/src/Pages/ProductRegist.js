@@ -102,11 +102,8 @@ function ProductsRegist() {
     }
 
     function deleteColor(e) {
-        // console.log("e.name=",e.target.name)
         e.target.parentNode.remove()
         product["colors"].splice(e.name, 1)
-        // setColor({})
-        // console.log(product)
     }
 
     function handleColor(e) {

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
-import { handleLogout, isAuthenticated, isAuthenticatedAdmin } from '../utils/auth';
+import { handleLogout, isAdmin, isAuthenticated} from '../utils/auth';
 
 function MainNav() {
     
     const user = isAuthenticated()
-    const admin = isAuthenticatedAdmin()
+    const admin = isAdmin()
 
     return (
         <Navbar sticky="top" style={{ background: "#CDC5C2" }}>

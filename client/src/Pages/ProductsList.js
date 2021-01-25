@@ -34,17 +34,17 @@ function ProductsList({ match }) {
     }, [mainCategory])
 
     function handleChange(event) {
-        console.log('handle change', event.target.value)
         setSearch({ word: event.target.value })
     }
 
-    async function handleSearch(event) {
-        event.preventDefault()
+    async function handleSearch(e) {
+        e.preventDefault()
         try {
             setError('')
-            const response = await axios.post(`/api/product/getproduct/main/${mainCategory}`, search)
+            const response = await axios.get(`/api/product/getproduct/main/${mainCategory}?product=${search.word}`)
             console.log("response.data=", response.data)
             setProductlist(response.data)
+            e.target.childNodes[0].value = ''
         } catch (error) {
             catchError(error, setError)
         }

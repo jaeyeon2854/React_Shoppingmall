@@ -30,8 +30,9 @@ function ProductsList({ match }) {
             const response = await axios.get(`/api/categories/sub/${mainCategory}`)
             setSubcategory(Object.values(response.data)[0])
 
-            console.log("response data=", response.data)
-            console.log("object value=", Object.values(response.data));
+            // console.log("response data=", response.data)
+            // console.log("object value=", Object.values(response.data));
+            // console.log("object value=2", Object.values(response.data)[0]);
 
         } catch (error) {
             catchError(error, setError)
@@ -39,15 +40,56 @@ function ProductsList({ match }) {
     }
 
     async function getProductlist() {
+        console.log("tlfgpd")
         try {
-            const response = await axios.get(`/api/product/getproduct/${mainCategory}`)
-            console.log("response.data=", response.data)
+            const response = await axios.get(`/api/product/getproduct/main/${mainCategory}`)
+            console.log("response.data=main", response.data)
             setProductlist(response.data)
 
         } catch (error) {
             catchError(error, setError)
         }
     }
+
+    async function handleSubname(e) {
+        const subname = e.target.name
+        console.log("subname=", subname)
+        try {
+            console.log("first test!!!!!!!!")
+            const response = await axios.get(`/api/product/getproduct/sub/${subname}`)
+            console.log("subname response data=", response.data)
+            setProductlist([response.data])
+        } catch (error) {
+            console.log("error22")
+        }
+
+
+        // const listvalue = Object.values(productlist)
+        // for (let i = 0; i < listvalue.length; i++) {
+        //     const list = listvalue[i].sub_category[0]
+        //     console.log("list=", list)
+
+        //     console.log("include=", subcategory.includes("LONG DRESS"))
+        // if (listvalue[i].sub_category[0] === subcategory[0]) {
+        //     console.log("yes")
+        // }
+        // else {
+        //     console.log("no")
+        // }
+    }
+    // if (productlist.sub_category) {
+
+    // }
+    // console.log("list", list)
+    // for (let i = 0; i < list.length; i++) {
+    //     if (response.data[i] === "subcategory") {
+    //         console.log("handlesub=", response.data[i].sub_category)
+    //     }
+    //     else {
+    //         console.log("handlesub=2 ", response.data[i].sub_category)
+    //     }
+    // }
+    // }
 
     return (
         <div>
@@ -75,7 +117,7 @@ function ProductsList({ match }) {
                         <h1 style={{ fontSize: "3rem" }} className="text-center">{mainCategory}</h1>
                         <div className="text-center">
                             <ButtonGroup className="m-3" variant="outline-light secondary" style={{ display: "inline-block" }}>
-                                {subcategory.map(el => (<Button className="m-1" variant="secondary">{el}</Button>))}
+                                {subcategory.map(el => (<Button className="m-1" variant="secondary" name={el} onClick={handleSubname}>{el}</Button>))}
                             </ButtonGroup>
                         </div>
                     </Col>

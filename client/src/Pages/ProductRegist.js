@@ -136,7 +136,7 @@ function ProductsRegist() {
         for (let key in product) {
             if (key === "main_image" || key === "detail_image") {
                 formData.append(key, product[key][0])
-            } else if(key === "sizes" || key === "colors"){
+            } else if(key === "sizes" || key === "colors" || key === 'sub_category'){
                 for (let i = 0; i < product[key].length ; i++){
                     formData.append([key], product[key][i])
                 }

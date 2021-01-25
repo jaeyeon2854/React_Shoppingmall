@@ -215,8 +215,24 @@ function Product({ match, location }) {
             </Row>
             <Row className="justify-content-center mt-5 mx-0">
                 <Col sm={11} md={8}>
-                    <h3 style={{ borderBottom: "1px solid #91877F", paddingBottom: "5px", marginBottom: "1em" }}>설명</h3>
-                    <div></div>
+                    <h3 style={{ borderBottom: "1px solid #91877F", paddingBottom: "5px", marginBottom: "1em" }} className="p-3">
+                        설명
+                        </h3>
+                    <Col className='m-3 text-center d-flex justify-content-center'>
+                        <div style={{ wordBreak: 'break-all', wordWrap: 'break-word', fontFamily: "맑은 고딕" }} className="p-3">
+                            <h1 className='m-3'>{product.name} </h1>
+                            <>
+                            <Image src={`/images/${product.main_img}`} style={{ objectFit: "contain", width: '100%'}} />
+                            </>
+                            <Card className='m-3 d-flex justify-content-center'>
+                                <Card.Body>
+                                    {product.description}
+                                </Card.Body>
+                            </Card>
+                            <h3 className='mt-5'>[ Detail Images ]</h3>
+                            <Image src={`/images/${product.detail_imgs}`} style={{ objectFit: "contain"}} className='m-3' />
+                        </div>
+                    </Col>
                 </Col>
             </Row>
             <Row className="justify-content-center mx-0 pt-3 px-2" style={{ position: "fixed", bottom: "0", width: "100%", backgroundColor: "#fff" }}>

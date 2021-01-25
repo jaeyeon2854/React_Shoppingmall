@@ -1,16 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Redirect } from 'react-router-dom';
-import ListCard from '../Components/ListCard';
+import AllCard from '../Components/AllCard';
 import Pagination from '../Components/Pagination';
 import axios from 'axios';
-import { isAdmin } from "../utils/auth";
 import catchError from '../utils/catchErrors';
-import { Row, Form, FormControl, Button, Card, Container } from 'react-bootstrap';
+import { Row, Form, FormControl, Button, Container } from 'react-bootstrap';
 
 function Admin() {
     const [productlist, setProductlist] = useState([])
     const [error, setError] = useState('')
-    const role = isAdmin()
 
     useEffect(() => {
         getProductlist()
@@ -32,11 +30,6 @@ function Admin() {
 
     function handleSubmit(e) {
         e.preventDefault()
-    }
-
-    if(!role) {
-        alert('죄송합니다.접근 권한이 없습니다.')
-        return <Redirect to="/" />
     }
 
     return (
@@ -63,7 +56,7 @@ function Admin() {
             </Row>
             <Row className="justify-content-center m-5">
                 {productlist.map(pro => (
-                    <ListCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} />
+                    <AllCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} />
                 ))}
             </Row>
             <Pagination />

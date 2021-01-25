@@ -26,7 +26,7 @@ function SubNav() {
     }, [])
 
     return (
-        <Navbar sticky="top" className="flex-nowrap" style={{ top: "62px", paddingTop: "0", paddingBottom: "0", backgroundColor: "#fff" }}>
+        <Navbar sticky="top" className="flex-nowrap" style={{ top: "56px", paddingTop: "0", paddingBottom: "0", backgroundColor: "#fff" }}>
             <style type="text/css">
                 {`
                 .nav-link, .nav-link:hover, .nav-link:active {

@@ -16,29 +16,25 @@ function Account() {
     const [proshow, setProshow] = useState(false)
     const [error, setError] = useState("")
     const userId = isAuthenticated()
+    const [ordered, setOrdered] = useState('')
 
     async function getUsername(user) {
-        // console.log("tlg")
         try {
             const response = await axios.get(`/api/users/account/${user}`)
             setAccount(response.data)
-            console.log('555555555', response.data);
         } catch (error) {
             catchError(error, setError)
-            // console.log('error2222', error)
         }
     }
 
     useEffect(() => {
         getUsername(userId)
+        getOrdered(userId)
     }, [userId])
 
     const handleChange = (event) => {
         const { name, value, files } = event.target
         if (files) {
-            for (const file of files) {
-                // console.log("name=", name, "value=", value, 'file=', file);
-            }
             setAccount({ ...account, [name]: files })
         } else {
             console.log("name=", name, "value=", value);
@@ -81,6 +77,16 @@ function Account() {
         }
     }
 
+    async function getOrdered({}) {
+        console.log("object")
+        try {
+            const response = await axios.get(`/api/users/addorder`)
+            setOrdered(response.data)
+        } catch (error) {
+            catchError(error, setError)
+        }
+    }
+
     return (
         <Container className="px-3">
             <style type="text/css">
@@ -105,7 +111,7 @@ function Account() {
                                 )}
                         </Button>
                         <Modal show={show} onHide={() => setShow(false)}>
-                            <Modal.Header closeButton style={{background:"#F7F3F3"}}>
+                            <Modal.Header closeButton style={{ background: "#F7F3F3" }}>
                                 <Modal.Title >이미지를 변경하시겠습니까?</Modal.Title>
                             </Modal.Header>
                             <Form onSubmit={handleSubmit}>
@@ -132,11 +138,11 @@ function Account() {
                                         {account.name}
                                     </strong>
                                     <Modal
-                                        
+
                                         size="sm"
                                         show={proshow}
                                         onHide={() => setProshow(false)}>
-                                        <Modal.Header closeButton style={{background:"#F7F3F3"}}>
+                                        <Modal.Header closeButton style={{ background: "#F7F3F3" }}>
                                             <Modal.Title>회원정보</Modal.Title>
                                         </Modal.Header>
                                         <Modal.Body>

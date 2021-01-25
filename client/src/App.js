@@ -1,5 +1,6 @@
-import './App.css';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+import PrivateRoute from "./Components/PrivateRoute";
+import AdminRoute from "./Components/AdminRoute";
 import Home from './Pages/Home';
 import Login from './Pages/Login';
 import Signup from './Pages/Signup';
@@ -27,13 +28,25 @@ function App() {
         <Route path="/product/:productId" component={Product} />
         <Route path="/categories/:main/:sub" component={ProductsList} />
         <Route path="/categories/:main" component={ProductsList} />
-        <Route path="/admin" component={Admin} />
-        <Route path="/regist" component={ProductRegist} />
-        <Route path="/shoppingcart" component={ShoppingCart} />
-        <Route path="/payment" component={Payment} />
-        <Route path="/paymentcompleted" component={PaymentCompleted} />
-        <Route path="/account" component={Account} />
-        <Route path='/kakao' component={() => { window.location.href = 'https://compmath.korea.ac.kr'; return null; }} />
+        <AdminRoute path="/admin">
+          <Admin />
+        </AdminRoute>
+        <AdminRoute path="/regist">
+          <ProductRegist />
+        </AdminRoute>
+        <PrivateRoute path="/shoppingcart">
+          <ShoppingCart />
+        </PrivateRoute>
+        <PrivateRoute path="/payment">
+          <Payment />
+        </PrivateRoute>
+        <PrivateRoute path="/account">
+          <Account />
+        </PrivateRoute>
+        {/* <PrivateRoute path='/kakao'>
+          
+        </PrivateRoute>
+        <Route  component={() => { window.location.href = 'https://compmath.korea.ac.kr'; return null; }} /> */}
         <Redirect path="/" to="/" />
       </Switch>
     </Router>

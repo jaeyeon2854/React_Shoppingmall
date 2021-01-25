@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Card, Image, Container, Row, Col, Table, Accordion, Button, Form, Modal, Alert } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
-import axios from 'axios'
-import catchErrors from '../utils/catchErrors';
+import axios from 'axios';
+import catchError from '../utils/catchErrors';
 import { isAuthenticated } from '../utils/auth';
 
 const INIT_ACCOUNT = {
@@ -10,21 +10,21 @@ const INIT_ACCOUNT = {
     avatarUrl: ''
 }
 
-
 function Account() {
     const [account, setAccount] = useState(INIT_ACCOUNT)
+    const [show, setShow] = useState(false);
+    const [proshow, setProshow] = useState(false)
     const [error, setError] = useState("")
     const userId = isAuthenticated()
-
 
     async function getUsername(user) {
         // console.log("tlg")
         try {
             const response = await axios.get(`/api/users/account/${user}`)
             setAccount(response.data)
-            // console.log('555555555', response.data);
+            console.log('555555555', response.data);
         } catch (error) {
-            catchErrors(error, setError)
+            catchError(error, setError)
             // console.log('error2222', error)
         }
     }
@@ -32,13 +32,6 @@ function Account() {
     useEffect(() => {
         getUsername(userId)
     }, [userId])
-
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false)
-
-    const handleShow = () => setShow(true)
-
 
     const handleChange = (event) => {
         const { name, value, files } = event.target
@@ -63,7 +56,7 @@ function Account() {
                 window.location.reload()
             }
         } catch (error) {
-            catchErrors(error, setError)
+            catchError(error, setError)
         }
         setShow(false)
     }
@@ -81,21 +74,28 @@ function Account() {
                     window.location.reload()
                 }
             } catch (error) {
-                catchErrors(error, setError)
+                catchError(error, setError)
             }
         } else {
             alert("파일을 선택해주세요.")
-        } 
+        }
     }
 
     return (
-
         <Container className="px-3">
+            <style type="text/css">
+                {`
+                a, a:hover, a:active {
+                    color: #91877F;
+                    text-decoration-color: #91877F;
+                }
+                `}
+            </style>
             <h3 className="my-4 mx-3 font-weight-bold">My Page</h3>
             <Card md={3} className="p-1 mb-4" style={{ background: '#F7F3F3' }}>
                 <Row className="p-2">
                     <Col md={5} className="d-flex align-content-center justify-content-center">
-                        <Button variant="outline-light" onClick={handleShow}>
+                        <Button variant="outline-light" onClick={() => setShow(true)}>
                             {account.avatarUrl ? (
                                 <Image src={account.avatarUrl && `/images/${account.avatarUrl}`} className="img-thumbnail"
                                     roundedCircle style={{ objectFit: "cover", width: "10rem", height: "10rem" }} />
@@ -104,9 +104,9 @@ function Account() {
                                         roundedCircle style={{ objectFit: "cover", width: "10rem", height: "10rem" }} />
                                 )}
                         </Button>
-                        <Modal show={show} onHide={handleClose}>
-                            <Modal.Header closeButton>
-                                <Modal.Title>이미지를 변경하시겠습니까?</Modal.Title>
+                        <Modal show={show} onHide={() => setShow(false)}>
+                            <Modal.Header closeButton style={{background:"#F7F3F3"}}>
+                                <Modal.Title >이미지를 변경하시겠습니까?</Modal.Title>
                             </Modal.Header>
                             <Form onSubmit={handleSubmit}>
                                 <Modal.Body>
@@ -118,8 +118,8 @@ function Account() {
                                             className="d-flex justify-content-start"><small>기본이미지로</small></Button>
                                         {/* 기본이미지로 보내기 */}
                                     </Col>
-                                    <Button variant="secondary" onClick={handleClose}>취소</Button>
-                                    <Button variant="primary" type="submit" onClick={handleClose}>저장</Button>
+                                    <Button variant="secondary" onClick={() => setShow(false)}>취소</Button>
+                                    <Button variant="primary" type="submit" onClick={() => setShow(false)}>저장</Button>
                                 </Modal.Footer>
                             </Form>
                         </Modal>
@@ -128,21 +128,42 @@ function Account() {
                         <Row className="mt-4 text-center">
                             <Col>
                                 <h2>
-                                    <strong>{account.name}</strong> <small>({account.id}){" "}님</small>
+                                    <strong title='회원정보' style={{ cursor: "pointer", textDecoration: 'underline' }} onClick={() => setProshow(true)}>
+                                        {account.name}
+                                    </strong>
+                                    <Modal
+                                        
+                                        size="sm"
+                                        show={proshow}
+                                        onHide={() => setProshow(false)}>
+                                        <Modal.Header closeButton style={{background:"#F7F3F3"}}>
+                                            <Modal.Title>회원정보</Modal.Title>
+                                        </Modal.Header>
+                                        <Modal.Body>
+                                            <Col className="p-1">
+                                                <li><strong>Role :</strong> {account.role}</li>
+                                                <li><strong>ID :</strong> {account.id}</li>
+                                                <li><strong>Username :</strong> {account.name}</li>
+                                                <li><strong>Email :</strong> {account.email}</li>
+                                                <li><strong>Tel :</strong> {account.tel}</li>
+                                            </Col>
+                                        </Modal.Body>
+                                    </Modal>
+                                    <small>{' '}({account.id}){" "}님</small>
                                 </h2>
                             </Col>
                         </Row>
                         <Row className="px-3">
                             <Card.Body className="p-2 text-center">
-                                <h4><Link to="/" class="link-warning">
+                                <h4><Link to="/">
                                     <strong title="홈으로">
                                         <Image src="/icon/mypagetiger.svg" width={"30rem"} roundedCircle className="img-thumbnail" >
                                         </Image>KU#
-                  </strong>
+                                    </strong>
                                 </Link>
-                                    {/* 홈페이지로 돌아가기 */}
-                를 방문해주신 <em>{account.name}</em> 님,<br></br>
-                진심으로 환영합니다! 즐거운 쇼핑 되세요.</h4>
+                를 방문해주신 <em>{account.name}</em> 님,<br />
+                진심으로 환영합니다! 즐거운 쇼핑 되세요.
+                </h4>
                             </Card.Body>
                         </Row>
                         <Row className="mr-1 text-muted d-flex justify-content-end">

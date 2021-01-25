@@ -17,11 +17,14 @@ const CartSchema = new mongoose.Schema({
                     type: ObjectId,
                     ref: 'Product'
                 },
-                sizes: {
+                size: {
                     type: String
                 },
-                colors: {
+                color: {
                     type: String
+                },
+                checked: {
+                    type: Boolean
                 }
             }
         ]

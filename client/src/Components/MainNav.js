@@ -13,8 +13,8 @@ function MainNav() {
                 <img alt="로고" src="/icon/footprint.svg" width="24" height="24" />
                 {' '}KU#
             </Navbar.Brand>
-            <Nav>
-                {user,admin ? <> <Nav.Link className="text-light" onClick={() => handleLogout()}>Logout</Nav.Link>
+            <Nav className="ml-auto">
+                {user ? <> <Nav.Link className="text-light" onClick={() => handleLogout()}>Logout</Nav.Link>
                 <Nav.Link className="text-light" href="/account"> Mypage </Nav.Link>
                 </>
                     : (

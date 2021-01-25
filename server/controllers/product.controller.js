@@ -29,29 +29,25 @@ const regist = async (req, res) => {
     }
 }
 
-const getToHome = async (res, req) => {
+const getToHome = async (req, res) => {
     try {
-        const bestProduct = await Product.find({}).sort({ purchase: 1 }).limit(6)
+        const bestProduct = await Product.find({}).sort({ purchase: -1 }).limit(6)
         const newProduct = await Product.find({}).sort({ createdAt: -1 }).limit(6)
-        console.log("best=", bestProduct)
-        console.log("new=", newProduct)
-        res.json(bestProduct, newProduct)
+        // console.log("best=", bestProduct)
+        // console.log("new=", newProduct)
+        res.json({ bestProduct, newProduct })
     } catch {
         res.status(500).send('상품을 불러오지 못했습니다.')
     }
 }
 
-const Sortlist = async (res, req) => {
+const getAll = async (req, res) => {
     try {
-        const newlist = await Product.find({}).sort({ createdAt: -1 })
-        const bestlist = await Product.find({}).sort({ purchase: 1 })
-        console.log('bestsort',bestlist)
-        console.log('newlist',newlist)
-        res.json(newlist, bestlist)
-    } catch {
+        const productslist = await Product.find({}).sort({ createdAt: -1 })
+        res.json(productslist)
+    } catch (error) {
         res.status(500).send('상품을 불러오지 못했습니다.')
     }
-
 }
 
 const getlist = (req, res) => {
@@ -61,7 +57,6 @@ const getlist = (req, res) => {
         res.status(500).send('상품을 불러오지 못했습니다.')
     }
 }
-
 
 const categoryId = async (req, res, next, category) => {
     try {
@@ -83,6 +78,7 @@ const subgetlist = (req, res) => {
         res.status(500).send('상품을 불러오지 못했습니다.')
     }
 }
+
 const subcategoryId = async (req, res, next, subcategory) => {
     try {
         const subproductslist = await Product.find({ sub_category: subcategory })
@@ -96,4 +92,32 @@ const subcategoryId = async (req, res, next, subcategory) => {
     }
 }
 
-export default { imageUpload, regist, categoryId, getlist, subcategoryId, subgetlist, getToHome , Sortlist}
+const plusPurchase = async (req, res) => {
+    const { products } = req.body
+    // console.log(products)
+    try {
+        for (let i = 0; i < products.length; i++) {
+            const count = products[i].count
+            const product = await Product.findOne(
+                { _id: products[i].productId._id }
+            )
+            const purchase = product.purchase
+            const stock = product.stock
+            await Product.updateOne(
+                { _id: products[i].productId._id },
+                { $set: 
+                    { 
+                        purchase: count + purchase, 
+                        stock: stock - count 
+                    } 
+                }
+            )
+            // console.log("i=", i)
+        }
+        res.send("구매수 늘리기, 재고수 줄이기 성공")
+    } catch (error) {
+        res.status(500).send('구매숫자를 늘리지 못함')
+    }
+}
+
+export default { imageUpload, regist, getToHome, getAll, categoryId, getlist, subcategoryId, subgetlist, plusPurchase }

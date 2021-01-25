@@ -8,7 +8,6 @@ function SubNav() {
     const [categoriesDiv, setCategoriesDiv] = useState([])
     const [error, setError] = useState('')
 
-
     useEffect(async () => {
         try {
             const response = await axios.get('/api/categories/main')
@@ -17,6 +16,7 @@ function SubNav() {
                 const url = ele.toLowerCase()
                 list.push(
                     <Nav.Link as={Link} to={`/categories/${url}`}>{ele}</Nav.Link>
+                    //categories/${SubNav.url}/&{url}
                 )
             })
             setCategoriesDiv(list)
@@ -34,7 +34,7 @@ function SubNav() {
                 }
                 `}
             </style>
-            <Nav style={{overflowX: "auto"}}>
+            <Nav style={{ overflowX: "auto" }}>
                 {categoriesDiv.map(item => item)}
             </Nav>
         </Navbar>

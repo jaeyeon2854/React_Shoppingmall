@@ -8,8 +8,7 @@ const login = async (req, res) => {
 
     console.log(req.body)
     try {
-        const user = await User.findOne({role:"user",id:id}).select('password name')
-
+        const user = await User.findOne({ id }).select('password role name tel email')
         console.log('u=', user)
         if (!user) {
             return res.status(404).send(`${user.id}가 존재하지 않습니다.`)
@@ -24,7 +23,7 @@ const login = async (req, res) => {
                 httpOnly: true,
                 secure: config.env === 'production'
             })
-            res.json({ userId: user._id, role: user.role, name: user.name })
+            res.json({ userId: user._id, role: user.role, name: user.name, tel: user.tel, email:user.email })
 
         } else {
             res.status(401).send('비밀번호가 일치하지 않습니다.')

@@ -7,50 +7,94 @@ import { isAuthenticated } from '../utils/auth'
 import CartCard from '../Components/CartCard';
 
 function ShoppingCart() {
-    const [num, setNum] = useState()
     const [error, setError] = useState('')
     const [cart, setCart] = useState([])
+    const [finalCart, setFinalCart] = useState([])
     const [finalPrice, setFinalPrice] = useState(0)
     const user = isAuthenticated()
 
     useEffect(() => {
         getCart()
+        // console.log(cart)
     }, [user])
 
-    function plusNum() {
-        num = num + 1
-        setNum(num + 1)
+    function plusNum(e) {
+        const addCount = cart.map((el) => {
+            if (el._id === e.target.name) {
+                return { ...el, count: el.count+1}
+            } else {
+                return { ...el }
+            }
+        })
+        setCart(addCount)
     }
-    function minusNum() {
-        if (num === 0) {
-            setNum(0)
-        }
-        else {
-            setNum(num - 1)
-        }
+    function minusNum(e) {
+        const addCount = cart.map((el) => {
+            if (el._id === e.target.name) {
+                return { ...el, count: el.count-1 }
+            } else {
+                return { ...el }
+            }
+        })
+        setCart(addCount)
     }
+
+    function checkedCart(e) {
+        let price = 0
+        const cartCheck = cart.map((el) => {
+            if (el._id === e.target.name) {
+                return { ...el, checked: !el.checked }
+            } else {
+                return { ...el }
+            }
+        })
+        const asd = cartCheck.filter((el) => el.checked === true)
+        asd.map((el)=>{
+            price = el.count*el.productId.price  + price
+        })
+        setFinalPrice(price)
+        setCart(cartCheck)
+        setFinalCart(asd)
+    }
+
     async function deleteCart(e) {
         //장바구니 DB에서 해당 항목 삭제 
-        console.log(e.target.name)
+        // console.log(e.target.name)
         try {
-            const response = await axios.post('/api/cart/deletecart', { cartId: e.target.name })
+            const response = await axios.post('/api/cart/deletecart', {
+                userId: user,
+                cartId: e.target.name
+            })
             console.log(response.data)
+            setCart(response.data.products)
         } catch (error) {
             catchErrors(error, setError)
         }
-
-        console.log('카트에 담긴 항목을 삭제했습니다.')
+        // console.log('카트에 담긴 항목을 삭제했습니다.')
     }
 
     async function getCart() {
         try {
+            setError('')
             const response = await axios.get(`/api/cart/showcart/${user}`)
-            console.log(response.data)
-            setCart(response.data)
-            const finalPrices = response.data.map((e) => {
-                return e.count * e.productId.price
+            const addChecked = response.data.map((el) => {
+                    return { ...el, checked: false }
             })
-            setFinalPrice(finalPrices.reduce((a, b) => (a + b)))
+            console.log("addchecked=",addChecked)
+            setCart(addChecked)
+        } catch (error) {
+            catchErrors(error, setError)
+        }
+    }
+
+    function putCheckedCart(){
+        try {
+            setError('')
+            const response =  axios.post(`/api/cart/changecart`, {
+                userId:user,
+                products: cart
+            })
+            console.log(response.data)
         } catch (error) {
             catchErrors(error, setError)
         }
@@ -58,12 +102,13 @@ function ShoppingCart() {
 
     return (
         <div>
+            {/* {console.log(cart)} */}
             <Container className="justify-content-center">
                 <h1 className="my-5 font-weight-bold text-center">장바구니</h1>
                 <div>
                     <h4 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>주문상품정보</h4>
-                    {cart.length >0
-                        ? <CartCard cart={cart} deleteCart={deleteCart} minusNum={minusNum} plusNum={plusNum} num={num} />
+                    {cart.length > 0
+                        ? <CartCard cart={cart} deleteCart={deleteCart} minusNum={minusNum} plusNum={plusNum} checkedCart={checkedCart} />
                         : <div className="text-center my-5">장바구니에 담긴 상품이 없습니다.</div>}
 
                 </div>
@@ -84,9 +129,9 @@ function ShoppingCart() {
                 </div>
                 <div className="text-center">
                     <Button as={Link} to={{
-                            pathname: `/payment`,
-                            state: { cart }
-                        }} className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} block>결제하기</Button>
+                        pathname: `/payment`,
+                        state: finalCart 
+                    }} className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} onClick={putCheckedCart} block>결제하기</Button>
                 </div>
             </Container>
 

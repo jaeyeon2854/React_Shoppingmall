@@ -1,18 +1,87 @@
+import axios from 'axios';
 import React, { useState, useEffect, useRef } from 'react';
 import DaumPostcode from "react-daum-postcode";
 import { Container, Card, Row, Col, Button, Form, FormGroup } from 'react-bootstrap';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link, useHistory } from 'react-router-dom';
+import PaymentCard from '../Components/PaymentCard';
+import { isAuthenticated } from '../utils/auth';
+import catchErrors from '../utils/catchErrors';
 
-function Payment() {
+function Payment({ match, location }) {
 
-    const [paymentWay, setPaymentWay] = useState([])
-    const [isAddress, setIsAddress] = useState("");
-    const [isZoneCode, setIsZoneCode] = useState();
-    const [isPostOpen, setIsPostOpen] = useState();
+    const [cart, setCart] = useState([])
+    const [order, setOrder] = useState({ products: [] })
+    const [userData, setUserData] = useState({})
+    const [error, setError] = useState()
     const [post, setPost] = useState([])
     const [redirect, setRedirect] = useState(null)
     const [address, setAddress] = useState("")
-    const [num, setNum] = useState(0)
+    const [finalPrice, setFinalPrice] = useState(0)
+    const [paymentWay, setPaymentWay] = useState([])
+    const [completeState, setCompleteState] = useState(false)
+    const user = isAuthenticated()
+    let history = useHistory();
+    const preCart = []
+
+    useEffect(() => {
+        getUser()
+        getCart()
+    }, [user])
+
+    useEffect(() => {
+        let price = 0
+        cart.map((el) => {
+            price = Number(el.count) * Number(el.productId.price) + price
+        })
+        setFinalPrice(price)
+    }, [cart])
+
+    async function getUser() {
+        const name = localStorage.getItem('name')
+        const tel = localStorage.getItem('tel')
+        const email = localStorage.getItem('email')
+        setUserData({ name: name, tel: tel, email: email })
+    }
+
+    async function getCart() {
+        try {
+            setError('')
+            const response = await axios.get(`/api/cart/showcart/${user}`)
+            console.log(response.data)
+            const preCart = response.data.filter((el) => el.checked === true)
+            if (preCart.length) {
+                setCart(preCart)
+                setOrder({ products: preCart })
+            } else {
+                alert("주문하실 상품이 없습니다.")
+                history.push("/home")
+            }
+        } catch (error) {
+            catchErrors(error, setError)
+        }
+    }
+
+    async function deleteOrder(e) {
+        try {
+            setError('')
+            const response = await axios.post('/api/cart/deletecart', {
+                userId: user,
+                cartId: e.target.name
+            })
+            console.log(response.data)
+            const preCart = response.data.products.filter((el) => el.checked === true)
+            setCart(preCart)
+            setOrder({ products: preCart })
+        } catch (error) {
+            catchErrors(error, setError)
+        }
+    }
+
+    function handleReceiverInfo(e) {
+        const { name, value } = e.target
+        console.log(name, value)
+        setOrder({ ...order, receiverInfo: { ...order.receiverInfo, [name]: value } })
+    }
 
     function postClick() {
         if (post.length !== 0) {
@@ -42,8 +111,8 @@ function Payment() {
             }
             fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
         }
-        setAddress({ full: fullAddress, zone: data.zonecode });
-
+        setAddress({ full: fullAddress, code: data.zonecode });
+        setOrder({ ...order, receiverInfo: { ...order.receiverInfo, address: fullAddress, postalCode: data.zonecode } })
         console.log(fullAddress);
     }
 
@@ -58,9 +127,9 @@ function Payment() {
 
     function handleClick() {
         if (paymentWay.length !== 0) {
+            setCompleteState(false)
             setPaymentWay([])
-        }
-        else {
+        } else {
             const a = (
                 <Row className="justify-content-md-center">
                     <Col md={6} className="border m-5 p-5">
@@ -89,62 +158,83 @@ function Payment() {
         }
     }
 
-    function handleClick2() {
-        if (paymentWay.length !== 0) {
-            setPaymentWay([])
-        }
-    }
-
     async function kakaopay() {
-        const response = await fetch('/api/kakaopay/test/single', {
-            method: "POST",
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                cid: 'TC0ONETIME',
-                partner_order_id: 'partner_order_id',
-                partner_user_id: 'partner_user_id',
-                item_name: '앙고라 반목 폴라 베이직 모헤어 니트 (T)',
-                quantity: 1,
-                total_amount: 22000,
-                vat_amount: 200,
-                tax_free_amount: 0,
-                approval_url: 'http://localhost:3000/account',
-                fail_url: 'http://localhost:3000/shoppingcart',
-                cancel_url: 'http://localhost:3000/kakaopay/payment',
-            })
-        })
-        const data = await response.json()
-        console.log(data)
-        window.location.href = data.redirect_url
+
+        setCompleteState("kakaopay")
+        setPaymentWay(
+            <div className="text-center">
+                <p className=" font-weight-bold" style={{ display: 'inline' }}>'카카오페이'</p><p style={{ display: 'inline' }}>를 선택하셨습니다. </p>
+                <p>주문하기를 눌러 결제를 이어가주세요.</p>
+            </div>
+        )
+        // window.location.href = data.redirect_url
         // setRedirect(data.redirect_url)
     }
 
-    function plusNum() {
-        setNum(num + 1)
-    }
-    function minusNum() {
-        if (num === 0) {
-            setNum(0)
+    async function paymentCompleted() {
+        console.log(order)
+        const cartIds = []
+        order.products.map((el) => {
+            cartIds.push(el._id)
+        })
+        try {
+            setError('')
+            const response = await axios.post(`/api/order/addorder`, {
+                userId: user,
+                ...order,
+                total: finalPrice + 2500
+            })
+            const response2 = await axios.post(`/api/cart/deletecart2`, {
+                userId: user,
+                cartId: cartIds
+            })
+            const response3 = await axios.post(`/api/product/pluspurchase`, {
+                products: order.products
+            })
+            if (completeState === "kakaopay") {
+                let itemNames = ""
+                if (cart.length > 1) {
+                    itemNames = cart[0].productId.pro_name + ' 외 ' + String(cart.length - 1) + '개'
+                } else {
+                    itemNames = cart[0].productId.pro_name
+                }
+                const response = await fetch('/api/kakaopay/test/single', {
+                    method: "POST",
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        cid: 'TC0ONETIME',
+                        partner_order_id: 'partner_order_id',
+                        partner_user_id: user,
+                        item_name: itemNames,
+                        quantity: cart.length,
+                        total_amount: finalPrice + 2500,
+                        vat_amount: 200,
+                        tax_free_amount: 0,
+                        approval_url: 'http://localhost:3000/paymentcompleted',
+                        fail_url: 'http://localhost:3000/shoppingcart',
+                        cancel_url: 'http://localhost:3000/shoppingcart',
+                    })
+                })
+                const data = await response.json()
+                window.location.href = data.redirect_url
+            } else {
+                console.log(response.data)
+                console.log(response2.data)
+                console.log(response3.data)
+                alert("주문이 완료되었습니다.")
+                history.push('/paymentcompleted')
+            }
+        } catch (error) {
+            catchErrors(error, setError)
+            alert("주문에 실패하셨습니다. 다시 확인해주세요.")
         }
-        else {
-            setNum(num - 1)
-
-        }
-    }
-    function deleteCart() {
-        //장바구니 DB에서 해당 항목 삭제 
-        console.log('카트에 담긴 항목을 삭제했습니다.')
-    }
-
-    if (redirect) {
-        console.log(redirect)
-        return <Redirect to={'/kakao'} />
     }
 
     return (
         <div>
+            {/* {console.log(completeState)} */}
             <Container>
                 <h3 className="my-5 font-weight-bold text-center">주문/결제</h3>
                 <div>
@@ -154,15 +244,15 @@ function Payment() {
                             <Form>
                                 <Form.Group controlId="formBasicName">
                                     <Form.Label>이름</Form.Label>
-                                    <Form.Control type="text" placeholder="윤지원" />
-                                </Form.Group>
-                                <Form.Group controlId="formBasicEmail">
-                                    <Form.Label>이메일</Form.Label>
-                                    <Form.Control type="email" placeholder="jiwon5393@naver.com" />
+                                    <Form.Control type="text" value={userData.name} readOnly />
                                 </Form.Group>
                                 <Form.Group controlId="formBasicTel">
                                     <Form.Label>휴대전화</Form.Label>
-                                    <Form.Control type="tel" placeholder="010-0000-0000" />
+                                    <Form.Control type="tel" value={userData.tel} readOnly />
+                                </Form.Group>
+                                <Form.Group controlId="formBasicEmail">
+                                    <Form.Label>이메일</Form.Label>
+                                    <Form.Control type="email" value={userData.email} readOnly />
                                 </Form.Group>
                             </Form>
                         </Col>
@@ -176,13 +266,17 @@ function Payment() {
                             <Form>
                                 <Form.Group>
                                     <Form.Label>이름</Form.Label>
-                                    <Form.Control></Form.Control>
+                                    <Form.Control type="text" name="name" onChange={handleReceiverInfo}></Form.Control>
+                                </Form.Group>
+                                <Form.Group>
+                                    <Form.Label>휴대전화</Form.Label>
+                                    <Form.Control type="text" name="tel" onChange={handleReceiverInfo}></Form.Control>
                                 </Form.Group>
                                 <Form.Group controlId="formBasicAdd">
                                     <Form.Label>주소</Form.Label>
                                     <Form.Row>
                                         <Col xs={4} sm={4}>
-                                            <Form.Control type="text" id="add" value={address.zone} disabled={(address.zone == null) ? false : true} placeholder="우편번호" required ></Form.Control>
+                                            <Form.Control type="text" name="postalCode" id="add" onChange={handleReceiverInfo} value={address.code} disabled={(address.code == null) ? false : true} placeholder="우편번호" required ></Form.Control>
                                         </Col>
                                         <Col >
                                             <Button style={{ background: '#91877F', borderColor: '#91877F' }} className="mx-1" onClick={postClick}>우편번호</Button>
@@ -191,72 +285,46 @@ function Payment() {
                                     </Form.Row>
                                     <Form.Row>
                                         <Col>
-                                            <Form.Control type="text" id="add1" value={address.full} disabled={(address.zone == null) ? false : true} placeholder="주소" required></Form.Control>
-                                            <Form.Control type="text" id="add2" placeholder="상세주소" required></Form.Control>
+                                            <Form.Control type="text" name="address" id="add1" onChange={handleReceiverInfo} value={address.full} disabled={(address.code == null) ? false : true} placeholder="주소" required></Form.Control>
+                                            <Form.Control type="text" name="address2" id="add2" onChange={handleReceiverInfo} placeholder="상세주소" required></Form.Control>
                                             <Form.Control.Feedback type="invalid" > 상세 주소를 입력하세요. </Form.Control.Feedback>
                                         </Col>
                                     </Form.Row>
-                                </Form.Group>
-                                <Form.Group>
-                                    <Form.Label>휴대전화</Form.Label>
-                                    <Form.Control></Form.Control>
                                 </Form.Group>
                             </Form>
                         </Col>
                     </Row>
                 </div>
-
                 <div>
                     <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>주문상품정보</h5>
-                    <Card >
-                        <Row className="mx-1">
-                            <Col className="text-center">
-                                <Card.Img className="img-fluid" variant="top" src="img/asd.jpg" style={{ width: '20rem' }} />
-                            </Col>
-                            <Col md={6} className="p-2">
-                                <Card.Body>
-                                    <input type="image" alt="삭제버튼" src="https://img.icons8.com/fluent-systems-regular/24/000000/close-window.png" className="float-right" onClick={deleteCart} />
-                                    <Card.Title className="font-weight-bold mt-3">제품명</Card.Title>
-                                    <Card.Text>가격</Card.Text>
-                                    <Card.Text>옵션</Card.Text>
-                                    <Card.Text>수량</Card.Text>
-                                    <div>
-                                        <input type="image" alt="마이너스" src="https://img.icons8.com/ios-glyphs/20/000000/minus-math.png" className="align-middle" onClick={minusNum} />
-                                        <input type="text" style={{ width: '30px' }} className="text-center align-middle mx-1" placeholder="1" value={num} readOnly></input>
-                                        <input type="image" alt="플러스" src="https://img.icons8.com/ios-glyphs/20/000000/plus-math.png" className="align-middle" onClick={plusNum} />
-                                    </div>
-                                </Card.Body>
-                            </Col>
-                        </Row>
-                    </Card>
+                    <PaymentCard cart={cart} deleteOrder={deleteOrder} />
                 </div>
 
-                <div className="p-5 m-5" style={{ background: '#F7F3F3' }}>
+                <div className="p-5 m-3" style={{ background: '#F7F3F3' }}>
                     <ul className="pl-0" style={{ listStyle: 'none' }}>
                         <li>
                             <span className="text-secondary">총 상품금액</span>
-                            <span className="text-secondary float-right">12,000원</span>
+                            <span className="text-secondary float-right">{finalPrice}원</span>
                         </li>
                         <li>
                             <span className="text-secondary">배송비</span>
-                            <span className="text-secondary float-right">2,500원</span>
+                            <span className="text-secondary float-right">2500원</span>
                         </li>
                     </ul>
                     <div className="my-1 pt-2 border-top font-weight-bold">
-                        결제금액<span className="float-right">14,500원</span>
+                        결제금액<span className="float-right">{finalPrice + 2500}원</span>
                     </div>
                 </div>
-
                 <div>
                     <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>결제수단</h5>
-                    <div className="text-center mt-5">
-                        <Button variant="success" className="align-top" onClick={handleClick} >무통장입금</Button>
-                        <input type="image" alt="카카오페이결제" src="icon/payment_icon_yellow_small.png" onClick={kakaopay} />
+                    <div className="text-center m-3">
+                        <Button className="align-top m-1" variant="success" onClick={handleClick} style={{ height: '42px' }}>무통장입금</Button>
+                        <Button className="align-top m-1 p-0" style={{ borderColor: "#ffeb00" }} type="button" onClick={kakaopay} alt="카카오페이"><img src="icon/payment_icon_yellow_small2.png" /></Button>
                     </div>
                     {paymentWay}
                 </div>
                 <div className="text-center">
-                    <Button className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} href="/account" block>결제완료</Button>
+                    <Button type="button" onClick={paymentCompleted} className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} block>결제완료</Button>
                 </div>
             </Container>
         </div>

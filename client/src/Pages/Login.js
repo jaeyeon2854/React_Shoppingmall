@@ -27,8 +27,6 @@ function Login() {
     function handleChange(event) {
         const { name, value } = event.target
         setUser({ ...user, [name]: value })
-        setAdmin({ ...admin, [name]: value })
-
     }
 
     async function handleSubmit(event) {
@@ -57,8 +55,6 @@ function Login() {
         alert('로그인 되었습니다.')
         window.location.href = '/'
     }
-
-
 
     return (
         <Container className="my-5">
@@ -103,8 +99,8 @@ function Login() {
                                     </Form.Control.Feedback>
                             </Form.Row>
                         </Form.Group>
-                        <Button style={{ background: '#91877F', borderColor: '#91877F' }} type="submit" block>Login</Button>
-                        <div className="loginLine">
+                        <Button style={{ background: '#91877F', borderColor: '#91877F' }} type="submit" block >Login</Button>
+                        <div className="loginLine m-1">
                             <Link to="/signup" style={{ color: '#91877F' }}>회원이 아니십니까?</Link>
                         </div>
                     </Form>

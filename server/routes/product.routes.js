@@ -13,14 +13,19 @@ router.route('/regist')
 router.route('/getproduct')
     .get(productCtrl.getToHome)
 
+router.route('/getproduct/all')
+    .get(productCtrl.getAll)
+
 router.route('/getproduct/:category')
     .get(productCtrl.getlist)
 
 router.route('/getproduct/:subcategory')
     .get(productCtrl.subgetlist)
 
-router.param('category', productCtrl.categoryId)
+router.route('/pluspurchase')
+    .post(productCtrl.plusPurchase)
 
+router.param('category', productCtrl.categoryId)
 router.param('subcategory',productCtrl.subcategoryId)
     
 export default router

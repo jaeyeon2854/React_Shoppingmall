@@ -51,20 +51,4 @@ const getsubId = async (req, res, next, ele) => {
     next()
 }
 
-// const userById = async (req, res, next, id) => {
-//     try {
-//         const user = await User.findById(id)
-//         if (!user) {
-//             res.status(404).send('사용자를 찾을 수 없습니다')
-//         }
-//         req.account = user
-//         next()
-//     } catch (error) {
-//         console.log(error);
-//         res.status(500).send('사용자 아이디 검색 실패')
-//     }
-// }
-
-
-
 export default { getCategory, getsubId, getSubCategory, getToHome }

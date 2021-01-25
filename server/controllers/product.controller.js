@@ -58,14 +58,6 @@ const getlist = (req, res) => {
     }
 }
 
-const subname = async (req, res) => {
-    try {
-        console.log("last subname::: LET ME SEE")
-        res.json(req.findsubname)
-    } catch (error) {
-        res.status(500).send('상품을 불러오지 못했습니다.')
-    }
-}
 
 const categoryId = async (req, res, next, category) => {
     try {
@@ -81,25 +73,20 @@ const categoryId = async (req, res, next, category) => {
     }
 }
 
+const subname = async (req, res) => {
+    try {
+        console.log("last subname::: LET ME SEE")
+        res.json(req.findsubname)
+    } catch (error) {
+        res.status(500).send('상품을 불러오지 못했습니다.')
+    }
+}
+
 const subcategoryId = async (req, res, next, subname) => {
     try {
         console.log("Please===>>>", subname)
         const findSubname = await Product.find({ sub_category: subname })
         console.log("findSubname111=", findSubname)
-        // const onlySub = findSubname.sub_category
-        // console.log(";;", onlySub)
-        // console.log(".", Object.values(onlySub))
-
-        if (!findSubname) {
-            const findSubname = {
-                _id: 'nothing',
-                pro_name: '상품준비중',
-                price: 0,
-                main_imgUrl:''
-            }
-            console.log("findSubname2222=", findSubname)
-            res.send(findSubname)
-        }
         res.send(findSubname)
     } catch (error) {
         res.send('상품을 불러오지 못했습니다.')

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import ListCard from '../Components/ListCard';
 import axios from 'axios';
 import catchError from '../utils/catchErrors';
-import { Container, Row, Col, Form, FormControl, Button, Dropdown, ButtonGroup } from 'react-bootstrap';
+import { Container, Row, Col, Form, FormControl, Button, Dropdown, ButtonGroup, Image } from 'react-bootstrap';
 
 function ProductsList({ match }) {
     const [mainCategory, setMainCategory] = useState(match.params.main.toUpperCase())
@@ -60,10 +60,16 @@ function ProductsList({ match }) {
             console.log("subname response data=", response.data)
             setProductlist(response.data)
         } catch (error) {
-            console.log("error22")
+            console.log("오류입니다.")
         }
     }
-  
+    // async function readygoods(event) {
+    //     const 
+    //     window.location.href='/'
+    // }
+
+
+
     return (
         <div>
             <style type="text/css">
@@ -113,36 +119,33 @@ function ProductsList({ match }) {
                     </Form>
                 </Row>
                 <Row md={8} sm={12} className="justify-content-center m-2">
-                    {productlist.map(pro => (
-                        // <ListCard as={Link} id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} to={{
-                        //     pathname: `/product/${pro._id}`,
-                        //     state: {
-                        //         id: pro._id,
-                        //         name: pro.pro_name,
-                        //         price: pro.price,
-                        //         colors: pro.colors,
-                        //         sizes: pro.sizes,
-                        //         description: pro.description,
-                        //         main_img: pro.main_imgUrl,
-                        //         detail_imgs: pro.detail_imgUrls
-                        //     }
-                        // }} />
-                        <Link to={{
-                            pathname: `/product/${pro._id}`,
-                            state: {
-                                id: pro._id,
-                                name: pro.pro_name,
-                                price: pro.price,
-                                colors: pro.colors,
-                                sizes: pro.sizes,
-                                description: pro.description,
-                                main_img: pro.main_imgUrl,
-                                detail_imgs: pro.detail_imgUrls
-                            }
-                        }}>
-                            <ListCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} />
-                        </Link>
-                    ))}
+                    {productlist.length > 0 ?
+                        productlist.map(pro => (
+
+                            <Link to={{
+                                pathname: `/product/${pro._id}`,
+                                state: {
+                                    id: pro._id,
+                                    name: pro.pro_name,
+                                    price: pro.price,
+                                    colors: pro.colors,
+                                    sizes: pro.sizes,
+                                    description: pro.description,
+                                    main_img: pro.main_imgUrl,
+                                    detail_imgs: pro.detail_imgUrls
+                                }
+                                // onClick={readygoods}
+                            }}>
+                                <ListCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl}
+                                />
+                            </Link>
+                        ))
+                        : (
+                            <Image src="/sryimready.jpg" 
+                                 style={{ objectFit: "cover", width: "45 rem", height: "45 rem" }}></Image>
+                        
+                        )
+                    }
                 </Row>
             </Container>
         </div>

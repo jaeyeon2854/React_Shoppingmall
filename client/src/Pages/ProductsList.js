@@ -60,6 +60,7 @@ function ProductsList({ match }) {
             console.log("subname response data=", response.data)
             setProductlist(response.data)
         } catch (error) {
+            catchError(error, setError)
             console.log("오류입니다.")
         }
     }

@@ -70,12 +70,12 @@ const subname = async (req, res) => {
 
 const categoryId = async (req, res, next, category) => {
     const { search } = req.body
-    console.log("server=",search)
+    console.log("server search=", search)
     try {
         const productslist = await Product.find({ main_category: category })
-        if (!productslist) {
-            res.status(404).send('상품을 찾을 수 없습니다.')
-        }
+        // if (!productslist) {
+        //     res.status(404).send('상품을 찾을 수 없습니다.')
+        // }
         req.productslist = productslist
         console.log("nononono", req.productslist)
         next()

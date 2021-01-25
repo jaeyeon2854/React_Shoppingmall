@@ -33,30 +33,16 @@ function ProductsList({ match }) {
         getProductlist()
     }, [mainCategory])
 
-    async function handleClick(sub) {
-        console.log("sub=", sub)
-        try {
-            const response = await axios.get(`/api/product/getproduct/${mainCategory}/${sub}`)
-            console.log("response.data=", response.data)
-            setProductlist(response.data)
-
-        } catch (error) {
-            catchError(error, setError)
-        }
-    }
-
     function handleChange(event) {
         console.log('handle change', event.target.value)
         setSearch({ word: event.target.value })
     }
 
     async function handleSearch(event) {
-        console.log('search', search)
         event.preventDefault()
-        console.log("tlfgod")
         try {
             setError('')
-            const response = await axios.post(`/api/product/getproduct/${mainCategory}`, search)
+            const response = await axios.post(`/api/product/getproduct/main/${mainCategory}`, search)
             console.log("response.data=", response.data)
             setProductlist(response.data)
         } catch (error) {
@@ -77,7 +63,7 @@ function ProductsList({ match }) {
     async function getProductlist() {
         console.log("tlfgpd")
         try {
-            const response = await axios.get(`/api/product/getproduct/${mainCategory}`)
+            const response = await axios.get(`/api/product/getproduct/main/${mainCategory}`)
             setProductlist(response.data)
         } catch (error) {
             catchError(error, setError)

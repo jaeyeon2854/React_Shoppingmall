@@ -8,9 +8,8 @@ import { isAuthenticated } from '../utils/auth';
 import catchErrors from '../utils/catchErrors';
 
 function Payment({ match, location }) {
-
     const [cart, setCart] = useState([])
-    const [order, setOrder] = useState({ products: [] })
+    const [order, setOrder] = useState({products: []})
     const [userData, setUserData] = useState({})
     const [error, setError] = useState()
     const [post, setPost] = useState([])
@@ -231,6 +230,13 @@ function Payment({ match, location }) {
             alert("주문에 실패하셨습니다. 다시 확인해주세요.")
         }
     }
+
+    if (redirect) {
+        console.log(redirect)
+        return <Redirect to={'/kakao'} />
+    }
+
+    
 
     return (
         <div>

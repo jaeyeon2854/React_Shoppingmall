@@ -32,12 +32,15 @@ const changeCart = async (req, res) => {
 
 const showCart = async (req, res) => {
     try {
+        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
         const cart = await Cart.findOne({ userId: req.id }).populate({
             path: 'products.productId',
             model: 'Product'
         })
         res.status(200).json(cart.products)
+        console.log("cart-products : ", cart.products);
     } catch (error) {
+        console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
         console.log(error)
         res.status(500).send('쇼핑카트를 불러오지 못했습니다.')
     }

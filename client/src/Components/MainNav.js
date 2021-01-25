@@ -1,9 +1,8 @@
 import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
-import { handleLogout, isAdmin, isAuthenticated} from '../utils/auth';
+import { handleLogout, isAuthenticated, isAdmin } from '../utils/auth';
 
 function MainNav() {
-    
     const user = isAuthenticated()
     const admin = isAdmin()
 
@@ -15,7 +14,10 @@ function MainNav() {
             </Navbar.Brand>
             <Nav className="ml-auto">
                 {user ? <> <Nav.Link className="text-light" onClick={() => handleLogout()}>Logout</Nav.Link>
-                <Nav.Link className="text-light" href="/account"> Mypage </Nav.Link>
+                    <Nav.Link className="text-light" href="/account"> Mypage </Nav.Link>
+                    <Nav.Link href="/shoppingcart">
+                        <img alt="카트" src="/icon/cart.svg" width="30" height="30" />
+                    </Nav.Link>
                 </>
                     : (
                         <>
@@ -23,16 +25,9 @@ function MainNav() {
                             <Nav.Link className="text-light" href='/signup'>Sign Up</Nav.Link>
                         </>
                     )}
-                <Nav.Link href="/shoppingcart">
-                    <img alt="카트" src="/icon/cart.svg" width="30" height="30" />
-                </Nav.Link>
                 {admin ? <Nav.Link href="/admin">
                     <img alt="관리자" src="/icon/option.svg" width="30" height="30" />
-                </Nav.Link> :(
-                    <> 
-                    </>
-                )}
-                
+                </Nav.Link> : ''}
             </Nav>
         </Navbar>
     )

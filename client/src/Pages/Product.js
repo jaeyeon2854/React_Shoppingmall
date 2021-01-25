@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect, useRef } from 'react';
-import { Row, Col, Form, Card, Button, Modal } from 'react-bootstrap';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Row, Col, Form, Card, Button, Image } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 import catchErrors from '../utils/catchErrors';
 
 
@@ -33,29 +33,13 @@ function Product({ match, location }) {
     }
 
     function pushOptions() {
-        // console.log(cart)
-        const a = cart.map(el => {
-            const rObj = {}
-            rObj["color"] = el.color;
-            rObj["size"] = el.size;
-            return rObj
-        })
-        const isDuplicated = a.some(el => el.color === color && el.size === size)
-        if (isDuplicated) {
-            selected.sizes = false
-            selected.colors = false
-            setColor("")
-            setSize("")
-            alert("이미 선택한 옵션입니다.")
-        } else {
-            selected.sizes = false
-            selected.colors = false
-            setCart([...cart, { color, size, productId: product.id, count: 1 , checked:false}])
-            setColor("")
-            setSize("")
-            setPrice(product.price + price)
-        }
-
+        setCart([...cart, { color, size, productId: product.id, count: 1 }])
+        selected.sizes = false
+        selected.colors = false
+        console.log(product)
+        setColor("")
+        setSize("")
+        setPrice(product.price + price)
     }
 
     function handleChange(e) {
@@ -215,8 +199,24 @@ function Product({ match, location }) {
             </Row>
             <Row className="justify-content-center mt-5 mx-0">
                 <Col sm={11} md={8}>
-                    <h3 style={{ borderBottom: "1px solid #91877F", paddingBottom: "5px", marginBottom: "1em" }}>설명</h3>
-                    <div></div>
+                    <h3 style={{ borderBottom: "1px solid #91877F", paddingBottom: "5px", marginBottom: "1em" }} className="p-3">
+                        설명
+                        </h3>
+                    <Col className='m-3 text-center d-flex justify-content-center'>
+                        <div style={{ wordBreak: 'break-all', wordWrap: 'break-word', fontFamily: "맑은 고딕" }} className="p-3">
+                            <h1 className='m-3'>{product.name} </h1>
+                            <>
+                            <Image src={`/images/${product.main_img}`} style={{ objectFit: "contain", width: '100%'}} />
+                            </>
+                            <Card className='m-3 d-flex justify-content-center'>
+                                <Card.Body>
+                                    {product.description}
+                                </Card.Body>
+                            </Card>
+                            <h3 className='mt-5'>[ Detail Images ]</h3>
+                            <Image src={`/images/${product.detail_imgs}`} style={{ objectFit: "contain"}} className='m-3' />
+                        </div>
+                    </Col>
                 </Col>
             </Row>
             <Row className="justify-content-center mx-0 pt-3 px-2" style={{ position: "fixed", bottom: "0", width: "100%", backgroundColor: "#fff" }}>

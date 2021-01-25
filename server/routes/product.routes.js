@@ -16,16 +16,16 @@ router.route('/getproduct')
 router.route('/getproduct/all')
     .get(productCtrl.getAll)
 
-router.route('/getproduct/:category')
+router.route('/getproduct/main/:category')
     .get(productCtrl.getlist)
 
-router.route('/getproduct/:subcategory')
-    .get(productCtrl.subgetlist)
+router.route('/getproduct/sub/:subname')
+    .get(productCtrl.subname)
 
 router.route('/pluspurchase')
     .post(productCtrl.plusPurchase)
 
 router.param('category', productCtrl.categoryId)
-router.param('subcategory',productCtrl.subcategoryId)
+router.param('subname',productCtrl.subcategoryId)
     
 export default router

@@ -21,7 +21,6 @@ function Home() {
     async function getProductlist() {
         try {
             const response = await axios.get(`/api/product/getproduct`)
-            console.log("res=", response.data)
             setProductlist({ bestProduct: response.data.bestProduct, newProduct: response.data.newProduct })
         } catch (error) {
             catchError(error, setError)

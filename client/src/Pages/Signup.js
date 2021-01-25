@@ -71,42 +71,44 @@ function Signup() {
 
                 <Row className="justify-content-center">
                     <Col md={6} xs={10} className="border" style={{ background: '#F7F3F3' }}>
-                        <h2 className="text-center mt-5">Sign Up</h2>
+                        <h2 className="text-center m-5">Sign Up</h2>
                         {error && <Alert variant='danger'>
                             {error}
                         </Alert>}
                         <Form
                             noValidate validated={validated}
                             onSubmit={handleSubmit}
-                            className="p-5">
-                            <Form.Group controlId="formBasicName">
+                            className="p-4">
+                            <Form.Group as={Col} controlId="formBasicName" className="justify-content-end">
                                 <Form.Row>
                                     <Col sm={4} xs={6} as={Form.Label} for="id">이 름</Col>
-                                    <Col sm={8} xs={12} as={Form.Control}
+                                    <Col sm={8} xs={6} as={Form.Control}
                                         required type="text"
                                         name="name"
                                         placeholder="Name"
                                         style={{ width: '160px' }}
                                         value={user.name}
                                         onChange={handleChange} />
-                                    <Form.Control.Feedback type="invalid">이름을 입력하세요. </Form.Control.Feedback>
+                                    <Form.Control.Feedback type="invalid" >이름을 입력하세요. </Form.Control.Feedback>
                                 </Form.Row>
                             </Form.Group>
-                            <Form.Group controlId="formBasicNumber">
+                            <Form.Group as={Col} controlId="formBasicNumber">
                                 <Form.Row>
                                     <Col sm={4} xs={6} as={Form.Label} for="number">주민등록번호</Col>
-                                    <Row>
+                                    <Col xs={3}>
                                         <Form.Control
                                             required type="text"
                                             name="number1"
                                             maxlength="6"
-                                            className="mx-3 p-1" style={{ width: '80px' }}
+                                            className="ml-1 mr-3 p-1" style={{ width: '80px' }}
                                             value={user.number1}
                                             onChange={handleChange}>
                                         </Form.Control>
-                                        <div className='font-weight-bold d-flex align-items-center' style={{ text: 'center' }}>
-                                            -
-                                    </div>
+                                    </Col>
+                                    <Col xs={1}>
+                                        <div className='font-weight-bold d-flex align-items-center' style={{ text: 'center' }}>-</div>
+                                    </Col>
+                                    <Col xs={2}>
                                         <Form.Control
                                             required type="text"
                                             name="number2"
@@ -115,14 +117,12 @@ function Signup() {
                                             value={user.number2}
                                             onChange={handleChange}>
                                         </Form.Control>
-                                        <div className='font-weight-bold d-flex align-items-center'>
-                                            * * * * * *
-                                    </div>
-                                        <Form.Control.Feedback type="invalid">주민등록번호를 입력하세요.</Form.Control.Feedback>
-                                    </Row>
+                                    </Col>
+                                        <div className='font-weight-bold d-flex align-items-center'>* * * * * * </div>
+                                    <Form.Control.Feedback type="invalid">주민등록번호를 입력하세요.</Form.Control.Feedback>
                                 </Form.Row>
                             </Form.Group>
-                            <Form.Group controlId="formBasicId">
+                            <Form.Group as={Col} controlId="formBasicId">
                                 <Form.Row>
                                     <Col sm={4} xs={6} as={Form.Label} for="id">아이디</Col>
                                     <Col sm={8} xs={12} as={Form.Control}
@@ -136,7 +136,7 @@ function Signup() {
                                     <Form.Control.Feedback type="invalid"> 아이디를 입력하세요.</Form.Control.Feedback>
                                 </Form.Row>
                             </Form.Group>
-                            <Form.Group controlId="formBasicPassword">
+                            <Form.Group as={Col} controlId="formBasicPassword">
                                 <Form.Row>
                                     <Col sm={4} xs={6} as={Form.Label} for="password">비밀번호</Col>
                                     <Col sm={8} xs={12} as={Form.Control}
@@ -148,12 +148,12 @@ function Signup() {
                                         required
                                         onChange={handleChange}
                                     />
-                                    <Form.Control.Feedback className="text-center" type="invalid">
+                                    <Form.Control.Feedback className="text-end" type="invalid">
                                         비밀번호를 입력하세요.
                                     </Form.Control.Feedback>
                                 </Form.Row>
                             </Form.Group>
-                            <Form.Group controlId="formBasicPassword2">
+                            <Form.Group as={Col} controlId="formBasicPassword2">
                                 <Form.Row>
                                     <Col sm={4} xs={6} as={Form.Label} for="password">비밀번호 확인</Col>
                                     <Col sm={8} xs={12} as={Form.Control}
@@ -169,7 +169,7 @@ function Signup() {
                                     </Form.Control.Feedback>
                                 </Form.Row>
                             </Form.Group>
-                            <Form.Group controlId="formBasicEmail">
+                            <Form.Group as={Col} controlId="formBasicEmail">
                                 <Form.Row>
                                     <Col sm={4} xs={6} as={Form.Label} for="email">이메일</Col>
                                     <Col sm={8} xs={12} as={Form.Control}
@@ -182,7 +182,7 @@ function Signup() {
                                     <Form.Control.Feedback type="invalid"> 이메일 입력하세요. </Form.Control.Feedback>
                                 </Form.Row>
                             </Form.Group>
-                            <Form.Group controlId="formBasicTel">
+                            <Form.Group as={Col} controlId="formBasicTel">
                                 <Form.Row>
                                     <Col sm={4} xs={6} as={Form.Label} for="tel">휴대전화</Col>
                                     <Col sm={8} xs={12} style={{ width: '160px' }} className='p-0'>
@@ -200,7 +200,10 @@ function Signup() {
                                     </Col>
                                     <Form.Control.Feedback type="invalid"> 휴대전화를 입력하세요. </Form.Control.Feedback>
                                 </Form.Row>
-                            </Form.Group>
+                                <Form.Control.Feedback className="text-end" type="invalid">
+                                    비밀번호를 입력하세요.
+                                    </Form.Control.Feedback>
+                            </Form.Group >
                             <Button
                                 style={{ background: '#91877F', borderColor: '#91877F' }} type="submit" block
                                 onClick={checkPassword}
@@ -211,7 +214,7 @@ function Signup() {
                     </Col>
                 </Row>
             </Container>
-        </div>
+        </div >
     )
 }
 

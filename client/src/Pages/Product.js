@@ -14,7 +14,13 @@ function Product({ match, location }) {
     const [selected, setSelected] = useState({ sizes: false, colors: false })
     const [count, setCount] = useState(1)
     const [price, setPrice] = useState(0)
-    // let price = 0
+
+    const replace = product.description.replaceAll('\n', '<br />')
+    // const replace = product.description.replaceAll('\n', '<br />')
+    // const replace = product.description.replaceAll(/\n/, '<br />')
+    
+
+    console.log("objectasdasd", replace)
 
     useEffect(() => {
         if (size && color) {
@@ -173,7 +179,7 @@ function Product({ match, location }) {
                             </>
                             <Card className='m-3 d-flex justify-content-center'>
                                 <Card.Body className='text-center'>
-                                    {product.description}
+                                    {replace}
                                 </Card.Body>
                             </Card>
                             <>

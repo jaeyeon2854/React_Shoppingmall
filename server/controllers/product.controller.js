@@ -74,18 +74,9 @@ const categoryId = async (req, res, next, category) => {
 }
 
 const subname = async (req, res) => {
+    console.log("req.query", req.query)
     try {
-        console.log("last subname::: LET ME SEE")
-        res.json(req.findsubname)
-    } catch (error) {
-        res.status(500).send('상품을 불러오지 못했습니다.')
-    }
-}
-
-const subcategoryId = async (req, res, next, subname) => {
-    try {
-        console.log("Please===>>>", subname)
-        const findSubname = await Product.find({ sub_category: subname })
+        const findSubname = await Product.find({ sub_category: req.query.subname })
         console.log("findSubname111=", findSubname)
         res.send(findSubname)
     } catch (error) {
@@ -115,4 +106,4 @@ const plusPurchase = async (req, res) => {
     }
 }
 
-export default { imageUpload, regist, getToHome, getAll, categoryId, getlist, subcategoryId, subname, plusPurchase }
+export default { imageUpload, regist, getToHome, getAll, categoryId, getlist, subname, plusPurchase }

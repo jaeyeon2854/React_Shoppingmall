@@ -40,7 +40,6 @@ function ProductsList({ match }) {
     }
 
     async function getProductlist() {
-        console.log("tlfgpd")
         try {
             const response = await axios.get(`/api/product/getproduct/main/${mainCategory}`)
             console.log("response.data=main", response.data)
@@ -51,23 +50,19 @@ function ProductsList({ match }) {
         }
     }
 
+
     async function handleSubname(e) {
         const subname = e.target.name
         console.log("subname=", subname)
         try {
             console.log("first test!!!!!!!!")
-            const response = await axios.get(`/api/product/getproduct/sub/${subname}`)
+            const response = await axios.get(`/api/product/getproduct/sub?subname=${subname}`)
             console.log("subname response data=", response.data)
             setProductlist(response.data)
         } catch (error) {
             console.log("오류입니다.")
         }
     }
-    // async function readygoods(event) {
-    //     const 
-    //     window.location.href='/'
-    // }
-
 
 
     return (
@@ -103,7 +98,7 @@ function ProductsList({ match }) {
                 </Row>
                 <Row className="justify-content-end mx-0 my-5">
                     <Dropdown>
-                        <Dropdown.Toggle className="mx-2">정렬</Dropdown.Toggle>
+                        <Dropdown.Toggle variant="secondary" className="mx-2">정렬</Dropdown.Toggle>
                         <Dropdown.Menu>
                             <Dropdown.Item>인기상품</Dropdown.Item>
                             <Dropdown.Item>신상품</Dropdown.Item>
@@ -113,7 +108,7 @@ function ProductsList({ match }) {
                     </Dropdown>
                     <Form as={Row} onSubmit={handleSearch} className="justify-content-end mx-0">
                         <FormControl type="text" placeholder="Search" style={{ width: "13rem" }} />
-                        <Button type="submit" className="search px-2">
+                        <Button type="submit" className="search px-2" variant="secondary">
                             <img src="/icon/search.svg" width="20" height="20" />
                         </Button>
                     </Form>
@@ -134,16 +129,15 @@ function ProductsList({ match }) {
                                     main_img: pro.main_imgUrl,
                                     detail_imgs: pro.detail_imgUrls
                                 }
-                                // onClick={readygoods}
                             }}>
                                 <ListCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl}
                                 />
                             </Link>
                         ))
                         : (
-                            <Image src="/sryimready.jpg" 
-                                 style={{ objectFit: "cover", width: "45 rem", height: "45 rem" }}></Image>
-                        
+                            <Image src="/sryimready.jpg"
+                                style={{ objectFit: "cover", width: "45 rem", height: "45 rem" }}></Image>
+
                         )
                     }
                 </Row>

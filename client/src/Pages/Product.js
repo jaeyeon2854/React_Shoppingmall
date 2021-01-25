@@ -14,7 +14,13 @@ function Product({ match, location }) {
     const [selected, setSelected] = useState({ sizes: false, colors: false })
     const [count, setCount] = useState(1)
     const [price, setPrice] = useState(0)
-    // let price = 0
+
+    const replace = product.description.replaceAll('\n', '<br />')
+    // const replace = product.description.replaceAll('\n', '<br />')
+    // const replace = product.description.replaceAll(/\n/, '<br />')
+    
+
+    console.log("objectasdasd", replace)
 
     useEffect(() => {
         if (size && color) {
@@ -166,20 +172,20 @@ function Product({ match, location }) {
                     <h3 style={{ borderBottom: "1px solid #91877F", paddingBottom: "5px", marginBottom: "1em" }} className="p-3">
                         설명
                         </h3>
-                    <Col className='m-3 text-center d-flex justify-content-center'>
-                        <div style={{ wordBreak: 'break-all', wordWrap: 'break-word', fontFamily: "맑은 고딕" }} className="p-3">
-                            <h1 className='m-3'>{product.name} </h1>
+                    <Col className='justify-content-center '>
+                            <h2 className='p-2 text-center border' style={{background : '#CDC5C2'}}>{product.name} </h2>
                             <>
-                            <Image src={`/images/${product.main_img}`} style={{ objectFit: "contain", width: '100%'}} />
+                            <Image src={`/images/${product.main_img}`} style={{ objectFit: "contain", maxWidth: "100%"}} />
                             </>
                             <Card className='m-3 d-flex justify-content-center'>
-                                <Card.Body>
-                                    {product.description}
+                                <Card.Body className='text-center'>
+                                    {replace}
                                 </Card.Body>
                             </Card>
-                            <h3 className='mt-5'>[ Detail Images ]</h3>
-                            <Image src={`/images/${product.detail_imgs}`} style={{ objectFit: "contain"}} className='m-3' />
-                        </div>
+                            <>
+                            <h4 className='my-4 text-center'>[ Detail Images ]</h4>
+                            <Image src={`/images/${product.detail_imgs}`} style={{ objectFit: "contain",  maxWidth: "100%"}}/>
+                            </>
                     </Col>
                 </Col>
             </Row>

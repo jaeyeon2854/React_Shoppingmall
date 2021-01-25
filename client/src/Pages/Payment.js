@@ -295,7 +295,6 @@ function Payment({ match, location }) {
                         </Col>
                     </Row>
                 </div>
-
                 <div>
                     <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>주문상품정보</h5>
                     <PaymentCard cart={cart} deleteOrder={deleteOrder} />
@@ -316,7 +315,6 @@ function Payment({ match, location }) {
                         결제금액<span className="float-right">{finalPrice + 2500}원</span>
                     </div>
                 </div>
-
                 <div>
                     <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>결제수단</h5>
                     <div className="text-center m-3">

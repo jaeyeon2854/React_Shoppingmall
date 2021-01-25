@@ -51,7 +51,6 @@ const getAll = async (req, res) => {
 }
 
 const getlist = (req, res) => {
-    console.log('get list')
     try {
         res.json(req.productslist)
     } catch (error) {
@@ -69,8 +68,9 @@ const subname = async (req, res) => {
 }
 
 const categoryId = async (req, res, next, category) => {
-    const { search } = req.body
-    console.log("server search=", search)
+    console.log("req=",req.body)
+    // const { search } = req.body
+    // console.log("다시 실행 server search=", search)
     try {
         const productslist = await Product.find({ main_category: category })
         // if (!productslist) {

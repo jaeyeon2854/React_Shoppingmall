@@ -4,9 +4,6 @@ import productCtrl from '../controllers/product.controller.js';
 
 const router = express.Router()
 
-router.route('/sort')
-    .get(productCtrl.Sortlist)
-
 router.route('/regist')
     .post(productCtrl.imageUpload, productCtrl.regist)
 

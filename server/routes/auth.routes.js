@@ -9,9 +9,4 @@ router.route('/login')
 router.route('/logout')
      .get(authCtrl.logout)
 
-router.route('/admin/:admin')
-    .post(authCtrl.admin)
-
-router.param('admin',authCtrl.adminId)
-
 export default router

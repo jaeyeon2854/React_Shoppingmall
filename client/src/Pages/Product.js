@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect, useRef } from 'react';
-import { Row, Col, Form, Card, Button, Image } from 'react-bootstrap';
-import { Redirect } from 'react-router-dom';
+import { Row, Col, Form, Card, Button, Image , Modal} from 'react-bootstrap';
+import { Redirect, useHistory } from 'react-router-dom';
 import catchErrors from '../utils/catchErrors';
 
 

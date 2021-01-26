@@ -68,10 +68,9 @@ function Signup() {
     return (
         <div>
             <Container className="my-5">
-
                 <Row className="justify-content-center">
                     <Col md={6} xs={10} className="border" style={{ background: '#F7F3F3' }}>
-                        <h2 className="text-center m-5">Sign Up</h2>
+                        <h2 className="text-center pt-3 m-4">Sign Up</h2>
                         {error && <Alert variant='danger'>
                             {error}
                         </Alert>}
@@ -79,135 +78,123 @@ function Signup() {
                             noValidate validated={validated}
                             onSubmit={handleSubmit}
                             className="p-4">
-                            <Form.Group as={Col} controlId="formBasicName" className="justify-content-end">
-                                <Form.Row>
-                                    <Col sm={4} xs={6} as={Form.Label} for="id">이 름</Col>
-                                    <Col sm={8} xs={6} as={Form.Control}
+
+                            <Form.Group as={Row} controlId="formBasicName">
+                                <Form.Label column sm="4" for='name'>
+                                    이 름    </Form.Label>
+                                <Col sm="8">
+                                    <Form.Control
                                         required type="text"
                                         name="name"
                                         placeholder="Name"
-                                        style={{ width: '160px' }}
                                         value={user.name}
                                         onChange={handleChange} />
                                     <Form.Control.Feedback type="invalid" >이름을 입력하세요. </Form.Control.Feedback>
-                                </Form.Row>
+                                </Col>
                             </Form.Group>
-                            <Form.Group as={Col} controlId="formBasicNumber">
-                                <Form.Row>
-                                    <Col sm={4} xs={6} as={Form.Label} for="number">주민등록번호</Col>
-                                    <Col xs={3}>
-                                        <Form.Control
-                                            required type="text"
-                                            name="number1"
-                                            maxlength="6"
-                                            className="ml-1 mr-3 p-1" style={{ width: '80px' }}
-                                            value={user.number1}
-                                            onChange={handleChange}>
-                                        </Form.Control>
-                                    </Col>
-                                    <Col xs={1}>
-                                        <div className='font-weight-bold d-flex align-items-center' style={{ text: 'center' }}>-</div>
-                                    </Col>
-                                    <Col xs={2}>
-                                        <Form.Control
-                                            required type="text"
-                                            name="number2"
-                                            maxlength="1" className="mx-3 p-1"
-                                            style={{ width: '30px' }}
-                                            value={user.number2}
-                                            onChange={handleChange}>
-                                        </Form.Control>
-                                    </Col>
-                                        <div className='font-weight-bold d-flex align-items-center'>* * * * * * </div>
-                                    <Form.Control.Feedback type="invalid">주민등록번호를 입력하세요.</Form.Control.Feedback>
-                                </Form.Row>
+
+                            <Form.Group as={Row} controlId="formBasicNumber">
+                                <Form.Label column sm="4" for='number'>
+                                    주민등록번호    </Form.Label>
+                                <Col sm="4" xs='5'>
+                                    <Form.Control
+                                        className='pr-0'
+                                        required type="text"
+                                        name="number1"
+                                        maxlength="6"
+                                        placeholder="생년월일"
+                                        value={user.number1}
+                                        onChange={handleChange} />
+                                    <Form.Control.Feedback type="invalid" >주민등록번호 입력하세요. </Form.Control.Feedback>
+                                </Col>
+                                <strong className='pt-2 d-flex align-items-flex-start'>-</strong>
+                                <Col md="2" xs='3'>
+                                    <Form.Control
+                                        className='pr-0'
+                                        required type="text"
+                                        name="number2"
+                                        maxlength="1"
+                                        value={user.number2}
+                                        onChange={handleChange} />
+                                </Col>
+                                <strong className='pt-2 d-flex align-items-flex-start'>* * * * * *</strong>
                             </Form.Group>
-                            <Form.Group as={Col} controlId="formBasicId">
-                                <Form.Row>
-                                    <Col sm={4} xs={6} as={Form.Label} for="id">아이디</Col>
-                                    <Col sm={8} xs={12} as={Form.Control}
-                                        required
-                                        type="text"
+
+                            <Form.Group as={Row} controlId="formBasicId">
+                                <Form.Label column sm="4" for='id'>
+                                    아이디    </Form.Label>
+                                <Col sm="8">
+                                    <Form.Control
+                                        required type="text"
                                         name="id"
                                         placeholder="ID"
-                                        style={{ width: '160px' }}
                                         value={user.id}
                                         onChange={handleChange} />
-                                    <Form.Control.Feedback type="invalid"> 아이디를 입력하세요.</Form.Control.Feedback>
-                                </Form.Row>
+                                    <Form.Control.Feedback type="invalid" >아이디를 입력하세요. </Form.Control.Feedback>
+                                </Col>
                             </Form.Group>
-                            <Form.Group as={Col} controlId="formBasicPassword">
-                                <Form.Row>
-                                    <Col sm={4} xs={6} as={Form.Label} for="password">비밀번호</Col>
-                                    <Col sm={8} xs={12} as={Form.Control}
+
+                            <Form.Group as={Row} controlId="formBasicPassword">
+                                <Form.Label column sm="4" for='password'>
+                                    비밀번호    </Form.Label>
+                                <Col sm="8">
+                                    <Form.Control
                                         type="password"
                                         name="password"
                                         placeholder="Password"
-                                        style={{ width: '160px' }}
                                         value={user.password}
                                         required
-                                        onChange={handleChange}
-                                    />
-                                    <Form.Control.Feedback className="text-end" type="invalid">
-                                        비밀번호를 입력하세요.
-                                    </Form.Control.Feedback>
-                                </Form.Row>
+                                        onChange={handleChange} />
+                                    <Form.Control.Feedback type="invalid" >비밀번호를 입력하세요. </Form.Control.Feedback>
+                                </Col>
                             </Form.Group>
-                            <Form.Group as={Col} controlId="formBasicPassword2">
-                                <Form.Row>
-                                    <Col sm={4} xs={6} as={Form.Label} for="password">비밀번호 확인</Col>
-                                    <Col sm={8} xs={12} as={Form.Control}
+
+                            <Form.Group as={Row} controlId="formBasicPassword2">
+                                <Form.Label column sm="4" for='password'>
+                                    비밀번호 확인   </Form.Label>
+                                <Col sm="8">
+                                    <Form.Control
                                         type="password"
                                         name="password2"
                                         placeholder="Password"
-                                        style={{ width: '160px' }}
                                         value={user.password2}
                                         required
-                                        onChange={handleChange}
-                                    />
-                                    <Form.Control.Feedback type="invalid"> 비밀번호를 한번 더 입력하세요.
-                                    </Form.Control.Feedback>
-                                </Form.Row>
+                                        onChange={handleChange} />
+                                    <Form.Control.Feedback type="invalid" >비밀번호를 한번 더 입력하세요.</Form.Control.Feedback>
+                                </Col>
                             </Form.Group>
-                            <Form.Group as={Col} controlId="formBasicEmail">
-                                <Form.Row>
-                                    <Col sm={4} xs={6} as={Form.Label} for="email">이메일</Col>
-                                    <Col sm={8} xs={12} as={Form.Control}
+
+                            <Form.Group as={Row} controlId="formBasicEmail">
+                                <Form.Label column sm="4" for='email'>
+                                    이메일   </Form.Label>
+                                <Col sm="8">
+                                    <Form.Control
                                         required type="email"
                                         name="email"
                                         placeholder="E-mail"
-                                        style={{ width: '160px' }}
                                         value={user.email}
                                         onChange={handleChange} />
-                                    <Form.Control.Feedback type="invalid"> 이메일 입력하세요. </Form.Control.Feedback>
-                                </Form.Row>
+                                    <Form.Control.Feedback type="invalid" >이메일을 입력하세요.</Form.Control.Feedback>
+                                </Col>
                             </Form.Group>
-                            <Form.Group as={Col} controlId="formBasicTel">
-                                <Form.Row>
-                                    <Col sm={4} xs={6} as={Form.Label} for="tel">휴대전화</Col>
-                                    <Col sm={8} xs={12} style={{ width: '160px' }} className='p-0'>
-                                        <Col
-                                            as={Form.Control}
-                                            required type="text"
-                                            name="tel"
-                                            placeholder="Telephone"
-                                            className='p-1'
-                                            value={user.tel}
-                                            onChange={handleChange}>
 
-                                        </Col>
-                                        <div className='d-flex justify-content-end mt-1'><small >' - ' 를 함께 입력해주세요^^</small></div>
-                                    </Col>
-                                    <Form.Control.Feedback type="invalid"> 휴대전화를 입력하세요. </Form.Control.Feedback>
-                                </Form.Row>
-                                <Form.Control.Feedback className="text-end" type="invalid">
-                                    비밀번호를 입력하세요.
-                                    </Form.Control.Feedback>
-                            </Form.Group >
+                            <Form.Group as={Row} controlId="formBasicTel">
+                                <Form.Label column sm="4" for='tel'>
+                                    휴대전화   </Form.Label>
+                                <Col sm="8">
+                                    <Form.Control
+                                        required type="text"
+                                        name="tel"
+                                        placeholder="Telephone"
+                                        value={user.tel}
+                                        onChange={handleChange} />
+                                    <Form.Control.Feedback type="invalid" >휴대전화를 입력하세요.</Form.Control.Feedback>
+                                    <Row className='text-end pl-3 mt-1'><small >' - ' 를 함께 입력해주세요^^</small></Row>
+                                </Col>
+                            </Form.Group>
                             <Button
-                                style={{ background: '#91877F', borderColor: '#91877F' }} type="submit" block
-                                onClick={checkPassword}
-                            >
+                                style={{ background: '#91877F', borderColor: '#91877F', margin: 'auto' }} type="submit" block
+                                onClick={checkPassword} >
                                 Sign Up
                             </Button>
                         </Form>

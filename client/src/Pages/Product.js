@@ -15,12 +15,8 @@ function Product({ match, location }) {
     const [count, setCount] = useState(1)
     const [price, setPrice] = useState(0)
 
-    const replace = product.description.replaceAll('\n', '<br />')
-    // const replace = product.description.replaceAll('\n', '<br />')
-    // const replace = product.description.replaceAll(/\n/, '<br />')
-    
-
-    console.log("objectasdasd", replace)
+    const replace = product.description.replaceAll('{\n\n}', '<br />')
+    console.log("replaceALL Description= ", replace)
 
     useEffect(() => {
         if (size && color) {
@@ -172,20 +168,25 @@ function Product({ match, location }) {
                     <h3 style={{ borderBottom: "1px solid #91877F", paddingBottom: "5px", marginBottom: "1em" }} className="p-3">
                         설명
                         </h3>
-                    <Col className='justify-content-center '>
-                            <h2 className='p-2 text-center border' style={{background : '#CDC5C2'}}>{product.name} </h2>
-                            <>
-                            <Image src={`/images/${product.main_img}`} style={{ objectFit: "contain", maxWidth: "100%"}} />
-                            </>
-                            <Card className='m-3 d-flex justify-content-center'>
-                                <Card.Body className='text-center'>
-                                    {replace}
-                                </Card.Body>
-                            </Card>
-                            <>
-                            <h4 className='my-4 text-center'>[ Detail Images ]</h4>
-                            <Image src={`/images/${product.detail_imgs}`} style={{ objectFit: "contain",  maxWidth: "100%"}}/>
-                            </>
+                    <Col className='text-center' style={{ fontSize: '1px' }}>
+                        <div className='p-2 text-center border' style={{ background: '#CDC5C2', width: '50%', margin: 'auto', fontSize: '3.5vmin' }} >
+                            {product.name}
+                        </div>
+                        <Image src={`/images/${product.main_img}`} className='d-flex justify-content-center p-4' style={{ objectFit: "contain", maxWidth: "100%", margin: 'auto' }} />
+
+                        <Card style={{ width: '70%', margin: 'auto' }} className='my-4' >
+                            <Card.Header className='text-center' style={{ background: '#CDC5C2' }}>
+                                <h5 className='m-0' style={{ whiteSpace: 'nowrap' }}> [ Description ]</h5>
+                            </Card.Header>
+                            <Card.Body className='text-center m-4' style={{ whiteSpace: "pre-line", background: '#F7F3F3', fontSize: '1vw' }}>
+                                <small>{replace}</small>
+                            </Card.Body>
+                        </Card>
+                        <Col className='p-5'>
+                            <div className='border p-2' style={{ width: '60%', margin: 'auto', fontSize: '3.5vmin' }}>[ Detail Images ]</div>
+                            <Image src={`/images/${product.detail_imgs}`} style={{ objectFit: "contain", maxWidth: "100%", margin: 'auto' }} className='p-4 d-flex justify-content-center' />
+
+                        </Col>
                     </Col>
                 </Col>
             </Row>

@@ -29,11 +29,6 @@ function ProductsList({ match }) {
         try {
             const response = await axios.get(`/api/categories/sub/${mainCategory}`)
             setSubcategory(Object.values(response.data)[0])
-
-            // console.log("response data=", response.data)
-            // console.log("object value=", Object.values(response.data));
-            // console.log("object value=2", Object.values(response.data)[0]);
-
         } catch (error) {
             catchError(error, setError)
         }
@@ -87,17 +82,19 @@ function ProductsList({ match }) {
                 `}
             </style>
             <Container>
-                <Row className="justify-content-center">
-                    <Col sm={10} xs={12} >
-                        <h1 style={{ fontSize: "3rem" }} className="text-center">{mainCategory}</h1>
+                <Row className="justify-content-center" >
+                    <Col className='px-3'>
                         <div className="text-center">
-                            <ButtonGroup className="m-3" variant="outline-light secondary" style={{ display: "inline-block" }}>
-                                {subcategory.map(el => (<Button className="m-1" variant="secondary" name={el} onClick={handleSubname}>{el}</Button>))}
+                            <h1 style={{ fontSize: "5.5vmax" }} className="text-center m-1 py-3">{mainCategory}</h1>
+                            <ButtonGroup className="mb-3 d-flex flex-nowrap" variant="outline-light secondary" style={{ display: "inline", overflowX: "auto"}}>
+                                {subcategory.map(el =>
+                                (<Button className="m-1" style={{ fontSize: "0.8vw", whiteSpace: 'nowrap' }} variant="secondary" name={el} onClick={handleSubname}>{el}
+                                </Button>))}
                             </ButtonGroup>
                         </div>
                     </Col>
                 </Row>
-                <Row className="justify-content-end mx-0 my-5">
+                <Row className="justify-content-end mx-0 my-2">
                     <Dropdown>
                         <Dropdown.Toggle variant="secondary" className="mx-2">정렬</Dropdown.Toggle>
                         <Dropdown.Menu>
@@ -136,8 +133,8 @@ function ProductsList({ match }) {
                             </Link>
                         ))
                         : (
-                            <Image src="/sryimready.jpg"
-                                style={{ objectFit: "cover", width: "45 rem", height: "45 rem" }}></Image>
+                            <Image src="/sryimready.jpg" className='m-5'
+                                style={{ objectFit: "contain", width: "45vw", height: "45vh" }}></Image>
 
                         )
                     }

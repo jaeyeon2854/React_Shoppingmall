@@ -1,7 +1,7 @@
+import { Pagination } from "react-bootstrap";
 import React from 'react';
-import { Pagination } from 'react-bootstrap';
 
-function Paginations({ inedx, endPage, handlePage }) {
+function Paginations({ index, endPage, handlePage }) {
 
     return (
         <Pagination>
@@ -15,7 +15,6 @@ function Paginations({ inedx, endPage, handlePage }) {
 
             <Pagination.Item active>{index}</Pagination.Item>
 
-
             {index === endPage ? "" : <Pagination.Item onClick={()=>handlePage(index + 1)}>{index + 1}</Pagination.Item>}
             {index > endPage-2 ? "" : <Pagination.Item onClick={()=>handlePage(index + 2)}>{index + 2}</Pagination.Item>}
             {index === 1 ? <Pagination.Item onClick={()=>handlePage(index + 3)}>{index + 3}</Pagination.Item> : ""}
@@ -26,7 +25,6 @@ function Paginations({ inedx, endPage, handlePage }) {
             <Pagination.Last onClick={() =>handlePage(endPage)} />
         </Pagination>
     )
-
 }
 
 export default Paginations

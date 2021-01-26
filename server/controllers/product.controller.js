@@ -43,15 +43,23 @@ const getToHome = async (req, res) => {
 
 const getAll = async (req, res) => {
     try {
-        const productslist = await Product.find({}).sort({ createdAt: -1 })
-        res.json(productslist)
+        if (req.query.product) {
+            const productslist = await Product.find({ pro_name: { $regex: new RegExp(req.query.product) } }).sort({ createdAt: -1 })
+            if (productslist.length == 0) {
+                res.status(404).send('상품을 찾을 수 없습니다.')
+            } else {
+                res.json(productslist)
+            }
+        } else {
+            const productslist = await Product.find({}).sort({ createdAt: -1 })
+            res.json(productslist)
+        }
     } catch (error) {
         res.status(500).send('상품을 불러오지 못했습니다.')
     }
 }
 
 const getlist = (req, res) => {
-    console.log('get list')
     try {
         res.json(req.productslist)
     } catch (error) {
@@ -61,15 +69,19 @@ const getlist = (req, res) => {
 
 
 const categoryId = async (req, res, next, category) => {
-    const { search } = req.body
-    console.log("server search=", search)
+    console.log("req=", req.query.product)
     try {
-        const productslist = await Product.find({ main_category: category })
-        // if (!productslist) {
-        //     res.status(404).send('상품을 찾을 수 없습니다.')
-        // }
-        req.productslist = productslist
-        console.log("nononono", req.productslist)
+        if (req.query.product) {
+            const productslist = await Product.find({ main_category: category, pro_name: { $regex: new RegExp(req.query.product) } })
+            if (productslist.length == 0) {
+                res.status(404).send('상품을 찾을 수 없습니다.')
+            } else {
+                req.productslist = productslist
+            }
+        } else {
+            const productslist = await Product.find({ main_category: category })
+            req.productslist = productslist
+        }
         next()
     } catch (error) {
         res.status(500).send('상품을 불러오지 못했습니다.')

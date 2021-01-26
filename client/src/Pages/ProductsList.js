@@ -16,6 +16,7 @@ function ProductsList({ match }) {
     const [error, setError] = useState('')
     const indexOfLast = currentPage * postsPerPage;
     const indexOfFirst = indexOfLast - postsPerPage;
+    const searchref = useRef(null)
 
     const [sortingName, setSortingName] = useState('정렬')
 
@@ -36,24 +37,26 @@ function ProductsList({ match }) {
     }, [mainCategory])
 
     function handleChange(event) {
-        console.log('handle change', event.target.value)
         setSearch({ word: event.target.value })
     }
 
-    async function handleSearch(event) {
-        event.preventDefault()
+    async function handleSearch(e) {
+        e.preventDefault()
         try {
             setError('')
-            const response = await axios.post(`/api/product/getproduct/main/${mainCategory}`, search)
+            const response = await axios.get(`/api/product/getproduct/main/${mainCategory}?product=${search.word}`)
             console.log("response.data=", response.data)
             setProductlist(response.data)
         } catch (error) {
             catchError(error, setError)
+        } finally {
+            searchref.current.value = ''
         }
     }
 
     async function getSubsCategories() {
         try {
+            setError('')
             const response = await axios.get(`/api/categories/sub/${mainCategory}`)
             setSubCategory(Object.values(response.data)[0])
             console.log("object value=", Object.values(response.data));
@@ -64,6 +67,7 @@ function ProductsList({ match }) {
 
     async function getProductlist() {
         try {
+            setError('')
             const response = await axios.get(`/api/product/getproduct/main/${mainCategory}`)
             setProductlist(response.data)
         } catch (error) {
@@ -132,7 +136,6 @@ function ProductsList({ match }) {
 
     async function handleSubname(e) {
         const subname = e.target.name
-        console.log("subname=", subname)
         try {
             console.log("first test!!!!!!!!")
             const response = await axios.get(`/api/product/getproduct/sub?subname=${subname}`)
@@ -141,6 +144,12 @@ function ProductsList({ match }) {
         } catch (error) {
             catchError(error, setError)
         }
+    }
+
+    if (error) {
+        alert(`${error}`)
+        setError('')
+        searchref.current.value = ''
     }
 
     return (
@@ -157,8 +166,12 @@ function ProductsList({ match }) {
                     border-color: #CDC5C2;
                 }
                 .btn:hover {
-                    background: #91877F;
+                    background-color: #91877F;
                     border-color: #91877F;
+                }
+                .dropdown-item:hover, .dropdown-item:active {
+                    background-color: #91877F;
+                    color: #fff;
                 }
                 `}
             </style>
@@ -174,7 +187,7 @@ function ProductsList({ match }) {
             </Row>
             <Row className="justify-content-end mx-0 mt-5 mb-3">
                 <Form inline onSubmit={handleSearch} className="justify-content-end mx-0 my-2">
-                    <FormControl type="text" onChange={handleChange} placeholder="Search" style={{ width: "13rem" }} />
+                    <FormControl ref={searchref} type="text" onChange={handleChange} placeholder="Search" style={{ width: "13rem" }} />
                     <Button  type="submit" className="px-2 mr-2">
                         <img src="/icon/search.svg" width="20" height="20" />
                     </Button>

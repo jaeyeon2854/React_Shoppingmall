@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect, useRef } from 'react';
-import { Row, Col, Form, Card, Button, Image , Modal} from 'react-bootstrap';
+import { Row, Col, Form, Card, Button, Modal, Image } from 'react-bootstrap';
 import { Redirect, useHistory } from 'react-router-dom';
 import catchErrors from '../utils/catchErrors';
 
@@ -18,7 +18,9 @@ function Product({ match, location }) {
     let history = useHistory();
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
+    const replace = product.description.replaceAll('\n', '<br />')
+    
+    console.log("objectasdasd", replace)
 
     useEffect(() => {
         if (size && color) {
@@ -33,13 +35,29 @@ function Product({ match, location }) {
     }
 
     function pushOptions() {
-        setCart([...cart, { color, size, productId: product.id, count: 1 }])
-        selected.sizes = false
-        selected.colors = false
-        console.log(product)
-        setColor("")
-        setSize("")
-        setPrice(product.price + price)
+        // console.log(cart)
+        const a = cart.map(el => {
+            const rObj = {}
+            rObj["color"] = el.color;
+            rObj["size"] = el.size;
+            return rObj
+        })
+        const isDuplicated = a.some(el => el.color === color && el.size === size)
+        if (isDuplicated) {
+            selected.sizes = false
+            selected.colors = false
+            setColor("")
+            setSize("")
+            alert("이미 선택한 옵션입니다.")
+        } else {
+            selected.sizes = false
+            selected.colors = false
+            setCart([...cart, { color, size, productId: product.id, count: 1, checked: false }])
+            setColor("")
+            setSize("")
+            setPrice(product.price + price)
+        }
+
     }
 
     function handleChange(e) {
@@ -103,7 +121,7 @@ function Product({ match, location }) {
             } else {
                 try {
                     setError('')
-                    cart.map((el)=>{
+                    cart.map((el) => {
                         el.checked = true
                     })
                     const response = await axios.put('/api/cart/addcart', {
@@ -202,20 +220,20 @@ function Product({ match, location }) {
                     <h3 style={{ borderBottom: "1px solid #91877F", paddingBottom: "5px", marginBottom: "1em" }} className="p-3">
                         설명
                         </h3>
-                    <Col className='m-3 text-center d-flex justify-content-center'>
-                        <div style={{ wordBreak: 'break-all', wordWrap: 'break-word', fontFamily: "맑은 고딕" }} className="p-3">
-                            <h1 className='m-3'>{product.name} </h1>
-                            <>
-                            <Image src={`/images/${product.main_img}`} style={{ objectFit: "contain", width: '100%'}} />
-                            </>
-                            <Card className='m-3 d-flex justify-content-center'>
-                                <Card.Body>
-                                    {product.description}
-                                </Card.Body>
-                            </Card>
-                            <h3 className='mt-5'>[ Detail Images ]</h3>
-                            <Image src={`/images/${product.detail_imgs}`} style={{ objectFit: "contain"}} className='m-3' />
-                        </div>
+                    <Col className='justify-content-center '>
+                        <h2 className='p-2 text-center border' style={{ background: '#CDC5C2' }}>{product.name} </h2>
+                        <>
+                            <Image src={`/images/${product.main_img}`} style={{ objectFit: "contain", maxWidth: "100%" }} />
+                        </>
+                        <Card className='m-3 d-flex justify-content-center'>
+                            <Card.Body className='text-center'>
+                                {replace}
+                            </Card.Body>
+                        </Card>
+                        <>
+                            <h4 className='my-4 text-center'>[ Detail Images ]</h4>
+                            <Image src={`/images/${product.detail_imgs}`} style={{ objectFit: "contain", maxWidth: "100%" }} />
+                        </>
                     </Col>
                 </Col>
             </Row>

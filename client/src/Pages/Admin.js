@@ -1,18 +1,42 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Redirect } from 'react-router-dom';
 import AllCard from '../Components/AllCard';
-import Pagination from '../Components/Pagination';
+import Pagination from "../Components/Pagination";
 import axios from 'axios';
 import catchError from '../utils/catchErrors';
 import { Row, Form, FormControl, Button, Container } from 'react-bootstrap';
 
 function Admin() {
+    const INIT_STATUS = { indexOfFirst: 0, indexOfLast: 10 }
+    const [search, setSearch] = useState({ word: '' })
     const [productlist, setProductlist] = useState([])
+    const [status, setStatus] = useState(INIT_STATUS)
+    const [currentPage, setCurrentPage] = useState(1);
+    const [per, setPer] = useState(10);
     const [error, setError] = useState('')
+    const searchref = useRef(null)
+    const indexOfLast = currentPage * per;
+    const indexOfFirst = indexOfLast - per;
 
     useEffect(() => {
         getProductlist()
     }, [])
+
+    function paginate(items, index, itemNumber) {
+        const posts = [];
+        const startIndex = (index - 1) * itemNumber
+        for (var i = 0; i < itemNumber; i++) {
+            posts.push(items[(startIndex + i)])
+        }
+        return posts
+    }
+
+    function currentPosts(tmp) {
+        let currentPosts = 0;
+        currentPosts = tmp.slice(indexOfFirst, indexOfLast);
+        console.log("postsPerPage=",currentPage)
+        return currentPosts;
+    }
 
     async function getProductlist() {
         try {
@@ -24,12 +48,28 @@ function Admin() {
         }
     }
 
-    function handleSearch() {
-
+    function handleChange(event) {
+        setSearch({ word: event.target.value })
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault()
+        try {
+            setError('')
+            const response = await axios.get(`/api/product/getproduct/all?product=${search.word}`)
+            console.log("response.data=", response.data)
+            setProductlist(response.data)
+        } catch (error) {
+            catchError(error, setError)
+        } finally {
+            searchref.current.value = ''
+        }
+    }
+
+    if (error) {
+        alert(`${error}`)
+        setError('')
+        searchref.current.value = ''
     }
 
     return (
@@ -48,18 +88,18 @@ function Admin() {
                 `}
             </style>
             <Row as={Form} onSubmit={handleSubmit} className="justify-content-end mx-0 my-5">
-                <FormControl type="text" placeholder="Search" style={{ width: "13rem" }} />
+                <FormControl ref={searchref} type="text" onChange={handleChange} placeholder="Search" style={{ width: "13rem" }} />
                 <Button type="submit" className="px-2">
                     <img src="icon/search.svg" width="20" height="20" />
                 </Button>
                 <Button sm={2} xs={6} type="button" href="/regist" className="ml-1">상품 등록</Button>
             </Row>
             <Row className="justify-content-center m-5">
-                {productlist.map(pro => (
+                {currentPosts(productlist).map(pro => (
                     <AllCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} />
                 ))}
             </Row>
-            <Pagination />
+            <Pagination index={currentPage} totalPosts={Math.ceil(productlist.length / per)} handlePage={setCurrentPage} />
         </Container>
     )
 }

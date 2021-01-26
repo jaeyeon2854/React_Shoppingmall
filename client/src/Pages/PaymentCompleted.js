@@ -12,6 +12,7 @@ function PaymentCompleted() {
     const [order, setOrder] = useState([])
     const [total, setTotal] = useState(0)
     const [receiverInfo, setReceiverInfo] = useState({})
+    const [num, setNum] = useState('')
 
     useEffect(() => {
         getOrder()
@@ -22,6 +23,7 @@ function PaymentCompleted() {
             setError('')
             const response = await axios.get(`/api/order/showorder/${user}`)
             console.log(response.data)
+            setNum(response.data._id)
             setOrder(response.data.products)
             setTotal(response.data.total)
             setReceiverInfo(response.data.receiverInfo)
@@ -37,6 +39,7 @@ function PaymentCompleted() {
                     <h5 className=" font-weight-bold text-danger" style={{ display: 'inline' }}>주문이 완료</h5>
                     <h5 className=" font-weight-bold " style={{ display: 'inline' }}>되었습니다!</h5>
                 </div>
+                <div className="my-2">주문번호: {num}</div>
                 <div className="mb-0">주문내역 확인은 마이페이지의 </div>
                 <div> "주문/배송조회"에서 하실 수 있습니다.</div>
             </div>

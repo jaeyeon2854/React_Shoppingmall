@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect, useRef } from 'react';
 import DaumPostcode from "react-daum-postcode";
-import { Container, Card, Row, Col, Button, Form, FormGroup } from 'react-bootstrap';
+import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import { Redirect, Link, useHistory } from 'react-router-dom';
 import PaymentCard from '../Components/PaymentCard';
 import { isAuthenticated } from '../utils/auth';
@@ -9,7 +9,7 @@ import catchErrors from '../utils/catchErrors';
 
 function Payment({ match, location }) {
     const [cart, setCart] = useState([])
-    const [order, setOrder] = useState({products: []})
+    const [order, setOrder] = useState({ products: [] })
     const [userData, setUserData] = useState({})
     const [error, setError] = useState()
     const [post, setPost] = useState([])
@@ -217,7 +217,6 @@ function Payment({ match, location }) {
                     })
                 })
                 const data = await response.json()
-                window.location.href = data.redirect_url
             } else {
                 console.log(response.data)
                 console.log(response2.data)
@@ -231,95 +230,83 @@ function Payment({ match, location }) {
         }
     }
 
-    if (redirect) {
-        console.log(redirect)
-        return <Redirect to={'/kakao'} />
-    }
-
-    
-
     return (
-        <div>
-            {/* {console.log(completeState)} */}
-            <Container>
-                <h3 className="my-5 font-weight-bold text-center">주문/결제</h3>
-                <div>
-                    <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>주문자 정보</h5>
-                    <Row className="justify-content-md-center">
-                        <Col md={4}>
-                            <Form>
-                                <Form.Group controlId="formBasicName">
-                                    <Form.Label>이름</Form.Label>
-                                    <Form.Control type="text" value={userData.name} readOnly />
-                                </Form.Group>
-                                <Form.Group controlId="formBasicTel">
-                                    <Form.Label>휴대전화</Form.Label>
-                                    <Form.Control type="tel" value={userData.tel} readOnly />
-                                </Form.Group>
-                                <Form.Group controlId="formBasicEmail">
-                                    <Form.Label>이메일</Form.Label>
-                                    <Form.Control type="email" value={userData.email} readOnly />
-                                </Form.Group>
-                            </Form>
-                        </Col>
-                    </Row>
-                </div>
-
-                <div>
-                    <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>받는사람 정보</h5>
-                    <Row className="justify-content-center">
-                        <Col md={8}>
-                            <Form>
-                                <Form.Group>
-                                    <Form.Label>이름</Form.Label>
-                                    <Form.Control type="text" name="name" onChange={handleReceiverInfo}></Form.Control>
-                                </Form.Group>
-                                <Form.Group>
-                                    <Form.Label>휴대전화</Form.Label>
-                                    <Form.Control type="text" name="tel" onChange={handleReceiverInfo}></Form.Control>
-                                </Form.Group>
-                                <Form.Group controlId="formBasicAdd">
-                                    <Form.Label>주소</Form.Label>
-                                    <Form.Row>
-                                        <Col xs={4} sm={4}>
-                                            <Form.Control type="text" name="postalCode" id="add" onChange={handleReceiverInfo} value={address.code} disabled={(address.code == null) ? false : true} placeholder="우편번호" required ></Form.Control>
-                                        </Col>
-                                        <Col >
-                                            <Button style={{ background: '#91877F', borderColor: '#91877F' }} className="mx-1" onClick={postClick}>우편번호</Button>
-                                            {post}
-                                        </Col>
-                                    </Form.Row>
-                                    <Form.Row>
-                                        <Col>
-                                            <Form.Control type="text" name="address" id="add1" onChange={handleReceiverInfo} value={address.full} disabled={(address.code == null) ? false : true} placeholder="주소" required></Form.Control>
-                                            <Form.Control type="text" name="address2" id="add2" onChange={handleReceiverInfo} placeholder="상세주소" required></Form.Control>
-                                            <Form.Control.Feedback type="invalid" > 상세 주소를 입력하세요. </Form.Control.Feedback>
-                                        </Col>
-                                    </Form.Row>
-                                </Form.Group>
-                            </Form>
-                        </Col>
-                    </Row>
-                </div>
-                <div>
-                    <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>주문상품정보</h5>
-                    <PaymentCard cart={cart} deleteOrder={deleteOrder} />
-                </div>
-
-                <div className="p-5 m-3" style={{ background: '#F7F3F3' }}>
-                    <ul className="pl-0" style={{ listStyle: 'none' }}>
-                        <li>
-                            <span className="text-secondary">총 상품금액</span>
-                            <span className="text-secondary float-right">{finalPrice}원</span>
-                        </li>
-                        <li>
-                            <span className="text-secondary">배송비</span>
-                            <span className="text-secondary float-right">2500원</span>
-                        </li>
-                    </ul>
-                    <div className="my-1 pt-2 border-top font-weight-bold">
-                        결제금액<span className="float-right">{finalPrice + 2500}원</span>
-                    </div>
+        <Container>
+            <h3 className="my-5 font-weight-bold text-center">주문/결제</h3>
+            <div>
+                <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>주문자 정보</h5>
+                <Row className="justify-content-md-center">
+                    <Col md={4}>
+                        <Form>
+                            <Form.Group controlId="formBasicName">
+                                <Form.Label>이름</Form.Label>
+                                <Form.Control type="text" value={userData.name} readOnly />
+                            </Form.Group>
+                            <Form.Group controlId="formBasicTel">
+                                <Form.Label>휴대전화</Form.Label>
+                                <Form.Control type="tel" value={userData.tel} readOnly />
+                            </Form.Group>
+                            <Form.Group controlId="formBasicEmail">
+                                <Form.Label>이메일</Form.Label>
+                                <Form.Control type="email" value={userData.email} readOnly />
+                            </Form.Group>
+                        </Form>
+                    </Col>
+                </Row>
+            </div>
+            <div>
+                <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>받는사람 정보</h5>
+                <Row className="justify-content-center">
+                    <Col md={8}>
+                        <Form>
+                            <Form.Group>
+                                <Form.Label>이름</Form.Label>
+                                <Form.Control type="text" name="name" onChange={handleReceiverInfo}></Form.Control>
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>휴대전화</Form.Label>
+                                <Form.Control type="text" name="tel" onChange={handleReceiverInfo}></Form.Control>
+                            </Form.Group>
+                            <Form.Group controlId="formBasicAdd">
+                                <Form.Label>주소</Form.Label>
+                                <Form.Row>
+                                    <Col xs={4} sm={4}>
+                                        <Form.Control type="text" name="postalCode" id="add" onChange={handleReceiverInfo} value={address.code} disabled={(address.code == null) ? false : true} placeholder="우편번호" required ></Form.Control>
+                                    </Col>
+                                    <Col >
+                                        <Button style={{ background: '#91877F', borderColor: '#91877F' }} className="mx-1" onClick={postClick}>우편번호</Button>
+                                        {post}
+                                    </Col>
+                                </Form.Row>
+                                <Form.Row>
+                                    <Col>
+                                        <Form.Control type="text" name="address" id="add1" onChange={handleReceiverInfo} value={address.full} disabled={(address.code == null) ? false : true} placeholder="주소" required></Form.Control>
+                                        <Form.Control type="text" name="address2" id="add2" onChange={handleReceiverInfo} placeholder="상세주소" required></Form.Control>
+                                        <Form.Control.Feedback type="invalid" > 상세 주소를 입력하세요. </Form.Control.Feedback>
+                                    </Col>
+                                </Form.Row>
+                            </Form.Group>
+                        </Form>
+                    </Col>
+                </Row>
+            </div>
+            <div>
+                <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>주문상품정보</h5>
+                <PaymentCard cart={cart} deleteOrder={deleteOrder} />
+            </div>
+            <div className="p-5 m-3" style={{ background: '#F7F3F3' }}>
+                <ul className="pl-0" style={{ listStyle: 'none' }}>
+                    <li>
+                        <span className="text-secondary">총 상품금액</span>
+                        <span className="text-secondary float-right">{finalPrice}원</span>
+                    </li>
+                    <li>
+                        <span className="text-secondary">배송비</span>
+                        <span className="text-secondary float-right">2500원</span>
+                    </li>
+                </ul>
+                <div className="my-1 pt-2 border-top font-weight-bold">
+                    결제금액<span className="float-right">{finalPrice + 2500}원</span>
                 </div>
                 <div>
                     <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>결제수단</h5>
@@ -332,8 +319,12 @@ function Payment({ match, location }) {
                 <div className="text-center">
                     <Button type="button" onClick={paymentCompleted} className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} block>결제완료</Button>
                 </div>
-            </Container>
-        </div>
+                {paymentWay}
+            </div>
+            <div className="text-center">
+                <Button className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} onClick={paymentCompleted} block>결제완료</Button>
+            </div>
+        </Container>
     )
 }
 

@@ -1,12 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Card, Button } from 'react-bootstrap';
+import React from 'react';
+import { Card } from 'react-bootstrap';
 
 function ListCard({ id, name, price, main_img }) {
-    function handleDelete(e) {
-        const card = e.target.parentNode.parentNode
-        alert('해당 상품을 성공적으로 삭제하였습니다.')
-        card.remove()
-    }
 
     return (
         <Card id={id} className="m-3" style={{ width: "18rem" }}>

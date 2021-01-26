@@ -7,24 +7,17 @@ import catchError from '../utils/catchErrors';
 import { Container, Row, Col, Form, FormControl, Button, Dropdown, ButtonGroup, Image } from 'react-bootstrap';
 
 function ProductsList({ match }) {
+    const INIT_STATUS = { indexOfFirst: 0, indexOfLast: 10 }
     const [search, setSearch] = useState({ word: '' })
+    const [sortingName, setSortingName] = useState('정렬')
     const [mainCategory, setMainCategory] = useState(match.params.main.toUpperCase())
     const [subCategory, setSubCategory] = useState([])
     const [productlist, setProductlist] = useState([])
-    const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage, setPostsPerPage] = useState(6);
+    const [status, setStatus] = useState(INIT_STATUS)
+    const [currentPage, setCurrentPage] = useState(1)
     const [error, setError] = useState('')
-    const indexOfLast = currentPage * postsPerPage;
-    const indexOfFirst = indexOfLast - postsPerPage;
     const searchref = useRef(null)
-
-    const [sortingName, setSortingName] = useState('정렬')
-
-    function currentPosts(tmp) {
-        let currentPosts = 0;
-        currentPosts = tmp.slice(indexOfFirst, indexOfLast);
-        return currentPosts;
-    }
+    const per = 10;
 
     useEffect(() => {
         setMainCategory(match.params.main.toUpperCase())
@@ -36,6 +29,16 @@ function ProductsList({ match }) {
         getProductlist()
     }, [mainCategory])
 
+    useEffect(() => {
+        setStatus({ indexOfFirst: (currentPage - 1) * per, indexOfLast: currentPage * per })
+    }, [currentPage])
+
+    function currentPosts(items) {
+        let currentPosts = '';
+        currentPosts = items.slice(status.indexOfFirst, status.indexOfLast);
+        return currentPosts
+    }
+
     function handleChange(event) {
         setSearch({ word: event.target.value })
     }
@@ -45,8 +48,8 @@ function ProductsList({ match }) {
         try {
             setError('')
             const response = await axios.get(`/api/product/getproduct/main/${mainCategory}?product=${search.word}`)
-            console.log("response.data=", response.data)
             setProductlist(response.data)
+            setCurrentPage(1)
         } catch (error) {
             catchError(error, setError)
         } finally {
@@ -59,7 +62,6 @@ function ProductsList({ match }) {
             setError('')
             const response = await axios.get(`/api/categories/sub/${mainCategory}`)
             setSubCategory(Object.values(response.data)[0])
-            console.log("object value=", Object.values(response.data));
         } catch (error) {
             catchError(error, setError)
         }
@@ -70,6 +72,7 @@ function ProductsList({ match }) {
             setError('')
             const response = await axios.get(`/api/product/getproduct/main/${mainCategory}`)
             setProductlist(response.data)
+            setCurrentPage(1)
         } catch (error) {
             catchError(error, setError)
         }
@@ -81,55 +84,55 @@ function ProductsList({ match }) {
             console.log("thisispurchase")
             productlist.sort(function (a, b) {
                 if (a.purchase > b.purchase) {
-                  return -1;
+                    return -1;
                 }
                 if (a.purchase < b.purchase) {
-                  return 1;
+                    return 1;
                 }
                 // a must be equal to b
                 return 0;
-              });
-              setSortingName("인기상품")
-        } else if(method === "newest"){
+            });
+            setSortingName("인기상품")
+        } else if (method === "newest") {
             console.log("thisisnewest")
             productlist.sort(function (a, b) {
                 if (a.createdAt > b.createdAt) {
-                  return -1;
+                    return -1;
                 }
                 if (a.createdAt < b.createdAt) {
-                  return 1;
+                    return 1;
                 }
                 // a must be equal to b
                 return 0;
-              });
-              setSortingName("신상품")
+            });
+            setSortingName("신상품")
 
-        } else if(method === "lowest"){
+        } else if (method === "lowest") {
             console.log("thisislowest")
             productlist.sort(function (a, b) {
                 if (a.price > b.price) {
-                  return 1;
+                    return 1;
                 }
                 if (a.price < b.price) {
-                  return -1;
+                    return -1;
                 }
                 // a must be equal to b
                 return 0;
-              });
-              setSortingName("낮은가격")
+            });
+            setSortingName("낮은가격")
         } else {
             console.log("thisispurchase")
             productlist.sort(function (a, b) {
                 if (a.price > b.price) {
-                  return -1;
+                    return -1;
                 }
                 if (a.price < b.price) {
-                  return 1;
+                    return 1;
                 }
                 // a must be equal to b
                 return 0;
-              });
-              setSortingName("높은가격")
+            });
+            setSortingName("높은가격")
         }
     }
 
@@ -137,10 +140,10 @@ function ProductsList({ match }) {
     async function handleSubname(e) {
         const subname = e.target.name
         try {
-            console.log("first test!!!!!!!!")
+            setError('')
             const response = await axios.get(`/api/product/getproduct/sub?subname=${subname}`)
-            console.log("subname response data=", response.data)
             setProductlist(response.data)
+            setCurrentPage(1)
         } catch (error) {
             catchError(error, setError)
         }
@@ -154,7 +157,6 @@ function ProductsList({ match }) {
 
     return (
         <Container>
-            {console.log(productlist)}
             <style type="text/css">
                 {`
                 a, a:hover, a:active {
@@ -164,10 +166,22 @@ function ProductsList({ match }) {
                 .btn {
                     background-color: #CDC5C2;
                     border-color: #CDC5C2;
+                    border-radius: 0;
                 }
-                .btn:hover {
+                .btn:hover, .btn:focus {
                     background-color: #91877F;
                     border-color: #91877F;
+                    box-shadow: 0 0 0 0;
+                }
+                .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+                    background-color: #91877F;
+                    border-color: #91877F;
+                }
+                .show>.btn-primary.dropdown-toggle:focus {
+                    box-shadow: 0 0 0 0;
+                }
+                .dropdown-item {
+                    color: #91877F;
                 }
                 .dropdown-item:hover, .dropdown-item:active {
                     background-color: #91877F;
@@ -179,8 +193,8 @@ function ProductsList({ match }) {
                 <Col sm={10} xs={12} >
                     <h1 style={{ fontSize: "3rem" }} className="text-center">{mainCategory}</h1>
                     <div className="text-center">
-                        <ButtonGroup className="m-3" variant="outline-light secondary" style={{ display: "inline-block" }}>
-                            {subCategory.map(el => (<Button className="m-1" variant="secondary" name={el} onClick={handleSubname}>{el}</Button>))}
+                        <ButtonGroup className="m-3" style={{ display: "inline-block" }}>
+                            {subCategory.map(el => (<Button className="m-1" name={el} onClick={handleSubname}>{el}</Button>))}
                         </ButtonGroup>
                     </div>
                 </Col>
@@ -188,7 +202,7 @@ function ProductsList({ match }) {
             <Row className="justify-content-end mx-0 mt-5 mb-3">
                 <Form inline onSubmit={handleSearch} className="justify-content-end mx-0 my-2">
                     <FormControl ref={searchref} type="text" onChange={handleChange} placeholder="Search" style={{ width: "13rem" }} />
-                    <Button  type="submit" className="px-2 mr-2">
+                    <Button type="submit" className="px-2 mr-2">
                         <img src="/icon/search.svg" width="20" height="20" />
                     </Button>
                 </Form>
@@ -204,7 +218,7 @@ function ProductsList({ match }) {
             </Row>
             <Row md={8} sm={12} className="justify-content-center m-2">
                 {productlist.length > 0 ?
-                    productlist.map(pro => (
+                    currentPosts(productlist).map(pro => (
                         <Link to={{
                             pathname: `/product/${pro._id}`,
                             state: {
@@ -228,6 +242,7 @@ function ProductsList({ match }) {
                     )
                 }
             </Row>
+            {productlist.length != 0 ? <Pagination index={currentPage} totalPages={Math.ceil(productlist.length / per)} handlePage={setCurrentPage} /> : ''}
         </Container>
     )
 }

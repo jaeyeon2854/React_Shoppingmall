@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Card, Image, Container, Row, Col, Table, Accordion, Button, Form, Modal, Alert } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react';
+import { Card, Image, Container, Row, Col, Table, Accordion, Button, Form, Modal, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import catchError from '../utils/catchErrors';
@@ -17,7 +17,7 @@ function Account() {
     const [error, setError] = useState("")
     const userId = isAuthenticated()
     const [ordered, setOrdered] = useState('')
-    
+
 
     async function getUsername(user) {
         try {
@@ -38,18 +38,16 @@ function Account() {
         if (files) {
             setAccount({ ...account, [name]: files })
         } else {
-            console.log("name=", name, "value=", value);
             setAccount({ ...account, [name]: value })
         }
     }
 
-    const handleBasic = async (event) => {
+    const handleBasic = async () => {
         const formData = new FormData()
         formData.append('avatar', '')
         try {
             if (userId) {
                 const response = await axios.put(`/api/users/account/${userId}`, formData)
-                console.log(response.data)
                 window.location.reload()
             }
         } catch (error) {
@@ -67,7 +65,6 @@ function Account() {
             try {
                 if (userId) {
                     const response = await axios.put(`/api/users/account/${userId}`, formData)
-                    console.log(response.data)
                     window.location.reload()
                 }
             } catch (error) {
@@ -78,8 +75,7 @@ function Account() {
         }
     }
 
-    async function getOrdered({}) {
-        console.log("object")
+    async function getOrdered({ }) {
         try {
             const response = await axios.get(`/api/users/addorder`)
             setOrdered(response.data)
@@ -88,7 +84,7 @@ function Account() {
         }
     }
 
-    
+
     return (
         <Container className="px-3">
             <style type="text/css">
@@ -178,7 +174,6 @@ function Account() {
                             <a href="mailto:shoppingmall_KU@korea.ac.kr">
                                 <small title="메일보내기"> * 문의 : shoppingmall_KU@korea.ac.kr </small>
                             </a>
-                            {/* 쇼핑몰 문의 메일보내기 */}
                         </Row>
                     </Col>
                 </Row>

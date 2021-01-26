@@ -10,6 +10,7 @@ import Admin from './Pages/Admin';
 import ProductRegist from './Pages/ProductRegist';
 import ShoppingCart from './Pages/ShoppingCart';
 import Payment from './Pages/Payment';
+import PaymentCompleted from './Pages/PaymentCompleted';
 import Account from './Pages/Account';
 import MainNav from './Components/MainNav';
 import SubNav from './Components/SubNav';
@@ -38,6 +39,9 @@ function App() {
         </PrivateRoute>
         <PrivateRoute path="/payment">
           <Payment />
+        </PrivateRoute>
+        <PrivateRoute path="/paymentcompleted">
+          <PaymentCompleted />
         </PrivateRoute>
         <PrivateRoute path="/account">
           <Account />

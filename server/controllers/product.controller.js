@@ -96,12 +96,18 @@ const plusPurchase = async (req, res) => {
                 { _id: products[i].productId._id }
             )
             const purchase = product.purchase
+            const stock = product.stock
             await Product.updateOne(
                 { _id: products[i].productId._id },
-                { $set: { purchase: count + purchase } }
+                { $set: 
+                    { 
+                        purchase: count + purchase, 
+                        stock: stock - count 
+                    } 
+                }
             )
         }
-        res.send("구매수 늘리기 성공")
+        res.send("구매수 늘리기, 재고수 줄이기 성공")
     } catch (error) {
         res.status(500).send('구매숫자를 늘리지 못함')
     }

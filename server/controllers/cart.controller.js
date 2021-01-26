@@ -58,7 +58,6 @@ const deleteCart = async (req, res) => {
             path: 'products.productId',
             model: 'Product'
         })
-        // res.send("삭제완료")
         res.json(cart)
     } catch (error) {
         console.log(error)
@@ -80,7 +79,7 @@ const deleteCart2 = async (req, res) => {
                 model: 'Product'
             })
         }
-        res.send("주문완료 쇼핑카트 삭제")
+        res.send("주문완료 및 쇼핑카트에서 삭제")
         // res.json(cart)
     } catch (error) {
         console.log(error)

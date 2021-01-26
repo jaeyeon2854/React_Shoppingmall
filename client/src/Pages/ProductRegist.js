@@ -4,9 +4,6 @@ import { Row, Col, Button, Form, Container, Alert, Spinner } from 'react-bootstr
 import axios from 'axios';
 import catchErrors from '../utils/catchErrors';
 
-let preColors = []
-let colorHtml = []
-let list = []
 
 function ProductsRegist() {
     const INIT_PRODUCT = {
@@ -21,11 +18,13 @@ function ProductsRegist() {
         main_image: [],
         detail_image: []
     }
+    const [preColors, setPreColors] = useState([])
     const [categories, setCategories] = useState({ 0: [], 1: [[]] })
     const [product, setProduct] = useState(INIT_PRODUCT)
     const [categoryNum, setCategoryNum] = useState('')
     const [tag, setTag] = useState(0)
-    const [subCate, setSubCate] = useState('')
+    const [subCate, setSubCate] = useState([])
+    const [cateList, setCateList] = useState([])
     const [color, setColor] = useState({})
     const [error, setError] = useState('')
     const [success, setSuccess] = useState(false)
@@ -50,38 +49,22 @@ function ProductsRegist() {
         isProduct ? setDisabled(false) : setDisabled(true)
     }, [product])
 
-    function addCategory(e) {
-        if (selectRef.current.value === '') {
-            alert('하위 분류를 반드시 선택해 주세요.')
-        } else {
-            list.push(
-                <div>
-                    <span name={subCate} >{product["main_category"]} / {subCate} </span>
-                    <input name={subCate} type="image" src="https://img.icons8.com/fluent-systems-regular/24/000000/close-window.png" className="float-right align-middle" onClick={deleteCategory} />
-                </div>)
-            setTag(tag + 1)
-            selectRef.current.selectedIndex = 0
-        }
-    }
-
     function deleteCategory(e) {
-        e.target.parentNode.remove()
-        const index = product["sub_category"].findIndex((item) => { return item === e.target.name })
-        product["sub_category"].splice(index, 1)
-        setSubCate('')
-        console.log(product["sub_category"].length)
+        const pdcate = product.sub_category.filter((el) => el !== e.target.name)
+        setProduct({ ...product, "sub_category": pdcate })
+        setSubCate([])
     }
 
     function handleCategory(e) {
         const { name, value, selectedIndex } = e.target
         if (name === "main_category") {
+            setProduct({ ...product, [name]: value })
             setCategoryNum(selectedIndex - 1)
         }
-        if (name === "sub_category") {
-            product[name].push(value)
-            setSubCate(value)
-        } else {
-            setProduct({ ...product, [name]: value })
+        else {
+            subCate.push(value)
+            setProduct({ ...product, [name]: subCate })
+            selectRef.current.selectedIndex = 0
         }
     }
 
@@ -90,20 +73,15 @@ function ProductsRegist() {
     }
 
     function addColor() {
-        preColors.push(color["colors"])
-        colorHtml.push(
-            <div>
-                <span>{color["colors"]}</span>
-                <input name={subCate} type="image" src="https://img.icons8.com/fluent-systems-regular/24/000000/close-window.png" className="float-right align-middle" onClick={deleteColor} />
-            </div>
-        )
         colorRef.current.value = ''
-        setProduct({ ...product, "colors": preColors })
+        setProduct({ ...product, "colors":[...product.colors, color["colors"]] })
     }
 
     function deleteColor(e) {
-        e.target.parentNode.remove()
-        product["colors"].splice(e.name, 1)
+        console.log(product.colors)
+        console.log(e.target.name)
+        const pdcolors = product.colors.filter((el) => el !== e.target.name)
+        setProduct({ ...product, "colors": pdcolors })
     }
 
     function handleColor(e) {
@@ -133,11 +111,11 @@ function ProductsRegist() {
         for (let key in product) {
             if (key === "main_image" || key === "detail_image") {
                 formData.append(key, product[key][0])
-            } else if(key === "sizes" || key === "colors" || key === 'sub_category'){
-                for (let i = 0; i < product[key].length ; i++){
+            } else if (key === "sizes" || key === "colors" || key === "sub_category") {
+                for (let i = 0; i < product[key].length; i++) {
                     formData.append([key], product[key][i])
                 }
-            } 
+            }
             else {
                 formData.append(key, product[key])
             }
@@ -162,6 +140,7 @@ function ProductsRegist() {
 
     return (
         <Container>
+            {console.log(product)}
             <Row className="justify-content-md-center">
                 <Col md={8} className="border p-1" style={{ background: '#F7F3F3' }}>
                     {error && <Alert variant="danger" className="text-center">{error}</Alert>}
@@ -198,11 +177,15 @@ function ProductsRegist() {
                                         )))}
                                     </Form.Control>
                                 </Col>
-                                <Col >
-                                    <Button className="float-right" style={{ background: '#91877F', borderColor: '#91877F' }} onClick={addCategory}>추가</Button>
-                                </Col>
                             </Row>
-                            {list.map((element) => element)}
+                            {product.sub_category.map((el) => (
+                                <div className="my-2">
+                                    <p name={el} className="mb-0" style={{ display: 'inline-block'}} >{product["main_category"]} / {el} </p>
+                                    <Button name={el} type="button" className="float-right p-0 btn-light" style={{ display: 'inline-block' }} onClick={deleteCategory} >
+                                        <img className="align-top" name={el} alt="삭제" src="https://img.icons8.com/fluent-systems-regular/24/000000/close-window.png" />
+                                    </Button>
+                                </div>
+                            ))}
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>사이즈</Form.Label>
@@ -235,14 +218,21 @@ function ProductsRegist() {
                         <Form.Group>
                             <Form.Label>색상</Form.Label>
                             <Row>
-                                <Col md={9} xs={9} className="pr-1">
+                                <Col md={9} xs={9} className="pr-0">
                                     <Form.Control as="input" ref={colorRef} name="colors" placeholder="색상" onChange={handleColor} />
                                 </Col>
-                                <Col className="pl-1">
+                                <Col className="pl-0">
                                     <Button className="float-right" style={{ background: '#91877F', borderColor: '#91877F' }} onClick={addColor}>추가</Button>
                                 </Col>
                             </Row>
-                            {colorHtml.map((element) => element)}
+                            {product.colors.map((el) => (
+                                <div className="my-2">
+                                    <p className="mb-0"  style={{ display: 'inline-block' }}>{el}</p>
+                                    <Button style={{ display: 'inline-block' }} name={el} type="button" className="float-right p-0 btn-light" onClick={deleteColor}>
+                                        <img className="align-top"  name={el} alt="삭제" src="https://img.icons8.com/fluent-systems-regular/24/000000/close-window.png" />
+                                    </Button>
+                                </div>
+                            ))}
                         </Form.Group>
                         <Form.Group controlId="productDescriptionform">
                             <Form.Label>상품설명</Form.Label>

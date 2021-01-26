@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect, useRef } from 'react';
 import DaumPostcode from "react-daum-postcode";
 import { Container, Card, Row, Col, Button, Form, FormGroup } from 'react-bootstrap';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect, Link, useHistory } from 'react-router-dom';
 import PaymentCard from '../Components/PaymentCard';
 import { isAuthenticated } from '../utils/auth';
 import catchErrors from '../utils/catchErrors';
@@ -12,16 +12,15 @@ function Payment({ match, location }) {
     const [order, setOrder] = useState({products: []})
     const [userData, setUserData] = useState({})
     const [error, setError] = useState()
-    const [paymentWay, setPaymentWay] = useState([])
-    // const [isAddress, setIsAddress] = useState("");
-    // const [isZoneCode, setIsZoneCode] = useState();
-    // const [isPostOpen, setIsPostOpen] = useState();
     const [post, setPost] = useState([])
     const [redirect, setRedirect] = useState(null)
     const [address, setAddress] = useState("")
     const [finalPrice, setFinalPrice] = useState(0)
-    const [num, setNum] = useState(0)
+    const [paymentWay, setPaymentWay] = useState([])
+    const [completeState, setCompleteState] = useState(false)
     const user = isAuthenticated()
+    let history = useHistory();
+    const preCart = []
 
     useEffect(() => {
         getUser()
@@ -39,15 +38,37 @@ function Payment({ match, location }) {
     async function getUser() {
         const name = localStorage.getItem('name')
         const tel = localStorage.getItem('tel')
-        // const email = localStorage.getItem('email')
-        setUserData({ name: name, tel: tel })
+        const email = localStorage.getItem('email')
+        setUserData({ name: name, tel: tel, email: email })
     }
 
     async function getCart() {
         try {
+            setError('')
             const response = await axios.get(`/api/cart/showcart/${user}`)
             console.log(response.data)
             const preCart = response.data.filter((el) => el.checked === true)
+            if (preCart.length) {
+                setCart(preCart)
+                setOrder({ products: preCart })
+            } else {
+                alert("주문하실 상품이 없습니다.")
+                history.push("/home")
+            }
+        } catch (error) {
+            catchErrors(error, setError)
+        }
+    }
+
+    async function deleteOrder(e) {
+        try {
+            setError('')
+            const response = await axios.post('/api/cart/deletecart', {
+                userId: user,
+                cartId: e.target.name
+            })
+            console.log(response.data)
+            const preCart = response.data.products.filter((el) => el.checked === true)
             setCart(preCart)
             setOrder({ products: preCart })
         } catch (error) {
@@ -105,9 +126,9 @@ function Payment({ match, location }) {
 
     function handleClick() {
         if (paymentWay.length !== 0) {
+            setCompleteState(false)
             setPaymentWay([])
-        }
-        else {
+        } else {
             const a = (
                 <Row className="justify-content-md-center">
                     <Col md={6} className="border m-5 p-5">
@@ -137,34 +158,15 @@ function Payment({ match, location }) {
     }
 
     async function kakaopay() {
-        let itemNames = ""
-        if (cart.length > 1) {
-            itemNames = cart[0].productId.pro_name + ' 외 ' + String(cart.length - 1) + '개'
-        } else {
-            itemNames = cart[0].productId.pro_name
-        }
-        const response = await fetch('/api/kakaopay/test/single', {
-            method: "POST",
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                cid: 'TC0ONETIME',
-                partner_order_id: 'partner_order_id',
-                partner_user_id: user,
-                item_name: itemNames,
-                quantity: cart.length,
-                total_amount: finalPrice + 2500,
-                vat_amount: 200,
-                tax_free_amount: 0,
-                approval_url: 'http://localhost:3000/payment',
-                fail_url: 'http://localhost:3000/payment',
-                cancel_url: 'http://localhost:3000/payment',
-            })
-        })
-        const data = await response.json()
-        console.log(data)
-        window.location.href = data.redirect_url
+
+        setCompleteState("kakaopay")
+        setPaymentWay(
+            <div className="text-center">
+                <p className=" font-weight-bold" style={{ display: 'inline' }}>'카카오페이'</p><p style={{ display: 'inline' }}>를 선택하셨습니다. </p>
+                <p>주문하기를 눌러 결제를 이어가주세요.</p>
+            </div>
+        )
+        // window.location.href = data.redirect_url
         // setRedirect(data.redirect_url)
     }
 
@@ -175,6 +177,7 @@ function Payment({ match, location }) {
             cartIds.push(el._id)
         })
         try {
+            setError('')
             const response = await axios.post(`/api/order/addorder`, {
                 userId: user,
                 ...order,
@@ -187,25 +190,49 @@ function Payment({ match, location }) {
             const response3 = await axios.post(`/api/product/pluspurchase`, {
                 products: order.products
             })
-            console.log(response.data)
-            alert("주문이 완료되었습니다.")
-            return <Redirect to={'/account'} />
+            if (completeState === "kakaopay") {
+                let itemNames = ""
+                if (cart.length > 1) {
+                    itemNames = cart[0].productId.pro_name + ' 외 ' + String(cart.length - 1) + '개'
+                } else {
+                    itemNames = cart[0].productId.pro_name
+                }
+                const response = await fetch('/api/kakaopay/test/single', {
+                    method: "POST",
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        cid: 'TC0ONETIME',
+                        partner_order_id: 'partner_order_id',
+                        partner_user_id: user,
+                        item_name: itemNames,
+                        quantity: cart.length,
+                        total_amount: finalPrice + 2500,
+                        vat_amount: 200,
+                        tax_free_amount: 0,
+                        approval_url: 'http://localhost:3000/paymentcompleted',
+                        fail_url: 'http://localhost:3000/shoppingcart',
+                        cancel_url: 'http://localhost:3000/shoppingcart',
+                    })
+                })
+                const data = await response.json()
+            } else {
+                console.log(response.data)
+                console.log(response2.data)
+                console.log(response3.data)
+                alert("주문이 완료되었습니다.")
+                history.push('/paymentcompleted')
+            }
         } catch (error) {
             catchErrors(error, setError)
             alert("주문에 실패하셨습니다. 다시 확인해주세요.")
         }
     }
 
-    if (redirect) {
-        console.log(redirect)
-        return <Redirect to={'/kakao'} />
-    }
-
-    
-
     return (
         <div>
-            {/* {console.log(order)} */}
+            {/* {console.log(completeState)} */}
             <Container>
                 <h3 className="my-5 font-weight-bold text-center">주문/결제</h3>
                 <div>
@@ -223,7 +250,7 @@ function Payment({ match, location }) {
                                 </Form.Group>
                                 <Form.Group controlId="formBasicEmail">
                                     <Form.Label>이메일</Form.Label>
-                                    <Form.Control type="email" placeholder="이메일 주소를 입력해주세요" />
+                                    <Form.Control type="email" value={userData.email} readOnly />
                                 </Form.Group>
                             </Form>
                         </Col>
@@ -266,10 +293,9 @@ function Payment({ match, location }) {
                         </Col>
                     </Row>
                 </div>
-
                 <div>
                     <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>주문상품정보</h5>
-                    <PaymentCard cart={cart} />
+                    <PaymentCard cart={cart} deleteOrder={deleteOrder} />
                 </div>
 
                 <div className="p-5 m-3" style={{ background: '#F7F3F3' }}>
@@ -287,17 +313,16 @@ function Payment({ match, location }) {
                         결제금액<span className="float-right">{finalPrice + 2500}원</span>
                     </div>
                 </div>
-
                 <div>
                     <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>결제수단</h5>
                     <div className="text-center m-3">
-                        <Button variant="success" className="align-top" onClick={handleClick} >무통장입금</Button>
-                        <input type="image" alt="카카오페이결제" src="icon/payment_icon_yellow_small.png" onClick={kakaopay} />
+                        <Button className="align-top m-1" variant="success" onClick={handleClick} style={{ height: '42px' }}>무통장입금</Button>
+                        <Button className="align-top m-1 p-0" style={{ borderColor: "#ffeb00" }} type="button" onClick={kakaopay} alt="카카오페이"><img src="icon/payment_icon_yellow_small2.png" /></Button>
                     </div>
                     {paymentWay}
                 </div>
                 <div className="text-center">
-                    <Button className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} onClick={paymentCompleted} block>결제완료</Button>
+                    <Button type="button" onClick={paymentCompleted} className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} block>결제완료</Button>
                 </div>
             </Container>
         </div>

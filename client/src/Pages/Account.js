@@ -75,7 +75,7 @@ function Account() {
         }
     }
 
-    async function getOrdered({ }) {
+    async function getOrdered() {
         try {
             const response = await axios.post(`/api/users/addorder`, {
                 userId: userId

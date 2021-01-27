@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Image, Container, Row, Col, Button, Form, Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import OrderCard from '../Components/OrderCard';
 import axios from 'axios';
 import catchError from '../utils/catchErrors';
 import { isAuthenticated } from '../utils/auth';
-import OrderCard from '../Components/OrderCard';
+import { Card, Image, Container, Row, Col, Button, Form, Modal } from 'react-bootstrap';
 
 const INIT_ACCOUNT = {
     name: "",
@@ -21,6 +21,7 @@ function Account() {
 
     async function getUsername(user) {
         try {
+            setError('')
             const response = await axios.get(`/api/users/account/${user}`)
             setAccount(response.data)
         } catch (error) {
@@ -63,6 +64,7 @@ function Account() {
             const formData = new FormData()
             formData.append('avatar', account.avatar[0])
             try {
+                setError('')
                 if (userId) {
                     const response = await axios.put(`/api/users/account/${userId}`, formData)
                     window.location.reload()
@@ -77,17 +79,14 @@ function Account() {
 
     async function getOrdered() {
         try {
-            const response = await axios.post(`/api/users/addorder`, {
-                userId: userId
-            })
-            const a = response.data
-            setOrdered(a)
-            console.log("what=", response.data)
+            setError('')
+            const response = await axios.post(`/api/users/addorder`, { userId: userId })
+            const res = response.data
+            setOrdered(res)
         } catch (error) {
             catchError(error, setError)
         }
     }
-
 
     return (
         <Container className="px-3">
@@ -122,8 +121,7 @@ function Account() {
                                 </Modal.Body>
                                 <Modal.Footer>
                                     <Col className="px-0">
-                                        <Button variant="outline-secondary" onClick={handleBasic}
-                                            className="d-flex justify-content-start"><small>기본이미지로</small></Button>
+                                        <Button variant="outline-secondary" onClick={handleBasic} className="d-flex justify-content-start"><small>기본이미지로</small></Button>
                                     </Col>
                                     <Button variant="secondary" onClick={() => setShow(false)}>취소</Button>
                                     <Button variant="primary" type="submit" onClick={() => setShow(false)}>저장</Button>
@@ -182,7 +180,7 @@ function Account() {
             </Card>
             <div className='m-2 mb-5'>
                 <OrderCard ordered={ordered} />
-            </div> 
+            </div>
         </Container >
     )
 }

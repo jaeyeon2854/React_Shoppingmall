@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios'
-import { Form, Col, Container, Button, Row, Alert } from 'react-bootstrap'
-import catchErrors from '../utils/catchErrors'
 import { Redirect } from 'react-router-dom';
+import axios from 'axios';
+import catchErrors from '../utils/catchErrors';
+import { Form, Col, Container, Button, Row, Alert } from 'react-bootstrap';
 
 const INIT_USER = {
     name: '',
@@ -33,7 +33,6 @@ function Signup() {
             event.stopPropagation();
         }
         setValidated(true);
-
         try {
             setError('')
             const response = await axios.post('/api/users/signup', user)
@@ -46,13 +45,11 @@ function Signup() {
     function checkPassword(event) {
         const p1 = user.password
         const p2 = user.password2
-
         if (p1 !== p2) {
             event.preventDefault();
             event.stopPropagation();
             alert('비밀번호가 일치하지 않습니다.')
             return false
-
         } else {
             return true
         }
@@ -68,14 +65,11 @@ function Signup() {
             <Row className="justify-content-center">
                 <Col md={6} xs={10} className="border" style={{ background: '#F7F3F3' }}>
                     <h2 className="text-center pt-3 m-4">Sign Up</h2>
-                    {error && <Alert variant='danger'>
-                        {error}
-                    </Alert>}
+                    {error && <Alert variant='danger'>{error}</Alert>}
                     <Form
                         noValidate validated={validated}
                         onSubmit={handleSubmit}
                         className="p-4">
-
                         <Form.Group as={Row} controlId="formBasicName">
                             <Form.Label column sm="4" for='name'>
                                 이 름    </Form.Label>
@@ -89,7 +83,6 @@ function Signup() {
                                 <Form.Control.Feedback type="invalid" >이름을 입력하세요. </Form.Control.Feedback>
                             </Col>
                         </Form.Group>
-
                         <Form.Group as={Row} controlId="formBasicNumber">
                             <Form.Label column sm="4" for='number'>
                                 주민등록번호    </Form.Label>

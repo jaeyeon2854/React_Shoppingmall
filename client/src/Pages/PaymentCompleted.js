@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { isAuthenticated } from '../utils/auth'
+import { isAuthenticated } from '../utils/auth';
 import catchErrors from '../utils/catchErrors';
-import { Card, Row, Col, Button, Alert } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Card, Row, Col, Button } from 'react-bootstrap';
 
 function PaymentCompleted() {
-
     const user = isAuthenticated()
     const [error, setError] = useState()
     const [order, setOrder] = useState([])
@@ -22,7 +20,6 @@ function PaymentCompleted() {
         try {
             setError('')
             const response = await axios.get(`/api/order/showorder/${user}`)
-            console.log(response.data)
             setNum(response.data._id)
             setOrder(response.data.products)
             setTotal(response.data.total)
@@ -31,6 +28,7 @@ function PaymentCompleted() {
             catchErrors(error, setError)
         }
     }
+
     return (
         <div>
             <div className="mx-3 my-5 text-center px-3 py-4 border">
@@ -46,7 +44,6 @@ function PaymentCompleted() {
             <h3 className="text-center font-weight-bold my-3">주문내역</h3>
             <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>받는사람 정보</h5>
             <div className="m-3">
-
             <Row>
                 <Col xs={4} className="text-right">이름</Col>
                 <Col>{receiverInfo.name}</Col>
@@ -61,7 +58,6 @@ function PaymentCompleted() {
             </Row>
             </div>
             <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>주문 상품 정보</h5>
-
             {order.map((e) => (
                 <Card className="mx-2">
                     <Row className="mx-1">

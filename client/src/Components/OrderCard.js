@@ -1,8 +1,6 @@
 import React from 'react'
 import { Card, Col, Row } from 'react-bootstrap'
 
-
-
 function OrderCard(props) {
 
     return (
@@ -41,7 +39,6 @@ function OrderCard(props) {
                 )
             }
         </Card>
-
     )
 }
 

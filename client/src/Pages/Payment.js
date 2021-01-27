@@ -124,7 +124,7 @@ function Payment({ match, location }) {
             setCompleteState(false)
             setPaymentWay([])
         } else {
-            const a = (
+            const bankList = (
                 <Row className="justify-content-md-center">
                     <Col md={6} className="border m-5 p-5">
                         <Form>
@@ -146,14 +146,12 @@ function Payment({ match, location }) {
                             </Form.Group>
                         </Form>
                     </Col>
-
                 </Row>)
-            setPaymentWay(a)
+            setPaymentWay(bankList)
         }
     }
 
     async function kakaopay() {
-
         setCompleteState("kakaopay")
         setPaymentWay(
             <div className="text-center">
@@ -192,6 +190,7 @@ function Payment({ match, location }) {
                 } else {
                     itemNames = cart[0].productId.pro_name
                 }
+                setError('')
                 const response = await fetch('/api/kakaopay/test/single', {
                     method: "POST",
                     headers: {

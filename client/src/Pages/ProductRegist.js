@@ -4,7 +4,6 @@ import { Row, Col, Button, Form, Container, Alert, Spinner } from 'react-bootstr
 import axios from 'axios';
 import catchErrors from '../utils/catchErrors';
 
-
 function ProductsRegist() {
     const INIT_PRODUCT = {
         pro_name: '',
@@ -29,13 +28,13 @@ function ProductsRegist() {
     const [error, setError] = useState('')
     const [success, setSuccess] = useState(false)
     const [checked, setChecked] = useState({ "Free": false, "XL": false, "L": false, "M": false, "S": false, "XS": false })
-    const [disabled, setDisabled] = useState(true)
     const [loading, setLoading] = useState(false)
     const selectRef = useRef(null)
     const colorRef = useRef(null)
 
     useEffect(async () => {
         try {
+            setError('')
             const response = await axios.get('/api/categories/main')
             const data = response.data[0]
             setCategories([Object.keys(data), Object.values(data)])
@@ -43,11 +42,6 @@ function ProductsRegist() {
             catchErrors(error, setError)
         }
     }, [])
-
-    useEffect(() => {
-        const isProduct = Object.values(product).every(el => { console.log("el=", el); Boolean(el) })
-        isProduct ? setDisabled(false) : setDisabled(true)
-    }, [product])
 
     function deleteCategory(e) {
         const pdcate = product.sub_category.filter((el) => el !== e.target.name)
@@ -78,8 +72,6 @@ function ProductsRegist() {
     }
 
     function deleteColor(e) {
-        console.log(product.colors)
-        console.log(e.target.name)
         const pdcolors = product.colors.filter((el) => el !== e.target.name)
         setProduct({ ...product, "colors": pdcolors })
     }
@@ -106,7 +98,6 @@ function ProductsRegist() {
             }
         }
         product["sizes"] = sizes
-        console.log(product)
         const formData = new FormData();
         for (let key in product) {
             if (key === "main_image") {
@@ -124,7 +115,6 @@ function ProductsRegist() {
             setLoading(true)
             setError('')
             const response = await axios.post('/api/product/regist', formData)
-            console.log(response)
             setSuccess(true)
         } catch (error) {
             catchErrors(error, setError)
@@ -140,7 +130,6 @@ function ProductsRegist() {
 
     return (
         <Container>
-            {console.log(product)}
             <Row className="justify-content-md-center">
                 <Col md={8} className="border p-1" style={{ background: '#F7F3F3' }}>
                     {error && <Alert variant="danger" className="text-center">{error}</Alert>}

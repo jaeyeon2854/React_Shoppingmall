@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import { Button, Container, Row, Col } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import CartCard from '../Components/CartCard';
 import axios from 'axios';
 import catchErrors from '../utils/catchErrors';
 import { isAuthenticated } from '../utils/auth';
-import CartCard from '../Components/CartCard';
+import { Button, Container } from 'react-bootstrap';
 
 function ShoppingCart() {
     const [error, setError] = useState('')
@@ -15,13 +15,12 @@ function ShoppingCart() {
 
     useEffect(() => {
         getCart()
-        // console.log(cart)
     }, [user])
 
     function plusNum(e) {
         const addCount = cart.map((el) => {
             if (el._id === e.target.name) {
-                return { ...el, count: el.count+1}
+                return { ...el, count: el.count + 1 }
             } else {
                 return { ...el }
             }
@@ -31,7 +30,7 @@ function ShoppingCart() {
     function minusNum(e) {
         const addCount = cart.map((el) => {
             if (el._id === e.target.name) {
-                return { ...el, count: el.count-1 }
+                return { ...el, count: el.count - 1 }
             } else {
                 return { ...el }
             }
@@ -48,29 +47,26 @@ function ShoppingCart() {
                 return { ...el }
             }
         })
-        const asd = cartCheck.filter((el) => el.checked === true)
-        asd.map((el)=>{
-            price = el.count*el.productId.price  + price
+        const list = cartCheck.filter((el) => el.checked === true)
+        list.map((el) => {
+            price = el.count * el.productId.price + price
         })
         setFinalPrice(price)
         setCart(cartCheck)
-        setFinalCart(asd)
+        setFinalCart(list)
     }
 
     async function deleteCart(e) {
-        //장바구니 DB에서 해당 항목 삭제 
-        // console.log(e.target.name)
         try {
+            setError('')
             const response = await axios.post('/api/cart/deletecart', {
                 userId: user,
                 cartId: e.target.name
             })
-            console.log(response.data)
             setCart(response.data.products)
         } catch (error) {
             catchErrors(error, setError)
         }
-        // console.log('카트에 담긴 항목을 삭제했습니다.')
     }
 
     async function getCart() {
@@ -78,23 +74,21 @@ function ShoppingCart() {
             setError('')
             const response = await axios.get(`/api/cart/showcart/${user}`)
             const addChecked = response.data.map((el) => {
-                    return { ...el, checked: false }
+                return { ...el, checked: false }
             })
-            console.log("addchecked=",addChecked)
             setCart(addChecked)
         } catch (error) {
             catchErrors(error, setError)
         }
     }
 
-    function putCheckedCart(){
+    function putCheckedCart() {
         try {
             setError('')
-            const response =  axios.post(`/api/cart/changecart`, {
-                userId:user,
+            const response = axios.post(`/api/cart/changecart`, {
+                userId: user,
                 products: cart
             })
-            console.log(response.data)
         } catch (error) {
             catchErrors(error, setError)
         }
@@ -102,7 +96,6 @@ function ShoppingCart() {
 
     return (
         <div>
-            {/* {console.log(cart)} */}
             <Container className="justify-content-center">
                 <h1 className="my-5 font-weight-bold text-center">장바구니</h1>
                 <div>
@@ -110,7 +103,6 @@ function ShoppingCart() {
                     {cart.length > 0
                         ? <CartCard cart={cart} deleteCart={deleteCart} minusNum={minusNum} plusNum={plusNum} checkedCart={checkedCart} />
                         : <div className="text-center my-5">장바구니에 담긴 상품이 없습니다.</div>}
-
                 </div>
                 <div className="p-5 m-3" style={{ background: '#F7F3F3' }}>
                     <ul className="pl-0" style={{ listStyle: 'none' }}>
@@ -130,7 +122,7 @@ function ShoppingCart() {
                 <div className="text-center">
                     <Button as={Link} to={{
                         pathname: `/payment`,
-                        state: finalCart 
+                        state: finalCart
                     }} className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} onClick={putCheckedCart} block>결제하기</Button>
                 </div>
             </Container>

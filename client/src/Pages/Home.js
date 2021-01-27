@@ -20,6 +20,7 @@ function Home() {
 
     async function getProductlist() {
         try {
+            setError('')
             const response = await axios.get(`/api/product/getproduct`)
             setProductlist({ bestProduct: response.data.bestProduct, newProduct: response.data.newProduct })
         } catch (error) {

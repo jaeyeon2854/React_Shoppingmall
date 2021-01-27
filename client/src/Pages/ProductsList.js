@@ -79,9 +79,7 @@ function ProductsList({ match }) {
     }
 
     async function handleSort(method) {
-        console.log(method)
         if (method === "purchase") {
-            console.log("thisispurchase")
             productlist.sort(function (a, b) {
                 if (a.purchase > b.purchase) {
                     return -1;
@@ -89,12 +87,10 @@ function ProductsList({ match }) {
                 if (a.purchase < b.purchase) {
                     return 1;
                 }
-                // a must be equal to b
                 return 0;
             });
             setSortingName("인기상품")
         } else if (method === "newest") {
-            console.log("thisisnewest")
             productlist.sort(function (a, b) {
                 if (a.createdAt > b.createdAt) {
                     return -1;
@@ -102,13 +98,10 @@ function ProductsList({ match }) {
                 if (a.createdAt < b.createdAt) {
                     return 1;
                 }
-                // a must be equal to b
                 return 0;
             });
             setSortingName("신상품")
-
         } else if (method === "lowest") {
-            console.log("thisislowest")
             productlist.sort(function (a, b) {
                 if (a.price > b.price) {
                     return 1;
@@ -116,12 +109,10 @@ function ProductsList({ match }) {
                 if (a.price < b.price) {
                     return -1;
                 }
-                // a must be equal to b
                 return 0;
             });
             setSortingName("낮은가격")
         } else {
-            console.log("thisispurchase")
             productlist.sort(function (a, b) {
                 if (a.price > b.price) {
                     return -1;
@@ -129,13 +120,11 @@ function ProductsList({ match }) {
                 if (a.price < b.price) {
                     return 1;
                 }
-                // a must be equal to b
                 return 0;
             });
             setSortingName("높은가격")
         }
     }
-
 
     async function handleSubname(e) {
         const subname = e.target.name
@@ -168,7 +157,7 @@ function ProductsList({ match }) {
                     border-color: #CDC5C2;
                     border-radius: 0;
                 }
-                .btn:hover {
+                .btn:hover, .btn-primary:focus {
                     background-color: #91877F;
                     border-color: #91877F;
                     box-shadow: 0 0 0 0;
@@ -176,9 +165,6 @@ function ProductsList({ match }) {
                 .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
                     background-color: #91877F;
                     border-color: #91877F;
-                }
-                .show>.btn-primary.dropdown-toggle:focus {
-                    box-shadow: 0 0 0 0;
                 }
                 .dropdown-item {
                     color: #91877F;

@@ -24,10 +24,8 @@ const app = express();
 app.use(express.json())
 app.use(cors())
 app.use(express.static(path.join(process.cwd(), 'dist')))
-// app.use(bodyParser.urlencoded({ extended: true }))
 app.use('/images', express.static('uploads/'))
 
-// app.use('/', indexRouter);
 app.use('/', kakaopayRoutes)
 app.use('/api/categories',categoryRouter)
 app.use('/api/users',userRouter)

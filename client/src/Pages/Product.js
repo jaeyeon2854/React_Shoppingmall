@@ -22,7 +22,6 @@ function Product({ match, location }) {
     useEffect(() => {
         if (size && color) {
             pushOptions()
-            // console.log(cart)
         }
     }, [size, color])
 
@@ -32,14 +31,13 @@ function Product({ match, location }) {
     }
 
     function pushOptions() {
-        // console.log(cart)
-        const a = cart.map(el => {
-            const rObj = {}
-            rObj["color"] = el.color;
-            rObj["size"] = el.size;
-            return rObj
+        const cartSet = cart.map(el => {
+            const newObj = {}
+            newObj["color"] = el.color;
+            newObj["size"] = el.size;
+            return newObj
         })
-        const isDuplicated = a.some(el => el.color === color && el.size === size)
+        const isDuplicated = cartSet.some(el => el.color === color && el.size === size)
         if (isDuplicated) {
             selected.sizes = false
             selected.colors = false
@@ -54,7 +52,6 @@ function Product({ match, location }) {
             setSize("")
             setPrice(product.price + price)
         }
-
     }
 
     function handleChange(e) {
@@ -71,11 +68,11 @@ function Product({ match, location }) {
     function deleteOption(e) {
         e.preventDefault()
         let preprice = 0
-        const asd = cart.filter((el) => el.color !== e.target.id || el.size !== e.target.name)
-        asd.map((el) => {
+        const list = cart.filter((el) => el.color !== e.target.id || el.size !== e.target.name)
+        list.map((el) => {
             preprice = preprice + el.count * product.price
         })
-        setCart(asd)
+        setCart(list)
         setPrice(Number(preprice))
     }
 

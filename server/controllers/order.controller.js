@@ -4,9 +4,7 @@ import User from "../schemas/User.js";
 const addorder = async (req, res) => {
     const { userId, products, receiverInfo, total } = req.body
     try {
-        const newOrder = await new Order({
-            userId, products, receiverInfo, total
-        }).save()
+        const newOrder = await new Order({ userId, products, receiverInfo, total }).save()
         res.status(200).send('Order DB에 저장 완료')
     } catch (error) {
         console.log(error)
@@ -17,8 +15,7 @@ const addorder = async (req, res) => {
 const Ordered = async (req, res) => {
     const { db } = req.body
     try {
-        const ordered = await req.body.findOne({}, { _id: 0}).select(`${db}`)
-        console.log("sub= ",ordered);
+        const ordered = await req.body.findOne({}, { _id: 0 }).select(`${db}`)
         res.json(ordered);
     } catch (error) {
         res.status(500).send('카테고리를 불러오지 못했습니다.')
@@ -27,11 +24,10 @@ const Ordered = async (req, res) => {
 
 const showorder = async (req, res) => {
     try {
-        const order = await Order.find({ userId: req.userId }).sort({_id:-1}).limit(1).populate({
+        const order = await Order.find({ userId: req.userId }).sort({ _id: -1 }).limit(1).populate({
             path: 'products.productId',
             model: 'Product'
         })
-        console.log(order)
         res.status(200).json(order[0])
     } catch (error) {
         console.log(error)
@@ -39,6 +35,27 @@ const showorder = async (req, res) => {
     }
 }
 
+const recommendPro = async (req, res) => {
+    const { productId } = req.body
+    console.log(productId)
+    try {
+        const findedorder = await Order.find({ 'products.productId': productId })
+        console.log('findedouder=', findedorder)
+        const recommend = await         
+        const recommend = await Order.aggregate([
+            // { $project: {}},
+            {$match: {"products":{"productId": productId}}},
+            {$group: {
+                    _id: "$products.productId",
+                    num_tutorial: { $sum: 1 }
+                }
+            }
+        ])
+        console.log('recommend=', recommend)
+    } catch (error) {
+
+    }
+}
 
 const orderById = async (req, res, next, id) => {
     try {
@@ -54,4 +71,4 @@ const orderById = async (req, res, next, id) => {
     }
 }
 
-export default { addorder, showorder, orderById , Ordered }
+export default { addorder, showorder, orderById, Ordered }

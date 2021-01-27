@@ -148,8 +148,16 @@ function Product({ match, location }) {
                     background-color: #CDC5C2;
                     border-color: #CDC5C2;
                 }
-
-                .btn:hover, .btn:active, .btn:focus {
+                .btn:hover {
+                    background-color: #91877F;
+                    border-color: #91877F;
+                }
+                .btn-primary:focus {
+                    background-color: #91877F;
+                    border-color: #91877F;
+                    box-shadow: 0 0 0 0;
+                }
+                .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
                     background-color: #91877F;
                     border-color: #91877F;
                 }
@@ -206,7 +214,7 @@ function Product({ match, location }) {
                             <Col className="text-right">{price}원</Col>
                         </Row>
                         <Row className="justify-content-between mx-0 my-3" style={{ width: "100%" }}>
-                            <Button type='button' name="shoppingcart" onClick={addCart} style={{ width: "49%" }}>장바구니</Button>
+                            <Button type='button' name="shoppingcart" onClick={addCart} style={{ width: "49%" }} variant="primary" >장바구니</Button>
                             <Button type='button' name="payment" onClick={addCart} style={{ width: "49%" }}>구매하기</Button>
                         </Row>
                     </Form>
@@ -222,7 +230,6 @@ function Product({ match, location }) {
                             {product.name}
                         </div>
                         <Image src={`/images/${product.main_img}`} className='d-flex justify-content-center p-4' style={{ objectFit: "contain", maxWidth: "100%", margin: 'auto' }} />
-
                         <Card style={{ width: '70%', margin: 'auto' }} className='my-4' >
                             <Card.Header className='text-center' style={{ background: '#CDC5C2' }}>
                                 <h5 className='m-0' style={{ whiteSpace: 'nowrap' }}> [ Description ]</h5>
@@ -244,29 +251,29 @@ function Product({ match, location }) {
                     <h6 style={{ borderBottom: "1px solid", paddingBottom: "5px", marginBottom: "1em" }}>회원님이 선호할만한 상품 추천
                         <a className="close float-right" onClick={(e) => handleClick(e)} style={{ fontSize: "1rem", cursor: "pointer" }}>X</a>
                     </h6>
-                    <Row className="justify-content-space mx-0" style={{ flexWrap: "nowrap", width: "100%", overflowX: "auto" }}>
-                        <Col as={Card} style={{ minWidth: "10rem", marginRight: "1rem" }}>
+                    <Row className="justify-content-evenly mx-0" style={{ flexWrap: "nowrap", width: "100%", overflowX: "auto" }}>
+                        <Col as={Card} style={{ minWidth: "8rem" }}>
                             <Card.Img variant="top" src="https://img.sonyunara.com/files/goods/67504/1607328307_0.jpg" style={{ objectFit: "contain" }} />
                             <Card.Body className="px-0">
                                 <Card.Title>클로타탄원피스</Card.Title>
                                 <Card.Text>구매자 수: 30</Card.Text>
                             </Card.Body>
                         </Col>
-                        <Col as={Card} style={{ minWidth: "10rem", marginRight: "1rem" }}>
+                        <Col as={Card} style={{ minWidth: "8rem" }}>
                             <Card.Img variant="top" src="https://img.sonyunara.com/files/goods/67504/1607328307_0.jpg" style={{ objectFit: "contain" }} />
                             <Card.Body className="px-0">
                                 <Card.Title>클로타탄원피스</Card.Title>
                                 <Card.Text>구매자 수: 30</Card.Text>
                             </Card.Body>
                         </Col>
-                        <Col as={Card} style={{ minWidth: "10rem", marginRight: "1rem" }}>
+                        <Col as={Card} style={{ minWidth: "8rem" }}>
                             <Card.Img variant="top" src="https://img.sonyunara.com/files/goods/67504/1607328307_0.jpg" style={{ objectFit: "contain" }} />
                             <Card.Body className="px-0">
                                 <Card.Title>클로타탄원피스</Card.Title>
                                 <Card.Text>구매자 수: 30</Card.Text>
                             </Card.Body>
                         </Col>
-                        <Col as={Card} style={{ minWidth: "10rem", marginRight: "1rem" }}>
+                        <Col as={Card} style={{ minWidth: "8rem" }}>
                             <Card.Img variant="top" src="https://img.sonyunara.com/files/goods/67504/1607328307_0.jpg" style={{ objectFit: "contain" }} />
                             <Card.Body className="px-0">
                                 <Card.Title>클로타탄원피스</Card.Title>

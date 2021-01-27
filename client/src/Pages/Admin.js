@@ -81,7 +81,7 @@ function Admin() {
                     border-color: #91877F;
                     box-shadow: 0 0 0 0;
                 }
-                .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+                .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
                     background-color: #91877F;
                     border-color: #91877F;
                 }

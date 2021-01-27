@@ -168,12 +168,12 @@ function ProductsList({ match }) {
                     border-color: #CDC5C2;
                     border-radius: 0;
                 }
-                .btn:hover, .btn:focus {
+                .btn:hover {
                     background-color: #91877F;
                     border-color: #91877F;
                     box-shadow: 0 0 0 0;
                 }
-                .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+                .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
                     background-color: #91877F;
                     border-color: #91877F;
                 }
@@ -194,20 +194,20 @@ function ProductsList({ match }) {
                     <div className="text-center">
                         <h1 style={{ fontSize: "5.5vmax" }} className="text-center m-1 py-3">{mainCategory}</h1>
                         <ButtonGroup className="mb-3" style={{ display: "inline" }}>
-                            {subCategory.map(el =>(<Button className="m-1" style={{ fontSize: "0.8vw" }} name={el} onClick={handleSubname}>{el}</Button>))}
+                            {subCategory.map(el =>(<Button className="m-1" style={{ fontSize: "1.2vw" }} name={el} onClick={handleSubname}>{el}</Button>))}
                         </ButtonGroup>
                     </div>
                 </Col>
             </Row>
             <Row className="justify-content-end mx-0 mt-5 mb-3">
                 <Form inline onSubmit={handleSearch} className="justify-content-end mx-0 my-2">
-                    <FormControl ref={searchref} type="text" onChange={handleChange} placeholder="Search" style={{ width: "13rem" }} />
-                    <Button type="submit" className="px-2 mr-2">
+                    <FormControl ref={searchref} type="text" onChange={handleChange} placeholder="Search" style={{ width: "12rem" }} />
+                    <Button type="submit" className="px-2 m1-1">
                         <img src="/icon/search.svg" width="20" height="20" />
                     </Button>
                 </Form>
                 <Dropdown className="my-2">
-                    <Dropdown.Toggle className="mx-2">{sortingName}</Dropdown.Toggle>
+                    <Dropdown.Toggle className="mx-1">{sortingName}</Dropdown.Toggle>
                     <Dropdown.Menu>
                         <Dropdown.Item as="button" onClick={() => handleSort('purchase')}>인기상품</Dropdown.Item>
                         <Dropdown.Item as="button" onClick={() => handleSort('newest')}>신상품</Dropdown.Item>

@@ -88,7 +88,7 @@ function ProductsList({ match }) {
                             <h1 style={{ fontSize: "5.5vmax" }} className="text-center m-1 py-3">{mainCategory}</h1>
                             <ButtonGroup className="mb-3" variant="outline-light secondary" style={{ display: "inline"}}>
                                 {subcategory.map(el =>
-                                (<Button className="m-1" style={{ fontSize: "1vw"}} variant="secondary" name={el} onClick={handleSubname}>{el}
+                                (<Button className="m-1" style={{ fontSize: "0.8vw"}} name={el} onClick={handleSubname}>{el}
                                 </Button>))}
                             </ButtonGroup>
                         </div>
@@ -96,7 +96,7 @@ function ProductsList({ match }) {
                 </Row>
                 <Row className="justify-content-end mx-0 my-2">
                     <Dropdown>
-                        <Dropdown.Toggle variant="secondary" className="mx-2">정렬</Dropdown.Toggle>
+                        <Dropdown.Toggle className="mx-2">정렬</Dropdown.Toggle>
                         <Dropdown.Menu>
                             <Dropdown.Item>인기상품</Dropdown.Item>
                             <Dropdown.Item>신상품</Dropdown.Item>

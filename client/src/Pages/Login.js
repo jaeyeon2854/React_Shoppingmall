@@ -3,26 +3,18 @@ import { Link, Redirect } from 'react-router-dom';
 import { Form, Col, Container, Button, Row, Alert } from 'react-bootstrap';
 import axios from 'axios'
 import catchErrors from '../utils/catchErrors'
-import { handleLogin, handleLoginAdmin } from '../utils/auth'
+import { handleLogin } from '../utils/auth'
 
 
 const INIT_USER = {
     id: '',
     password: ''
 }
-
-const INIT_ADMIN = {
-    id: '',
-    password: ''
-}
-
 function Login() {
-
     const [validated, setValidated] = useState(false);
     const [user, setUser] = useState(INIT_USER)
     const [error, setError] = useState('')
     const [success, setSuccess] = useState(false)
-    const [admin, setAdmin] = useState(INIT_ADMIN)
 
     function handleChange(event) {
         const { name, value } = event.target
@@ -39,13 +31,9 @@ function Login() {
         setValidated(true);
         try {
             setError('')
-            if (user) {
-                const response = await axios.post('/api/auth/login', user)
-                handleLogin(response.data)
-                setSuccess(true)
-            }else{
-                return false
-            }
+            const response = await axios.post('/api/auth/login', user)
+            handleLogin(response.data)
+            setSuccess(true)
         } catch (error) {
             catchErrors(error, setError)
         }
@@ -82,7 +70,6 @@ function Login() {
                                 <Form.Control.Feedback className="text-center" type="invalid"> 아이디를 입력하세요.</Form.Control.Feedback>
                             </Form.Row>
                         </Form.Group>
-
                         <Form.Group controlId="formBasicPassword">
                             <Form.Row>
                                 <Col sm={4} xs={6} as={Form.Label} for="password">비밀번호</Col>

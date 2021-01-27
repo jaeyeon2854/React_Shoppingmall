@@ -54,6 +54,4 @@ const orderById = async (req, res, next, id) => {
     }
 }
 
-
-
-export default { addorder, showorder, Ordered, orderById}
+export default { addorder, showorder, orderById , Ordered }

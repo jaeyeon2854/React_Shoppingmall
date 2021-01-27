@@ -21,7 +21,7 @@ function MainNav() {
                             <img alt="카트" src="/icon/cart.svg" width="30" height="30" />
                         </Nav.Link>
                     </>
-                    : ( 
+                    : (
                         <>
                             <Nav.Link className="text-light" href='/login'>Login</Nav.Link>
                             <Nav.Link className="text-light" href='/signup'>Sign Up</Nav.Link>

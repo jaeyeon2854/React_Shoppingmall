@@ -1,11 +1,11 @@
-import axios from 'axios';
 import React, { useState, useEffect, useRef } from 'react';
-import DaumPostcode from "react-daum-postcode";
-import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import { Redirect, Link, useHistory } from 'react-router-dom';
+import DaumPostcode from "react-daum-postcode";
 import PaymentCard from '../Components/PaymentCard';
+import axios from 'axios';
 import { isAuthenticated } from '../utils/auth';
 import catchErrors from '../utils/catchErrors';
+import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 
 function Payment({ match, location }) {
     const [cart, setCart] = useState([])
@@ -46,7 +46,6 @@ function Payment({ match, location }) {
         try {
             setError('')
             const response = await axios.get(`/api/cart/showcart/${user}`)
-            console.log(response.data)
             const preCart = response.data.filter((el) => el.checked === true)
             if (preCart.length) {
                 setCart(preCart)
@@ -67,7 +66,6 @@ function Payment({ match, location }) {
                 userId: user,
                 cartId: e.target.name
             })
-            console.log(response.data)
             const preCart = response.data.products.filter((el) => el.checked === true)
             setCart(preCart)
             setOrder({ products: preCart })
@@ -78,7 +76,6 @@ function Payment({ match, location }) {
 
     function handleReceiverInfo(e) {
         const { name, value } = e.target
-        console.log(name, value)
         setOrder({ ...order, receiverInfo: { ...order.receiverInfo, [name]: value } })
     }
 
@@ -98,11 +95,9 @@ function Payment({ match, location }) {
     const handleComplete = (data) => {
         let fullAddress = data.address;
         let extraAddress = "";
-        console.log(data)
         if (data.addressType === "R") {
             if (data.bname !== "") {
                 extraAddress += data.bname;
-                console.log(extraAddress)
             }
             if (data.buildingName !== "") {
                 extraAddress +=

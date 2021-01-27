@@ -22,7 +22,9 @@ router.route('/getproduct/sub')
 router.route('/pluspurchase')
     .post(productCtrl.plusPurchase)
 
+router.route('/delete')
+    .delete(productCtrl.deletePro)
+
 router.param('category', productCtrl.categoryId)
-// router.param('subname',productCtrl.subcategoryId)
-    
+
 export default router

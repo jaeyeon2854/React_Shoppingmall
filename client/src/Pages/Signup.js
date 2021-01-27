@@ -93,28 +93,30 @@ function Signup() {
                         <Form.Group as={Row} controlId="formBasicNumber">
                             <Form.Label column sm="4" for='number'>
                                 주민등록번호    </Form.Label>
-                            <Col sm="4" xs='5'>
-                                <Form.Control
-                                    className='pr-0'
-                                    required type="text"
-                                    name="number1"
-                                    maxlength="6"
-                                    placeholder="생년월일"
-                                    value={user.number1}
-                                    onChange={handleChange} />
-                                <Form.Control.Feedback type="invalid" >주민등록번호 입력하세요. </Form.Control.Feedback>
-                            </Col>
-                            <strong className='pt-2 d-flex align-items-flex-start'>-</strong>
-                            <Col md="2" xs='3'>
-                                <Form.Control
-                                    className='pr-0'
-                                    required type="text"
-                                    name="number2"
-                                    maxlength="1"
-                                    value={user.number2}
-                                    onChange={handleChange} />
-                            </Col>
-                            <strong className='pt-2 d-flex align-items-flex-start'>* * * * * *</strong>
+                            <Row style={{ width: '300px'}} className='px-3'>
+                                <Col sm="6" xs='5' className='pr-1'>
+                                    <Form.Control
+                                        className='pl-2 pr-0'
+                                        required type="text"
+                                        name="number1"
+                                        maxlength="6"
+                                        placeholder="생년월일"
+                                        value={user.number1}
+                                        onChange={handleChange} />
+                                    <Form.Control.Feedback type="invalid" >주민등록번호 입력하세요. </Form.Control.Feedback>
+                                </Col>
+                                <strong className='pt-2 d-flex align-items-flex-start'>-</strong>
+                                <Col md="2" xs='3' className='px-2'>
+                                    <Form.Control
+                                        className='pl-2 pr-0'
+                                        required type="text"
+                                        name="number2"
+                                        maxlength="1"
+                                        value={user.number2}
+                                        onChange={handleChange} />
+                                </Col>
+                                <strong className='pt-2 d-flex align-items-flex-start'>* * * * * *</strong>
+                            </Row>
                         </Form.Group>
                         <Form.Group as={Row} controlId="formBasicId">
                             <Form.Label column sm="4" for='id'>

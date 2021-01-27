@@ -18,7 +18,7 @@ function Product({ match, location }) {
     let history = useHistory();
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    
+
 
     useEffect(() => {
         if (size && color) {
@@ -144,6 +144,15 @@ function Product({ match, location }) {
         <div>
             <style type="text/css">
                 {`
+                @font-face {
+                    font-family: 'Jal_Onuel';
+                    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Jal_Onuel.woff') format('woff');
+                    font-weight: normal;
+                    font-style: normal;
+                }
+                body{font-family:'Jal_Onuel'}
+
+                
                 .btn {
                     background-color: #CDC5C2;
                     border-color: #CDC5C2;
@@ -153,6 +162,7 @@ function Product({ match, location }) {
                     background-color: #91877F;
                     border-color: #91877F;
                 }
+               
                 `}
             </style>
             <Modal show={show} onHide={handleClose}>
@@ -167,7 +177,7 @@ function Product({ match, location }) {
             </Modal>
             <Row className="justify-content-center mt-5 mx-0">
                 <Col sm={11} md={4}>
-                    <img src={`/images/${product.main_img}`} style={{ objectFit: "contain", width: "100%" }} />
+                    <img src={`/images/${product.main_img}`} style={{ objectFit: "contain", maxWidth: "100%", height: 'auto' }} />
                 </Col>
                 <Col sm={11} md={4} className="align-middle mt-4">
                     <h3 className="mb-4">{product.name}</h3>
@@ -217,23 +227,23 @@ function Product({ match, location }) {
                     <h3 style={{ borderBottom: "1px solid #91877F", paddingBottom: "5px", marginBottom: "1em" }} className="p-3">
                         설명
                         </h3>
-                    <Col className='text-center' style={{ fontSize: '1px' }}>
-                        <div className='p-2 text-center border' style={{ background: '#CDC5C2', width: '50%', margin: 'auto', fontSize: '3.5vmin' }} >
+                    <Col className='text-center'>
+                        <div className='p-2 text-center border' style={{ background: '#CDC5C2', width: '60%', margin: 'auto', fontSize: '3.5vmin' }} >
                             {product.name}
                         </div>
-                        <Image src={`/images/${product.main_img}`} className='d-flex justify-content-center p-4' style={{ objectFit: "contain", maxWidth: "100%", margin: 'auto' }} />
+                        <Image src={`/images/${product.main_img}`} className='d-flex justify-content-center p-4' style={{ objectFit: "contain", maxWidth: "100%", height: 'auto', margin: 'auto' }} />
 
                         <Card style={{ width: '80%', margin: 'auto' }} className='my-4' >
                             <Card.Header className='text-center' style={{ background: '#CDC5C2' }}>
                                 <h5 className='m-0' style={{ whiteSpace: 'nowrap' }}> [ Description ]</h5>
                             </Card.Header>
-                            <Card.Body className='text-center m-2' style={{ whiteSpace: "pre-line", background: '#F7F3F3', fontSize: '1vw' }}>
-                                <small>{product.description}</small>
+                            <Card.Body className='text-center m-2' style={{ whiteSpace: "pre-line", background: '#F7F3F3', fontSize: '1.2vw' }}>
+                                {product.description}
                             </Card.Body>
                         </Card>
                         <Col className='p-5'>
-                            <div className='border p-2' style={{ width: '60%', margin: 'auto', fontSize: '3.5vmin' }}>[ Detail Images ]</div>
-                            <Image src={`/images/${product.detail_imgs}`} style={{ objectFit: "contain", maxWidth: "100%", margin: 'auto' }} className='p-4 d-flex justify-content-center' />
+                            <div className='border p-2' style={{ maxWidth: "100%", height: 'auto', margin: 'auto', fontSize: '3.5vmin' }}>[ Detail Images ]</div>
+                            <Image src={`/images/${product.detail_imgs}`} style={{ objectFit: "contain", maxWidth: "100%", height: 'auto', margin: 'auto' }} className='p-4 d-flex justify-content-center' />
 
                         </Col>
                     </Col>

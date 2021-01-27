@@ -31,55 +31,66 @@ function Home() {
         <Container>
             <style type="text/css">
                 {`
+                @font-face {
+                    font-family: 'Jal_Onuel';
+                    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Jal_Onuel.woff') format('woff');
+                    font-weight: normal;
+                    font-style: normal;
+                }
+                body{font-family:'Jal_Onuel'}
+                
                 a, a:hover, a:active {
                     color: #000;
                     text-decoration: none;
+                }
+                
+                
                 `}
             </style>
-            <div className="my-4">
-                <h2 style={{ marginRight: "5rem", marginLeft: "3rem", marginBottom: "2rem" }}><u>Best</u></h2>
-                <Row className="justify-content-center mx-0">
-                    {productlist.bestProduct.map(pro => (
-                        <Link to={{
-                            pathname: `/product/${pro._id}`,
-                            state: {
-                                id: pro._id,
-                                name: pro.pro_name,
-                                price: pro.price,
-                                colors: pro.colors,
-                                sizes: pro.sizes,
-                                description: pro.description,
-                                main_img: pro.main_imgUrl,
-                                detail_imgs: pro.detail_imgUrls
-                            }
-                        }}>
-                            <ListCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} />
-                        </Link>
-                    ))}
-                </Row>
-            </div>
-            <div className="my-4">
-                <h2 style={{ marginRight: "5rem", marginLeft: "3rem", marginBottom: "2rem", marginTop: "2rem" }}><u>New Arrival</u></h2>
-                <Row className="justify-content-center mx-0">
-                    {productlist.newProduct.map(pro => (
-                        <Link to={{
-                            pathname: `/product/${pro._id}`,
-                            state: {
-                                id: pro._id,
-                                name: pro.pro_name,
-                                price: pro.price,
-                                colors: pro.colors,
-                                sizes: pro.sizes,
-                                description: pro.description,
-                                main_img: pro.main_imgUrl,
-                                detail_imgs: pro.detail_imgUrls
-                            }
-                        }}>
-                            <ListCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} />
-                        </Link>
-                    ))}
-                </Row>
-            </div>
+                <div className="my-4">
+                    <h2 style={{ marginRight: "5rem", marginLeft: "3rem", marginBottom: "2rem" }}><u>Best</u></h2>
+                    <Row className="justify-content-center mx-0">
+                        {productlist.bestProduct.map(pro => (
+                            <Link to={{
+                                pathname: `/product/${pro._id}`,
+                                state: {
+                                    id: pro._id,
+                                    name: pro.pro_name,
+                                    price: pro.price,
+                                    colors: pro.colors,
+                                    sizes: pro.sizes,
+                                    description: pro.description,
+                                    main_img: pro.main_imgUrl,
+                                    detail_imgs: pro.detail_imgUrls
+                                }
+                            }}>
+                                <ListCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} />
+                            </Link>
+                        ))}
+                    </Row>
+                </div>
+                <div className="my-4">
+                    <h2 style={{ marginRight: "5rem", marginLeft: "3rem", marginBottom: "2rem", marginTop: "2rem" }}><u>New Arrival</u></h2>
+                    <Row className="justify-content-center mx-0">
+                        {productlist.newProduct.map(pro => (
+                            <Link to={{
+                                pathname: `/product/${pro._id}`,
+                                state: {
+                                    id: pro._id,
+                                    name: pro.pro_name,
+                                    price: pro.price,
+                                    colors: pro.colors,
+                                    sizes: pro.sizes,
+                                    description: pro.description,
+                                    main_img: pro.main_imgUrl,
+                                    detail_imgs: pro.detail_imgUrls
+                                }
+                            }}>
+                                <ListCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} />
+                            </Link>
+                        ))}
+                    </Row>
+                </div>
         </Container>
     )
 }

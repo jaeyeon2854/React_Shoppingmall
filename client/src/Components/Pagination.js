@@ -7,6 +7,14 @@ function Paginations({ index, totalPages, handlePage }) {
         <Pagination className="d-flex justify-content-center">
             <style type="text/css">
                 {`
+                @font-face {
+                    font-family: 'Jal_Onuel';
+                    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Jal_Onuel.woff') format('woff');
+                    font-weight: normal;
+                    font-style: normal;
+                }
+                body{font-family:'Jal_Onuel'}
+
                 .page-link, .page-link:hover {
                     color: #91877F;
                     margin: 0;
@@ -35,8 +43,8 @@ function Paginations({ index, totalPages, handlePage }) {
 
             {index === totalPages ? "" : <Pagination.Item onClick={()=>handlePage(index + 1)}>{index + 1}</Pagination.Item>}
             {index > totalPages-2 ? "" : <Pagination.Item onClick={()=>handlePage(index + 2)}>{index + 2}</Pagination.Item>}
-            {index < totalPages-3 && index >= 1 ? <Pagination.Item onClick={()=>handlePage(index + 3)}>{index + 3}</Pagination.Item> : ""}
-            {index < totalPages-4 && index >= 1 ? <Pagination.Item onClick={()=>handlePage(index + 4)}>{index + 4}</Pagination.Item> : ""}
+            {index <= totalPages-3 && index < 3 ? <Pagination.Item onClick={()=>handlePage(index + 3)}>{index + 3}</Pagination.Item> : ""}
+            {index < totalPages-4 && index < 2 ? <Pagination.Item onClick={()=>handlePage(index + 4)}>{index + 4}</Pagination.Item> : ""}
             {index === totalPages ? <Pagination.Next onClick={()=>handlePage(index)} /> : <Pagination.Next onClick={()=>handlePage(index + 1)} />}
 
             <Pagination.Last onClick={() =>handlePage(totalPages)} />

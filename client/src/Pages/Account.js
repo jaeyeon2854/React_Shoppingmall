@@ -92,6 +92,13 @@ function Account() {
         <Container className="px-3">
             <style type="text/css">
                 {`
+                @font-face {
+                    font-family: 'Jal_Onuel';
+                    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Jal_Onuel.woff') format('woff');
+                    font-weight: normal;
+                    font-style: normal;
+                }
+                body{font-family:'Jal_Onuel'}
                 a, a:hover, a:active {
                     color: #91877F;
                     text-decoration-color: #91877F;

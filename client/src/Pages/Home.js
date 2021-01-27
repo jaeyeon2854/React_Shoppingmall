@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ListCard from '../Components/ListCard';
 import axios from 'axios';
@@ -32,9 +32,20 @@ function Home() {
         <Container>
             <style type="text/css">
                 {`
+                @font-face {
+                    font-family: 'Jal_Onuel';
+                    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Jal_Onuel.woff') format('woff');
+                    font-weight: normal;
+                    font-style: normal;
+                }
+                body{font-family:'Jal_Onuel'}
+                
                 a, a:hover, a:active {
                     color: #000;
                     text-decoration: none;
+                }
+                
+                
                 `}
             </style>
             <div className="my-4">

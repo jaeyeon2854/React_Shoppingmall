@@ -7,6 +7,14 @@ function Paginations({ index, totalPages, handlePage }) {
         <Pagination className="d-flex justify-content-center">
             <style type="text/css">
                 {`
+                @font-face {
+                    font-family: 'Jal_Onuel';
+                    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Jal_Onuel.woff') format('woff');
+                    font-weight: normal;
+                    font-style: normal;
+                }
+                body{font-family:'Jal_Onuel'}
+
                 .page-link, .page-link:hover {
                     color: #91877F;
                     margin: 0;

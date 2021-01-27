@@ -35,28 +35,6 @@ const showorder = async (req, res) => {
     }
 }
 
-const recommendPro = async (req, res) => {
-    const { productId } = req.body
-    console.log(productId)
-    try {
-        const findedorder = await Order.find({ 'products.productId': productId })
-        console.log('findedouder=', findedorder)
-        const recommend = await         
-        const recommend = await Order.aggregate([
-            // { $project: {}},
-            {$match: {"products":{"productId": productId}}},
-            {$group: {
-                    _id: "$products.productId",
-                    num_tutorial: { $sum: 1 }
-                }
-            }
-        ])
-        console.log('recommend=', recommend)
-    } catch (error) {
-
-    }
-}
-
 const orderById = async (req, res, next, id) => {
     try {
         const user = await User.findById(id)
@@ -71,4 +49,26 @@ const orderById = async (req, res, next, id) => {
     }
 }
 
-export default { addorder, showorder, orderById, Ordered }
+const recommendPro = async (req,res)=>{
+    try {
+        const recommend = await Order.aggregate([
+            { "$unwind": "$products" },
+            // {
+            //     $match:{'products.productId':'600e2fcc8afbb038487cc8fa'}
+            // },
+            {
+                $group:
+                {
+                    _id:'$products.productId',
+                    num_total:{$sum:1}
+                }
+            }
+        ])
+        console.log(recommend)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send('추천 실패')
+    }
+}
+
+export default { addorder, showorder, orderById , Ordered , recommendPro}

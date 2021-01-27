@@ -23,7 +23,16 @@ function Product({ match, location }) {
         if (size && color) {
             pushOptions()
         }
+        recommend()
     }, [size, color])
+
+    async function recommend(){
+        try {
+            const response = await axios.post('/api/order/recommend')
+        } catch (error) {
+            catchErrors(error, setError)
+        }
+    }
 
     function handleClick(e) {
         const box = e.target.parentNode.parentNode

@@ -180,9 +180,9 @@ function Account() {
                     </Col>
                 </Row>
             </Card>
-            <Card>
+            <div className='m-2 mb-5'>
                 <OrderCard ordered={ordered} />
-            </Card>
+            </div> 
         </Container >
     )
 }

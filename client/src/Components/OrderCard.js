@@ -19,25 +19,29 @@ function OrderCard(props) {
                                 <Card.Header className="font-weight-bold mb-3 text-center" style={{ background: '#F7F3F3' }}>
                                     {e.products[0].productId.pro_name}
                                 </Card.Header>)}
-                        <Col>
-                            <Row>
-                                <Card.Text> 주문번호 : <strong>{e._id}</strong>  </Card.Text>
-                            </Row>
-                            <Row>
-                                <Card.Text> 결제금액 : <strong>{e.total}원</strong> </Card.Text>
-                            </Row>
-                            <Row>
-                                <Card.Text> 배송지 : <strong> {e.receiverInfo.address} - {e.receiverInfo.address2}</strong> </Card.Text>
-                            </Row>
-                            <Row>
-                                <Card.Text> 주문날짜 : <strong> {e.createdAt.substring(0, 10)}</strong> </Card.Text>
-                            </Row>
-                        </Col>
+                        <Card.Text>
+                            <Col>
+                                <Row className=''>
+                                    <Col sm={4} xs={4} className='p-1'>주문번호 :</Col>
+                                    <Col sm={8} xs={8} className='p-1'><strong>{e._id}</strong></Col>
+
+                                    <Col sm={4} xs={4} className='p-1'>결제금액 :</Col>
+                                    <Col sm={8} xs={8} className='p-1'><strong>{e.total}원</strong></Col>
+
+                                    <Col sm={4} xs={4} className='p-1'>배송지 :</Col>
+                                    <Col sm={8} xs={8} className='p-1'><strong> {e.receiverInfo.address} / </strong><strong><small> {e.receiverInfo.address2}</small></strong></Col>
+
+                                    <Col sm={4} xs={4} className='p-1'>주문날짜 :</Col>
+                                    <Col sm={8} xs={8} className='p-1'><strong>{e.createdAt.substring(0, 10)}</strong></Col>
+                                </Row>
+                            </Col>
+                        </Card.Text>
                     </Card.Body>
                 )
                 )
             }
         </Card>
+
     )
 }
 

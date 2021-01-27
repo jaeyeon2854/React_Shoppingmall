@@ -18,7 +18,7 @@ function Product({ match, location }) {
     let history = useHistory();
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const replace = product.description.replaceAll('{\n\n}', '<br />')
+    
 
     useEffect(() => {
         if (size && color) {
@@ -228,7 +228,7 @@ function Product({ match, location }) {
                                 <h5 className='m-0' style={{ whiteSpace: 'nowrap' }}> [ Description ]</h5>
                             </Card.Header>
                             <Card.Body className='text-center m-2' style={{ whiteSpace: "pre-line", background: '#F7F3F3', fontSize: '1vw' }}>
-                                <small>{replace}</small>
+                                <small>{product.description}</small>
                             </Card.Body>
                         </Card>
                         <Col className='p-5'>

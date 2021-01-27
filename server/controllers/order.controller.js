@@ -54,4 +54,27 @@ const orderById = async (req, res, next, id) => {
     }
 }
 
-export default { addorder, showorder, orderById , Ordered }
+
+const recommendPro = async (req,res)=>{
+    try {
+        const recommend = await Order.aggregate([
+            { "$unwind": "$products" },
+            // {
+            //     $match:{'products.productId':'600e2fcc8afbb038487cc8fa'}
+            // },
+            {
+                $group:
+                {
+                    _id:'$products.productId',
+                    num_total:{$sum:1}
+                }
+            }
+        ])
+        console.log(recommend)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send('추천 실패')
+    }
+}
+
+export default { addorder, showorder, orderById , Ordered , recommendPro}

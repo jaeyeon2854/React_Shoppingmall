@@ -11,6 +11,9 @@ router.route('/addorder')
 router.route('/showorder/:userId')
     .get(orderCtrl.showorder)
 
+router.route('/recommend')
+    .post(orderCtrl.recommendPro)
+
 router.param('userId', orderCtrl.orderById)
     
 export default router

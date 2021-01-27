@@ -45,7 +45,7 @@ function ProductsRegist() {
     }, [])
 
     useEffect(() => {
-        const isProduct = Object.values(product).every(el => { console.log("el=", el); Boolean(el) })
+        const isProduct = Object.values(product).every(el => { Boolean(el) })
         isProduct ? setDisabled(false) : setDisabled(true)
     }, [product])
 
@@ -140,7 +140,6 @@ function ProductsRegist() {
 
     return (
         <Container>
-            {console.log(product)}
             <Row className="justify-content-md-center">
                 <Col md={8} className="border p-1" style={{ background: '#F7F3F3' }}>
                     {error && <Alert variant="danger" className="text-center">{error}</Alert>}

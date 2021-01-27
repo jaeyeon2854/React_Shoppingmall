@@ -8,6 +8,7 @@ import { Container, Row, Col, Form, FormControl, Button, Dropdown, ButtonGroup, 
 
 function ProductsList({ match }) {
     const [search, setSearch] = useState({ word: '' })
+    const [sortingName, setSortingName] = useState('정렬')
     const [mainCategory, setMainCategory] = useState(match.params.main.toUpperCase())
     const [subCategory, setSubCategory] = useState([])
     const [productlist, setProductlist] = useState([])
@@ -17,8 +18,6 @@ function ProductsList({ match }) {
     const indexOfLast = currentPage * postsPerPage;
     const indexOfFirst = indexOfLast - postsPerPage;
     const searchref = useRef(null)
-
-    const [sortingName, setSortingName] = useState('정렬')
 
     function currentPosts(tmp) {
         let currentPosts = 0;
@@ -81,55 +80,55 @@ function ProductsList({ match }) {
             console.log("thisispurchase")
             productlist.sort(function (a, b) {
                 if (a.purchase > b.purchase) {
-                  return -1;
+                    return -1;
                 }
                 if (a.purchase < b.purchase) {
-                  return 1;
+                    return 1;
                 }
                 // a must be equal to b
                 return 0;
-              });
-              setSortingName("인기상품")
-        } else if(method === "newest"){
+            });
+            setSortingName("인기상품")
+        } else if (method === "newest") {
             console.log("thisisnewest")
             productlist.sort(function (a, b) {
                 if (a.createdAt > b.createdAt) {
-                  return -1;
+                    return -1;
                 }
                 if (a.createdAt < b.createdAt) {
-                  return 1;
+                    return 1;
                 }
                 // a must be equal to b
                 return 0;
-              });
-              setSortingName("신상품")
+            });
+            setSortingName("신상품")
 
-        } else if(method === "lowest"){
+        } else if (method === "lowest") {
             console.log("thisislowest")
             productlist.sort(function (a, b) {
                 if (a.price > b.price) {
-                  return 1;
+                    return 1;
                 }
                 if (a.price < b.price) {
-                  return -1;
+                    return -1;
                 }
                 // a must be equal to b
                 return 0;
-              });
-              setSortingName("낮은가격")
+            });
+            setSortingName("낮은가격")
         } else {
             console.log("thisispurchase")
             productlist.sort(function (a, b) {
                 if (a.price > b.price) {
-                  return -1;
+                    return -1;
                 }
                 if (a.price < b.price) {
-                  return 1;
+                    return 1;
                 }
                 // a must be equal to b
                 return 0;
-              });
-              setSortingName("높은가격")
+            });
+            setSortingName("높은가격")
         }
     }
 
@@ -154,7 +153,6 @@ function ProductsList({ match }) {
 
     return (
         <Container>
-            {console.log(productlist)}
             <style type="text/css">
                 {`
                 a, a:hover, a:active {
@@ -175,25 +173,20 @@ function ProductsList({ match }) {
                 }
                 `}
             </style>
-            <Row className="justify-content-center">
-                <Col sm={10} xs={12} >
-                    <h1 style={{ fontSize: "3rem" }} className="text-center">{mainCategory}</h1>
+            <Row className="justify-content-center" >
+                <Col className='px-3'>
                     <div className="text-center">
-                        <ButtonGroup className="m-3" variant="outline-light secondary" style={{ display: "inline-block" }}>
-                            {subCategory.map(el => (<Button className="m-1" variant="secondary" name={el} onClick={handleSubname}>{el}</Button>))}
+                        <h1 style={{ fontSize: "5.5vmax" }} className="text-center m-1 py-3">{mainCategory}</h1>
+                        <ButtonGroup className="mb-3" style={{ display: "inline" }}>
+                            {subCategory.map(el =>
+                                (<Button className="m-1" style={{ fontSize: "0.8vw" }} name={el} onClick={handleSubname}>{el}</Button>))}
                         </ButtonGroup>
                     </div>
                 </Col>
             </Row>
             <Row className="justify-content-end mx-0 mt-5 mb-3">
-                <Form inline onSubmit={handleSearch} className="justify-content-end mx-0 my-2">
-                    <FormControl ref={searchref} type="text" onChange={handleChange} placeholder="Search" style={{ width: "13rem" }} />
-                    <Button  type="submit" className="px-2 mr-2">
-                        <img src="/icon/search.svg" width="20" height="20" />
-                    </Button>
-                </Form>
-                <Dropdown className="my-2">
-                    <Dropdown.Toggle className="mx-2">{sortingName}</Dropdown.Toggle>
+                <Dropdown>
+                    <Dropdown.Toggle className="mx-2">정렬</Dropdown.Toggle>
                     <Dropdown.Menu>
                         <Dropdown.Item as="button" onClick={() => handleSort('purchase')}>인기상품</Dropdown.Item>
                         <Dropdown.Item as="button" onClick={() => handleSort('newest')}>신상품</Dropdown.Item>
@@ -201,6 +194,12 @@ function ProductsList({ match }) {
                         <Dropdown.Item as="button" onClick={() => handleSort('highest')}>높은가격</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
+                <Form inline onSubmit={handleSearch} className="justify-content-end mx-0 my-2">
+                    <FormControl ref={searchref} type="text" onChange={handleChange} placeholder="Search" style={{ width: "13rem" }} />
+                    <Button type="submit" className="px-2 mr-2">
+                        <img src="/icon/search.svg" width="20" height="20" />
+                    </Button>
+                </Form>
             </Row>
             <Row md={8} sm={12} className="justify-content-center m-2">
                 {productlist.length > 0 ?
@@ -223,8 +222,8 @@ function ProductsList({ match }) {
                         </Link>
                     ))
                     : (
-                        <Image src="/sryimready.jpg"
-                            style={{ objectFit: "cover", width: "45 rem", height: "45 rem" }}></Image>
+                        <Image src="/sryimready.jpg" className='m-5'
+                            style={{ objectFit: "contain", width: "45vw", height: "45vh" }}></Image>
                     )
                 }
             </Row>

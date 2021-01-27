@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Card, Image, Container, Row, Col, Table, Accordion, Button, Form, Modal, Alert } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react';
+import { Card, Image, Container, Row, Col, Button, Form, Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import catchError from '../utils/catchErrors';
@@ -38,18 +38,16 @@ function Account() {
         if (files) {
             setAccount({ ...account, [name]: files })
         } else {
-            console.log("name=", name, "value=", value);
             setAccount({ ...account, [name]: value })
         }
     }
 
-    const handleBasic = async (event) => {
+    const handleBasic = async () => {
         const formData = new FormData()
         formData.append('avatar', '')
         try {
             if (userId) {
                 const response = await axios.put(`/api/users/account/${userId}`, formData)
-                console.log(response.data)
                 window.location.reload()
             }
         } catch (error) {
@@ -67,7 +65,6 @@ function Account() {
             try {
                 if (userId) {
                     const response = await axios.put(`/api/users/account/${userId}`, formData)
-                    console.log(response.data)
                     window.location.reload()
                 }
             } catch (error) {
@@ -78,8 +75,7 @@ function Account() {
         }
     }
 
-    async function getOrdered() {
-        console.log("object")
+    async function getOrdered({ }) {
         try {
             const response = await axios.post(`/api/users/addorder`, {
                 userId: userId
@@ -128,7 +124,6 @@ function Account() {
                                     <Col className="px-0">
                                         <Button variant="outline-secondary" onClick={handleBasic}
                                             className="d-flex justify-content-start"><small>기본이미지로</small></Button>
-                                        {/* 기본이미지로 보내기 */}
                                     </Col>
                                     <Button variant="secondary" onClick={() => setShow(false)}>취소</Button>
                                     <Button variant="primary" type="submit" onClick={() => setShow(false)}>저장</Button>
@@ -144,7 +139,6 @@ function Account() {
                                         {account.name}
                                     </strong>
                                     <Modal
-
                                         size="sm"
                                         show={proshow}
                                         onHide={() => setProshow(false)}>

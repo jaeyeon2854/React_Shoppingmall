@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Card, Image, Container, Row, Col, Table, Accordion, Button, Form, Modal, Alert } from 'react-bootstrap'
+import { Card, Image, Container, Row, Col, Button, Form, Modal } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import catchError from '../utils/catchErrors';
@@ -190,35 +190,7 @@ function Account() {
                     </Col>
                 </Row>
             </Card>
-            <Accordion>
-                <Row className="my-3 px-3">
-                    <Table>
-                        <thead className="text-center" style={{ background: '#F7F3F3' }}>
-                            <tr>
-                                <th scope="col">주문현황</th>
-                                <th scope="col">배송중</th>
-                                <th scope="col">배송완료</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">케이시앵글부츠(SH)</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                            </tr>
-                        </tbody>
-                    </Table>
-                </Row>
-            </Accordion>
+            
         </Container >
     )
 }

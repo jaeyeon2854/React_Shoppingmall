@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import Order from "../schemas/Order.js";
 import User from "../schemas/User.js";
+import Product from "../schemas/Product.js";
 
 const addorder = async (req, res) => {
     const { userId, products, receiverInfo, total } = req.body
@@ -51,26 +52,41 @@ const orderById = async (req, res, next, id) => {
 }
 
 const recommendPro = async (req, res) => {
-    const { productId } = req.body
-    console.log(productId)
+    const productId = req.query.products
     try {
         const recommend = await Order.aggregate([
             {
                 $match: {
-                    'products.productId': { $ne : [ "$productId[0]", mongoose.Types.ObjectId(productId)] }
+                    'products.productId': mongoose.Types.ObjectId(productId)
                 }
             },
             { "$unwind": "$products" },
             {
                 $group: {
-                    productId: "$products.productId",
-                    total: { $sum: 1 }
+                    _id: "$products.productId",
+                    count: { $sum: 1 }
                 }
             }
         ])
-        const sorting = recommend.filter({})
         console.log('recommend=', recommend)
-        res.send('dddkfdskfsa fsk')
+        const filteredRecommend = recommend.filter((el) => String(el._id) !== String(productId))
+        console.log('filtering=', filteredRecommend)
+        filteredRecommend.sort(function (a, b) {
+            if (a.count > b.count) {
+                return -1;
+            }
+            if (a.count < b.count) {
+                return 1;
+            }
+            // a must be equal to b
+            return 0;
+        });
+        const array = filteredRecommend.map(async (el) => {
+            const aa = await Product.findById(el._id)
+            return aa
+        })
+        const bb  = await Promise.all(array)
+        res.json(bb)
     } catch (error) {
         console.log('error in order ', error)
     }

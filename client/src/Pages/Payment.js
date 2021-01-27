@@ -302,17 +302,17 @@ function Payment({ match, location }) {
                 <div className="my-1 pt-2 border-top font-weight-bold">
                     결제금액<span className="float-right">{finalPrice + 2500}원</span>
                 </div>
-                <div>
-                    <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>결제수단</h5>
-                    <div className="text-center m-3">
-                        <Button className="align-top m-1" variant="success" onClick={handleClick} style={{ height: '42px' }}>무통장입금</Button>
-                        <Button className="align-top m-1 p-0" style={{ borderColor: "#ffeb00" }} type="button" onClick={kakaopay} alt="카카오페이"><img src="icon/payment_icon_yellow_small2.png" /></Button>
-                    </div>
-                    {paymentWay}
+            </div>
+            <div>
+                <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>결제수단</h5>
+                <div className="text-center m-3">
+                    <Button className="align-top m-1" variant="success" onClick={handleClick} style={{ height: '42px' }}>무통장입금</Button>
+                    <Button className="align-top m-1 p-0" style={{ borderColor: "#ffeb00" }} type="button" onClick={kakaopay} alt="카카오페이"><img src="icon/payment_icon_yellow_small2.png" /></Button>
                 </div>
-                <div className="text-center">
-                    <Button type="button" onClick={paymentCompleted} className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} block>결제완료</Button>
-                </div>
+                {paymentWay}
+            </div>
+            <div className="text-center">
+                <Button type="button" onClick={paymentCompleted} className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} block>결제완료</Button>
             </div>
         </Container>
     )

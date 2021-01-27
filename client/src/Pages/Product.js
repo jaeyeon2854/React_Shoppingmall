@@ -29,16 +29,15 @@ function Product({ match, location }) {
         if (size && color) {
             pushOptions()
         }
+        getRecommend()
     }, [size, color])
 
-    async function recommend(){
+    async function getRecommend(){
         try {
-            console.log("pro=",product.id)
-            const response = await axios.post('/api/order/recommend', { productId: product.id})
-            console.log("recommend res=",response.data)
+            const response = await axios.get(`/api/order/recommend?products=${product.id}`)
             setProductList(response.data)
         } catch (error) {
-            catchErrors(error, setError)
+            catchErrors(error,setError)
         }
     }
 
@@ -155,6 +154,7 @@ function Product({ match, location }) {
 
     return (
         <div>
+            {console.log(product)}
             <style type="text/css">
                 {`
                 .btn {

@@ -6,6 +6,9 @@ const router = express.Router()
 router.route('/addorder')
     .post(orderCtrl.addorder)
 
+router.route('/recommend')
+    .get(orderCtrl.recommendPro)
+
 router.route('/showorder/:userId')
     .get(orderCtrl.showorder)
 

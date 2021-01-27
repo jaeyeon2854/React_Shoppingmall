@@ -20,6 +20,7 @@ const changeCart = async (req, res) => {
     console.log(products)
     try {
         const cart = await Cart.findOne({ userId: userId })
+        console.log(cart)
         await Cart.updateOne(
             { _id: cart._id },
             { $set: { products: products } }
@@ -38,7 +39,7 @@ const showCart = async (req, res) => {
             model: 'Product'
         })
         res.status(200).json(cart.products)
-        console.log("cart-products : ", cart.products);
+        console.log("cart-products : ", cart);
     } catch (error) {
         console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
         console.log(error)

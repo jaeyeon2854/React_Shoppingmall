@@ -5,7 +5,7 @@ const upload = multer({ dest: 'uploads/' })
 
 const imageUpload = upload.fields([
     { name: 'main_image' },
-    { name: 'detail_image' }
+    { name: 'detail_image'}
 ])
 
 const regist = async (req, res) => {

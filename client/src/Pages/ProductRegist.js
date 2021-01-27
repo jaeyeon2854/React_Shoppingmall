@@ -109,9 +109,9 @@ function ProductsRegist() {
         console.log(product)
         const formData = new FormData();
         for (let key in product) {
-            if (key === "main_image" || key === "detail_image") {
+            if (key === "main_image") {
                 formData.append(key, product[key][0])
-            } else if (key === "sizes" || key === "colors" || key === "sub_category") {
+            } else if (key === "sizes" || key === "colors" || key === "sub_category" || key === "detail_image") {
                 for (let i = 0; i < product[key].length; i++) {
                     formData.append([key], product[key][i])
                 }
@@ -244,7 +244,7 @@ function ProductsRegist() {
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>상세이미지</Form.Label>
-                            <Form.File id="productImageform" name="detail_image" onChange={handleChange} />
+                            <Form.File id="productImageform" name="detail_image" onChange={handleChange} multiple />
                         </Form.Group>
                         <Button type="submit" style={{ background: '#91877F', borderColor: '#91877F' }} block>
                             {loading && <Spinner as='span' animation='border' size='sm' role='status' aria-hidden='true' />}{' '}등록

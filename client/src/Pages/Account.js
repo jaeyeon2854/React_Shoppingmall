@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import catchError from '../utils/catchErrors';
 import { isAuthenticated } from '../utils/auth';
+import OrderCard from '../Components/OrderCard';
 
 const INIT_ACCOUNT = {
     name: "",
@@ -16,8 +17,7 @@ function Account() {
     const [proshow, setProshow] = useState(false)
     const [error, setError] = useState("")
     const userId = isAuthenticated()
-    const [ordered, setOrdered] = useState('')
-    
+    const [ordered, setOrdered] = useState([])
 
     async function getUsername(user) {
         try {
@@ -30,7 +30,7 @@ function Account() {
 
     useEffect(() => {
         getUsername(userId)
-        getOrdered(userId)
+        getOrdered()
     }, [userId])
 
     const handleChange = (event) => {
@@ -78,17 +78,21 @@ function Account() {
         }
     }
 
-    async function getOrdered({}) {
+    async function getOrdered() {
         console.log("object")
         try {
-            const response = await axios.get(`/api/users/addorder`)
-            setOrdered(response.data)
+            const response = await axios.post(`/api/users/addorder`, {
+                userId: userId
+            })
+            const a = response.data
+            setOrdered(a)
+            console.log("what=", response.data)
         } catch (error) {
             catchError(error, setError)
         }
     }
 
-    
+
     return (
         <Container className="px-3">
             <style type="text/css">
@@ -178,40 +182,13 @@ function Account() {
                             <a href="mailto:shoppingmall_KU@korea.ac.kr">
                                 <small title="메일보내기"> * 문의 : shoppingmall_KU@korea.ac.kr </small>
                             </a>
-                            {/* 쇼핑몰 문의 메일보내기 */}
                         </Row>
                     </Col>
                 </Row>
             </Card>
-            <Accordion>
-                <Row className="my-3 px-3">
-                    <Table>
-                        <thead className="text-center" style={{ background: '#F7F3F3' }}>
-                            <tr>
-                                <th scope="col">주문현황</th>
-                                <th scope="col">배송중</th>
-                                <th scope="col">배송완료</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">케이시앵글부츠(SH)</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                            </tr>
-                        </tbody>
-                    </Table>
-                </Row>
-            </Accordion>
+            <Card>
+                <OrderCard ordered={ordered} />
+            </Card>
         </Container >
     )
 }

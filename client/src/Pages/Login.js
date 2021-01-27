@@ -10,7 +10,6 @@ const INIT_USER = {
     id: '',
     password: ''
 }
-
 function Login() {
 
     const [validated, setValidated] = useState(false);
@@ -33,7 +32,7 @@ function Login() {
         setValidated(true);
         try {
             setError('')
-            const response=await axios.post('/api/auth/login', user)
+            const response = await axios.post('/api/auth/login', user)
             handleLogin(response.data)
             setSuccess(true)
         } catch (error) {
@@ -43,7 +42,7 @@ function Login() {
 
     if (success) {
         alert('로그인 되었습니다.')
-        window.location.href='/'
+        window.location.href = '/'
     }
 
     return (

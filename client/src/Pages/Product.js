@@ -1,8 +1,8 @@
-import axios from 'axios';
 import React, { useState, useEffect, useRef } from 'react';
-import { Row, Col, Form, Card, Button, Modal, Image } from 'react-bootstrap';
 import { Redirect, useHistory } from 'react-router-dom';
+import axios from 'axios';
 import catchErrors from '../utils/catchErrors';
+import { Row, Col, Form, Card, Button, Modal, Image } from 'react-bootstrap';
 
 
 function Product({ match, location }) {

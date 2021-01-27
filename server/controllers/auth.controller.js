@@ -5,7 +5,6 @@ import config from '../config.js'
 
 const login = async (req, res) => {
     const { id, password } = req.body
-    console.log(id, password)
     try {
         const user = await User.findOne({ id }).select('password role name tel email')
         console.log('u=', user)
@@ -13,7 +12,6 @@ const login = async (req, res) => {
             return res.status(404).send(`${id}가 존재하지 않습니다.`)
         }
         const passwordMatch = await bcrypt.compare(password, user.password)
-
         if (passwordMatch) {
             const token = jwt.sign({ userId: user._id }, config.jwtSecret, {
                 expiresIn: '3d'
@@ -38,5 +36,6 @@ const logout = (req, res) => {
     res.clearCookie('token')
     res.send('로그아웃 되었습니다.')
 }
+
 
 export default { login, logout }

@@ -136,7 +136,6 @@ function ProductsList({ match }) {
     async function handleSubname(e) {
         const subname = e.target.name
         try {
-            console.log("first test!!!!!!!!")
             const response = await axios.get(`/api/product/getproduct/sub?subname=${subname}`)
             console.log("subname response data=", response.data)
             setProductlist(response.data)

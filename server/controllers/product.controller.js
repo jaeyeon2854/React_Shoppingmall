@@ -9,7 +9,6 @@ const imageUpload = upload.fields([
 ])
 
 const regist = async (req, res) => {
-    console.log("req.body=", req.body)
     try {
         const { pro_name, price, stock, main_category, sub_category, description, colors, sizes } = req.body
         const main_img = req.files['main_image'][0]
@@ -24,7 +23,6 @@ const regist = async (req, res) => {
         }).save()
         res.json(newProduct)
     } catch (error) {
-        console.log(error)
         res.status(500).send('제품 정보 등록에 실패하였습니다. 다시 진행해 주십시오.')
     }
 }
@@ -33,8 +31,6 @@ const getToHome = async (req, res) => {
     try {
         const bestProduct = await Product.find({}).sort({ purchase: -1 }).limit(6)
         const newProduct = await Product.find({}).sort({ createdAt: -1 }).limit(6)
-        // console.log("best=", bestProduct)
-        // console.log("new=", newProduct)
         res.json({ bestProduct, newProduct })
     } catch {
         res.status(500).send('상품을 불러오지 못했습니다.')
@@ -69,7 +65,6 @@ const getlist = (req, res) => {
 
 
 const categoryId = async (req, res, next, category) => {
-    console.log("req=", req.query.product)
     try {
         if (req.query.product) {
             const productslist = await Product.find({ main_category: category, pro_name: { $regex: new RegExp(req.query.product) } })
@@ -89,13 +84,11 @@ const categoryId = async (req, res, next, category) => {
 }
 
 const subname = async (req, res) => {
-    console.log("req.query", req.query)
     try {
         const findSubname = await Product.find({ sub_category: req.query.subname })
-        console.log("findSubname111=", findSubname)
         res.send(findSubname)
     } catch (error) {
-        res.send('상품을 불러오지 못했습니다.')
+        res.status(500).send('상품을 불러오지 못했습니다.')
     }
 }
 
@@ -111,11 +104,12 @@ const plusPurchase = async (req, res) => {
             const stock = product.stock
             await Product.updateOne(
                 { _id: products[i].productId._id },
-                { $set: 
-                    { 
-                        purchase: count + purchase, 
-                        stock: stock - count 
-                    } 
+                {
+                    $set:
+                    {
+                        purchase: count + purchase,
+                        stock: stock - count
+                    }
                 }
             )
         }
@@ -125,4 +119,17 @@ const plusPurchase = async (req, res) => {
     }
 }
 
-export default { imageUpload, regist, getToHome, getAll, categoryId, getlist, subname, plusPurchase }
+const deletePro = async (req, res) => {
+    const pro_id = req.query.pro_id
+    try {
+        const productOne = await Product.findById(pro_id)
+        if (productOne) {
+            await Product.remove({ _id: pro_id })
+        }
+        res.send('삭제 성공')
+    } catch (error) {
+        res.status(500).send('삭제할 상품을 찾지 못하거나 삭제 중 문제가 발생했습니다.')
+    }
+}
+
+export default { imageUpload, regist, getToHome, getAll, categoryId, getlist, subname, plusPurchase, deletePro }

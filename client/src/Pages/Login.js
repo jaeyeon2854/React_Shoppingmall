@@ -11,7 +11,6 @@ const INIT_USER = {
     password: ''
 }
 function Login() {
-
     const [validated, setValidated] = useState(false);
     const [user, setUser] = useState(INIT_USER)
     const [error, setError] = useState('')
@@ -71,7 +70,6 @@ function Login() {
                                 <Form.Control.Feedback className="text-center" type="invalid"> 아이디를 입력하세요.</Form.Control.Feedback>
                             </Form.Row>
                         </Form.Group>
-
                         <Form.Group controlId="formBasicPassword">
                             <Form.Row>
                                 <Col sm={4} xs={6} as={Form.Label} for="password">비밀번호</Col>

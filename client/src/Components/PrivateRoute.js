@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { isAuthenticated } from '../utils/auth';
 
-function PrivateRoute({path, children}) {
+function PrivateRoute({ path, children }) {
   if (isAuthenticated()) {
     return (
       <Route path={path}>

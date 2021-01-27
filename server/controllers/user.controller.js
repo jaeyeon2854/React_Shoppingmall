@@ -3,6 +3,7 @@ import User from "../schemas/User.js";
 import isLength from 'validator/lib/isLength.js';
 import bcrypt from 'bcryptjs';
 import multer from "multer";
+import Order from "../schemas/Order.js";
 
 const uploadimg = multer({ dest: 'uploads/' });
 
@@ -85,4 +86,20 @@ const update = async (req, res) => {
     }
 }
 
-export default { signup, username, imgUpload, userById, update }
+const addorder = async (req, res) => {
+    const {userId}=req.body
+    try {
+        const order = await Order.find({ userId: userId }).populate({
+            path: 'products.productId',
+            model: 'Product'
+        })
+        console.log("hey", order)
+        res.status(200).json(order)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send('주문현황을 불러오지 못했습니다.')
+    }
+}
+
+
+export default { signup, username, imgUpload, userById,update, addorder }

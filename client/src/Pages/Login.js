@@ -10,9 +10,7 @@ const INIT_USER = {
     id: '',
     password: ''
 }
-
 function Login() {
-
     const [validated, setValidated] = useState(false);
     const [user, setUser] = useState(INIT_USER)
     const [error, setError] = useState('')
@@ -33,7 +31,7 @@ function Login() {
         setValidated(true);
         try {
             setError('')
-            const response=await axios.post('/api/auth/login', user)
+            const response = await axios.post('/api/auth/login', user)
             handleLogin(response.data)
             setSuccess(true)
         } catch (error) {
@@ -43,7 +41,7 @@ function Login() {
 
     if (success) {
         alert('로그인 되었습니다.')
-        window.location.href='/'
+        window.location.href = '/'
     }
 
     return (
@@ -72,7 +70,6 @@ function Login() {
                                 <Form.Control.Feedback className="text-center" type="invalid"> 아이디를 입력하세요.</Form.Control.Feedback>
                             </Form.Row>
                         </Form.Group>
-
                         <Form.Group controlId="formBasicPassword">
                             <Form.Row>
                                 <Col sm={4} xs={6} as={Form.Label} for="password">비밀번호</Col>

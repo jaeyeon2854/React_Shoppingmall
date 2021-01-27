@@ -1,8 +1,8 @@
-import axios from 'axios';
 import React, { useState, useEffect, useRef } from 'react';
-import { Row, Col, Form, Card, Button, Image } from 'react-bootstrap';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
+import axios from 'axios';
 import catchErrors from '../utils/catchErrors';
+import { Row, Col, Form, Card, Button, Modal, Image } from 'react-bootstrap';
 
 
 function Product({ match, location }) {
@@ -14,14 +14,16 @@ function Product({ match, location }) {
     const [selected, setSelected] = useState({ sizes: false, colors: false })
     const [count, setCount] = useState(1)
     const [price, setPrice] = useState(0)
-
+    const [show, setShow] = useState(false);
+    let history = useHistory();
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     const replace = product.description.replaceAll('{\n\n}', '<br />')
-    console.log("replaceALL Description= ", replace)
 
     useEffect(() => {
         if (size && color) {
             pushOptions()
-            console.log(cart)
+            // console.log(cart)
         }
     }, [size, color])
 
@@ -31,13 +33,29 @@ function Product({ match, location }) {
     }
 
     function pushOptions() {
-        setCart([...cart, { color, size, productId: product.id, count: 1 }])
-        selected.sizes = false
-        selected.colors = false
-        console.log(product)
-        setColor("")
-        setSize("")
-        setPrice(product.price + price)
+        // console.log(cart)
+        const a = cart.map(el => {
+            const rObj = {}
+            rObj["color"] = el.color;
+            rObj["size"] = el.size;
+            return rObj
+        })
+        const isDuplicated = a.some(el => el.color === color && el.size === size)
+        if (isDuplicated) {
+            selected.sizes = false
+            selected.colors = false
+            setColor("")
+            setSize("")
+            alert("이미 선택한 옵션입니다.")
+        } else {
+            selected.sizes = false
+            selected.colors = false
+            setCart([...cart, { color, size, productId: product.id, count: 1, checked: false }])
+            setColor("")
+            setSize("")
+            setPrice(product.price + price)
+        }
+
     }
 
     function handleChange(e) {
@@ -79,20 +97,42 @@ function Product({ match, location }) {
         setCount(e.value)
     }
 
-    async function addCart() {
+    async function addCart(event) {
         console.log(cart)
-        if (localStorage.getItem('id')) {
-            // preCart(color, size, count), productId(productlist에서 props), userId(로컬) 를 보내줌
-            try {
-                setError('')
-                const response = await axios.put('/api/cart/addcart', {
-                    userId: localStorage.getItem('id'),
-                    products: cart
-                })
-                console.log(response)
-            } catch (error) {
-                catchErrors(error, setError)
+        if (cart.length < 1) {
+            alert("옵션을 선택해주세요")
+        }
+        else if (localStorage.getItem('id')) {
+            if (event.target.name === "shoppingcart") {
+                // preCart(color, size, count), productId(productlist에서 props), userId(로컬) 를 보내줌
+                try {
+                    setError('')
+                    const response = await axios.put('/api/cart/addcart', {
+                        userId: localStorage.getItem('id'),
+                        products: cart
+                    })
+                    console.log(response.data)
+                    setShow(true)
+                } catch (error) {
+                    catchErrors(error, setError)
+                }
+            } else {
+                try {
+                    setError('')
+                    cart.map((el) => {
+                        el.checked = true
+                    })
+                    const response = await axios.put('/api/cart/addcart', {
+                        userId: localStorage.getItem('id'),
+                        products: cart
+                    })
+                    console.log(response.data)
+                    history.push("/payment")
+                } catch (error) {
+                    catchErrors(error, setError)
+                }
             }
+
         } else {
             alert("로그인을 해주세요.")
             return <Redirect to='/login' />
@@ -102,7 +142,6 @@ function Product({ match, location }) {
 
     return (
         <div>
-            {console.log(cart)}
             <style type="text/css">
                 {`
                 .btn {
@@ -116,6 +155,16 @@ function Product({ match, location }) {
                 }
                 `}
             </style>
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>장바구니에 상품담기</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>정상적으로 장바구니에 상품을 담았습니다.</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>쇼핑계속하기</Button>
+                    <Button variant="primary" href='/shoppingcart'>장바구니로 이동</Button>
+                </Modal.Footer>
+            </Modal>
             <Row className="justify-content-center mt-5 mx-0">
                 <Col sm={11} md={4}>
                     <img src={`/images/${product.main_img}`} style={{ objectFit: "contain", width: "100%" }} />
@@ -157,8 +206,8 @@ function Product({ match, location }) {
                             <Col className="text-right">{price}원</Col>
                         </Row>
                         <Row className="justify-content-between mx-0 my-3" style={{ width: "100%" }}>
-                            <Button type='button' onClick={addCart} style={{ width: "49%" }}>장바구니</Button>
-                            <Button style={{ width: "49%" }}>구매하기</Button>
+                            <Button type='button' name="shoppingcart" onClick={addCart} style={{ width: "49%" }}>장바구니</Button>
+                            <Button type='button' name="payment" onClick={addCart} style={{ width: "49%" }}>구매하기</Button>
                         </Row>
                     </Form>
                 </Col>

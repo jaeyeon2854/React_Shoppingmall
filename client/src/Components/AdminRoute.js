@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { isAdmin } from '../utils/auth';
 
-function PrivateRoute({path, children}) {
+function PrivateRoute({ path, children }) {
   if (isAdmin()) {
     return (
       <Route path={path}>
@@ -10,7 +10,7 @@ function PrivateRoute({path, children}) {
       </Route>
     )
   } else {
-    alert('궈한이 없습니다. 죄송합니다.');
+    alert('권한이 없습니다. 죄송합니다.');
     return (
       <Redirect to='/' />
     )

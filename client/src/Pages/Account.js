@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { Card, Image, Container, Row, Col, Button, Form, Modal } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react';
+import { Card, Image, Container, Row, Col, Button, Form, Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import catchError from '../utils/catchErrors';
 import { isAuthenticated } from '../utils/auth';
+import OrderCard from '../Components/OrderCard';
 
 const INIT_ACCOUNT = {
     name: "",
@@ -16,46 +17,37 @@ function Account() {
     const [proshow, setProshow] = useState(false)
     const [error, setError] = useState("")
     const userId = isAuthenticated()
-    const [ordered, setOrdered] = useState('')
-    
+    const [ordered, setOrdered] = useState([])
 
     async function getUsername(user) {
-        // console.log("tlg")
         try {
             const response = await axios.get(`/api/users/account/${user}`)
             setAccount(response.data)
-            console.log('555555555', response.data);
         } catch (error) {
             catchError(error, setError)
-            // console.log('error2222', error)
         }
     }
 
     useEffect(() => {
         getUsername(userId)
-        getOrdered(userId)
+        getOrdered()
     }, [userId])
 
     const handleChange = (event) => {
         const { name, value, files } = event.target
         if (files) {
-            for (const file of files) {
-                // console.log("name=", name, "value=", value, 'file=', file);
-            }
             setAccount({ ...account, [name]: files })
         } else {
-            console.log("name=", name, "value=", value);
             setAccount({ ...account, [name]: value })
         }
     }
 
-    const handleBasic = async (event) => {
+    const handleBasic = async () => {
         const formData = new FormData()
         formData.append('avatar', '')
         try {
             if (userId) {
                 const response = await axios.put(`/api/users/account/${userId}`, formData)
-                console.log(response.data)
                 window.location.reload()
             }
         } catch (error) {
@@ -73,7 +65,6 @@ function Account() {
             try {
                 if (userId) {
                     const response = await axios.put(`/api/users/account/${userId}`, formData)
-                    console.log(response.data)
                     window.location.reload()
                 }
             } catch (error) {
@@ -84,18 +75,20 @@ function Account() {
         }
     }
 
-    async function getOrdered({}) {
-        console.log("object")
+    async function getOrdered({ }) {
         try {
-            const response = await axios.get(`/api/users/addorder`)
-            setOrdered(response.data)
-            console.log('@@@@', response.data);
+            const response = await axios.post(`/api/users/addorder`, {
+                userId: userId
+            })
+            const a = response.data
+            setOrdered(a)
+            console.log("what=", response.data)
         } catch (error) {
             catchError(error, setError)
         }
     }
 
-    
+
     return (
         <Container className="px-3">
             <style type="text/css">
@@ -131,7 +124,6 @@ function Account() {
                                     <Col className="px-0">
                                         <Button variant="outline-secondary" onClick={handleBasic}
                                             className="d-flex justify-content-start"><small>기본이미지로</small></Button>
-                                        {/* 기본이미지로 보내기 */}
                                     </Col>
                                     <Button variant="secondary" onClick={() => setShow(false)}>취소</Button>
                                     <Button variant="primary" type="submit" onClick={() => setShow(false)}>저장</Button>
@@ -147,7 +139,6 @@ function Account() {
                                         {account.name}
                                     </strong>
                                     <Modal
-
                                         size="sm"
                                         show={proshow}
                                         onHide={() => setProshow(false)}>
@@ -185,12 +176,13 @@ function Account() {
                             <a href="mailto:shoppingmall_KU@korea.ac.kr">
                                 <small title="메일보내기"> * 문의 : shoppingmall_KU@korea.ac.kr </small>
                             </a>
-                            {/* 쇼핑몰 문의 메일보내기 */}
                         </Row>
                     </Col>
                 </Row>
             </Card>
-            
+            <Card>
+                <OrderCard ordered={ordered} />
+            </Card>
         </Container >
     )
 }

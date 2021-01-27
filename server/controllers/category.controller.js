@@ -3,7 +3,6 @@ import Category from "../schemas/Category.js";
 const getCategory = async (req, res) => {
     try {
         const category = await Category.find({}, { _id: 0 })
-        // console.log("main= ", category);
         res.json(category)
     } catch (error) {
         console.log(error)

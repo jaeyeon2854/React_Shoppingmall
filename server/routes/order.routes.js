@@ -8,6 +8,9 @@ router.route('/addorder')
     .post(orderCtrl.addorder)
 // .get()
 
+router.route('/recommend')
+    .get(orderCtrl.recommendPro)
+
 router.route('/showorder/:userId')
     .get(orderCtrl.showorder)
 

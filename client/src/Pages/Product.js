@@ -25,7 +25,20 @@ function Product({ match, location }) {
             pushOptions()
             // console.log(cart)
         }
+        getRecommend()
     }, [size, color])
+
+    async function getRecommend(){
+        try {
+            const response = await axios.get(`/api/order/recommend?products=${product.id}`)
+            // const response = await axios.post(`/api/order/recommend`,{
+            //     productId: product.id
+            // })
+            console.log(response.data)
+        } catch (error) {
+            catchErrors(error,setError)
+        }
+    }
 
     function handleClick(e) {
         const box = e.target.parentNode.parentNode
@@ -142,6 +155,7 @@ function Product({ match, location }) {
 
     return (
         <div>
+            {console.log(product)}
             <style type="text/css">
                 {`
                 .btn {

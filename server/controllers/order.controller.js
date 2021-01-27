@@ -1,5 +1,7 @@
 import Order from "../schemas/Order.js";
 import User from "../schemas/User.js";
+import mongoose from 'mongoose'
+import Product from "../schemas/Product.js";
 
 const addorder = async (req, res) => {
     const { userId, products, receiverInfo, total } = req.body
@@ -17,8 +19,8 @@ const addorder = async (req, res) => {
 const Ordered = async (req, res) => {
     const { db } = req.body
     try {
-        const ordered = await req.body.findOne({}, { _id: 0}).select(`${db}`)
-        console.log("sub= ",ordered);
+        const ordered = await req.body.findOne({}, { _id: 0 }).select(`${db}`)
+        console.log("sub= ", ordered);
         res.json(ordered);
     } catch (error) {
         res.status(500).send('카테고리를 불러오지 못했습니다.')
@@ -27,7 +29,7 @@ const Ordered = async (req, res) => {
 
 const showorder = async (req, res) => {
     try {
-        const order = await Order.find({ userId: req.userId }).sort({_id:-1}).limit(1).populate({
+        const order = await Order.find({ userId: req.userId }).sort({ _id: -1 }).limit(1).populate({
             path: 'products.productId',
             model: 'Product'
         })
@@ -54,4 +56,46 @@ const orderById = async (req, res, next, id) => {
     }
 }
 
-export default { addorder, showorder, orderById , Ordered }
+const recommendPro = async (req, res) => {
+    const productId = req.query.products
+    try {
+        const recommend = await Order.aggregate([
+            {
+                $match: {
+                    'products.productId': mongoose.Types.ObjectId(productId)
+                }
+            },
+            { "$unwind": "$products" },
+            {
+                $group: {
+                    _id: "$products.productId",
+                    count: { $sum: 1 }
+                }
+            }
+        ])
+        console.log('recommend=', recommend)
+        const filteredRecommend = recommend.filter((el) => String(el._id) !== String(productId))
+        console.log('filtering=', filteredRecommend)
+        filteredRecommend.sort(function (a, b) {
+            if (a.count > b.count) {
+                return -1;
+            }
+            if (a.count < b.count) {
+                return 1;
+            }
+            // a must be equal to b
+            return 0;
+        });
+        const array = filteredRecommend.map(async (el) => {
+            const aa = await Product.findById(el._id)
+            return aa
+        })
+        const bb  = await Promise.all(array)
+        res.json(bb)
+    } catch (error) {
+        console.log('error in order ', error)
+    }
+}
+
+
+export default { addorder, showorder, orderById, Ordered, recommendPro }

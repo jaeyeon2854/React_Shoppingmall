@@ -303,6 +303,7 @@ function Payment({ match, location }) {
                 <div className="my-1 pt-2 border-top font-weight-bold">
                     결제금액<span className="float-right">{finalPrice + 2500}원</span>
                 </div>
+            </div>
                 <div>
                     <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>결제수단</h5>
                     <div className="text-center m-3">
@@ -314,11 +315,6 @@ function Payment({ match, location }) {
                 <div className="text-center">
                     <Button type="button" onClick={paymentCompleted} className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} block>결제완료</Button>
                 </div>
-                {paymentWay}
-            </div>
-            <div className="text-center">
-                <Button className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} onClick={paymentCompleted} block>결제완료</Button>
-            </div>
         </Container>
     )
 }

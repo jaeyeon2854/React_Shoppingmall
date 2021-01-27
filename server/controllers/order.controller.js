@@ -81,7 +81,9 @@ const recommendPro = async (req, res) => {
             // a must be equal to b
             return 0;
         });
-        const array = filteredRecommend.map(async (el) => {
+        console.log('sort=',filteredRecommend)
+        const finalrecommend= filteredRecommend.slice(0, 4)
+        const array = finalrecommend.map(async (el) => {
             const aa = await Product.findById(el._id)
             return aa
         })

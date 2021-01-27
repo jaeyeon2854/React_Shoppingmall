@@ -35,8 +35,8 @@ function Paginations({ index, totalPages, handlePage }) {
 
             {index === totalPages ? "" : <Pagination.Item onClick={()=>handlePage(index + 1)}>{index + 1}</Pagination.Item>}
             {index > totalPages-2 ? "" : <Pagination.Item onClick={()=>handlePage(index + 2)}>{index + 2}</Pagination.Item>}
-            {index <= totalPages-3 && index >= 1 ? <Pagination.Item onClick={()=>handlePage(index + 3)}>{index + 3}</Pagination.Item> : ""}
-            {index <= totalPages-4 && index >= 1 ? <Pagination.Item onClick={()=>handlePage(index + 4)}>{index + 4}</Pagination.Item> : ""}
+            {index <= totalPages-3 && index < 3 ? <Pagination.Item onClick={()=>handlePage(index + 3)}>{index + 3}</Pagination.Item> : ""}
+            {index <= totalPages-4 && index < 2 ? <Pagination.Item onClick={()=>handlePage(index + 4)}>{index + 4}</Pagination.Item> : ""}
             {index === totalPages ? <Pagination.Next disabled /> : <Pagination.Next onClick={()=>handlePage(index + 1)} />}
 
             <Pagination.Last onClick={() =>handlePage(totalPages)} />

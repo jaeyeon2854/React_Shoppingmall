@@ -22,14 +22,17 @@ function Product({ match, location }) {
     const handleShow = () => setShow(true);
 
     useEffect(() => {
-        recommend()
-    }, [])
+        getRecommend()
+    }, [product])
+
+    useEffect(() => {
+        setProduct(location.state)
+    }, [location.state])
 
     useEffect(() => {
         if (size && color) {
             pushOptions()
         }
-        getRecommend()
     }, [size, color])
 
     async function getRecommend(){
@@ -138,7 +141,6 @@ function Product({ match, location }) {
                         userId: localStorage.getItem('id'),
                         products: cart
                     })
-                    console.log(response.data)
                     history.push("/payment")
                 } catch (error) {
                     catchErrors(error, setError)
@@ -151,12 +153,14 @@ function Product({ match, location }) {
         }
     }
 
-
     return (
         <div>
-            {console.log(product)}
             <style type="text/css">
                 {`
+                a, a:hover, a:active {
+                    color: #000;
+                    text-decoration: none;
+                }
                 .btn {
                     background-color: #CDC5C2;
                     border-color: #CDC5C2;
@@ -264,7 +268,7 @@ function Product({ match, location }) {
                     <h6 style={{ borderBottom: "1px solid", paddingBottom: "5px", marginBottom: "1em" }}>회원님이 선호할만한 상품 추천
                         <a className="close float-right" onClick={(e) => handleClick(e)} style={{ fontSize: "1rem", cursor: "pointer" }}>X</a>
                     </h6>
-                    <Row className="justify-content-evenly mx-0" style={{ flexWrap: "nowrap", width: "100%", overflowX: "auto" }}>
+                    <Row className="justify-content-center mx-0" style={{ flexWrap: "nowrap", width: "100%", overflowX: "auto" }}>
                         {productList.map(pro => (
                             <Link to={{
                                 pathname: `/product/${pro._id}`,
@@ -282,13 +286,6 @@ function Product({ match, location }) {
                                 <ListCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} status={'recommend'} />
                             </Link>
                         ))}
-                        {/* <Col as={Card} style={{ minWidth: "8rem" }}>
-                            <Card.Img variant="top" src="https://img.sonyunara.com/files/goods/67504/1607328307_0.jpg" style={{ objectFit: "contain" }} />
-                            <Card.Body className="px-0">
-                                <Card.Title>클로타탄원피스</Card.Title>
-                                <Card.Text>구매자 수: 30</Card.Text>
-                            </Card.Body>
-                        </Col> */}
                     </Row>
                 </Col>
             </Row>

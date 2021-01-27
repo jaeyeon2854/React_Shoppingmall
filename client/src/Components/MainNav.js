@@ -16,10 +16,14 @@ function MainNav() {
                 {user ?
                     <>
                         <Nav.Link className="text-light" onClick={() => handleLogout()}>Logout</Nav.Link>
-                        <Nav.Link className="text-light" href="/account"> Mypage </Nav.Link>
-                        <Nav.Link href="/shoppingcart">
-                            <img alt="카트" src="/icon/cart.svg" width="30" height="30" />
-                        </Nav.Link>
+                        {admin ?
+                            ''
+                            : (
+                                <Nav.Link className="text-light" href="/account"> Mypage </Nav.Link>,
+                                <Nav.Link href="/shoppingcart">
+                                    <img alt="카트" src="/icon/cart.svg" width="30" height="30" />
+                                </Nav.Link>
+                            )}
                     </>
                     : (
                         <>

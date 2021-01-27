@@ -18,7 +18,6 @@ function Product({ match, location }) {
     let history = useHistory();
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const replace = product.description.replaceAll('{\n\n}', '<br />')
 
     useEffect(() => {
         if (size && color) {
@@ -230,12 +229,12 @@ function Product({ match, location }) {
                             {product.name}
                         </div>
                         <Image src={`/images/${product.main_img}`} className='d-flex justify-content-center p-4' style={{ objectFit: "contain", maxWidth: "100%", margin: 'auto' }} />
-                        <Card style={{ width: '70%', margin: 'auto' }} className='my-4' >
+                        <Card style={{ width: '80%', margin: 'auto' }} className='my-4' >
                             <Card.Header className='text-center' style={{ background: '#CDC5C2' }}>
                                 <h5 className='m-0' style={{ whiteSpace: 'nowrap' }}> [ Description ]</h5>
                             </Card.Header>
-                            <Card.Body className='text-center m-4' style={{ whiteSpace: "pre-line", background: '#F7F3F3', fontSize: '1vw' }}>
-                                <small>{replace}</small>
+                            <Card.Body className='text-center m-2' style={{ whiteSpace: "pre-line", background: '#F7F3F3', fontSize: '1vw' }}>
+                                <small>{product.description}</small>
                             </Card.Body>
                         </Card>
                         <Col className='p-5'>

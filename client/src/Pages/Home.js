@@ -54,7 +54,7 @@ function Home() {
                                 detail_imgs: pro.detail_imgUrls
                             }
                         }}>
-                            <ListCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} />
+                            <ListCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} status={'list'} />
                         </Link>
                     ))}
                 </Row>
@@ -76,7 +76,7 @@ function Home() {
                                 detail_imgs: pro.detail_imgUrls
                             }
                         }}>
-                            <ListCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} />
+                            <ListCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} status={'list'} />
                         </Link>
                     ))}
                 </Row>

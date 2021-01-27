@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Redirect, Link, useHistory } from 'react-router-dom';
+import ListCard from "../Components/ListCard";
 import axios from 'axios';
 import catchErrors from '../utils/catchErrors';
 import { Row, Col, Form, Card, Button, Modal, Image } from 'react-bootstrap';
@@ -7,6 +8,7 @@ import { Row, Col, Form, Card, Button, Modal, Image } from 'react-bootstrap';
 
 function Product({ match, location }) {
     const [product, setProduct] = useState(location.state)
+    const [productList, setProductList] = useState([])
     const [color, setColor] = useState("")
     const [size, setSize] = useState("")
     const [cart, setCart] = useState([])
@@ -20,15 +22,21 @@ function Product({ match, location }) {
     const handleShow = () => setShow(true);
 
     useEffect(() => {
+        recommend()
+    }, [])
+
+    useEffect(() => {
         if (size && color) {
             pushOptions()
         }
-        recommend()
     }, [size, color])
 
     async function recommend(){
         try {
-            const response = await axios.post('/api/order/recommend')
+            console.log("pro=",product.id)
+            const response = await axios.post('/api/order/recommend', { productId: product.id})
+            console.log("recommend res=",response.data)
+            setProductList(response.data)
         } catch (error) {
             catchErrors(error, setError)
         }
@@ -257,34 +265,30 @@ function Product({ match, location }) {
                         <a className="close float-right" onClick={(e) => handleClick(e)} style={{ fontSize: "1rem", cursor: "pointer" }}>X</a>
                     </h6>
                     <Row className="justify-content-evenly mx-0" style={{ flexWrap: "nowrap", width: "100%", overflowX: "auto" }}>
-                        <Col as={Card} style={{ minWidth: "8rem" }}>
+                        {productList.map(pro => (
+                            <Link to={{
+                                pathname: `/product/${pro._id}`,
+                                state: {
+                                    id: pro._id,
+                                    name: pro.pro_name,
+                                    price: pro.price,
+                                    colors: pro.colors,
+                                    sizes: pro.sizes,
+                                    description: pro.description,
+                                    main_img: pro.main_imgUrl,
+                                    detail_imgs: pro.detail_imgUrls
+                                }
+                            }}>
+                                <ListCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} status={'recommend'} />
+                            </Link>
+                        ))}
+                        {/* <Col as={Card} style={{ minWidth: "8rem" }}>
                             <Card.Img variant="top" src="https://img.sonyunara.com/files/goods/67504/1607328307_0.jpg" style={{ objectFit: "contain" }} />
                             <Card.Body className="px-0">
                                 <Card.Title>클로타탄원피스</Card.Title>
                                 <Card.Text>구매자 수: 30</Card.Text>
                             </Card.Body>
-                        </Col>
-                        <Col as={Card} style={{ minWidth: "8rem" }}>
-                            <Card.Img variant="top" src="https://img.sonyunara.com/files/goods/67504/1607328307_0.jpg" style={{ objectFit: "contain" }} />
-                            <Card.Body className="px-0">
-                                <Card.Title>클로타탄원피스</Card.Title>
-                                <Card.Text>구매자 수: 30</Card.Text>
-                            </Card.Body>
-                        </Col>
-                        <Col as={Card} style={{ minWidth: "8rem" }}>
-                            <Card.Img variant="top" src="https://img.sonyunara.com/files/goods/67504/1607328307_0.jpg" style={{ objectFit: "contain" }} />
-                            <Card.Body className="px-0">
-                                <Card.Title>클로타탄원피스</Card.Title>
-                                <Card.Text>구매자 수: 30</Card.Text>
-                            </Card.Body>
-                        </Col>
-                        <Col as={Card} style={{ minWidth: "8rem" }}>
-                            <Card.Img variant="top" src="https://img.sonyunara.com/files/goods/67504/1607328307_0.jpg" style={{ objectFit: "contain" }} />
-                            <Card.Body className="px-0">
-                                <Card.Title>클로타탄원피스</Card.Title>
-                                <Card.Text>구매자 수: 30</Card.Text>
-                            </Card.Body>
-                        </Col>
+                        </Col> */}
                     </Row>
                 </Col>
             </Row>

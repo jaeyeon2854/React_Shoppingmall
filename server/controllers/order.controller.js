@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import Order from "../schemas/Order.js";
 import User from "../schemas/User.js";
 
@@ -49,26 +50,30 @@ const orderById = async (req, res, next, id) => {
     }
 }
 
-const recommendPro = async (req,res)=>{
+const recommendPro = async (req, res) => {
+    const { productId } = req.body
+    console.log(productId)
     try {
         const recommend = await Order.aggregate([
-            { "$unwind": "$products" },
-            // {
-            //     $match:{'products.productId':'600e2fcc8afbb038487cc8fa'}
-            // },
             {
-                $group:
-                {
-                    _id:'$products.productId',
-                    num_total:{$sum:1}
+                $match: {
+                    'products.productId': { $ne : [ "$productId[0]", mongoose.Types.ObjectId(productId)] }
+                }
+            },
+            { "$unwind": "$products" },
+            {
+                $group: {
+                    productId: "$products.productId",
+                    total: { $sum: 1 }
                 }
             }
         ])
-        console.log(recommend)
+        const sorting = recommend.filter({})
+        console.log('recommend=', recommend)
+        res.send('dddkfdskfsa fsk')
     } catch (error) {
-        console.log(error)
-        res.status(500).send('추천 실패')
+        console.log('error in order ', error)
     }
 }
 
-export default { addorder, showorder, orderById , Ordered , recommendPro}
+export default { addorder, showorder, orderById, Ordered, recommendPro }

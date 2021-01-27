@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Redirect, Link, useHistory } from 'react-router-dom';
 import DaumPostcode from "react-daum-postcode";
-import PaymentCard from '../Components/PaymentCard';
+import ListCard from '../Components/ListCard';
 import axios from 'axios';
 import { isAuthenticated } from '../utils/auth';
 import catchErrors from '../utils/catchErrors';
@@ -286,7 +286,7 @@ function Payment({ match, location }) {
             </div>
             <div>
                 <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>주문상품정보</h5>
-                <PaymentCard cart={cart} deleteOrder={deleteOrder} />
+                <ListCard cart={cart} deleteOrder={deleteOrder} status={'payment'} />
             </div>
             <div className="p-5 m-3" style={{ background: '#F7F3F3' }}>
                 <ul className="pl-0" style={{ listStyle: 'none' }}>
@@ -313,10 +313,6 @@ function Payment({ match, location }) {
                 <div className="text-center">
                     <Button type="button" onClick={paymentCompleted} className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} block>결제완료</Button>
                 </div>
-                {paymentWay}
-            </div>
-            <div className="text-center">
-                <Button className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} onClick={paymentCompleted} block>결제완료</Button>
             </div>
         </Container>
     )

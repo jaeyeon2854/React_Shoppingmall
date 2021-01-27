@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import OrderCard from '../Components/OrderCard';
+import ListCard from '../Components/ListCard';
 import axios from 'axios';
 import catchError from '../utils/catchErrors';
 import { isAuthenticated } from '../utils/auth';
@@ -179,7 +179,7 @@ function Account() {
                 </Row>
             </Card>
             <div className='m-2 mb-5'>
-                <OrderCard ordered={ordered} />
+                <ListCard ordered={ordered} status={'order'} />
             </div>
         </Container >
     )

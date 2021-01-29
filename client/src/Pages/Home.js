@@ -49,7 +49,7 @@ function Home() {
                 `}
             </style>
             <div className="my-4">
-                <h2 style={{ marginRight: "5rem", marginLeft: "3rem", marginBottom: "2rem" }}><u>Best</u></h2>
+                <h2 style={{ marginRight: "5rem", marginLeft: "3rem", marginBottom: "2rem" }}>Best</h2>
                 <Row className="justify-content-center mx-0">
                     {productlist.bestProduct.map(pro => (
                         <Link to={{
@@ -71,7 +71,7 @@ function Home() {
                 </Row>
             </div>
             <div className="my-4">
-                <h2 style={{ marginRight: "5rem", marginLeft: "3rem", marginBottom: "2rem", marginTop: "2rem" }}><u>New Arrival</u></h2>
+                <h2 style={{ marginRight: "5rem", marginLeft: "3rem", marginBottom: "2rem", marginTop: "2rem" }}>New Arrival</h2>
                 <Row className="justify-content-center mx-0">
                     {productlist.newProduct.map(pro => (
                         <Link to={{

@@ -66,29 +66,23 @@ const recommendPro = async (req, res) => {
                     _id: "$products.productId",
                     count: { $sum: 1 }
                 }
+            },
+            { $sort: { count: -1 } },
+            { $limit: 5 },
+            {
+                $lookup:
+                {
+                    from: "products",
+                    localField: "_id",
+                    foreignField: "_id",
+                    as: "product"
+                }
             }
         ])
         console.log('recommend=', recommend)
         const filteredRecommend = recommend.filter((el) => String(el._id) !== String(productId))
         console.log('filtering=', filteredRecommend)
-        filteredRecommend.sort(function (a, b) {
-            if (a.count > b.count) {
-                return -1;
-            }
-            if (a.count < b.count) {
-                return 1;
-            }
-            // a must be equal to b
-            return 0;
-        });
-        console.log('sort=',filteredRecommend)
-        const finalrecommend= filteredRecommend.slice(0, 4)
-        const array = finalrecommend.map(async (el) => {
-            const aa = await Product.findById(el._id)
-            return aa
-        })
-        const bb  = await Promise.all(array)
-        res.json(bb)
+        res.json(filteredRecommend)
     } catch (error) {
         console.log('error in order ', error)
     }

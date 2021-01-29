@@ -35,12 +35,12 @@ function Product({ match, location }) {
         }
     }, [size, color])
 
-    async function getRecommend(){
+    async function getRecommend() {
         try {
             const response = await axios.get(`/api/order/recommend?products=${product.id}`)
             setProductList(response.data)
         } catch (error) {
-            catchErrors(error,setError)
+            catchErrors(error, setError)
         }
     }
 
@@ -264,7 +264,9 @@ function Product({ match, location }) {
                         </Card>
                         <Col className='p-5'>
                             <div className='border p-2' style={{ maxWidth: "100%", height: 'auto', margin: 'auto', fontSize: '3.5vmin' }}>[ Detail Images ]</div>
-                            <Image src={`/images/${product.detail_imgs}`} style={{ objectFit: "contain", maxWidth: "100%", height: 'auto', margin: 'auto' }} className='p-4 d-flex justify-content-center' />
+                            {product.detail_imgs.map((el) => (
+                                <Image src={`/images/${el}`} style={{ objectFit: "contain", maxWidth: "100%", height: 'auto', margin: 'auto' }} className='p-4 d-flex justify-content-center' />
+                            ))}
                         </Col>
                     </Col>
                 </Col>
@@ -280,16 +282,16 @@ function Product({ match, location }) {
                                 pathname: `/product/${pro._id}`,
                                 state: {
                                     id: pro._id,
-                                    name: pro.pro_name,
-                                    price: pro.price,
-                                    colors: pro.colors,
-                                    sizes: pro.sizes,
-                                    description: pro.description,
-                                    main_img: pro.main_imgUrl,
-                                    detail_imgs: pro.detail_imgUrls
+                                    name: pro.product[0].pro_name,
+                                    price: pro.product[0].price,
+                                    colors: pro.product[0].colors,
+                                    sizes: pro.product[0].sizes,
+                                    description: pro.product[0].description,
+                                    main_img: pro.product[0].main_imgUrl,
+                                    detail_imgs: pro.product[0].detail_imgUrls
                                 }
                             }}>
-                                <ListCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} status={'recommend'} />
+                                <ListCard id={pro._id} name={pro.product[0].pro_name} price={pro.product[0].price} main_img={pro.product[0].main_imgUrl} status={'recommend'} />
                             </Link>
                         ))}
                     </Row>

@@ -15,9 +15,9 @@ function ListCard(props) {
         )
     } else if (props.status === 'recommend') {
         return (
-            <Card id={props.id} className="mx-1" style={{ width: "10rem" }}>
+            <Card id={props.id} className="mx-2" style={{ width: "10rem" }}>
                 <Card.Img variant="top" src={props.main_img && `/images/${props.main_img}`} style={{ objectFit: "contain" }} />
-                <Card.Body className="px-0">
+                <Card.Body className="px-2">
                     <Card.Title style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{props.name}</Card.Title>
                     <Card.Text>{props.price} 원</Card.Text>
                 </Card.Body>

@@ -274,7 +274,7 @@ function Product({ match, location }) {
                     <h6 style={{ borderBottom: "1px solid", paddingBottom: "5px", marginBottom: "1em" }}>회원님이 선호할만한 상품 추천
                         <a className="close float-right" onClick={(e) => handleClick(e)} style={{ fontSize: "1rem", cursor: "pointer" }}>X</a>
                     </h6>
-                    <Row className="justify-content-center mx-0" style={{ flexWrap: "nowrap", width: "100%", overflowX: "auto" }}>
+                    <Row className="justify-content-lg-center mx-auto" style={{ flexWrap: "nowrap", width: "100%", overflowX: "auto" }}>
                         {productList.map(pro => (
                             <Link to={{
                                 pathname: `/product/${pro._id}`,

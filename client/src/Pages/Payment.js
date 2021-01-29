@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Redirect, Link, useHistory } from 'react-router-dom';
 import DaumPostcode from "react-daum-postcode";
-import PaymentCard from '../Components/PaymentCard';
+import ListCard from '../Components/ListCard';
 import axios from 'axios';
 import { isAuthenticated } from '../utils/auth';
 import catchErrors from '../utils/catchErrors';
@@ -124,7 +124,7 @@ function Payment({ match, location }) {
             setCompleteState(false)
             setPaymentWay([])
         } else {
-            const a = (
+            const bankList = (
                 <Row className="justify-content-md-center">
                     <Col md={6} className="border m-5 p-5">
                         <Form>
@@ -146,14 +146,12 @@ function Payment({ match, location }) {
                             </Form.Group>
                         </Form>
                     </Col>
-
                 </Row>)
-            setPaymentWay(a)
+            setPaymentWay(bankList)
         }
     }
 
     async function kakaopay() {
-
         setCompleteState("kakaopay")
         setPaymentWay(
             <div className="text-center">
@@ -192,6 +190,7 @@ function Payment({ match, location }) {
                 } else {
                     itemNames = cart[0].productId.pro_name
                 }
+                setError('')
                 const response = await fetch('/api/kakaopay/test/single', {
                     method: "POST",
                     headers: {
@@ -287,7 +286,7 @@ function Payment({ match, location }) {
             </div>
             <div>
                 <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>주문상품정보</h5>
-                <PaymentCard cart={cart} deleteOrder={deleteOrder} />
+                <ListCard cart={cart} deleteOrder={deleteOrder} status={'payment'} />
             </div>
             <div className="p-5 m-3" style={{ background: '#F7F3F3' }}>
                 <ul className="pl-0" style={{ listStyle: 'none' }}>
@@ -304,17 +303,17 @@ function Payment({ match, location }) {
                     결제금액<span className="float-right">{finalPrice + 2500}원</span>
                 </div>
             </div>
-                <div>
-                    <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>결제수단</h5>
-                    <div className="text-center m-3">
-                        <Button className="align-top m-1" variant="success" onClick={handleClick} style={{ height: '42px' }}>무통장입금</Button>
-                        <Button className="align-top m-1 p-0" style={{ borderColor: "#ffeb00" }} type="button" onClick={kakaopay} alt="카카오페이"><img src="icon/payment_icon_yellow_small2.png" /></Button>
-                    </div>
-                    {paymentWay}
+            <div>
+                <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>결제수단</h5>
+                <div className="text-center m-3">
+                    <Button className="align-top m-1" variant="success" onClick={handleClick} style={{ height: '42px' }}>무통장입금</Button>
+                    <Button className="align-top m-1 p-0" style={{ borderColor: "#ffeb00" }} type="button" onClick={kakaopay} alt="카카오페이"><img src="icon/payment_icon_yellow_small2.png" /></Button>
                 </div>
-                <div className="text-center">
-                    <Button type="button" onClick={paymentCompleted} className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} block>결제완료</Button>
-                </div>
+                {paymentWay}
+            </div>
+            <div className="text-center">
+                <Button type="button" onClick={paymentCompleted} className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} block>결제완료</Button>
+            </div>
         </Container>
     )
 }

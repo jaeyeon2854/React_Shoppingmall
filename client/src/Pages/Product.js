@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Redirect, Link, useHistory } from 'react-router-dom';
+import ListCard from "../Components/ListCard";
 import axios from 'axios';
 import catchErrors from '../utils/catchErrors';
 import { Row, Col, Form, Card, Button, Modal, Image } from 'react-bootstrap';
@@ -7,6 +8,7 @@ import { Row, Col, Form, Card, Button, Modal, Image } from 'react-bootstrap';
 
 function Product({ match, location }) {
     const [product, setProduct] = useState(location.state)
+    const [productList, setProductList] = useState([])
     const [color, setColor] = useState("")
     const [size, setSize] = useState("")
     const [cart, setCart] = useState([])
@@ -18,23 +20,25 @@ function Product({ match, location }) {
     let history = useHistory();
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const replace = product.description.replaceAll('{\n\n}', '<br />')
+
+    useEffect(() => {
+        getRecommend()
+    }, [product])
+
+    useEffect(() => {
+        setProduct(location.state)
+    }, [location.state])
 
     useEffect(() => {
         if (size && color) {
             pushOptions()
-            // console.log(cart)
         }
-        getRecommend()
     }, [size, color])
 
     async function getRecommend(){
         try {
             const response = await axios.get(`/api/order/recommend?products=${product.id}`)
-            // const response = await axios.post(`/api/order/recommend`,{
-            //     productId: product.id
-            // })
-            console.log(response.data)
+            setProductList(response.data)
         } catch (error) {
             catchErrors(error,setError)
         }
@@ -46,14 +50,13 @@ function Product({ match, location }) {
     }
 
     function pushOptions() {
-        // console.log(cart)
-        const a = cart.map(el => {
-            const rObj = {}
-            rObj["color"] = el.color;
-            rObj["size"] = el.size;
-            return rObj
+        const cartSet = cart.map(el => {
+            const newObj = {}
+            newObj["color"] = el.color;
+            newObj["size"] = el.size;
+            return newObj
         })
-        const isDuplicated = a.some(el => el.color === color && el.size === size)
+        const isDuplicated = cartSet.some(el => el.color === color && el.size === size)
         if (isDuplicated) {
             selected.sizes = false
             selected.colors = false
@@ -68,7 +71,6 @@ function Product({ match, location }) {
             setSize("")
             setPrice(product.price + price)
         }
-
     }
 
     function handleChange(e) {
@@ -85,11 +87,11 @@ function Product({ match, location }) {
     function deleteOption(e) {
         e.preventDefault()
         let preprice = 0
-        const asd = cart.filter((el) => el.color !== e.target.id || el.size !== e.target.name)
-        asd.map((el) => {
+        const list = cart.filter((el) => el.color !== e.target.id || el.size !== e.target.name)
+        list.map((el) => {
             preprice = preprice + el.count * product.price
         })
-        setCart(asd)
+        setCart(list)
         setPrice(Number(preprice))
     }
 
@@ -139,7 +141,6 @@ function Product({ match, location }) {
                         userId: localStorage.getItem('id'),
                         products: cart
                     })
-                    console.log(response.data)
                     history.push("/payment")
                 } catch (error) {
                     catchErrors(error, setError)
@@ -152,18 +153,35 @@ function Product({ match, location }) {
         }
     }
 
-
     return (
         <div>
-            {console.log(product)}
             <style type="text/css">
                 {`
+                a, a:hover, a:active {
+                    color: #000;
+                    text-decoration: none;
+                }
+                @font-face {
+                    font-family: 'Jal_Onuel';
+                    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Jal_Onuel.woff') format('woff');
+                    font-weight: normal;
+                    font-style: normal;
+                }
+                body{font-family:'Jal_Onuel'}
                 .btn {
                     background-color: #CDC5C2;
                     border-color: #CDC5C2;
                 }
-
-                .btn:hover, .btn:active, .btn:focus {
+                .btn:hover {
+                    background-color: #91877F;
+                    border-color: #91877F;
+                }
+                .btn-primary:focus {
+                    background-color: #91877F;
+                    border-color: #91877F;
+                    box-shadow: 0 0 0 0;
+                }
+                .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
                     background-color: #91877F;
                     border-color: #91877F;
                 }
@@ -181,7 +199,7 @@ function Product({ match, location }) {
             </Modal>
             <Row className="justify-content-center mt-5 mx-0">
                 <Col sm={11} md={4}>
-                    <img src={`/images/${product.main_img}`} style={{ objectFit: "contain", width: "100%" }} />
+                    <img src={`/images/${product.main_img}`} style={{ objectFit: "contain", maxWidth: "100%", height: 'auto' }} />
                 </Col>
                 <Col sm={11} md={4} className="align-middle mt-4">
                     <h3 className="mb-4">{product.name}</h3>
@@ -220,7 +238,7 @@ function Product({ match, location }) {
                             <Col className="text-right">{price}원</Col>
                         </Row>
                         <Row className="justify-content-between mx-0 my-3" style={{ width: "100%" }}>
-                            <Button type='button' name="shoppingcart" onClick={addCart} style={{ width: "49%" }}>장바구니</Button>
+                            <Button type='button' name="shoppingcart" onClick={addCart} style={{ width: "49%" }} variant="primary" >장바구니</Button>
                             <Button type='button' name="payment" onClick={addCart} style={{ width: "49%" }}>구매하기</Button>
                         </Row>
                     </Form>
@@ -231,24 +249,22 @@ function Product({ match, location }) {
                     <h3 style={{ borderBottom: "1px solid #91877F", paddingBottom: "5px", marginBottom: "1em" }} className="p-3">
                         설명
                         </h3>
-                    <Col className='text-center' style={{ fontSize: '1px' }}>
-                        <div className='p-2 text-center border' style={{ background: '#CDC5C2', width: '50%', margin: 'auto', fontSize: '3.5vmin' }} >
+                    <Col className='text-center'>
+                        <div className='p-2 text-center border' style={{ background: '#CDC5C2', width: '60%', margin: 'auto', fontSize: '3.5vmin' }} >
                             {product.name}
                         </div>
-                        <Image src={`/images/${product.main_img}`} className='d-flex justify-content-center p-4' style={{ objectFit: "contain", maxWidth: "100%", margin: 'auto' }} />
-
-                        <Card style={{ width: '70%', margin: 'auto' }} className='my-4' >
+                        <Image src={`/images/${product.main_img}`} className='d-flex justify-content-center p-4' style={{ objectFit: "contain", maxWidth: "100%", height: 'auto', margin: 'auto' }} />
+                        <Card style={{ width: '80%', margin: 'auto' }} className='my-4' >
                             <Card.Header className='text-center' style={{ background: '#CDC5C2' }}>
                                 <h5 className='m-0' style={{ whiteSpace: 'nowrap' }}> [ Description ]</h5>
                             </Card.Header>
-                            <Card.Body className='text-center m-4' style={{ whiteSpace: "pre-line", background: '#F7F3F3', fontSize: '1vw' }}>
-                                <small>{replace}</small>
+                            <Card.Body className='text-center m-2' style={{ whiteSpace: "pre-line", background: '#F7F3F3', fontSize: '1.2vw' }}>
+                                {product.description}
                             </Card.Body>
                         </Card>
                         <Col className='p-5'>
-                            <div className='border p-2' style={{ width: '60%', margin: 'auto', fontSize: '3.5vmin' }}>[ Detail Images ]</div>
-                            <Image src={`/images/${product.detail_imgs}`} style={{ objectFit: "contain", maxWidth: "100%", margin: 'auto' }} className='p-4 d-flex justify-content-center' />
-
+                            <div className='border p-2' style={{ maxWidth: "100%", height: 'auto', margin: 'auto', fontSize: '3.5vmin' }}>[ Detail Images ]</div>
+                            <Image src={`/images/${product.detail_imgs}`} style={{ objectFit: "contain", maxWidth: "100%", height: 'auto', margin: 'auto' }} className='p-4 d-flex justify-content-center' />
                         </Col>
                     </Col>
                 </Col>
@@ -258,35 +274,24 @@ function Product({ match, location }) {
                     <h6 style={{ borderBottom: "1px solid", paddingBottom: "5px", marginBottom: "1em" }}>회원님이 선호할만한 상품 추천
                         <a className="close float-right" onClick={(e) => handleClick(e)} style={{ fontSize: "1rem", cursor: "pointer" }}>X</a>
                     </h6>
-                    <Row className="justify-content-space mx-0" style={{ flexWrap: "nowrap", width: "100%", overflowX: "auto" }}>
-                        <Col as={Card} style={{ minWidth: "10rem", marginRight: "1rem" }}>
-                            <Card.Img variant="top" src="https://img.sonyunara.com/files/goods/67504/1607328307_0.jpg" style={{ objectFit: "contain" }} />
-                            <Card.Body className="px-0">
-                                <Card.Title>클로타탄원피스</Card.Title>
-                                <Card.Text>구매자 수: 30</Card.Text>
-                            </Card.Body>
-                        </Col>
-                        <Col as={Card} style={{ minWidth: "10rem", marginRight: "1rem" }}>
-                            <Card.Img variant="top" src="https://img.sonyunara.com/files/goods/67504/1607328307_0.jpg" style={{ objectFit: "contain" }} />
-                            <Card.Body className="px-0">
-                                <Card.Title>클로타탄원피스</Card.Title>
-                                <Card.Text>구매자 수: 30</Card.Text>
-                            </Card.Body>
-                        </Col>
-                        <Col as={Card} style={{ minWidth: "10rem", marginRight: "1rem" }}>
-                            <Card.Img variant="top" src="https://img.sonyunara.com/files/goods/67504/1607328307_0.jpg" style={{ objectFit: "contain" }} />
-                            <Card.Body className="px-0">
-                                <Card.Title>클로타탄원피스</Card.Title>
-                                <Card.Text>구매자 수: 30</Card.Text>
-                            </Card.Body>
-                        </Col>
-                        <Col as={Card} style={{ minWidth: "10rem", marginRight: "1rem" }}>
-                            <Card.Img variant="top" src="https://img.sonyunara.com/files/goods/67504/1607328307_0.jpg" style={{ objectFit: "contain" }} />
-                            <Card.Body className="px-0">
-                                <Card.Title>클로타탄원피스</Card.Title>
-                                <Card.Text>구매자 수: 30</Card.Text>
-                            </Card.Body>
-                        </Col>
+                    <Row className="justify-content-center mx-0" style={{ flexWrap: "nowrap", width: "100%", overflowX: "auto" }}>
+                        {productList.map(pro => (
+                            <Link to={{
+                                pathname: `/product/${pro._id}`,
+                                state: {
+                                    id: pro._id,
+                                    name: pro.pro_name,
+                                    price: pro.price,
+                                    colors: pro.colors,
+                                    sizes: pro.sizes,
+                                    description: pro.description,
+                                    main_img: pro.main_imgUrl,
+                                    detail_imgs: pro.detail_imgUrls
+                                }
+                            }}>
+                                <ListCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} status={'recommend'} />
+                            </Link>
+                        ))}
                     </Row>
                 </Col>
             </Row>

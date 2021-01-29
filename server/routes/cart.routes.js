@@ -1,12 +1,10 @@
 import express from "express";
 import cartCtrl from '../controllers/cart.controller.js';
 
-
 const router = express.Router()
 
 router.route('/addcart')
     .put(cartCtrl.addCart)
-// .get()
 
 router.route('/showcart/:userId')
     .get(cartCtrl.showCart)

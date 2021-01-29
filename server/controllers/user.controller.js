@@ -13,7 +13,6 @@ const imgUpload = uploadimg.fields([
 
 const username = (req, res) => {
     res.json(req.account)
-    console.log(req.account)
 }
 
 const userById = async (req, res, next, id) => {
@@ -30,10 +29,8 @@ const userById = async (req, res, next, id) => {
     }
 }
 
-
 const signup = async (req, res) => {
     const { name, number1, number2, id, password, tel, email } = req.body
-    console.log("whatup", req.body)
     try {
         if (!isLength(password, { min: 8, max: 15 })) {
             return res.status(422).send('비밀번호는 8-15자리로 입력해주세요.')
@@ -42,9 +39,7 @@ const signup = async (req, res) => {
         if (user) {
             return res.status(422).send(`${id}가 이미 사용중입니다.`)
         }
-
         const hash = await bcrypt.hash(password, 10)
-
         const newUser = await new User({
             name,
             number1,
@@ -57,7 +52,6 @@ const signup = async (req, res) => {
         await new Cart({ userId: newUser._id }).save()
         console.log(newUser)
         res.json(newUser)
-
     } catch (error) {
         console.log(error)
         res.status(500).send('죄송합니다. 다시 입력해 주십시오.')
@@ -65,7 +59,6 @@ const signup = async (req, res) => {
 }
 
 const update = async (req, res) => {
-    console.log("req", req.body)
     try {
         if (req.body.avatar == '') {
             const user = req.account
@@ -79,7 +72,6 @@ const update = async (req, res) => {
             const updateUser = await user.save()
             res.json(updateUser)
         }
-
     } catch (error) {
         console.log(error);
         res.status(500).send('이미지 업데이트 실패')
@@ -87,13 +79,12 @@ const update = async (req, res) => {
 }
 
 const addorder = async (req, res) => {
-    const {userId}=req.body
+    const { userId } = req.body
     try {
         const order = await Order.find({ userId: userId }).populate({
             path: 'products.productId',
             model: 'Product'
         })
-        console.log("hey", order)
         res.status(200).json(order)
     } catch (error) {
         console.log(error)
@@ -101,5 +92,4 @@ const addorder = async (req, res) => {
     }
 }
 
-
-export default { signup, username, imgUpload, userById,update, addorder }
+export default { signup, username, imgUpload, userById, update, addorder }

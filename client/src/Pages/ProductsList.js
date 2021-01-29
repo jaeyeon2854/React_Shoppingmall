@@ -79,9 +79,7 @@ function ProductsList({ match }) {
     }
 
     async function handleSort(method) {
-        console.log(method)
         if (method === "purchase") {
-            console.log("thisispurchase")
             productlist.sort(function (a, b) {
                 if (a.purchase > b.purchase) {
                     return -1;
@@ -89,12 +87,10 @@ function ProductsList({ match }) {
                 if (a.purchase < b.purchase) {
                     return 1;
                 }
-                // a must be equal to b
                 return 0;
             });
             setSortingName("인기상품")
         } else if (method === "newest") {
-            console.log("thisisnewest")
             productlist.sort(function (a, b) {
                 if (a.createdAt > b.createdAt) {
                     return -1;
@@ -102,13 +98,10 @@ function ProductsList({ match }) {
                 if (a.createdAt < b.createdAt) {
                     return 1;
                 }
-                // a must be equal to b
                 return 0;
             });
             setSortingName("신상품")
-
         } else if (method === "lowest") {
-            console.log("thisislowest")
             productlist.sort(function (a, b) {
                 if (a.price > b.price) {
                     return 1;
@@ -116,12 +109,10 @@ function ProductsList({ match }) {
                 if (a.price < b.price) {
                     return -1;
                 }
-                // a must be equal to b
                 return 0;
             });
             setSortingName("낮은가격")
         } else {
-            console.log("thisispurchase")
             productlist.sort(function (a, b) {
                 if (a.price > b.price) {
                     return -1;
@@ -129,13 +120,11 @@ function ProductsList({ match }) {
                 if (a.price < b.price) {
                     return 1;
                 }
-                // a must be equal to b
                 return 0;
             });
             setSortingName("높은가격")
         }
     }
-
 
     async function handleSubname(e) {
         const subname = e.target.name
@@ -159,6 +148,14 @@ function ProductsList({ match }) {
         <Container>
             <style type="text/css">
                 {`
+                @font-face {
+                    font-family: 'Jal_Onuel';
+                    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Jal_Onuel.woff') format('woff');
+                    font-weight: normal;
+                    font-style: normal;
+                }
+                body{font-family:'Jal_Onuel'}
+
                 a, a:hover, a:active {
                     color: #000;
                     text-decoration: none;
@@ -168,17 +165,14 @@ function ProductsList({ match }) {
                     border-color: #CDC5C2;
                     border-radius: 0;
                 }
-                .btn:hover, .btn:focus {
+                .btn:hover, .btn-primary:focus {
                     background-color: #91877F;
                     border-color: #91877F;
                     box-shadow: 0 0 0 0;
                 }
-                .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+                .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
                     background-color: #91877F;
                     border-color: #91877F;
-                }
-                .show>.btn-primary.dropdown-toggle:focus {
-                    box-shadow: 0 0 0 0;
                 }
                 .dropdown-item {
                     color: #91877F;
@@ -194,20 +188,20 @@ function ProductsList({ match }) {
                     <div className="text-center">
                         <h1 style={{ fontSize: "5.5vmax" }} className="text-center m-1 py-3">{mainCategory}</h1>
                         <ButtonGroup className="mb-3" style={{ display: "inline" }}>
-                            {subCategory.map(el =>(<Button className="m-1" style={{ fontSize: "0.8vw" }} name={el} onClick={handleSubname}>{el}</Button>))}
+                            {subCategory.map(el => (<Button className="m-1" style={{ fontSize: "1.5vw" }} name={el} onClick={handleSubname}>{el}</Button>))}
                         </ButtonGroup>
                     </div>
                 </Col>
             </Row>
             <Row className="justify-content-end mx-0 mt-5 mb-3">
                 <Form inline onSubmit={handleSearch} className="justify-content-end mx-0 my-2">
-                    <FormControl ref={searchref} type="text" onChange={handleChange} placeholder="Search" style={{ width: "13rem" }} />
-                    <Button type="submit" className="px-2 mr-2">
+                    <FormControl ref={searchref} type="text" onChange={handleChange} placeholder="Search" style={{ width: "12rem" }} />
+                    <Button type="submit" className="px-2 m1-1">
                         <img src="/icon/search.svg" width="20" height="20" />
                     </Button>
                 </Form>
                 <Dropdown className="my-2">
-                    <Dropdown.Toggle className="mx-2">{sortingName}</Dropdown.Toggle>
+                    <Dropdown.Toggle className="mx-1">{sortingName}</Dropdown.Toggle>
                     <Dropdown.Menu>
                         <Dropdown.Item as="button" onClick={() => handleSort('purchase')}>인기상품</Dropdown.Item>
                         <Dropdown.Item as="button" onClick={() => handleSort('newest')}>신상품</Dropdown.Item>
@@ -232,8 +226,7 @@ function ProductsList({ match }) {
                                 detail_imgs: pro.detail_imgUrls
                             }
                         }}>
-                            <ListCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl}
-                            />
+                            <ListCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} status={'list'}/>
                         </Link>
                     ))
                     : (

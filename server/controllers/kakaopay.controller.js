@@ -1,4 +1,3 @@
-// import { RequestHandler } from "express";
 import fetch from 'node-fetch'
 import config from "../config.js";
 
@@ -30,7 +29,6 @@ const singleTest = async (req, res) => {
     console.log("asdaf")
     console.log(req.body)
     const item = req.body
-    // set data
     const data = []
     for (let property in item) {
         let encodedKey = encodeURIComponent(property);
@@ -38,7 +36,6 @@ const singleTest = async (req, res) => {
         data.push(encodedKey + "=" + encodedValue);
     }
     const bodyData = data.join('&') // encode data (application/x-www-form-urlencoded)
-
     const response = await fetch('https://kapi.kakao.com/v1/payment/ready', {
         method: 'POST',
         headers: {
@@ -47,16 +44,9 @@ const singleTest = async (req, res) => {
         },
         body: bodyData,
     })
-
-    // console.log(response)
     const resp = await response.json()
     console.log(resp)
     res.json({redirect_url: resp.next_redirect_pc_url})
 }
 
-export default {
-    success,
-    fail,
-    cancel,
-    singleTest,
-}
+export default { success, fail, cancel, singleTest }

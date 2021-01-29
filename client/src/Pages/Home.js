@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ListCard from '../Components/ListCard';
 import axios from 'axios';
@@ -20,6 +20,7 @@ function Home() {
 
     async function getProductlist() {
         try {
+            setError('')
             const response = await axios.get(`/api/product/getproduct`)
             setProductlist({ bestProduct: response.data.bestProduct, newProduct: response.data.newProduct })
         } catch (error) {
@@ -31,9 +32,20 @@ function Home() {
         <Container>
             <style type="text/css">
                 {`
+                @font-face {
+                    font-family: 'Jal_Onuel';
+                    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Jal_Onuel.woff') format('woff');
+                    font-weight: normal;
+                    font-style: normal;
+                }
+                body{font-family:'Jal_Onuel'}
+                
                 a, a:hover, a:active {
                     color: #000;
                     text-decoration: none;
+                }
+                
+                
                 `}
             </style>
             <div className="my-4">
@@ -53,7 +65,7 @@ function Home() {
                                 detail_imgs: pro.detail_imgUrls
                             }
                         }}>
-                            <ListCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} />
+                            <ListCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} status={'list'} />
                         </Link>
                     ))}
                 </Row>
@@ -75,7 +87,7 @@ function Home() {
                                 detail_imgs: pro.detail_imgUrls
                             }
                         }}>
-                            <ListCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} />
+                            <ListCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} status={'list'} />
                         </Link>
                     ))}
                 </Row>

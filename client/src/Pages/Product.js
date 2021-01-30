@@ -265,7 +265,6 @@ function Product({ match, location }) {
                         <Col className='p-5'>
                             <div className='border p-2' style={{ maxWidth: "100%", height: 'auto', margin: 'auto', fontSize: '3.5vmin' }}>[ Detail Images ]</div>
                             {product.detail_imgs.map((el) => (
-
                                 <Image src={`/images/${el}`} style={{ objectFit: "contain", maxWidth: "100%", height: 'auto', margin: 'auto' }} className='p-4 d-flex justify-content-center' />
                             ))}
                         </Col>
@@ -277,8 +276,7 @@ function Product({ match, location }) {
                     <h6 style={{ borderBottom: "1px solid", paddingBottom: "5px", marginBottom: "1em" }}>회원님이 선호할만한 상품 추천
                         <a className="close float-right" onClick={(e) => handleClick(e)} style={{ fontSize: "1rem", cursor: "pointer" }}>X</a>
                     </h6>
-                    <Row className="mx-0 justify-content-center " style={{ flexWrap: "nowrap", width: "100%", overflowX: "auto" }}>
-                        {console.log(productList)}
+                    <Row className="justify-content-lg-center mx-auto" style={{ flexWrap: "nowrap", width: "100%", overflowX: "auto" }}>
                         {productList.map(pro => (
                             <Link to={{
                                 pathname: `/product/${pro._id}`,

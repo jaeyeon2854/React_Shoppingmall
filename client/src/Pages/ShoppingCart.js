@@ -95,7 +95,7 @@ function ShoppingCart() {
     }
 
     return (
-        <Container className="justify-content-center">
+        <Container className="justify-content-center mb-5">
             <h1 className="my-5 font-weight-bold text-center">장바구니</h1>
             <div>
                 <h4 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>주문상품정보</h4>

@@ -226,7 +226,7 @@ function Payment({ match, location }) {
     }
 
     return (
-        <Container>
+        <Container className="mb-5">
             <h3 className="my-5 font-weight-bold text-center">주문/결제</h3>
             <div>
                 <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>주문자 정보</h5>

@@ -43,7 +43,7 @@ const singleTest = async (req, res) => {
             'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
         },
         body: bodyData,
-    })
+    })  
     const resp = await response.json()
     console.log(resp)
     res.json({redirect_url: resp.next_redirect_pc_url})

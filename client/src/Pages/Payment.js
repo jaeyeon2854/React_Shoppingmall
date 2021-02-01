@@ -314,7 +314,7 @@ function Payment({ match, location }) {
                 {paymentWay}
             </div>
             <div className="text-center">
-                <Button type="button" onClick={paymentCompleted} className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} block>결제완료</Button>
+                <Button type="button" onClick={paymentCompleted} className="px-5" style={{ background: "#91877F", borderColor: '#91877F' }} block>주문하기</Button>
             </div>
         </Container>
     )

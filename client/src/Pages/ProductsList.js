@@ -97,38 +97,13 @@ function ProductsList({ match }) {
     }
 
     async function handleSort(method) {
+        // const response = await axios.get(`/api/product/sortingproduct/sub?subname=${}&page=${currentPage}&sorting=${method}`)
+
         if (method === "purchase") {
-            productlist.sort(function (a, b) {
-                if (a.purchase > b.purchase) {
-                    return -1;
-                }
-                if (a.purchase < b.purchase) {
-                    return 1;
-                }
-                return 0;
-            });
             setSortingName("인기상품")
         } else if (method === "newest") {
-            productlist.sort(function (a, b) {
-                if (a.createdAt > b.createdAt) {
-                    return -1;
-                }
-                if (a.createdAt < b.createdAt) {
-                    return 1;
-                }
-                return 0;
-            });
             setSortingName("신상품")
         } else if (method === "lowest") {
-            productlist.sort(function (a, b) {
-                if (a.price > b.price) {
-                    return 1;
-                }
-                if (a.price < b.price) {
-                    return -1;
-                }
-                return 0;
-            });
             setSortingName("낮은가격")
         } else {
             productlist.sort(function (a, b) {

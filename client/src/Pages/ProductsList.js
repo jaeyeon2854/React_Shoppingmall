@@ -7,20 +7,22 @@ import catchError from '../utils/catchErrors';
 import { Container, Row, Col, Form, FormControl, Button, Dropdown, ButtonGroup, Image } from 'react-bootstrap';
 
 function ProductsList({ match }) {
-    const INIT_STATUS = { indexOfFirst: 0, indexOfLast: 10 }
     const [search, setSearch] = useState({ word: '' })
     const [sortingName, setSortingName] = useState('정렬')
     const [mainCategory, setMainCategory] = useState(match.params.main.toUpperCase())
     const [subCategory, setSubCategory] = useState([])
+    const [selectSubCategory, setSelectSubCategory] = useState('')
     const [productlist, setProductlist] = useState([])
-    const [status, setStatus] = useState(INIT_STATUS)
+    const [length, setLength] = useState(0)
     const [currentPage, setCurrentPage] = useState(1)
     const [error, setError] = useState('')
     const searchref = useRef(null)
-    const per = 10;
+    const per = 9;
 
     useEffect(() => {
         setMainCategory(match.params.main.toUpperCase())
+        setSelectSubCategory('')
+        setCurrentPage(1)
     }, [match.params.main])
 
 
@@ -30,13 +32,25 @@ function ProductsList({ match }) {
     }, [mainCategory])
 
     useEffect(() => {
-        setStatus({ indexOfFirst: (currentPage - 1) * per, indexOfLast: currentPage * per })
+        if (search.word == '') {
+            getProductlist()
+        } else if (selectSubCategory != '') {
+            changePageforSubname()
+        } else {
+            setSelectSubCategory('')
+            searchList()
+        }
     }, [currentPage])
 
-    function currentPosts(items) {
-        let currentPosts = '';
-        currentPosts = items.slice(status.indexOfFirst, status.indexOfLast);
-        return currentPosts
+    async function searchList() {
+        try {
+            setError('')
+            const response = await axios.get(`/api/product/getproduct/main/${mainCategory}?product=${search.word}&page=${currentPage}`)
+            setProductlist(response.data.productsPiece)
+            setLength(response.data.length)
+        } catch (error) {
+            catchError(error, setError)
+        }
     }
 
     function handleChange(event) {
@@ -47,9 +61,12 @@ function ProductsList({ match }) {
         e.preventDefault()
         try {
             setError('')
-            const response = await axios.get(`/api/product/getproduct/main/${mainCategory}?product=${search.word}`)
-            setProductlist(response.data)
-            setCurrentPage(1)
+            if (currentPage != 1) {
+                setCurrentPage(1)
+            }
+            const response = await axios.get(`/api/product/getproduct/main/${mainCategory}?product=${search.word}&page=${currentPage}`)
+            setProductlist(response.data.productsPiece)
+            setLength(response.data.length)
         } catch (error) {
             catchError(error, setError)
         } finally {
@@ -70,9 +87,10 @@ function ProductsList({ match }) {
     async function getProductlist() {
         try {
             setError('')
-            const response = await axios.get(`/api/product/getproduct/main/${mainCategory}`)
-            setProductlist(response.data)
-            setCurrentPage(1)
+            setSearch({ word: '' })
+            const response = await axios.get(`/api/product/getproduct/main/${mainCategory}?page=${currentPage}`)
+            setProductlist(response.data.productsPiece)
+            setLength(response.data.length)
         } catch (error) {
             catchError(error, setError)
         }
@@ -126,13 +144,27 @@ function ProductsList({ match }) {
         }
     }
 
-    async function handleSubname(e) {
-        const subname = e.target.name
+    async function changePageforSubname() {
         try {
             setError('')
-            const response = await axios.get(`/api/product/getproduct/sub?subname=${subname}`)
-            setProductlist(response.data)
-            setCurrentPage(1)
+            setSearch({ word: '' })
+            const response = await axios.get(`/api/product/getproduct/sub?subname=${selectSubCategory}&page=${currentPage}`)
+            setProductlist(response.data.productsPiece)
+            setLength(response.data.length)
+        } catch (error) {
+            catchError(error, setError)
+        }
+    }
+
+    async function handleSubname(e) {
+        const subname = e.target.name
+        setSelectSubCategory(e.target.name)
+        try {
+            setError('')
+            setSearch({ word: '' })
+            const response = await axios.get(`/api/product/getproduct/sub?subname=${subname}&page=${currentPage}`)
+            setProductlist(response.data.productsPiece)
+            setLength(response.data.length)
         } catch (error) {
             catchError(error, setError)
         }
@@ -212,7 +244,7 @@ function ProductsList({ match }) {
             </Row>
             <Row md={8} sm={12} className="justify-content-center m-2">
                 {productlist.length > 0 ?
-                    currentPosts(productlist).map(pro => (
+                    productlist.map(pro => (
                         <Link to={{
                             pathname: `/product/${pro._id}`,
                             state: {
@@ -235,7 +267,7 @@ function ProductsList({ match }) {
                     )
                 }
             </Row>
-            {productlist.length != 0 ? <Pagination index={currentPage} totalPages={Math.ceil(productlist.length / per)} handlePage={setCurrentPage} /> : ''}
+            {productlist.length != 0 ? <Pagination index={currentPage} totalPages={Math.ceil(length / per)} handlePage={setCurrentPage} /> : ''}
         </Container>
     )
 }

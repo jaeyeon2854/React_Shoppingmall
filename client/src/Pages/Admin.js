@@ -6,38 +6,47 @@ import catchError from '../utils/catchErrors';
 import { Row, Form, FormControl, Button, Container } from 'react-bootstrap';
 
 function Admin() {
-    const INIT_STATUS = { indexOfFirst: 0, indexOfLast: 10 }
     const [search, setSearch] = useState({ word: '' })
     const [productlist, setProductlist] = useState([])
-    const [status, setStatus] = useState(INIT_STATUS)
+    const [length, setLength] = useState(0)
     const [currentPage, setCurrentPage] = useState(1)
     const [error, setError] = useState('')
     const searchref = useRef(null)
-    const per = 10;
+    const per = 9;
 
     useEffect(() => {
         getProductlist()
     }, [])
 
     useEffect(() => {
-        setStatus({ indexOfFirst: (currentPage - 1) * per, indexOfLast: currentPage * per })
+        if (search.word == '') {
+            getProductlist()
+        } else {
+            handleSearch()
+        }
     }, [currentPage])
-
-    function currentPosts(items) {
-        let currentPosts = 0;
-        currentPosts = items.slice(status.indexOfFirst, status.indexOfLast);
-        return currentPosts
-    }
 
     async function getProductlist() {
         try {
             setError('')
-            const response = await axios.get(`/api/product/getproduct/all`)
-            setProductlist(response.data)
-            setCurrentPage(1)
+            setSearch({ word: '' })
+            const response = await axios.get(`/api/product/getproduct/all?page=${currentPage}`)
+            setProductlist(response.data.productPiece)
+            setLength(response.data.length)
         } catch (error) {
             catchError(error, setError)
         }
+    }
+
+    async function handleSearch() {
+        try {
+            setError('')
+            const response = await axios.get(`/api/product/getproduct/all?product=${search.word}&page=${currentPage}`)
+            setProductlist(response.data.productPiece)
+            setLength(response.data.length)
+        } catch (error) {
+            catchError(error, setError)
+        } 
     }
 
     function handleChange(event) {
@@ -48,9 +57,12 @@ function Admin() {
         e.preventDefault()
         try {
             setError('')
-            const response = await axios.get(`/api/product/getproduct/all?product=${search.word}`)
-            setProductlist(response.data)
-            setCurrentPage(1)
+            if (currentPage != 1) {
+                setCurrentPage(1)
+            }
+            const response = await axios.get(`/api/product/getproduct/all?product=${search.word}&page=${currentPage}`)
+            setProductlist(response.data.productPiece)
+            setLength(response.data.length)
         } catch (error) {
             catchError(error, setError)
         } finally {
@@ -103,11 +115,11 @@ function Admin() {
                 <Button sm={2} xs={6} type="button" href="/regist" className="ml-1">상품 등록</Button>
             </Row>
             <Row className="justify-content-center m-5">
-                {currentPosts(productlist).map(pro => (
+                {productlist.map(pro => (
                     <AllCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} />
                 ))}
             </Row>
-            <Pagination index={currentPage} totalPages={Math.ceil(productlist.length / per)} handlePage={setCurrentPage} />
+            <Pagination index={currentPage} totalPages={Math.ceil(length / per)} handlePage={setCurrentPage} />
         </Container>
     )
 }

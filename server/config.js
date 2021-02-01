@@ -6,13 +6,6 @@ const config = {
     kakaoAdminKey: 'b2dda7685c5b2990684d813e362cff07',
     cookieMaxAge: 60 * 60 * 24 * 7 * 1000
 }
-
-// const config = {
-//     port: 3001,
-//     kakaoAdminKey: 'b2dda7685c5b2990684d813e362cff07',
-//   }
   
-  export default config
+export default config
   
-
-// export default config

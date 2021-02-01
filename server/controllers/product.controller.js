@@ -47,14 +47,14 @@ const getAll = async (req, res) => {
             if (productslist.length == 0) {
                 res.status(404).send('상품을 찾을 수 없습니다.')
             } else {
-                res.json({productPiece, length})
+                res.json({ productPiece, length })
             }
         } else {
             const productslist = await Product.find({}).sort({ createdAt: -1 })
             const length = productslist.length
             const productPiece = await Product.find({}).sort({ createdAt: -1 }).skip((req.query.page - 1) * per).limit(per)
-            console.log("products=",productPiece)
-            res.json({productPiece, length})
+            console.log("products=", productPiece)
+            res.json({ productPiece, length })
         }
     } catch (error) {
         res.status(500).send('상품을 불러오지 못했습니다.')
@@ -63,33 +63,103 @@ const getAll = async (req, res) => {
 
 const getlist = (req, res) => {
     try {
-        const productsPiece = req.productsPiece
-        const length = req.length
-        res.json({ productsPiece, length })
+        if (req.str && req.length) {
+            const str = req.str
+            const productsPiece = req.productsPiece
+            const length = req.length
+            res.json({ productsPiece, length, str })
+        } else if (req.str) {
+            const str = req.str
+            const productsPiece = req.productsPiece
+            res.json({ productsPiece, str })
+        } else {
+            const productsPiece = req.productsPiece
+            const length = req.length
+            res.json({ productsPiece, length })
+        }
     } catch (error) {
         res.status(500).send('상품을 불러오지 못했습니다.')
     }
 }
 
-
 const categoryId = async (req, res, next, category) => {
     const per = 9;
     try {
-        if (req.query.product) {
-            const productslist = await Product.find({ main_category: category, pro_name: { $regex: new RegExp(req.query.product) } })
-            const length = productslist.length
-            const productsPiece = await Product.find({ main_category: category, pro_name: { $regex: new RegExp(req.query.product) } }).skip((req.query.page - 1) * per).limit(per) 
-            if (productslist.length == 0) {
-                res.status(404).send('상품을 찾을 수 없습니다.')
-            } else {
+        if (req.query.product && req.query.method) {
+            let method = ''
+            let methodStr = ''
+            switch (req.query.method) {
+                case "purchase":
+                    method = "purchase"
+                    methodStr = '인기상품'
+                    break;
+                case "newest":
+                    method = "createdAt"
+                    methodStr = '신상품'
+                    break;
+                case "lowest":
+                    method = "price"
+                    methodStr = '낮은가격'
+                    break;
+                case "highest":
+                    method = "price"
+                    methodStr = '높은가격'
+                    break;
+            }
+            req.str = methodStr
+            if (req.query.method == 'lowest') {
+                let productslist = await Product.find({ main_category: category, pro_name: { $regex: new RegExp(req.query.product) } }).sort({ [method]: 1 })
+                let length = productslist.length
                 req.length = length
+                let productsPiece = await Product.find({ main_category: category, pro_name: { $regex: new RegExp(req.query.product) } }).sort({ [method]: 1 }).skip((req.query.page - 1) * per).limit(per)
+                req.productsPiece = productsPiece
+            } else {
+                let productslist = await Product.find({ main_category: category, pro_name: { $regex: new RegExp(req.query.product) } }).sort({ [method]: -1 })
+                let length = productslist.length
+                req.length = length
+                let productsPiece = await Product.find({ main_category: category, pro_name: { $regex: new RegExp(req.query.product) } }).sort({ [method]: -1 }).skip((req.query.page - 1) * per).limit(per)
                 req.productsPiece = productsPiece
             }
-        } else {
-            const productslist = await Product.find({ main_category: category })
+        } else if (req.query.method) {
+            let method = ''
+            let methodStr = ''
+            switch (req.query.method) {
+                case "purchase":
+                    method = "purchase"
+                    methodStr = '인기상품'
+                    break;
+                case "newest":
+                    method = "createdAt"
+                    methodStr = '신상품'
+                    break;
+                case "lowest":
+                    method = "price"
+                    methodStr = '낮은가격'
+                    break;
+                case "highest":
+                    method = "price"
+                    methodStr = '높은가격'
+                    break;
+            }
+            req.str = methodStr
+            if (req.query.method == 'lowest') {
+                let productsPiece = await Product.find({ main_category: category }).sort({ [method]: 1 }).skip((req.query.page - 1) * per).limit(per)
+                req.productsPiece = productsPiece
+            } else {
+                let productsPiece = await Product.find({ main_category: category }).sort({ [method]: -1 }).skip((req.query.page - 1) * per).limit(per)
+                req.productsPiece = productsPiece
+            }
+        } else if (req.query.product) {
+            const productslist = await Product.find({ main_category: category, pro_name: { $regex: new RegExp(req.query.product) } }).sort({ createdAt: -1 })
             const length = productslist.length
             req.length = length
-            const productsPiece = await Product.find({ main_category: category }).skip((req.query.page - 1) * per).limit(per)
+            const productsPiece = await Product.find({ main_category: category, pro_name: { $regex: new RegExp(req.query.product) } }).sort({ createdAt: -1 }).skip((req.query.page - 1) * per).limit(per)
+            req.productsPiece = productsPiece
+        } else {
+            const productslist = await Product.find({ main_category: category }).sort({ createdAt: -1 })
+            const length = productslist.length
+            req.length = length
+            const productsPiece = await Product.find({ main_category: category }).sort({ createdAt: -1 }).skip((req.query.page - 1) * per).limit(per)
             req.productsPiece = productsPiece
         }
         next()
@@ -101,10 +171,41 @@ const categoryId = async (req, res, next, category) => {
 const subname = async (req, res) => {
     const per = 9;
     try {
-        const productslist = await Product.find({ sub_category: req.query.subname })
-        const length = productslist.length
-        const productsPiece = await Product.find({ sub_category: req.query.subname }).skip((req.query.page - 1) * per).limit(per)
-        res.send({ productsPiece, length })
+        if (req.query.method) {
+            let method = ''
+            let methodStr = ''
+            switch (req.query.method) {
+                case "purchase":
+                    method = "purchase"
+                    methodStr = '인기상품'
+                    break;
+                case "newest":
+                    method = "createdAt"
+                    methodStr = '신상품'
+                    break;
+                case "lowest":
+                    method = "price"
+                    methodStr = '낮은가격'
+                    break;
+                case "highest":
+                    method = "price"
+                    methodStr = '높은가격'
+                    break;
+            }
+            let str = methodStr
+            if (req.query.method == 'lowest') {
+                let productsPiece = await Product.find({ sub_category: req.query.subname }).sort({ [method]: 1 }).skip((req.query.page - 1) * per).limit(per)
+                res.send({ productsPiece, str })
+            } else {
+                let productsPiece = await Product.find({ sub_category: req.query.subname }).sort({ [method]: -1 }).skip((req.query.page - 1) * per).limit(per)
+                res.send({ productsPiece, str })
+            }
+        } else {
+            const productslist = await Product.find({ sub_category: req.query.subname }).sort({ createdAt: -1 })
+            const length = productslist.length
+            const productsPiece = await Product.find({ sub_category: req.query.subname }).sort({ createdAt: -1 }).skip((req.query.page - 1) * per).limit(per)
+            res.send({ productsPiece, length })
+        }
     } catch (error) {
         res.status(500).send('상품을 불러오지 못했습니다.')
     }

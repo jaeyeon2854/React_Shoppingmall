@@ -159,7 +159,6 @@ function Payment({ match, location }) {
                 <p>주문하기를 눌러 결제를 이어가주세요.</p>
             </div>
         )
-        // window.location.href = data.redirect_url
         // setRedirect(data.redirect_url)
     }
 
@@ -211,6 +210,7 @@ function Payment({ match, location }) {
                     })
                 })
                 const data = await response.json()
+                window.location.href = data.redirect_url
             } else {
                 console.log(response.data)
                 console.log(response2.data)

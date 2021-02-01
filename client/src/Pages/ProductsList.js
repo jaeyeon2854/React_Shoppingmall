@@ -8,7 +8,8 @@ import { Container, Row, Col, Form, FormControl, Button, Dropdown, ButtonGroup, 
 
 function ProductsList({ match }) {
     const [search, setSearch] = useState({ word: '' })
-    const [sortingName, setSortingName] = useState('정렬')
+    const [sortingName, setSortingName] = useState('')
+    const [sortingDisplayName, setSortingDisplayName] = useState('신상품')
     const [mainCategory, setMainCategory] = useState(match.params.main.toUpperCase())
     const [subCategory, setSubCategory] = useState([])
     const [selectSubCategory, setSelectSubCategory] = useState('')
@@ -23,6 +24,8 @@ function ProductsList({ match }) {
         setMainCategory(match.params.main.toUpperCase())
         setSelectSubCategory('')
         setCurrentPage(1)
+        setSortingName('')
+        setSortingDisplayName('신상품')
     }, [match.params.main])
 
 
@@ -31,48 +34,17 @@ function ProductsList({ match }) {
         getProductlist()
     }, [mainCategory])
 
-    useEffect(() => {
-        if (search.word == '') {
-            getProductlist()
-        } else if (selectSubCategory != '') {
-            changePageforSubname()
-        } else {
-            setSelectSubCategory('')
-            searchList()
-        }
-    }, [currentPage])
-
-    async function searchList() {
-        try {
-            setError('')
-            const response = await axios.get(`/api/product/getproduct/main/${mainCategory}?product=${search.word}&page=${currentPage}`)
-            setProductlist(response.data.productsPiece)
-            setLength(response.data.length)
-        } catch (error) {
-            catchError(error, setError)
-        }
-    }
-
-    function handleChange(event) {
-        setSearch({ word: event.target.value })
-    }
-
-    async function handleSearch(e) {
-        e.preventDefault()
-        try {
-            setError('')
-            if (currentPage != 1) {
-                setCurrentPage(1)
-            }
-            const response = await axios.get(`/api/product/getproduct/main/${mainCategory}?product=${search.word}&page=${currentPage}`)
-            setProductlist(response.data.productsPiece)
-            setLength(response.data.length)
-        } catch (error) {
-            catchError(error, setError)
-        } finally {
-            searchref.current.value = ''
-        }
-    }
+    // useEffect(() => {
+    //     if (sortingName == '' && search.word == '' && selectSubCategory == '') {
+    //         getProductlist()
+    //     } else if (sortingName == '' && search.word == '') {
+    //         changePageforSubname()
+    //     } else if (selectSubCategory == '' && sortingName == '') {
+    //         searchList()
+    //     } else {
+    //         changePageforSorting()
+    //     }
+    // }, [currentPage])
 
     async function getSubsCategories() {
         try {
@@ -86,7 +58,9 @@ function ProductsList({ match }) {
 
     async function getProductlist() {
         try {
+            console.log("getProductlist 실행")
             setError('')
+            setSelectSubCategory('')
             setSearch({ word: '' })
             const response = await axios.get(`/api/product/getproduct/main/${mainCategory}?page=${currentPage}`)
             setProductlist(response.data.productsPiece)
@@ -96,73 +70,111 @@ function ProductsList({ match }) {
         }
     }
 
+    async function searchList() {
+        try {
+            console.log("seacrchList 실행")
+            setError('')
+            const response = await axios.get(`/api/product/getproduct/main/${mainCategory}?product=${search.word}&page=${currentPage}`)
+            setProductlist(response.data.productsPiece)
+        } catch (error) {
+            catchError(error, setError)
+        }
+    }
+
+    function handleChange(event) {
+        setSearch({ word: event.target.value })
+    }
+
+    async function handleSearch(e) {
+        e.preventDefault()
+        try {
+            console.log("handleSearch 실행")
+            setError('')
+            setSelectSubCategory('')
+            setCurrentPage(1)
+            const response = await axios.get(`/api/product/getproduct/main/${mainCategory}?product=${search.word}&page=1`)
+            setProductlist(response.data.productsPiece)
+            setLength(response.data.length)
+        } catch (error) {
+            catchError(error, setError)
+        } finally {
+            searchref.current.value = ''
+        }
+    }
+
+    // async function changePageforSorting() {
+    //     try {
+    //         console.log("changePageforSorting 실행")
+    //         setError('')
+    //         if (selectSubCategory != '') {
+    //             const response = await axios.get(`/api/product/getproduct/sub?subname=${selectSubCategory}&method=${sortingName}&page=${currentPage}`)
+    //             setProductlist(response.data.productsPiece)
+    //             setLength(response.data.length)
+    //             setSortingDisplayName()
+    //         } else if (search.word != '') {
+    //             const response = await axios.get(`/api/product/getproduct/main/${mainCategory}?product=${search.word}&method=${sortingName}&page=${currentPage}`)
+    //             setProductlist(response.data.productsPiece)
+    //         } else {
+    //             console.log("else")
+    //             const response = await axios.get(`/api/product/getproduct/main/${mainCategory}?method=${sortingName}&page=${currentPage}`)
+    //             setProductlist(response.data.productsPiece)
+    //         }
+    //     } catch (error) {
+    //         catchError(error, setError)
+    //     }
+    // }
+
     async function handleSort(method) {
-        if (method === "purchase") {
-            productlist.sort(function (a, b) {
-                if (a.purchase > b.purchase) {
-                    return -1;
-                }
-                if (a.purchase < b.purchase) {
-                    return 1;
-                }
-                return 0;
-            });
-            setSortingName("인기상품")
-        } else if (method === "newest") {
-            productlist.sort(function (a, b) {
-                if (a.createdAt > b.createdAt) {
-                    return -1;
-                }
-                if (a.createdAt < b.createdAt) {
-                    return 1;
-                }
-                return 0;
-            });
-            setSortingName("신상품")
-        } else if (method === "lowest") {
-            productlist.sort(function (a, b) {
-                if (a.price > b.price) {
-                    return 1;
-                }
-                if (a.price < b.price) {
-                    return -1;
-                }
-                return 0;
-            });
-            setSortingName("낮은가격")
-        } else {
-            productlist.sort(function (a, b) {
-                if (a.price > b.price) {
-                    return -1;
-                }
-                if (a.price < b.price) {
-                    return 1;
-                }
-                return 0;
-            });
-            setSortingName("높은가격")
+        try {
+            console.log("handleSort 실행")
+            setError('')
+            setCurrentPage(1)
+            setSortingName(method)
+            if (selectSubCategory != '') {
+                console.log("selectSubCategory != ''")
+                const response = await axios.get(`/api/product/getproduct/sub?subname=${selectSubCategory}&method=${method}&page=1`)
+                setProductlist(response.data.productsPiece)
+                setSortingDisplayName(response.data.str)
+            } else if (search.word != '') {
+                console.log("search.word != ''")
+                const response = await axios.get(`/api/product/getproduct/main/${mainCategory}?product=${search.word}&method=${method}&page=1`)
+                setProductlist(response.data.productsPiece)
+                // setLength(response.data.length)
+                setSortingDisplayName(response.data.str)
+            } else {
+                console.log("else")
+                const response = await axios.get(`/api/product/getproduct/main/${mainCategory}?method=${method}&page=1`)
+                setProductlist(response.data.productsPiece)
+                // setLength(response.data.length)
+                setSortingDisplayName(response.data.str)
+            }
+        } catch (error) {
+            catchError(error, setError)
         }
     }
 
     async function changePageforSubname() {
         try {
+            console.log("changePageforSubname 실행")
             setError('')
-            setSearch({ word: '' })
             const response = await axios.get(`/api/product/getproduct/sub?subname=${selectSubCategory}&page=${currentPage}`)
             setProductlist(response.data.productsPiece)
-            setLength(response.data.length)
         } catch (error) {
             catchError(error, setError)
         }
     }
 
     async function handleSubname(e) {
+        console.log("handleSubname 실행")
         const subname = e.target.name
         setSelectSubCategory(e.target.name)
         try {
             setError('')
             setSearch({ word: '' })
-            const response = await axios.get(`/api/product/getproduct/sub?subname=${subname}&page=${currentPage}`)
+            setSortingDisplayName('신상품')
+            setSortingName('')
+            setCurrentPage(1)
+            const response = await axios.get(`/api/product/getproduct/sub?subname=${subname}&page=1`)
             setProductlist(response.data.productsPiece)
             setLength(response.data.length)
         } catch (error) {
@@ -178,6 +190,7 @@ function ProductsList({ match }) {
 
     return (
         <Container>
+            {console.log("subCategory=",selectSubCategory,"sortingName=",sortingName,"search=",search.word,"page=",currentPage)}
             <style type="text/css">
                 {`
                 @font-face {
@@ -233,7 +246,7 @@ function ProductsList({ match }) {
                     </Button>
                 </Form>
                 <Dropdown className="my-2">
-                    <Dropdown.Toggle className="mx-1">{sortingName}</Dropdown.Toggle>
+                    <Dropdown.Toggle className="mx-1">{sortingDisplayName}</Dropdown.Toggle>
                     <Dropdown.Menu>
                         <Dropdown.Item as="button" onClick={() => handleSort('purchase')}>인기상품</Dropdown.Item>
                         <Dropdown.Item as="button" onClick={() => handleSort('newest')}>신상품</Dropdown.Item>
@@ -258,7 +271,7 @@ function ProductsList({ match }) {
                                 detail_imgs: pro.detail_imgUrls
                             }
                         }}>
-                            <ListCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} status={'list'}/>
+                            <ListCard id={pro._id} name={pro.pro_name} price={pro.price} main_img={pro.main_imgUrl} status={'list'} />
                         </Link>
                     ))
                     : (

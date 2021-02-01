@@ -84,7 +84,7 @@ const addorder = async (req, res) => {
         const order = await Order.find({ userId: userId }).populate({
             path: 'products.productId',
             model: 'Product'
-        })
+        }).sort({createdAt:-1})
         res.status(200).json(order)
     } catch (error) {
         console.log(error)

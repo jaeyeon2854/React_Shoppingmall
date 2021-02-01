@@ -1,0 +1,77 @@
+[{
+  "_id": {
+    "$oid": "6013ede5cb134f5168612013"
+  },
+  "role": "admin",
+  "name": "관리자",
+  "number1": "010101",
+  "number2": "4",
+  "id": "admin0000",
+  "password": "$2a$10$3iEijIPm8n/1qV92M/Imp.rZyYuKeitttUfJJ.IxBlTC.ovaEDA.S",
+  "tel": "010-1234-1234",
+  "email": "admin0000@naver.com",
+  "createdAt": {
+    "$date": "2021-01-29T11:13:41.499Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T11:13:41.499Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013ef22cb134f5168612015"
+  },
+  "role": "user",
+  "name": "윤지원",
+  "number1": "991027",
+  "number2": "2",
+  "id": "jiwon5393",
+  "password": "$2a$10$mfdd/qO1Q6tKZfEo4asVse5acFOKBZDsRWNg.Ff0jzpnG4Jamr8cG",
+  "tel": "010-5134-5825",
+  "email": "jiwon5393@naver.com",
+  "createdAt": {
+    "$date": "2021-01-29T11:18:58.844Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T11:18:58.844Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013ef67cb134f5168612017"
+  },
+  "role": "user",
+  "name": "김수빈",
+  "number1": "991025",
+  "number2": "2",
+  "id": "ksbin1025",
+  "password": "$2a$10$IbM9GhPOQm0TQtwYgXmzueR4jP29h530JM73cKuNj...ON/rUO5Rm",
+  "tel": "010-8310-0170",
+  "email": "ksbin1025@korea.ac.kr",
+  "createdAt": {
+    "$date": "2021-01-29T11:20:07.945Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T11:20:07.945Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013f00ccb134f5168612019"
+  },
+  "role": "user",
+  "name": "이재연",
+  "number1": "000428",
+  "number2": "4",
+  "id": "wodus2854",
+  "password": "$2a$10$U8Fr883V2UdwYwog0eojh.xzz/CoAKEq8yZnFHgyfAXx4mnVHfcLe",
+  "tel": "010-2854-4649",
+  "email": "wodus2854@naver.com",
+  "createdAt": {
+    "$date": "2021-01-29T11:22:52.944Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T11:22:52.944Z"
+  },
+  "__v": 0
+}]

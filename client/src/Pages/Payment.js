@@ -210,7 +210,9 @@ function Payment({ match, location }) {
                         cancel_url: 'http://localhost:3000/shoppingcart',
                     })
                 })
+                console.log(response.data)
                 const data = await response.json()
+                window.location.href = data.redirect_url
             } else {
                 console.log(response.data)
                 console.log(response2.data)

@@ -1,0 +1,55 @@
+[{
+  "_id": {
+    "$oid": "60012520ef00cccb01601824"
+  },
+  "DRESS": [
+    "LONG DRESS",
+    "SHORT DRESS",
+    "KNIT DRESS",
+    "SHIRT DRESS",
+    "PATTERN DRESS",
+    "BUSTIER DRESS",
+    "TWO-PIECE DRESS"
+  ],
+  "OUTER": [
+    "PADDED JACKET",
+    "JACKET",
+    "JUMPER",
+    "COAT",
+    "FLEECE",
+    "CARDIGAN / VEST"
+  ],
+  "TOP": [
+    "KNIT",
+    "HOODY",
+    "BLOUSE",
+    "SHIRT",
+    "SWEATSHIRT",
+    "LONG SLEEVE SHIRT",
+    "SHORT SLEEVE / SLEEVELESS SHIRT"
+  ],
+  "PANTS": [
+    "JEANS",
+    "SKINNY JEANS",
+    "BANDING PANTS",
+    "WIDE-FIT PANTS",
+    "BOOT-CUT PANTS",
+    "STRAIGHT-FIT PANTS",
+    "SHORTS",
+    "TROUSERS",
+    "LEGGINGS",
+    "JUMPSUIT / OVERALLS"
+  ],
+  "SKIRT": [
+    "LONG SKIRT",
+    "MIDI SKIRT",
+    "MINI SKIRT"
+  ],
+  "SHOES": [
+    "SNEAKERS / SLIP-ON",
+    "FLAT / LOAFER",
+    "HEEL / PUMP",
+    "BOOTS",
+    "SANDAL / SLIPPER"
+  ]
+}]

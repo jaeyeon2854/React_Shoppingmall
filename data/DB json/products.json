@@ -1,0 +1,2151 @@
+[{
+  "_id": {
+    "$oid": "600cf33c89310953401bb0bb"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "undefined",
+    "beige"
+  ],
+  "sub_category": [
+    "LONG DRESS"
+  ],
+  "detail_imgUrls": [
+    "2518bab7ffc842334dc048a9b36ca9e2"
+  ],
+  "pro_name": "골덴멜빵원피스세트",
+  "price": 13500,
+  "stock": 9999,
+  "main_category": "DRESS",
+  "description": "러블리하면서 사랑스런 무드의 코듀로이\n\n멜빵원피스 세트를 소개해드릴게요 :D\n\n \n\n유행타지 않는 유니크한 코듀로이 디자인과 \n\n총 6컬러의 매력적인 다양한 색감들로 \n\n구성되었으며 멜방 타입으로 길이조절이 \n\n가능해 체형에 맞게 입기 좋아요!\n\n \n\n전체적으로 여유있는 베이직핏이라\n\n편안하게 데일리로 착용하기 좋으며\n\nA라인으로 깔끔하게 떨어져서 늘씬해\n\n보이는 실루엣으로 체형을 커버해주기\n\n때문에 하나쯤 소장하시면 매시즌 \n\n즐겨입기 좋아 적극 추천해드려요♡",
+  "main_imgUrl": "8fc51c5bd026515fca4f96f7e843c21a",
+  "createdAt": {
+    "$date": "2021-01-24T04:10:36.847Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-24T04:10:36.847Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "600cf48289310953401bb0bf"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "chacoal",
+    "brown"
+  ],
+  "sub_category": [
+    "PATTERN DRESS",
+    "SHORT DRESS",
+    "BUSTIER DRESS",
+    ""
+  ],
+  "detail_imgUrls": [
+    "1e1f031af5e0c444735024de7055e17a"
+  ],
+  "pro_name": "체크뷔스티에치마",
+  "price": 15900,
+  "stock": 9999,
+  "main_category": "DRESS",
+  "description": "체크뷔스티에치마",
+  "main_imgUrl": "96ba42a94705f2b709f92d9b233a6797",
+  "createdAt": {
+    "$date": "2021-01-24T04:16:02.126Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-24T04:16:02.126Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "600cf50b89310953401bb0c0"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "white",
+    "beige",
+    "black"
+  ],
+  "sub_category": [
+    "LONG DRESS",
+    "SHIRT DRESS"
+  ],
+  "detail_imgUrls": [
+    "90a29484fbaef55d0ca366eb8134fa48"
+  ],
+  "pro_name": "이자벨 벨트세트 셔츠 롱원피스",
+  "price": 14500,
+  "stock": 9999,
+  "main_category": "DRESS",
+  "description": "데일리로 즐겨입기 딱! 좋은 롱 원피스예요\n\n롱한 기장감으로 무드있게 착용 가능하며\n\n니트, 가디건 등과 같이 레이어드 하시면\n\n더욱 스타일리쉬한 코디를 완성하실 수 있어요 :)\n\n \n\n벨트와 세트 제품으로 체형에 맞게\n\n착용 가능하며 사이드 포켓으로\n\n활용도까지 톡톡히 신경쓴 아이템이에요\n\n찰랑거리는 실키한 소재로 간절기 시즌\n\n가볍게 입기 좋아 소장하시길 추천해드려요♡\n\n \n\n※벨트 세트 아이템 입니다.",
+  "main_imgUrl": "b0abb50b952110bb3f4dd9337fd8bdda",
+  "createdAt": {
+    "$date": "2021-01-24T04:18:19.129Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-24T04:18:19.129Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "600da8c6f7c97723e4be5088"
+  },
+  "purchase": 1,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "beige",
+    "ivory"
+  ],
+  "sub_category": [
+    "KNIT DRESS"
+  ],
+  "detail_imgUrls": [
+    "7059a8bf24c0136f9dc1adba19209d05"
+  ],
+  "pro_name": "솔티니트원피스",
+  "price": 21000,
+  "stock": 9998,
+  "main_category": "DRESS",
+  "description": "A라인 핏으로 자연스럽게 떨어지는 니트 \n꽈배기 원피스를 소개해드릴게요 :D\n\n미니멀한 기장감이지만 전혀 부담스럽지 \n않으며 부드럽고 적당한 두께감의 \n골지 + 꽈배기 패턴으로 허리 라인이 \n자연스럽게 들어가는 A라인 원피스에요\n\n파임이 크지 않아 갑갑하지 않은 브이넥과\n루즈한 베이직핏으로 여리여리한 실루엣으로\n연출되며 쫀쫀한 신축성으로 편안하게\n즐기기 좋아서 적극으로 추천해드려요♡\n \n\n※ 니트쇼핑시 참고사항\n\n- 신축성이 좋은 니트의 특성상 제품마다\n최대1~3cm 사이즈 차이가 있을 수 있습니다 \n- 니트원단의 특성상 생기는 보풀은\n가볍게 제거해주시기 바랍니다 \n위와 같은 사유로는 불량처리 어려운 점\n양해 부탁드려요'◡'",
+  "main_imgUrl": "f38f4824e45c5738ef4c8a739675d712",
+  "createdAt": {
+    "$date": "2021-01-24T17:05:10.669Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-27T01:29:32.187Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6010cec42ed4363f606ad825"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "아이보리",
+    "스카이블루",
+    "블랙"
+  ],
+  "sub_category": [
+    "LONG DRESS"
+  ],
+  "detail_imgUrls": [
+    "0b9a217c712680bcde40b98f4edd6449"
+  ],
+  "pro_name": "살랑캉캉롱원피스(OP)",
+  "price": 21900,
+  "stock": 9999,
+  "main_category": "DRESS",
+  "description": "\n살랑살랑~어디든 코디하기 쉬운\n캉캉롱원피스♡\n\n \n\nMD COMMENT \n\n───────────────────\n\n다가오는 봄시즌 사랑스럽게 입어지는 \n\n롱 원피스를 소개해요 :)\n\n살랑살랑~ 움직임에 따라 \n\n차르르 흐르는 핏이 멋스러우며\n\n여리여리해 보이는 실루엣으로 \n\n데이트룩,피크닉룩에 제격이랍니다\n\n \n\n또한, 롱한 기장감으로 체형커버까지 거뜬!\n\n허리엔 밴딩이 더해져 착용감까지 편안해요\n\n가볍고 시원한 텍스쳐의 소재로 제작되어\n\nS/S시즌 쭉 착용하기 좋답니다\n\n \n\n※TIP 비침이 있는 상품으로 꼭 레이어드용\n\n슬리브리스원피스와 함께 착용해주세요:)",
+  "main_imgUrl": "634c963bd5e3fb7c4670f37f371cf7d2",
+  "createdAt": {
+    "$date": "2021-01-27T02:24:04.569Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-27T02:24:04.569Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6010cf322ed4363f606ad826"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "베이지",
+    "브라운"
+  ],
+  "sub_category": [
+    "LONG DRESS",
+    "PATTERN DRESS"
+  ],
+  "detail_imgUrls": [
+    "2efe8d6a19747202895dc62ad7033ce0"
+  ],
+  "pro_name": "로로체크롱원피스(OP)",
+  "price": 12900,
+  "stock": 9999,
+  "main_category": "DRESS",
+  "description": "MD COMMENT \n\n───────────────────\n\n걸리쉬하고 포근한 무드가\n\n연출되는 체크 원피스예요\n\n \n\n아방하게 떨어지는 핏에 롱한 기장으로\n\n체형커버에 효과적이며 버튼 디테일로\n\n간편한 오픈,클로징이 가능하며\n\n허리단 스트링 디테일로 체형에 알맞게 조절돼요\n\n \n\n조화로운 컬러배색에 체크패턴으로\n\n포근한 무드가 느껴지며\n\n울 함유된 소재로 높은 보온성을 자랑한답니다!\n\n다양한 이너와 이지한 레이어링이 가능해\n\n높은 활용도를 자랑해\n\n시즌내내 데일리로 즐기기 좋아요!",
+  "main_imgUrl": "8d6772423ba488130c413fd6832b58db",
+  "createdAt": {
+    "$date": "2021-01-27T02:25:54.468Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-27T02:25:54.468Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6010d0052ed4363f606ad827"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "블랙",
+    "블루"
+  ],
+  "sub_category": [
+    "LONG DRESS",
+    "SHIRT DRESS"
+  ],
+  "detail_imgUrls": [
+    "0c5304cbfa7ccbc0f823d65ad42ce428"
+  ],
+  "pro_name": "귀여운 오버핏 포켓 데님 멜빵 롱원피스(OP)",
+  "price": 24900,
+  "stock": 9999,
+  "main_category": "DRESS",
+  "description": "MD COMMENT \n\n───────────────────\n\n \n\n다양하게 레이어드해서\n\n코디가능한 멜빵원피스예요\n은은한 워싱감으로 캐주얼하면서도\n\n빈티지한무드를 느끼실수있어요\n\n\n롱한 기장감에 여유있는\n\n박시한핏감으로 미운군살을\n\n쏙-가려주며 오랜착용에도 불편함없이\n\n편안하게 착용가능해요\n\n\n사이드에 큼지막한 포켓과\n\n바스트에 캥거루포켓으로\n귀여운무드를 느끼실수있으며\n\n하나쯤소장해두면 좋아요♡",
+  "main_imgUrl": "94d42ddd5dd606cf52bc727f376d6100",
+  "createdAt": {
+    "$date": "2021-01-27T02:29:25.657Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-27T02:29:25.657Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6010d21b2ed4363f606ad828"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "아이보리",
+    "딥핑크",
+    "블랙"
+  ],
+  "sub_category": [
+    "SHORT DRESS",
+    "KNIT DRESS",
+    "TWO-PIECE DRESS"
+  ],
+  "detail_imgUrls": [
+    "0b64c4eef60d0a22a08d9240e81c8836"
+  ],
+  "pro_name": "화사 브이넥 크롭 골지 투피스 SET(OP)",
+  "price": 23000,
+  "stock": 9999,
+  "main_category": "DRESS",
+  "description": "\nMD COMMENT \n\n───────────────────\n\n슬리브리스 원피스+크롭 긴팔티\n\n세트 구성으로 코디걱정 없이 입기 좋은\n\n아이템을 소개해 드려요 *.*\n\n \n\n세련되고 심플한 디자인으로\n\n데일리는 물론 \n\n격식있는 자리에서도 입기 좋으며\n\n세트 아이템이지만 각각 단독으로도\n\n다양한 아이템과 매치하실수 있어\n\n활용도가 높아요\n\n \n\n컬러에 따라 다양한 연출이 가능한 \n\n아이템으로 하나쯤 소장하시길\n\n추천해드려요",
+  "main_imgUrl": "5ecb80a7f413e6b69a4fd5ee69529cb2",
+  "createdAt": {
+    "$date": "2021-01-27T02:38:19.487Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-27T02:38:19.487Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6010d2892ed4363f606ad829"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "크림",
+    "옐로우",
+    "라이트 그린",
+    "코코아",
+    "블랙"
+  ],
+  "sub_category": [
+    "SHORT DRESS",
+    "KNIT DRESS"
+  ],
+  "detail_imgUrls": [
+    "90950ffb0de0d10e4d598560b30ef644"
+  ],
+  "pro_name": "샌디 스트랩 레이어드 브이넥 니트 원피스(OP)",
+  "price": 24900,
+  "stock": 9999,
+  "main_category": "DRESS",
+  "description": "MD COMMENT \n\n───────────────────\n\n날씬하고 여리한 실루엣이 연출되는\n\n니트원피스 소개해드려요\n\n허리 스트랩으로 몸매에 \n\n맞게 라인을 이쁘게 잡아주시면\n\n날씬하고 세련된 핏으로 입으실수있어요\n\n \n\n깊지않은 브이넥이라 \n\n턱선도 가녀리고 환하게보인답니다\n\n코트나 자켓안에 이너로 입거나 셔츠와 레이어드\n\n하시기에도 예쁘답니다:)\n\n \n\n※ 니트쇼핑시 참고사항\n\n \n\n- 신축성이 좋은 니트의 특성상 제품마다\n\n최대1~3cm 사이즈 차이가 있을 수 있습니다\n\n- 니트원단의 특성상 생기는 보풀은\n\n가볍게 제거해주시기 바랍니다\n\n위와 같은 사유로는 불량처리 어려운 점\n\n양해 부탁드려요'◡'",
+  "main_imgUrl": "9ed32b88eab597578264c107697f6b32",
+  "createdAt": {
+    "$date": "2021-01-27T02:40:09.898Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-27T02:40:09.898Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6010d2fe2ed4363f606ad82a"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "브라운",
+    "차콜",
+    "블랙"
+  ],
+  "sub_category": [
+    "SHORT DRESS",
+    "PATTERN DRESS"
+  ],
+  "detail_imgUrls": [
+    "b4698058ac09d991efbade898ea381bd"
+  ],
+  "pro_name": "투썸 반폴라 기본티 타탄체크 원피스(OP)",
+  "price": 13500,
+  "stock": 9999,
+  "main_category": "DRESS",
+  "description": "MD COMMENT \n\n───────────────────\n\n반폴라와 원피스가 일체형으로 따로\n\n레이어드가 필요 없는 원피스예요:)\n\n \n\n타탄체크 패턴에 베이직한 컬러들로\n\n구성되어 데일리에도 부담 없이\n\n즐기기 좋고 여러 가지 아이템들과\n\n매치하면 다양한 룩을 연출해 주는\n\n활용도 높은 제품이에요♥",
+  "main_imgUrl": "ff72ed573dda5d164e214442b79abade",
+  "createdAt": {
+    "$date": "2021-01-27T02:42:06.567Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-27T02:42:06.567Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6010d37f2ed4363f606ad82b"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "베이지",
+    "블랙"
+  ],
+  "sub_category": [
+    "SHORT DRESS",
+    "BUSTIER DRESS"
+  ],
+  "detail_imgUrls": [
+    "a4833420d037f3fba9987e2edda45323"
+  ],
+  "pro_name": "바비 뷔스티에 스커트 세트(OP)",
+  "price": 13500,
+  "stock": 9999,
+  "main_category": "DRESS",
+  "description": "MD COMMENT \n\n───────────────────\n\n모던과 시크함이 더해진 \n\n뷔스티에와 미니스커트가\n\n세트인 상품이랍니다 :)\n\n \n\n블라우스나 폴라티에 코디하시면\n\n더욱 깔끔하고 고급지게\n\n연출하실 수 있어요^^\n\n \n\n특별한 날, 데일리룩부터 \n\n데이트룩까지 활용도 높아\n\n소장하시는 거 추천드려요♡",
+  "main_imgUrl": "2ddaebcf0278c39c96ba8aa8d7d2e87d",
+  "createdAt": {
+    "$date": "2021-01-27T02:44:15.072Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-27T02:44:15.072Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6010d3d12ed4363f606ad82c"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "베이지",
+    "레드",
+    "카키",
+    "블랙"
+  ],
+  "sub_category": [
+    "BUSTIER DRESS"
+  ],
+  "detail_imgUrls": [
+    "4b5403f170592834a48b383dee15bfff"
+  ],
+  "pro_name": "비비안 뷔스티에 리본 원피스(OP)",
+  "price": 14000,
+  "stock": 9999,
+  "main_category": "DRESS",
+  "description": "MD COMMENT \n\n───────────────────\n\n \n\n백 라인 리본 포인트로 러블리한 무드를\n\n연출 시켜주는 원피스 소개해드려요 :)\n\n \n\n쫀쫀한 소재감에 허리 라인을 잡아주는 \n\n디테일이 체형 커버를 도와주는 제품이에요!\n\n \n\n기본 컬러부터 포인트 컬러까지 4가지의\n\n컬러로 구성되어 한 벌쯤 소장하시면\n\n다양하게 활용하기 좋으실 거예요♡",
+  "main_imgUrl": "d36b72b3a8f69f5bc28ebd4a5146aaee",
+  "createdAt": {
+    "$date": "2021-01-27T02:45:37.585Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-27T02:45:37.585Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6010d4a82ed4363f606ad82d"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "블랙"
+  ],
+  "sub_category": [
+    "LONG DRESS",
+    "PATTERN DRESS"
+  ],
+  "detail_imgUrls": [
+    "643a9116d8dfac9a7c74d703a15b888f"
+  ],
+  "pro_name": "도트브이넥밴딩롱원피스",
+  "price": 32100,
+  "stock": 9999,
+  "main_category": "DRESS",
+  "description": "백라인 밴딩처리로 편안한 착용감을 내어드리며 로맨틱한 실루엣을 연출해드려요~",
+  "main_imgUrl": "d25a51a9a166fcd430d61306e9888b91",
+  "createdAt": {
+    "$date": "2021-01-27T02:49:12.963Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-27T02:49:12.963Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6010d5582ed4363f606ad82e"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "베이지",
+    "브라운",
+    "블랙"
+  ],
+  "sub_category": [
+    "KNIT DRESS",
+    "LONG DRESS"
+  ],
+  "detail_imgUrls": [
+    "a3f84a7820b9b250c1ca31d76b03db33"
+  ],
+  "pro_name": "벨 니트원피스 스트랩세트 골지(OP)",
+  "price": 13500,
+  "stock": 9999,
+  "main_category": "DRESS",
+  "description": "MD COMMENT \n\n───────────────────\n\n가을,겨울 시즌 따뜻해 보이면서도\n\n여성스러운 코디에 딱 활용하기 좋은\n\n니트 원피스예요\n\n \n\n스트랩 벨트로 자유롭게 여러가지\n\n스타일을 연출하실 수 있어요\n\n베이직한 디자인에 벨트 스트랩 포인트로\n\n과하지 않게 데일리하게 코디하기 좋아요",
+  "main_imgUrl": "9c335347baafa644101de125ef1d458b",
+  "createdAt": {
+    "$date": "2021-01-27T02:52:08.671Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-27T02:52:08.671Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6010d5ad2ed4363f606ad82f"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "베이지",
+    "블랙"
+  ],
+  "sub_category": [
+    "SHORT DRESS",
+    "BUSTIER DRESS"
+  ],
+  "detail_imgUrls": [
+    "b4bcd1e13b2e468b2e54d44a38d7cc86"
+  ],
+  "pro_name": "봄신상 브릿지 뷔스티에 나시 리본 원피스(OP)",
+  "price": 12900,
+  "stock": 9999,
+  "main_category": "DRESS",
+  "description": "MD COMMENT \n\n───────────────────\n\n \n\n러블리한 뷔스티에 원피스 소개할게요:)\n\n 다양한 아이템들과 매치하면 여러 가지 룩을 \n\n만들어드리는 활용도 높은 제품이에요!\n\n \n\n브이넥 디자인으로 답답함을 덜어주었고 \n\n세미 A 라인 핏이 체형 커버를 도와주고\n\n여리여리한 실루엣을 연출 시켜드려요\n\n \n\n데일리에 입기 좋은 컬러로 구성되어 \n\n한 벌쯤 소장하시면 자주 손이 가실 거예요♡",
+  "main_imgUrl": "96eacb718dd1b3a2a75953d69009cb11",
+  "createdAt": {
+    "$date": "2021-01-27T02:53:33.018Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-27T02:53:33.018Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6010d62b2ed4363f606ad830"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "블랙",
+    "레드"
+  ],
+  "sub_category": [
+    "PATTERN DRESS",
+    "SHORT DRESS"
+  ],
+  "detail_imgUrls": [
+    "02162a93875966885ad4eb72b9231ec9"
+  ],
+  "pro_name": "봄신상 럽럽 쉬폰 랩 쉬폰 원피스(OP)",
+  "price": 17900,
+  "stock": 9999,
+  "main_category": "DRESS",
+  "description": "MD COMMENT \n\n───────────────────\n\n \n\n자글한 하트 패턴이 너무나\n\n사랑스러운 원피스를 소개해 드려요♥\n\n \n\n미니멀한 기장감으로 \n\n발랄한 무드를 선사해 드리며\n\n 랩타입으로 허리를 감싸는 핏이라\n\n더욱 바디라인 보정 효과가 느껴진답니다 :)\n\n \n\n살랑살랑 쉬폰 소재와 벌룬 소매로\n\n여리여리한 아웃핏을 완성시켜드려\n\n데이트룩으로 제격이에요!\n\n 굿초이스 해주세요 :)",
+  "main_imgUrl": "29492fc121505b60b01110795f5dc689",
+  "createdAt": {
+    "$date": "2021-01-27T02:55:39.980Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-27T02:55:39.980Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6010d6862ed4363f606ad831"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "크림",
+    "스카이블루",
+    "블랙"
+  ],
+  "sub_category": [
+    "SHORT DRESS",
+    "KNIT DRESS"
+  ],
+  "detail_imgUrls": [
+    "42fcd8a1d2c14cc23627c603b80ffd3e"
+  ],
+  "pro_name": "봄신상 디스코 니트 원피스 세트 투피스(OP)",
+  "price": 21500,
+  "stock": 9999,
+  "main_category": "DRESS",
+  "description": "MD COMMENT \n\n───────────────────\n\n \n\n적당한 두께와 탄탄한 소재감에\n\n입었을 때 핏이 예쁜 아이템이에요:)\n\n \n\n나시 원피스+니트 세트 구성으로\n\n세트 또는 단독으로도 착용 가능해요!\n\n \n\n편안한 착용감과 데일리 한 컬러감으로\n\n데이트룩, 꾸안꾸룩 등 다양하게 활용이 가능한 \n\n세트 아이템이라 소장하시는 거 추천드려요♡\n\n \n\n※ 니트쇼핑시 참고사항 \n\n \n\n - 신축성이 좋은 니트의 특성상 제품마다\n\n최대1~3cm 사이즈 차이가 있을 수 있습니다\n\n - 니트원단의 특성상 생기는 보풀은\n\n가볍게 제거해주시기 바랍니다\n\n위와 같은 사유로는 불량처리\n\n어려운 점양해 부탁드려요",
+  "main_imgUrl": "22080c5a8bf97502ab4b7de0ae980e5b",
+  "createdAt": {
+    "$date": "2021-01-27T02:57:11.001Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-27T02:57:11.001Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013b82bf2c7e95dd824e728"
+  },
+  "purchase": 4,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "레드"
+  ],
+  "sub_category": [
+    "CARDIGAN / VEST"
+  ],
+  "detail_imgUrls": [
+    "d3631482faef5649332cddfa1368a066",
+    "c81084dcb17a49881da9be81c04d3d65"
+  ],
+  "pro_name": "더몬체크 니트가디건",
+  "price": 42400,
+  "stock": 540,
+  "main_category": "OUTER",
+  "description": "유니크한 체크 가디건이에요.\n어디서든 톡톡 튀고싶은 당신에게 꼭 필요한 아이템!!\n \n야심차게 준비한 쿠샵의 오리지널 제품이니 어서 구매하세요~",
+  "main_imgUrl": "f0604d77063dea50a381c016202ed406",
+  "createdAt": {
+    "$date": "2021-01-29T07:24:27.330Z"
+  },
+  "updatedAt": {
+    "$date": "2021-02-01T02:28:01.792Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013b8a3f2c7e95dd824e729"
+  },
+  "purchase": 1,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "아이보리",
+    "카키"
+  ],
+  "sub_category": [
+    "JUMPER"
+  ],
+  "detail_imgUrls": [
+    "a470d44a7723faceaf3f54de14a4c8da",
+    "151b4fa34b66aff8fe87a1c0845e811c"
+  ],
+  "pro_name": "더블롱야상점퍼",
+  "price": 62000,
+  "stock": 111,
+  "main_category": "OUTER",
+  "description": "너무나 예쁜 야상점퍼에요.\n유행은 돌고 돌아 다시 야상의 시대로!!\n \n얼짱들이 자주 입었던 야상 점퍼, 그 느낌 아시죠?\n카키도 예쁘고, 아이보리도 예쁜데 어떡하지...?\n둘 다 사면 고민 해결~(뚜둥)",
+  "main_imgUrl": "af816719b74fd49e513974bb7f0ef0fc",
+  "createdAt": {
+    "$date": "2021-01-29T07:26:27.490Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T12:14:36.094Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013b97af2c7e95dd824e72a"
+  },
+  "purchase": 0,
+  "sizes": [
+    "L",
+    "S"
+  ],
+  "colors": [
+    "아이보리",
+    "옐로우",
+    "브라운"
+  ],
+  "sub_category": [
+    "CARDIGAN / VEST"
+  ],
+  "detail_imgUrls": [
+    "1396daccee34cc8ec4fe29199f55100e",
+    "ed57711276cab2186d7c6c316c39c2a5"
+  ],
+  "pro_name": "로더링 니트조끼가디건",
+  "price": 24100,
+  "stock": 313,
+  "main_category": "OUTER",
+  "description": "너무 예쁜데 말로 설명할 방법이 없네...",
+  "main_imgUrl": "ee9263c74437bc90bffb682ee4333491",
+  "createdAt": {
+    "$date": "2021-01-29T07:30:02.678Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T07:30:02.678Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013b9f2f2c7e95dd824e72b"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "블랙"
+  ],
+  "sub_category": [
+    "COAT"
+  ],
+  "detail_imgUrls": [
+    "c49466de57387a4dded23fe76e0fe0fd",
+    "271de09037d9960ecd6a6f37ccd77113"
+  ],
+  "pro_name": "롱트렌치코트",
+  "price": 53000,
+  "stock": 111,
+  "main_category": "OUTER",
+  "description": "트렌치코트의 계절이 가을 뿐이라는 생각은 버리세요.\n봄과 겨울에도 입을 수 있는 트렌치코트가 왔습니다!!\n  \n당신이 찾던 바로 그 트렌치코트.",
+  "main_imgUrl": "c38c17f2f9b79c22f9e68cf2e5884be8",
+  "createdAt": {
+    "$date": "2021-01-29T07:32:02.605Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T07:32:02.605Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013ba75f2c7e95dd824e72c"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "그레이",
+    "화이트",
+    "브라운"
+  ],
+  "sub_category": [
+    "PADDED JACKET",
+    "JACKET",
+    "JUMPER"
+  ],
+  "detail_imgUrls": [
+    "5ac209578493e0e08c02856529c1233d",
+    "dc9ed8b2d32ee088f5037d9a4eaf04c1"
+  ],
+  "pro_name": "마베드 코듀로이패딩",
+  "price": 35400,
+  "stock": 66,
+  "main_category": "OUTER",
+  "description": "아 따뜻해~ \n아 부들부들해~\n \n코듀로이의 매력에 빠지실 분 여기여기 모여라!\n따뜻함과 스타일 모두 잡을 수 있는 코듀로이 패딩이에요.",
+  "main_imgUrl": "ff5422978dc7808cde320e37c74817c2",
+  "createdAt": {
+    "$date": "2021-01-29T07:34:13.682Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T07:34:13.682Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013bb11f2c7e95dd824e72d"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "코코아",
+    "화이트",
+    "라이트그린"
+  ],
+  "sub_category": [
+    "JACKET"
+  ],
+  "detail_imgUrls": [
+    "c35dee2e608e47894581110ca55878ee",
+    "18bd32393b24e3a09ca17d2705a99584"
+  ],
+  "pro_name": "모드 오버핏싱글자켓",
+  "price": 21000,
+  "stock": 131,
+  "main_category": "OUTER",
+  "description": "여리여리함을 살려줄 오버핏자켓\n \n주머니도 넉넉하고 품도 넉넉하답니다!\n대학생 개강룩에 딱 맞는 자켓이에요~",
+  "main_imgUrl": "633713bc1522d970d773df394d47ca37",
+  "createdAt": {
+    "$date": "2021-01-29T07:36:49.138Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T07:36:49.138Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013bba4f2c7e95dd824e72e"
+  },
+  "purchase": 0,
+  "sizes": [
+    "L",
+    "M"
+  ],
+  "colors": [
+    "그레이",
+    "블랙"
+  ],
+  "sub_category": [
+    "FLEECE"
+  ],
+  "detail_imgUrls": [
+    "438b4c43475a1a48e23e96635b937333",
+    "86274aa8a07fd8169591f0615db858ee"
+  ],
+  "pro_name": "몽그리 플리스후드집업",
+  "price": 34200,
+  "stock": 52,
+  "main_category": "OUTER",
+  "description": "짱짱 편하고 짱짱 예쁜 후리스를 찾고계세요?\n여기있어요 여기~\n \n집 앞 편의점 갈 때 걸치기만 하면, 편하지만 후줄근해 보이지는 않은 후드집업입니다!",
+  "main_imgUrl": "dea7eecd84a81fee1e3c2693e7483228",
+  "createdAt": {
+    "$date": "2021-01-29T07:39:16.811Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T07:39:16.811Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013bc24f2c7e95dd824e72f"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "라이트그레이"
+  ],
+  "sub_category": [
+    "COAT"
+  ],
+  "detail_imgUrls": [
+    "c47bfbaab32623bf678ca484f2dcf649",
+    "cce08dd66f7d97c345faf26a5b6f1e4d"
+  ],
+  "pro_name": "싱글벨트코트",
+  "price": 62900,
+  "stock": 99,
+  "main_category": "OUTER",
+  "description": "페미닌한 느낌의 코트입니다.\n벨트까지 해주면 분위기 업업!!",
+  "main_imgUrl": "3b1f6eb67e9b537994e7cb466262a00c",
+  "createdAt": {
+    "$date": "2021-01-29T07:41:24.260Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T07:41:24.260Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013bcadf2c7e95dd824e730"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "베이지"
+  ],
+  "sub_category": [
+    "PADDED JACKET",
+    "JACKET",
+    "JUMPER"
+  ],
+  "detail_imgUrls": [
+    "e182af7ebbde4e92d6c7ea9de00d0c66",
+    "2cc1546acf6bf62d1646e71b14952e2f"
+  ],
+  "pro_name": "어덱트 누빔패딩",
+  "price": 45200,
+  "stock": 67,
+  "main_category": "OUTER",
+  "description": "핵귀여운 누빔패딩이 왔어요!\n깔깔이? 아니죠~\n너무너무 귀여워서 납치하고 싶은 핏을 연출하는 패딩이에요.",
+  "main_imgUrl": "5accf21d0a46408bbd4741571dc86a6a",
+  "createdAt": {
+    "$date": "2021-01-29T07:43:41.033Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T07:43:41.033Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013bd48f2c7e95dd824e731"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "그레이",
+    "블랙"
+  ],
+  "sub_category": [
+    "COAT"
+  ],
+  "detail_imgUrls": [
+    "1838132ba5eaca7e804a434223f4d9c1",
+    "3adf514c615fd279fbffa4c9164825c9"
+  ],
+  "pro_name": "오버핏더블코트",
+  "price": 58000,
+  "stock": 81,
+  "main_category": "OUTER",
+  "description": "코트 뭐사지?\n고민은 이제 그만.\n \n쿠샵의 오버핏더블코트 하나면 겨울준비 끝!\n단추가 두 줄이라 예쁨도 두 배!\n사면 절대로 후회하지 않습니다. ",
+  "main_imgUrl": "8286d2b27e98f024060abba36ceee309",
+  "createdAt": {
+    "$date": "2021-01-29T07:46:16.726Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T07:46:16.726Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013bdc8f2c7e95dd824e732"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "연청",
+    "진청"
+  ],
+  "sub_category": [
+    "JACKET"
+  ],
+  "detail_imgUrls": [
+    "c07733bdf53ba3d3e46266c2f6998c87",
+    "6d331570d3415e9a38cea3ea3f8689c0"
+  ],
+  "pro_name": "유닉스 청자켓",
+  "price": 24500,
+  "stock": 133,
+  "main_category": "OUTER",
+  "description": "치마에 입던, 바지에 입던 어디에도 어울리는 청자켓.\n여리여리함을 업 시켜줄 당신의 청자켓.",
+  "main_imgUrl": "786d0c1c614146abb83f07f4c6a5bf94",
+  "createdAt": {
+    "$date": "2021-01-29T07:48:24.900Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T07:48:24.900Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013be5af2c7e95dd824e733"
+  },
+  "purchase": 0,
+  "sizes": [
+    "L",
+    "M",
+    "S"
+  ],
+  "colors": [
+    "블랙",
+    "베이지"
+  ],
+  "sub_category": [
+    "JACKET"
+  ],
+  "detail_imgUrls": [
+    "a3deb4ccb04e5f0973e4fceb2fb873b1",
+    "4df0db5a7c61e1dc4731a1e6d43ca876"
+  ],
+  "pro_name": "테일러드자켓",
+  "price": 19900,
+  "stock": 86,
+  "main_category": "OUTER",
+  "description": "입기만 해도 점잖은 느낌이 확 오는 자켓이에요.\n정장처럼 입을 수 있고, 가볍게 걸칠 수 있습니다.\n  \n직장인, 대학생들의 기본 필수템!",
+  "main_imgUrl": "28665a8dfe45513d24e7db02d1ba6423",
+  "createdAt": {
+    "$date": "2021-01-29T07:50:51.002Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T07:50:51.002Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013bed9f2c7e95dd824e734"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "핑크"
+  ],
+  "sub_category": [
+    "PADDED JACKET",
+    "CARDIGAN / VEST"
+  ],
+  "detail_imgUrls": [
+    "fb333f64d708766eb260a1df33bcdf2d",
+    "987654697632b0c73e8df2cee26fb26a"
+  ],
+  "pro_name": "퍼지 패딩베스트",
+  "price": 43200,
+  "stock": 58,
+  "main_category": "OUTER",
+  "description": "맨투맨과 코디했을 때 더욱 빛을 발하는 패딩조끼에요.\n귀여움과 활동성을 동시에 챙길 수 있습니다.",
+  "main_imgUrl": "10db13385d526d1925f72aefb59a019a",
+  "createdAt": {
+    "$date": "2021-01-29T07:52:57.522Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T07:52:57.522Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013c026f2c7e95dd824e735"
+  },
+  "purchase": 0,
+  "sizes": [
+    "L",
+    "M",
+    "S"
+  ],
+  "colors": [
+    "블랙"
+  ],
+  "sub_category": [
+    "SKINNY JEANS"
+  ],
+  "detail_imgUrls": [
+    "9124a4f4159bdecb3e08acffa9b7fa13",
+    "c0bd645886c362e976ab5efa7ff3bf06"
+  ],
+  "pro_name": "8부 스키니팬츠",
+  "price": 29900,
+  "stock": 100,
+  "main_category": "PANTS",
+  "description": "쫀쫀한 스키니팬츠.",
+  "main_imgUrl": "0970df6038f13651f5dee704a38c97a9",
+  "createdAt": {
+    "$date": "2021-01-29T07:58:30.522Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T07:58:30.522Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013c12bf2c7e95dd824e736"
+  },
+  "purchase": 0,
+  "sizes": [
+    "L",
+    "M"
+  ],
+  "colors": [
+    "중청"
+  ],
+  "sub_category": [
+    "BANDING PANTS",
+    "BOOT-CUT PANTS",
+    "JEANS"
+  ],
+  "detail_imgUrls": [
+    "c7ab3a19c01b27ee7f87764ea913ba5b",
+    "602e497a95ef7b2048c1d67aec030f3b"
+  ],
+  "pro_name": "메이린 속밴딩부츠컷청바지",
+  "price": 21900,
+  "stock": 88,
+  "main_category": "PANTS",
+  "description": "밴딩이어서 편하다!\n부츠컷이어서 예쁘다!\n \n몸매결점을 잡아주는 부츠컷에 빠져보아요:)\n \n사실 이 제품의 가장 큰 매력은 아름다운 뒷태를 완성할 수 있다는 것입니다. 바지란 자고로 뒷태가 핵심이죠. 이 하이웨스트 바지를 입으면 다리가 2m는 늘어난답니다.",
+  "main_imgUrl": "c82091930a6c9730694db59405720a0b",
+  "createdAt": {
+    "$date": "2021-01-29T08:02:51.454Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T08:02:51.454Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013c1a8f2c7e95dd824e737"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "블랙"
+  ],
+  "sub_category": [
+    "SHORTS"
+  ],
+  "detail_imgUrls": [
+    "f5ca1b2fed16dd2bc4aaa3dc4d142f42",
+    "2325713b028cfbba0ce82f7c644560d9"
+  ],
+  "pro_name": "바인딩 밴딩반바지",
+  "price": 9900,
+  "stock": 60,
+  "main_category": "PANTS",
+  "description": "여름엔 밖에서, 겨울엔 집에서 입을 수 있는 다용성 반바지.\n유니크한 옆선이 특징입니다.\n \n다리가 더 얇고 길어보이는 반바지에요.",
+  "main_imgUrl": "7adef7bf9a39af2903ee6332884bd7f8",
+  "createdAt": {
+    "$date": "2021-01-29T08:04:56.280Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T08:04:56.280Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013c245f2c7e95dd824e738"
+  },
+  "purchase": 0,
+  "sizes": [
+    "XL",
+    "L",
+    "M",
+    "S",
+    "XS"
+  ],
+  "colors": [
+    "그레이",
+    "블랙"
+  ],
+  "sub_category": [
+    "BANDING PANTS",
+    "STRAIGHT-FIT PANTS",
+    "TROUSERS"
+  ],
+  "detail_imgUrls": [
+    "d094d95043bee4c9fcf85fda5888b621",
+    "3debb3ce3caed1319fc96dba268d533b"
+  ],
+  "pro_name": "속밴딩기모일자핏슬랙스",
+  "price": 30500,
+  "stock": 70,
+  "main_category": "PANTS",
+  "description": "정장스러움과 편함을 모두 잡은 일차핏슬랙스입니다.\n깔끔한 핏으로 많은 사랑을 받은 슬랙스에요.",
+  "main_imgUrl": "096f9b51a263d87735383b0c49f1e47c",
+  "createdAt": {
+    "$date": "2021-01-29T08:07:33.607Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T08:07:33.607Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013c2d0f2c7e95dd824e739"
+  },
+  "purchase": 0,
+  "sizes": [
+    "L",
+    "M",
+    "S",
+    "XS"
+  ],
+  "colors": [
+    "군청"
+  ],
+  "sub_category": [
+    "SKINNY JEANS",
+    "JEANS",
+    "BANDING PANTS"
+  ],
+  "detail_imgUrls": [
+    "03e5f6b38760f1e8b3f55c0ac2c06136",
+    "415c05246ffe703d2dd8581587f4bc9d"
+  ],
+  "pro_name": "속밴딩스키니청바지",
+  "price": 38900,
+  "stock": 121,
+  "main_category": "PANTS",
+  "description": "몸매를 예쁘게 부각시켜줄 스키니진.\n속밴딩이 되어있어 정말 편합니다.",
+  "main_imgUrl": "74647dad5bb6d47631bc71e0d906651d",
+  "createdAt": {
+    "$date": "2021-01-29T08:09:52.127Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T08:09:52.127Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013c457f2c7e95dd824e73a"
+  },
+  "purchase": 1,
+  "sizes": [
+    "M"
+  ],
+  "colors": [
+    "블랙"
+  ],
+  "sub_category": [
+    "JEANS",
+    "STRAIGHT-FIT PANTS"
+  ],
+  "detail_imgUrls": [
+    "9c0dbbf2578f45a5f5361b6b44d1a443",
+    "a3b61707fb27dda1c0e8ab1152c47cb4"
+  ],
+  "pro_name": "슈크림 양기모일자팬츠",
+  "price": 43000,
+  "stock": 98,
+  "main_category": "PANTS",
+  "description": "기모가 들어있어서 겨울에도 따듯하게 입을 수 있어요.\n",
+  "main_imgUrl": "db20f317866e993b4bb381eaf3d0eb35",
+  "createdAt": {
+    "$date": "2021-01-29T08:16:23.218Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T12:17:35.730Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013c4eaf2c7e95dd824e73b"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "블랙"
+  ],
+  "sub_category": [
+    "JUMPSUIT / OVERALLS"
+  ],
+  "detail_imgUrls": [
+    "089bb8ed78c9035f4e3cf56ca7c30934",
+    "ce0073861b850afd8086648b2faaa89e"
+  ],
+  "pro_name": "썸마이걸 멜빵바지",
+  "price": 38900,
+  "stock": 103,
+  "main_category": "PANTS",
+  "description": "편하게 입을 수 있는 멜빵바지를 준비했습니다. \n허리에 있는 리본이 귀여움을 두 배로 만들어 준다구요!",
+  "main_imgUrl": "d94d9768f0ee2c7273978be9a1a257eb",
+  "createdAt": {
+    "$date": "2021-01-29T08:18:50.555Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T08:18:50.555Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013c5eef2c7e95dd824e73c"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [],
+  "sub_category": [
+    "SHORTS"
+  ],
+  "detail_imgUrls": [
+    "deb2f76daadf5553a0dc0a2faa7d5336",
+    "65d7c750369fb4b813dcaff0826ad810"
+  ],
+  "pro_name": "와이드5부 얼음반바지",
+  "price": 10500,
+  "stock": 82,
+  "main_category": "PANTS",
+  "description": "당신의 여름을 지켜줄 쿨~한 소재의 와이드 반바지!\n걸어다닐 때 찰랑거리는 촉감이 더욱 시원하게 만들어 줍니다.",
+  "main_imgUrl": "a1252a8db8bb649a02e1d6824c78daa9",
+  "createdAt": {
+    "$date": "2021-01-29T08:23:10.539Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T08:23:10.539Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013c658f2c7e95dd824e73d"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "블랙"
+  ],
+  "sub_category": [
+    "JUMPSUIT / OVERALLS"
+  ],
+  "detail_imgUrls": [
+    "14e2025b9bd536c301a0d2161efce5db",
+    "dee4583f7c11526301b87b0b08d8e5db"
+  ],
+  "pro_name": "와이드점프수트",
+  "price": 27000,
+  "stock": 59,
+  "main_category": "PANTS",
+  "description": "이보다 더 편할 수는 없다.\n와이드 핏의 점프수트.\n \n키가 작은 사람들에게도 딱 맞는 점프수트입니다.",
+  "main_imgUrl": "49a1066b46ab41cb50947c10462a219d",
+  "createdAt": {
+    "$date": "2021-01-29T08:24:56.290Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T08:24:56.290Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013c75af2c7e95dd824e73e"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "핑크"
+  ],
+  "sub_category": [
+    "WIDE-FIT PANTS",
+    "BANDING PANTS"
+  ],
+  "detail_imgUrls": [
+    "3ce64d9483bb8038c2ad610df1283e99",
+    "8c25b7a09355574769a34780bc433934"
+  ],
+  "pro_name": "와이드퀸 밴딩팬츠",
+  "price": 18000,
+  "stock": 140,
+  "main_category": "PANTS",
+  "description": "찰랑찰랑 거리는 소재의 와이드팬츠에요.\n다리가 길어보이는 효과를 얻을 수 있답니다!",
+  "main_imgUrl": "579942fdc95657054a91accb525bc7e4",
+  "createdAt": {
+    "$date": "2021-01-29T08:29:14.092Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T08:29:14.092Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013c7f5f2c7e95dd824e73f"
+  },
+  "purchase": 0,
+  "sizes": [
+    "L",
+    "M",
+    "S"
+  ],
+  "colors": [
+    "블랙"
+  ],
+  "sub_category": [
+    "BOOT-CUT PANTS",
+    "JEANS"
+  ],
+  "detail_imgUrls": [
+    "fde729b263b45cdf83f98d5d51996320",
+    "31216d75ac916bebe86882a4faa2c076"
+  ],
+  "pro_name": "종아리커버 부츠컷팬츠",
+  "price": 27800,
+  "stock": 210,
+  "main_category": "PANTS",
+  "description": "종아리때문에 바지 핏을 걱정하셨던 분들을 위해 준비했습니다.\n종아리를 커버할 수 있는 부츠컷팬츠.\n \n어떤 각도에서 봐도 제일 예쁜 핏을 만들어주는 제품이에요.",
+  "main_imgUrl": "ded23bc1e9bd2fe47bbe06ec755e0b24",
+  "createdAt": {
+    "$date": "2021-01-29T08:31:49.716Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T08:31:49.716Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013c850f2c7e95dd824e740"
+  },
+  "purchase": 2,
+  "sizes": [
+    "L",
+    "M"
+  ],
+  "colors": [
+    "연청"
+  ],
+  "sub_category": [
+    "WIDE-FIT PANTS",
+    "JEANS",
+    "STRAIGHT-FIT PANTS"
+  ],
+  "detail_imgUrls": [
+    "326dd8b4a87c46deb4709d433a01941e",
+    "f5cf8b747cad7d18c092cb9a6f916b15"
+  ],
+  "pro_name": "포이 와이드일자청바지",
+  "price": 31600,
+  "stock": 97,
+  "main_category": "PANTS",
+  "description": "롤업했을 때 정말 예쁜 와이드핏 일자청바지.\n연청색이 화사함을 더해줘요!",
+  "main_imgUrl": "0eccdfc21ca6061a976399705218a711",
+  "createdAt": {
+    "$date": "2021-01-29T08:33:20.852Z"
+  },
+  "updatedAt": {
+    "$date": "2021-02-01T00:30:46.412Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013c9dbf2c7e95dd824e741"
+  },
+  "purchase": 0,
+  "sizes": [
+    "M"
+  ],
+  "colors": [
+    "블랙",
+    "핑크"
+  ],
+  "sub_category": [
+    "KNIT",
+    "LONG SLEEVE SHIRT"
+  ],
+  "detail_imgUrls": [
+    "8434443405503c5b4b43a6a25ff94c48",
+    "ecb917389d5dbad2675b73badc92e05b"
+  ],
+  "pro_name": "단가라긴팔니트티",
+  "price": 18900,
+  "stock": 220,
+  "main_category": "TOP",
+  "description": "단가라 티가 입고 싶으시다구요?\n니트가 입고 싶으시다구요?\n긴팔을 입고 싶으시다구요?\n \n여기 단가라니트긴팔티가 있습니다.",
+  "main_imgUrl": "906aadb523c4563dd0abbb9173a30103",
+  "createdAt": {
+    "$date": "2021-01-29T08:39:55.895Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T08:39:55.895Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013cac5f2c7e95dd824e742"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "베이지"
+  ],
+  "sub_category": [
+    "KNIT",
+    "LONG SLEEVE SHIRT"
+  ],
+  "detail_imgUrls": [
+    "ac2fc6e8c6b465aa35b5fff48a385034",
+    "5201578d8291b8bdc3c45fbcfbba5892"
+  ],
+  "pro_name": "뜨개 루즈핏긴팔니트",
+  "price": 27000,
+  "stock": 100,
+  "main_category": "TOP",
+  "description": "살짝 비치는 시스루 입니다.\n어깨선과 쇄골이 드러나 여성스러움을 돋보이게 합니다.",
+  "main_imgUrl": "ae39be956b086af001d9f89a58710ffd",
+  "createdAt": {
+    "$date": "2021-01-29T08:43:49.537Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T08:43:49.537Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013f0d0cb134f516861201b"
+  },
+  "purchase": 0,
+  "sizes": [
+    "L",
+    "M",
+    "S"
+  ],
+  "colors": [
+    "베이지"
+  ],
+  "sub_category": [
+    "SHIRT"
+  ],
+  "detail_imgUrls": [
+    "f7dd8b3478fc2c8fe7df31cbdbc56066",
+    "8ddb3f8e478b2b39648ba9f77fd09f1c"
+  ],
+  "pro_name": "루즈핏체크셔츠",
+  "price": 15400,
+  "stock": 121,
+  "main_category": "TOP",
+  "description": "루즈핏의 체크셔츠",
+  "main_imgUrl": "afb4605631600c2d1303adda0434560c",
+  "createdAt": {
+    "$date": "2021-01-29T11:26:08.582Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T11:26:08.582Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013f128cb134f516861201c"
+  },
+  "purchase": 2,
+  "sizes": [
+    "L",
+    "M",
+    "S"
+  ],
+  "colors": [
+    "화이트"
+  ],
+  "sub_category": [
+    "SHIRT"
+  ],
+  "detail_imgUrls": [
+    "abfdbc5c0cd82cb61e5fd17869af8dd1",
+    "b3874f85cbfa502de4348959c32ffe60"
+  ],
+  "pro_name": "베이직 긴팔셔츠",
+  "price": 17000,
+  "stock": 320,
+  "main_category": "TOP",
+  "description": "셔츠의 기본 중의 기본!\n깔끔하고 딱 맞는 핏의 화이트 셔츠를 만나보세요.\n모든 옷에 잘 어울리는 베이직 셔츠입니다.",
+  "main_imgUrl": "ff01ac1361ea12e47ca3642799f62e2c",
+  "createdAt": {
+    "$date": "2021-01-29T11:27:36.313Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T12:17:35.732Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013f1c4cb134f516861201e"
+  },
+  "purchase": 0,
+  "sizes": [
+    "L",
+    "M"
+  ],
+  "colors": [
+    "화이트",
+    "옐로우"
+  ],
+  "sub_category": [
+    "LONG SLEEVE SHIRT"
+  ],
+  "detail_imgUrls": [
+    "175b761418680ede52c4fe5b44278e88",
+    "79b50ddd4cb181a68c8ff9bbaecbafb3"
+  ],
+  "pro_name": "베이직슬릿 긴팔티셔츠",
+  "price": 9800,
+  "stock": 100,
+  "main_category": "TOP",
+  "description": "그 어떤 바지와도 잘 어울리는 베이직 티셔츠.",
+  "main_imgUrl": "d978233a6b12b17514660617aff1ccad",
+  "createdAt": {
+    "$date": "2021-01-29T11:30:12.625Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T11:30:12.625Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013f1ffcb134f516861201f"
+  },
+  "purchase": 0,
+  "sizes": [
+    "M"
+  ],
+  "colors": [
+    "화이트",
+    "핑크"
+  ],
+  "sub_category": [
+    "BLOUSE"
+  ],
+  "detail_imgUrls": [
+    "77e64e37793104a1ec61d59b3ed3aee0",
+    "74076c4463bd9eb5e894be8ab561830e"
+  ],
+  "pro_name": "빅카라 긴팔블라우스",
+  "price": 13900,
+  "stock": 68,
+  "main_category": "TOP",
+  "description": "빅카라 긴팔블라우스",
+  "main_imgUrl": "982053899faa751bff2930638a0705f6",
+  "createdAt": {
+    "$date": "2021-01-29T11:31:11.521Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T11:31:11.521Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013f239cb134f5168612020"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "화이트",
+    "네이비"
+  ],
+  "sub_category": [
+    "HOODY"
+  ],
+  "detail_imgUrls": [
+    "2c587dc11264fd456d1473c3e6c7f363",
+    "078213c76817ae006717dd65d406eae7"
+  ],
+  "pro_name": "스테이트 양기모긴팔후드티",
+  "price": 32400,
+  "stock": 69,
+  "main_category": "TOP",
+  "description": "스테이트 양기모긴팔후드티",
+  "main_imgUrl": "3697111b3a4ab48c9e0024c8b50fd1bc",
+  "createdAt": {
+    "$date": "2021-01-29T11:32:09.418Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T11:32:09.418Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013f26ccb134f5168612021"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "아이보리"
+  ],
+  "sub_category": [
+    "SWEATSHIRT"
+  ],
+  "detail_imgUrls": [
+    "2101b99d85703671565930e07e7f7720",
+    "6cd2c83c06dc8143c347ea13a167d6e5"
+  ],
+  "pro_name": "썬데이 양기모긴팔맨투맨",
+  "price": 20000,
+  "stock": 90,
+  "main_category": "TOP",
+  "description": "썬데이 양기모긴팔맨투맨",
+  "main_imgUrl": "1c7264ba41f9e3c74aae816d420d0773",
+  "createdAt": {
+    "$date": "2021-01-29T11:33:00.318Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T11:33:00.318Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013f2b1cb134f5168612022"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "블루",
+    "옐로우"
+  ],
+  "sub_category": [
+    "SHORT SLEEVE / SLEEVELESS SHIRT"
+  ],
+  "detail_imgUrls": [
+    "b20713e69754de3dbcb2fbaa37df7f63",
+    "adc900fefdb7a38524af9ab00942e248"
+  ],
+  "pro_name": "월드라이프 프린팅반팔티셔츠",
+  "price": 17800,
+  "stock": 100,
+  "main_category": "TOP",
+  "description": "월드라이프 프린팅반팔티셔츠",
+  "main_imgUrl": "6f71170c73f2de46b4dbae256e456901",
+  "createdAt": {
+    "$date": "2021-01-29T11:34:09.037Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T11:34:09.037Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013f2e8cb134f5168612023"
+  },
+  "purchase": 0,
+  "sizes": [
+    "L",
+    "M"
+  ],
+  "colors": [
+    "올리브",
+    "블랙",
+    "화이트"
+  ],
+  "sub_category": [
+    "KNIT",
+    "LONG SLEEVE SHIRT"
+  ],
+  "detail_imgUrls": [
+    "cecc03024d14ed622a76b7d3f1a9ff95",
+    "91be883499769fe1e5452d97174030d4"
+  ],
+  "pro_name": "카미에 단가라긴팔니트티",
+  "price": 20000,
+  "stock": 100,
+  "main_category": "TOP",
+  "description": "카미에 단가라긴팔니트티",
+  "main_imgUrl": "bfc1c80c62bb9cabaecc0142b3f3dba5",
+  "createdAt": {
+    "$date": "2021-01-29T11:35:04.103Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T11:35:04.103Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013f310cb134f5168612024"
+  },
+  "purchase": 0,
+  "sizes": [
+    "M",
+    "S"
+  ],
+  "colors": [
+    "화이트"
+  ],
+  "sub_category": [
+    "SHORT SLEEVE / SLEEVELESS SHIRT"
+  ],
+  "detail_imgUrls": [
+    "cee583e4a30e7c39433982acb29944dc",
+    "30e644679432279fc19e4f46cc2d33b9"
+  ],
+  "pro_name": "탱크탑나시",
+  "price": 8900,
+  "stock": 123,
+  "main_category": "TOP",
+  "description": "탱크탑나시",
+  "main_imgUrl": "c6bba2cdc9b94e0e90ef4a57400a3158",
+  "createdAt": {
+    "$date": "2021-01-29T11:35:44.308Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T11:35:44.308Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013f347cb134f5168612025"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "민트",
+    "아이보리",
+    "핑크"
+  ],
+  "sub_category": [
+    "HOODY"
+  ],
+  "detail_imgUrls": [
+    "b2c6d2637e185a3650d3a386134d7d57",
+    "1f4f5d2b40829120086701f4a234fd0e"
+  ],
+  "pro_name": "피스타치오 양기모긴팔후드티",
+  "price": 31000,
+  "stock": 100,
+  "main_category": "TOP",
+  "description": "피스타치오 양기모긴팔후드티",
+  "main_imgUrl": "9c89bc2c433914ce9326daebeb39940f",
+  "createdAt": {
+    "$date": "2021-01-29T11:36:39.517Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T11:36:39.517Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013f379cb134f5168612026"
+  },
+  "purchase": 3,
+  "sizes": [
+    "M",
+    "S"
+  ],
+  "colors": [
+    "블랙"
+  ],
+  "sub_category": [
+    "MINI SKIRT"
+  ],
+  "detail_imgUrls": [
+    "0bc8a179e3484771fba804ace928bac8",
+    "a047199d530e4a50215eeb09c62d6398"
+  ],
+  "pro_name": "가죽 지퍼미니스커트",
+  "price": 17000,
+  "stock": 97,
+  "main_category": "SKIRT",
+  "description": "가죽 지퍼미니스커트",
+  "main_imgUrl": "b0df49aab403d05098e33747b8f5cc89",
+  "createdAt": {
+    "$date": "2021-01-29T11:37:29.671Z"
+  },
+  "updatedAt": {
+    "$date": "2021-02-01T00:39:57.422Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013f39ecb134f5168612027"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "블랙"
+  ],
+  "sub_category": [
+    "LONG SKIRT"
+  ],
+  "detail_imgUrls": [
+    "478e352c966f32b5bbf53f16bf6f5a68",
+    "197c74bb22bc0d4609b4bd5f662a4fff"
+  ],
+  "pro_name": "글렛 플리츠롱스커트",
+  "price": 28000,
+  "stock": 100,
+  "main_category": "SKIRT",
+  "description": "글렛 플리츠롱스커트",
+  "main_imgUrl": "d8af97972114a8aad7898967afb2a8ce",
+  "createdAt": {
+    "$date": "2021-01-29T11:38:06.239Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T11:38:06.239Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013f3c2cb134f5168612028"
+  },
+  "purchase": 0,
+  "sizes": [
+    "L",
+    "M",
+    "S"
+  ],
+  "colors": [
+    "브라운"
+  ],
+  "sub_category": [
+    "MINI SKIRT"
+  ],
+  "detail_imgUrls": [
+    "77726ab303ea8f2ba668759f664fc6d4",
+    "89f3379ae47bd83c7d3c483c8f33d74d"
+  ],
+  "pro_name": "기모미니스커트",
+  "price": 17800,
+  "stock": 99,
+  "main_category": "SKIRT",
+  "description": "기모미니스커트",
+  "main_imgUrl": "d2d96ac9eb4aa5321030fb3f4055ff44",
+  "createdAt": {
+    "$date": "2021-01-29T11:38:42.135Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T11:38:42.135Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013f3ebcb134f5168612029"
+  },
+  "purchase": 0,
+  "sizes": [
+    "L",
+    "M",
+    "S"
+  ],
+  "colors": [
+    "블랙"
+  ],
+  "sub_category": [
+    "MINI SKIRT"
+  ],
+  "detail_imgUrls": [
+    "2508fdac8d1f8ef58f6d4ba25b6c3ec6",
+    "cef636edabaf449b0bbe5b8a20c71161"
+  ],
+  "pro_name": "달려갈거야 플레이미니스커트",
+  "price": 16500,
+  "stock": 98,
+  "main_category": "SKIRT",
+  "description": "달려갈거야 플레이미니스커트",
+  "main_imgUrl": "97691c87e143982a8a01ecd988a7bcd6",
+  "createdAt": {
+    "$date": "2021-01-29T11:39:23.798Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T11:39:23.798Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013f421cb134f516861202a"
+  },
+  "purchase": 0,
+  "sizes": [
+    "L",
+    "M",
+    "S"
+  ],
+  "colors": [
+    "블랙"
+  ],
+  "sub_category": [
+    "MIDI SKIRT"
+  ],
+  "detail_imgUrls": [
+    "bb0a3847d9c2b69fc29d04081dd0f22d",
+    "4b70188009f12e28e5932e85646016e3"
+  ],
+  "pro_name": "데님미디스커트",
+  "price": 15000,
+  "stock": 98,
+  "main_category": "SKIRT",
+  "description": "데님미디스커트",
+  "main_imgUrl": "de3b66b1e5ea970aba6475a0627c46c4",
+  "createdAt": {
+    "$date": "2021-01-29T11:40:17.552Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T11:40:17.552Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013f44acb134f516861202b"
+  },
+  "purchase": 0,
+  "sizes": [
+    "L",
+    "M"
+  ],
+  "colors": [
+    "블랙"
+  ],
+  "sub_category": [
+    "LONG SKIRT"
+  ],
+  "detail_imgUrls": [
+    "c36e154f64e0aa55c646fc86aaff0209",
+    "8af29ec38e20bc6a682b5407f8bedecd"
+  ],
+  "pro_name": "도트 플리츠롱스커트",
+  "price": 20500,
+  "stock": 70,
+  "main_category": "SKIRT",
+  "description": "도트 플리츠롱스커트",
+  "main_imgUrl": "4bfd5fbb0b97cf6dd52741dcb8712dc7",
+  "createdAt": {
+    "$date": "2021-01-29T11:40:58.766Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T11:40:58.766Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013f47fcb134f516861202c"
+  },
+  "purchase": 0,
+  "sizes": [
+    "L",
+    "M",
+    "S"
+  ],
+  "colors": [
+    "아이보리",
+    "블랙"
+  ],
+  "sub_category": [
+    "MIDI SKIRT"
+  ],
+  "detail_imgUrls": [
+    "1aca4816e8a27f8c0a3d6717efe46d5e",
+    "54221851a6357773b95abcd4a3e06f02"
+  ],
+  "pro_name": "랩 미디스커트",
+  "price": 18900,
+  "stock": 130,
+  "main_category": "SKIRT",
+  "description": "랩 미디스커트",
+  "main_imgUrl": "22fd9c4dee00f26e6c8acdeb926f305b",
+  "createdAt": {
+    "$date": "2021-01-29T11:41:51.844Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T11:41:51.844Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013f4c7cb134f516861202d"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "블랙"
+  ],
+  "sub_category": [
+    "LONG SKIRT"
+  ],
+  "detail_imgUrls": [
+    "468586f8f28ff8bd79d42be05addd767",
+    "a9e6209ce0fd569ea65a55ec7a2b780d"
+  ],
+  "pro_name": "리틀미 캉캉밴딩롱스커트",
+  "price": 24000,
+  "stock": 84,
+  "main_category": "SKIRT",
+  "description": "리틀미 캉캉밴딩롱스커트",
+  "main_imgUrl": "c9197b75e54b1a1867dfc3abf1327c2e",
+  "createdAt": {
+    "$date": "2021-01-29T11:43:03.242Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T11:43:03.242Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013f505cb134f516861202e"
+  },
+  "purchase": 0,
+  "sizes": [
+    "L",
+    "M"
+  ],
+  "colors": [
+    "브라운",
+    "퍼플"
+  ],
+  "sub_category": [
+    "MIDI SKIRT"
+  ],
+  "detail_imgUrls": [
+    "183f62f7e00e8ef7a1b857945b8a1fed",
+    "e31bf9a1b57db081cf62e9c6250cf835"
+  ],
+  "pro_name": "체크울미디스커트",
+  "price": 21000,
+  "stock": 90,
+  "main_category": "SKIRT",
+  "description": "체크울미디스커트",
+  "main_imgUrl": "2224ab77b7750da1a82d08dd38347e8f",
+  "createdAt": {
+    "$date": "2021-01-29T11:44:05.798Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T11:44:05.798Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013f532cb134f516861202f"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "블랙"
+  ],
+  "sub_category": [
+    "LONG SKIRT"
+  ],
+  "detail_imgUrls": [
+    "cfe3afa492d521962c445f646eb9e10e",
+    "446bb45b4ae5104f62abb7fa8ffe2fb8"
+  ],
+  "pro_name": "코먼트 니트롱스커트",
+  "price": 23600,
+  "stock": 120,
+  "main_category": "SKIRT",
+  "description": "코먼트 니트롱스커트",
+  "main_imgUrl": "1ad03a74655ba477610ddeb1fd74b69f",
+  "createdAt": {
+    "$date": "2021-01-29T11:44:50.965Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T11:44:50.965Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6013f55fcb134f5168612030"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "그레이",
+    "블랙"
+  ],
+  "sub_category": [
+    "LONG SKIRT"
+  ],
+  "detail_imgUrls": [
+    "f9b7aa1217692703da51ed75ea9d3fdd",
+    "a18ae55ba213ce3561bce4c33c7d8bce"
+  ],
+  "pro_name": "플리즈미 밴딩플레어롱스커트",
+  "price": 17300,
+  "stock": 160,
+  "main_category": "SKIRT",
+  "description": "플리즈미 밴딩플레어롱스커트",
+  "main_imgUrl": "b1ad627c91556cafd21bbed6dca7f39d",
+  "createdAt": {
+    "$date": "2021-01-29T11:45:35.679Z"
+  },
+  "updatedAt": {
+    "$date": "2021-01-29T11:45:35.679Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60175b6cdda9b735ecad4d2e"
+  },
+  "purchase": 0,
+  "sizes": [
+    "FREE"
+  ],
+  "colors": [
+    "아이보리",
+    "블랙"
+  ],
+  "sub_category": [
+    "LONG DRESS",
+    "PATTERN DRESS"
+  ],
+  "detail_imgUrls": [
+    "74f9f128c9fc48dd04e86d3f56db6647",
+    "daa7042ede9999421e4a79e7435cd9ff"
+  ],
+  "pro_name": "페로츠 플라워뷔스티에롱원피스",
+  "price": 29000,
+  "stock": 100,
+  "main_category": "DRESS",
+  "description": "잔잔한 플라워 패턴으로 사랑스러운 분위기를 내어드리는 쿠샵 메이드 뷔스티에 롱원피스입니다. 슬리브리스 타입으로 다양한 이너와 레이어드하여 스타일링이 가능하며, 어깨끈은 조절이 가능해 체형에 맞게 착용해 보실 수 있답니다. 롱한 기장감에 2단 프릴로 자연스럽게 플레어지게 떨어져 러블리하며, 하체군살 커버에 탁월합니다. 또한, 실키한 안감이 더해져 비침 걱정을 덜었답니다. 데일리하게 코디하기 좋은 아이보리, 블랙 2가지 컬러로 준비해두었어요 :)",
+  "main_imgUrl": "db14d03a23fdf5e91a613ad26f254030",
+  "createdAt": {
+    "$date": "2021-02-01T01:37:48.251Z"
+  },
+  "updatedAt": {
+    "$date": "2021-02-01T01:37:48.251Z"
+  },
+  "__v": 0
+}]

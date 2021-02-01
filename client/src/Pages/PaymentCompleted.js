@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { isAuthenticated } from '../utils/auth';
 import catchErrors from '../utils/catchErrors';
-import { Card, Row, Col, Button } from 'react-bootstrap';
+import { Card, Row, Col, Button, Container } from 'react-bootstrap';
 
 function PaymentCompleted() {
     const user = isAuthenticated()
@@ -30,7 +30,7 @@ function PaymentCompleted() {
     }
 
     return (
-        <div>
+        <Container>
             <div className="mx-3 my-5 text-center px-3 py-4 border">
                 <div className="mb-1">
                     <h5 className=" font-weight-bold" style={{ display: 'inline' }}>고객님의 </h5>
@@ -84,7 +84,7 @@ function PaymentCompleted() {
                 <Button href="/" className="mx-1" style={{ background: "#91877F", borderColor: '#91877F', width: "7rem" }}>홈으로</Button>
                 <Button href="/account" className="mx-1" style={{ background: "#91877F", borderColor: '#91877F', width: "7rem" }}>마이페이지</Button>
             </div>
-        </div>
+        </Container>
     )
 }
 

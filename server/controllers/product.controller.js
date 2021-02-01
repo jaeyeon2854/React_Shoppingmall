@@ -98,6 +98,19 @@ const categoryId = async (req, res, next, category) => {
     }
 }
 
+const sortingProduct = async (req,res) =>{
+    
+    try {
+        const productslist = await Product.find({ main_category: category })
+            const length = productslist.length
+            req.length = length
+            const productsPiece = await Product.find({ main_category: category }).skip((req.query.page - 1) * per).limit(per)
+            req.productsPiece = productsPiece
+    } catch (error) {
+        
+    }
+}
+
 const subname = async (req, res) => {
     const per = 9;
     try {

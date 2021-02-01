@@ -211,6 +211,7 @@ function Payment({ match, location }) {
                     })
                 })
                 const data = await response.json()
+                window.location.href = data.redirect_url
             } else {
                 console.log(response.data)
                 console.log(response2.data)

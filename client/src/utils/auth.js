@@ -3,9 +3,6 @@ import axios from "axios";
 export function handleLogin({ userId, role, name, tel, email }) {
     localStorage.setItem('id', userId)
     localStorage.setItem('role', role)
-    localStorage.setItem('name', name)
-    localStorage.setItem('tel', tel)
-    localStorage.setItem('email', email)
 }
 
 export async function handleLogout() {

@@ -36,10 +36,15 @@ function Payment({ match, location }) {
     }, [cart])
 
     async function getUser() {
-        const name = localStorage.getItem('name')
-        const tel = localStorage.getItem('tel')
-        const email = localStorage.getItem('email')
-        setUserData({ name: name, tel: tel, email: email })
+        try {
+            const response = await axios.get(`/api/users/account/${user}`)
+            console.log(response.data)
+            const { name, tel, email } = response.data
+            setUserData({ name: name, tel: tel, email: email })
+        } catch (error) {
+            catchErrors(error, setError)
+        }
+        // setUserData({ name: name, tel: tel, email: email })
     }
 
     async function getCart() {

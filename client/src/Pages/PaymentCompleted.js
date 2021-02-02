@@ -44,18 +44,18 @@ function PaymentCompleted() {
             <h3 className="text-center font-weight-bold my-3">주문내역</h3>
             <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>받는사람 정보</h5>
             <div className="m-3">
-            <Row>
-                <Col xs={4} className="text-right">이름</Col>
-                <Col>{receiverInfo.name}</Col>
-            </Row>
-            <Row>
-                <Col xs={4} className="text-right">전화번호</Col>
-                <Col>{receiverInfo.tel}</Col>
-            </Row>
-            <Row>
-                <Col xs={4} className="text-right">주소</Col>
-                <Col>{receiverInfo.address}{receiverInfo.address2}</Col>
-            </Row>
+                <Row>
+                    <Col xs={4} className="text-right">이름</Col>
+                    <Col>{receiverInfo.name}</Col>
+                </Row>
+                <Row>
+                    <Col xs={4} className="text-right">전화번호</Col>
+                    <Col>{receiverInfo.tel}</Col>
+                </Row>
+                <Row>
+                    <Col xs={4} className="text-right">주소</Col>
+                    <Col>{receiverInfo.address}{receiverInfo.address2}</Col>
+                </Row>
             </div>
             <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>주문 상품 정보</h5>
             {order.map((e) => (

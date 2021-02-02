@@ -46,7 +46,7 @@ function Admin() {
             setLength(response.data.length)
         } catch (error) {
             catchError(error, setError)
-        } 
+        }
     }
 
     function handleChange(event) {

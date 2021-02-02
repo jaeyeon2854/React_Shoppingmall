@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Redirect } from 'react-router-dom';
-import { Row, Col, Button, Form, Container, Alert, Spinner } from 'react-bootstrap';
 import axios from 'axios';
 import catchErrors from '../utils/catchErrors';
+import { Row, Col, Button, Form, Container, Alert, Spinner } from 'react-bootstrap';
 
 function ProductsRegist() {
     const INIT_PRODUCT = {
@@ -17,13 +17,10 @@ function ProductsRegist() {
         main_image: [],
         detail_image: []
     }
-    const [preColors, setPreColors] = useState([])
     const [categories, setCategories] = useState({ 0: [], 1: [[]] })
     const [product, setProduct] = useState(INIT_PRODUCT)
     const [categoryNum, setCategoryNum] = useState('')
-    const [tag, setTag] = useState(0)
     const [subCate, setSubCate] = useState([])
-    const [cateList, setCateList] = useState([])
     const [color, setColor] = useState({})
     const [error, setError] = useState('')
     const [success, setSuccess] = useState(false)
@@ -68,7 +65,7 @@ function ProductsRegist() {
 
     function addColor() {
         colorRef.current.value = ''
-        setProduct({ ...product, "colors":[...product.colors, color["colors"]] })
+        setProduct({ ...product, "colors": [...product.colors, color["colors"]] })
     }
 
     function deleteColor(e) {
@@ -169,7 +166,7 @@ function ProductsRegist() {
                             </Row>
                             {product.sub_category.map((el) => (
                                 <div className="my-2">
-                                    <p name={el} className="mb-0" style={{ display: 'inline-block'}} >{product["main_category"]} / {el} </p>
+                                    <p name={el} className="mb-0" style={{ display: 'inline-block' }} >{product["main_category"]} / {el} </p>
                                     <Button name={el} type="button" className="float-right p-0 btn-light" style={{ display: 'inline-block' }} onClick={deleteCategory} >
                                         <img className="align-top" name={el} alt="삭제" src="https://img.icons8.com/fluent-systems-regular/24/000000/close-window.png" />
                                     </Button>
@@ -216,9 +213,9 @@ function ProductsRegist() {
                             </Row>
                             {product.colors.map((el) => (
                                 <div className="my-2">
-                                    <p className="mb-0"  style={{ display: 'inline-block' }}>{el}</p>
+                                    <p className="mb-0" style={{ display: 'inline-block' }}>{el}</p>
                                     <Button style={{ display: 'inline-block' }} name={el} type="button" className="float-right p-0 btn-light" onClick={deleteColor}>
-                                        <img className="align-top"  name={el} alt="삭제" src="https://img.icons8.com/fluent-systems-regular/24/000000/close-window.png" />
+                                        <img className="align-top" name={el} alt="삭제" src="https://img.icons8.com/fluent-systems-regular/24/000000/close-window.png" />
                                     </Button>
                                 </div>
                             ))}

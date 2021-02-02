@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Navbar, Nav } from 'react-bootstrap';
 import axios from 'axios';
 import catchErrors from '../utils/catchErrors';
+import { Navbar, Nav } from 'react-bootstrap';
 
 function SubNav() {
     const [categoriesDiv, setCategoriesDiv] = useState([])

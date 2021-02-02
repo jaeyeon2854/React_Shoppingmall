@@ -28,7 +28,6 @@ function ProductsList({ match }) {
         setSortingDisplayName('신상품')
     }, [match.params.main])
 
-
     useEffect(() => {
         getSubsCategories()
         getProductlist()

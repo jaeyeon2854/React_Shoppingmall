@@ -188,7 +188,7 @@ function Account() {
             <div className='m-2 mb-5'>
                 <ListCard ordered={ordered} status={'order'} />
             </div>
-        </Container >
+        </Container>
     )
 }
 

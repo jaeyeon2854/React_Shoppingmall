@@ -50,7 +50,6 @@ const signup = async (req, res) => {
             email
         }).save()
         await new Cart({ userId: newUser._id }).save()
-        console.log(newUser)
         res.json(newUser)
     } catch (error) {
         console.log(error)
@@ -84,7 +83,7 @@ const addorder = async (req, res) => {
         const order = await Order.find({ userId: userId }).populate({
             path: 'products.productId',
             model: 'Product'
-        }).sort({createdAt:-1})
+        }).sort({ createdAt: -1 })
         res.status(200).json(order)
     } catch (error) {
         console.log(error)

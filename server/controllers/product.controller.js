@@ -23,6 +23,7 @@ const regist = async (req, res) => {
         }).save()
         res.json(newProduct)
     } catch (error) {
+        console.log(error)
         res.status(500).send('제품 정보 등록에 실패하였습니다. 다시 진행해 주십시오.')
     }
 }
@@ -33,6 +34,7 @@ const getToHome = async (req, res) => {
         const newProduct = await Product.find({}).sort({ createdAt: -1 }).limit(6)
         res.json({ bestProduct, newProduct })
     } catch {
+        console.log(error)
         res.status(500).send('상품을 불러오지 못했습니다.')
     }
 }
@@ -53,10 +55,10 @@ const getAll = async (req, res) => {
             const productslist = await Product.find({}).sort({ createdAt: -1 })
             const length = productslist.length
             const productPiece = await Product.find({}).sort({ createdAt: -1 }).skip((req.query.page - 1) * per).limit(per)
-            console.log("products=", productPiece)
             res.json({ productPiece, length })
         }
     } catch (error) {
+        console.log(error)
         res.status(500).send('상품을 불러오지 못했습니다.')
     }
 }
@@ -78,13 +80,13 @@ const getlist = (req, res) => {
             res.json({ productsPiece, length })
         }
     } catch (error) {
+        console.log(error)
         res.status(500).send('상품을 불러오지 못했습니다.')
     }
 }
 
 const categoryId = async (req, res, next, category) => {
     const per = 9;
-    console.log("query=",req.query)
     try {
         if (req.query.product && req.query.method) {
             let method = ''
@@ -157,7 +159,6 @@ const categoryId = async (req, res, next, category) => {
             const productsPiece = await Product.find({ main_category: category, pro_name: { $regex: new RegExp(req.query.product) } }).sort({ createdAt: -1 }).skip((req.query.page - 1) * per).limit(per)
             req.productsPiece = productsPiece
         } else {
-            console.log("else")
             const productslist = await Product.find({ main_category: category }).sort({ createdAt: -1 })
             const length = productslist.length
             req.length = length
@@ -166,6 +167,7 @@ const categoryId = async (req, res, next, category) => {
         }
         next()
     } catch (error) {
+        console.log(error)
         res.status(500).send('상품을 불러오지 못했습니다.')
     }
 }
@@ -209,6 +211,7 @@ const subname = async (req, res) => {
             res.send({ productsPiece, length })
         }
     } catch (error) {
+        console.log(error)
         res.status(500).send('상품을 불러오지 못했습니다.')
     }
 }
@@ -236,6 +239,7 @@ const plusPurchase = async (req, res) => {
         }
         res.send("구매수 늘리기, 재고수 줄이기 성공")
     } catch (error) {
+        console.log(error)
         res.status(500).send('구매숫자를 늘리지 못함')
     }
 }
@@ -249,6 +253,7 @@ const deletePro = async (req, res) => {
         }
         res.send('삭제 성공')
     } catch (error) {
+        console.log(error)
         res.status(500).send('삭제할 상품을 찾지 못하거나 삭제 중 문제가 발생했습니다.')
     }
 }

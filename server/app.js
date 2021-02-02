@@ -37,4 +37,3 @@ app.use('/api/order', orderRouter)
 app.listen(config.port, () => {
   console.info('Server started on port %s.', config.port)
 })
-

@@ -86,7 +86,7 @@ function Signup() {
                         <Form.Group as={Row} controlId="formBasicNumber">
                             <Form.Label column sm="4" for='number'>
                                 주민등록번호    </Form.Label>
-                            <Row style={{ width: '300px'}} className='px-3'>
+                            <Row style={{ width: '300px' }} className='px-3'>
                                 <Col sm="6" xs='5' className='pr-1'>
                                     <Form.Control
                                         className='pl-2 pr-0'

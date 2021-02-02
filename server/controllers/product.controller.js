@@ -84,6 +84,7 @@ const getlist = (req, res) => {
 
 const categoryId = async (req, res, next, category) => {
     const per = 9;
+    console.log("query=",req.query)
     try {
         if (req.query.product && req.query.method) {
             let method = ''
@@ -156,6 +157,7 @@ const categoryId = async (req, res, next, category) => {
             const productsPiece = await Product.find({ main_category: category, pro_name: { $regex: new RegExp(req.query.product) } }).sort({ createdAt: -1 }).skip((req.query.page - 1) * per).limit(per)
             req.productsPiece = productsPiece
         } else {
+            console.log("else")
             const productslist = await Product.find({ main_category: category }).sort({ createdAt: -1 })
             const length = productslist.length
             req.length = length

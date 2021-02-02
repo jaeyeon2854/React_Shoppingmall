@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Redirect, Link, useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import DaumPostcode from "react-daum-postcode";
 import ListCard from '../Components/ListCard';
 import axios from 'axios';
@@ -7,20 +7,18 @@ import { isAuthenticated } from '../utils/auth';
 import catchErrors from '../utils/catchErrors';
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 
-function Payment({ match, location }) {
+function Payment() {
     const [cart, setCart] = useState([])
     const [order, setOrder] = useState({ products: [] })
     const [userData, setUserData] = useState({})
     const [error, setError] = useState()
     const [post, setPost] = useState([])
-    const [redirect, setRedirect] = useState(null)
     const [address, setAddress] = useState("")
     const [finalPrice, setFinalPrice] = useState(0)
     const [paymentWay, setPaymentWay] = useState([])
     const [completeState, setCompleteState] = useState(false)
     const user = isAuthenticated()
     let history = useHistory();
-    const preCart = []
 
     useEffect(() => {
         getUser()
@@ -79,7 +77,7 @@ function Payment({ match, location }) {
 
     function handleReceiverInfo(e) {
         const { name, value } = e.target
-        console.log(name,value)
+        console.log(name, value)
         setOrder({ ...order, receiverInfo: { ...order.receiverInfo, [name]: value } })
     }
 
@@ -170,59 +168,59 @@ function Payment({ match, location }) {
         order.products.map((el) => {
             cartIds.push(el._id)
         })
-        // try {
-        //     setError('')
-        //     const response = await axios.post(`/api/order/addorder`, {
-        //         userId: user,
-        //         ...order,
-        //         paymentWay: completeState,
-        //         total: finalPrice + 2500
-        //     })
-        //     const response2 = await axios.post(`/api/cart/deletecart2`, {
-        //         userId: user,
-        //         cartId: cartIds
-        //     })
-        //     const response3 = await axios.post(`/api/product/pluspurchase`, {
-        //         products: order.products
-        //     })
-        //     if (completeState === "kakaopay") {
-        //         let itemNames = ""
-        //         if (cart.length > 1) {
-        //             itemNames = cart[0].productId.pro_name + ' 외 ' + String(cart.length - 1) + '개'
-        //         } else {
-        //             itemNames = cart[0].productId.pro_name
-        //         }
-        //         setError('')
-        //         const response = await fetch('/api/kakaopay/test/single', {
-        //             method: "POST",
-        //             headers: {
-        //                 'Content-type': 'application/json'
-        //             },
-        //             body: JSON.stringify({
-        //                 cid: 'TC0ONETIME',
-        //                 partner_order_id: 'partner_order_id',
-        //                 partner_user_id: user,
-        //                 item_name: itemNames,
-        //                 quantity: cart.length,
-        //                 total_amount: finalPrice + 2500,
-        //                 vat_amount: 200,
-        //                 tax_free_amount: 0,
-        //                 approval_url: 'http://localhost:3000/paymentcompleted',
-        //                 fail_url: 'http://localhost:3000/shoppingcart',
-        //                 cancel_url: 'http://localhost:3000/shoppingcart',
-        //             })
-        //         })
-        //         const data = await response.json()
-        //         window.location.href = data.redirect_url
-        //     } else {
-        //         alert("주문이 완료되었습니다.")
-        //         history.push('/paymentcompleted')
-        //     }
-        // } catch (error) {
-        //     catchErrors(error, setError)
-        //     alert("주문에 실패하셨습니다. 다시 확인해주세요.")
-        //     window.location.reload()
-        // }
+        try {
+            setError('')
+            const response = await axios.post(`/api/order/addorder`, {
+                userId: user,
+                ...order,
+                paymentWay: completeState,
+                total: finalPrice + 2500
+            })
+            const response2 = await axios.post(`/api/cart/deletecart2`, {
+                userId: user,
+                cartId: cartIds
+            })
+            const response3 = await axios.post(`/api/product/pluspurchase`, {
+                products: order.products
+            })
+            if (completeState === "kakaopay") {
+                let itemNames = ""
+                if (cart.length > 1) {
+                    itemNames = cart[0].productId.pro_name + ' 외 ' + String(cart.length - 1) + '개'
+                } else {
+                    itemNames = cart[0].productId.pro_name
+                }
+                setError('')
+                const response = await fetch('/api/kakaopay/test/single', {
+                    method: "POST",
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        cid: 'TC0ONETIME',
+                        partner_order_id: 'partner_order_id',
+                        partner_user_id: user,
+                        item_name: itemNames,
+                        quantity: cart.length,
+                        total_amount: finalPrice + 2500,
+                        vat_amount: 200,
+                        tax_free_amount: 0,
+                        approval_url: 'http://localhost:3000/paymentcompleted',
+                        fail_url: 'http://localhost:3000/shoppingcart',
+                        cancel_url: 'http://localhost:3000/shoppingcart',
+                    })
+                })
+                const data = await response.json()
+                window.location.href = data.redirect_url
+            } else {
+                alert("주문이 완료되었습니다.")
+                history.push('/paymentcompleted')
+            }
+        } catch (error) {
+            catchErrors(error, setError)
+            alert("주문에 실패하셨습니다. 다시 확인해주세요.")
+            window.location.reload()
+        }
     }
 
     if (error) {
@@ -232,7 +230,7 @@ function Payment({ match, location }) {
 
     return (
         <Container className="mb-5">
-            {console.log("order=",order)}
+            {console.log("order=", order)}
             <h3 className="my-5 font-weight-bold text-center">주문/결제</h3>
             <div>
                 <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>주문자 정보</h5>

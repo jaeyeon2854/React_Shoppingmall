@@ -220,6 +220,11 @@ function Payment({ match, location }) {
         }
     }
 
+    if (error) {
+        alert(`${error}`)
+        setError('')
+    }
+
     return (
         <Container className="mb-5">
             <h3 className="my-5 font-weight-bold text-center">주문/결제</h3>

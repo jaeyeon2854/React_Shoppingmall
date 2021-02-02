@@ -6,6 +6,9 @@ import Product from "../schemas/Product.js";
 const addorder = async (req, res) => {
     const { userId, products, receiverInfo, total } = req.body
     try {
+        if (!/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/.test(receiverInfo.tel)) {
+            return res.status(422).send('유효한 휴대전화번호가 아닙니다. 정확히 입력해주세요.')
+        }
         const newOrder = await new Order({ userId, products, receiverInfo, total }).save()
         res.status(200).send('Order DB에 저장 완료')
     } catch (error) {

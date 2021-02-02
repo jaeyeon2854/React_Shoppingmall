@@ -32,12 +32,15 @@ const userById = async (req, res, next, id) => {
 const signup = async (req, res) => {
     const { name, number1, number2, id, password, tel, email } = req.body
     try {
-        if (!isLength(password, { min: 8, max: 15 })) {
-            return res.status(422).send('비밀번호는 8-15자리로 입력해주세요.')
-        }
         const user = await User.findOne({ id })
         if (user) {
             return res.status(422).send(`${id}가 이미 사용중입니다.`)
+        } else if (!isLength(password, { min: 8, max: 15 })) {
+            return res.status(422).send('비밀번호는 8-15자리로 입력해주세요.')
+        } else if (number1.match('[^0-9]') || number2.match('[^0-9]')) {
+            return res.status(422).send('주민등록번호는 숫자로 입력해주세요.')
+        } else if (!/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/.test(tel)) {
+            return res.status(422).send('유효한 휴대전화번호가 아닙니다. 정확히 입력해주세요.')
         }
         const hash = await bcrypt.hash(password, 10)
         const newUser = await new User({
@@ -50,7 +53,7 @@ const signup = async (req, res) => {
             email
         }).save()
         await new Cart({ userId: newUser._id }).save()
-        res.json(newUser)
+        res.status(200).json('회원가입 성공')
     } catch (error) {
         console.log(error)
         res.status(500).send('죄송합니다. 다시 입력해 주십시오.')

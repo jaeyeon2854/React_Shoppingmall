@@ -17,6 +17,10 @@ function ShoppingCart() {
         getCart()
     }, [user])
 
+    useEffect(() => {
+        price()
+    }, [cart])
+
     function plusNum(e) {
         const addCount = cart.map((el) => {
             if (el._id === e.target.name) {
@@ -27,6 +31,7 @@ function ShoppingCart() {
         })
         setCart(addCount)
     }
+
     function minusNum(e) {
         const addCount = cart.map((el) => {
             if (el._id === e.target.name) {
@@ -38,8 +43,17 @@ function ShoppingCart() {
         setCart(addCount)
     }
 
-    function checkedCart(e) {
+    function price() {
         let price = 0
+        const list = cart.filter((el) => el.checked === true)
+        list.map((el) => {
+            price = el.count * el.productId.price + price
+        })
+        setFinalPrice(price)
+        setFinalCart(list)
+    }
+
+    function checkedCart(e) {
         const cartCheck = cart.map((el) => {
             if (el._id === e.target.name) {
                 return { ...el, checked: !el.checked }
@@ -47,13 +61,7 @@ function ShoppingCart() {
                 return { ...el }
             }
         })
-        const list = cartCheck.filter((el) => el.checked === true)
-        list.map((el) => {
-            price = el.count * el.productId.price + price
-        })
-        setFinalPrice(price)
         setCart(cartCheck)
-        setFinalCart(list)
     }
 
     async function deleteCart(e) {
@@ -74,7 +82,7 @@ function ShoppingCart() {
             setError('')
             const response = await axios.get(`/api/cart/showcart/${user}`)
             const addChecked = response.data.map((el) => {
-                return { ...el, checked: false }
+                return { ...el, checked: true }
             })
             setCart(addChecked)
         } catch (error) {

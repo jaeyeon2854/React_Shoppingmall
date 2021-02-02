@@ -166,7 +166,7 @@ function Account() {
                         </Row>
                         <Row className="px-3">
                             <Card.Body className="p-2 text-center">
-                                <h4><Link to="/">
+                                <h4><Link to="/" style={{ textDecoration: "none" }}>
                                     <strong title="홈으로">
                                         <Image src="/icon/mypagetiger.svg" width={"30rem"} roundedCircle className="img-thumbnail" >
                                         </Image>KU#

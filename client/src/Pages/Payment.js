@@ -79,6 +79,7 @@ function Payment({ match, location }) {
 
     function handleReceiverInfo(e) {
         const { name, value } = e.target
+        console.log(name,value)
         setOrder({ ...order, receiverInfo: { ...order.receiverInfo, [name]: value } })
     }
 
@@ -129,25 +130,27 @@ function Payment({ match, location }) {
                 <Row className="justify-content-md-center">
                     <Col md={6} className="border m-5 p-5">
                         <Form>
-                            <Form.Group controlId="exampleForm.ControlSelect1">
+                            <Form.Group controlId="bank">
                                 <Form.Label>입금은행</Form.Label>
-                                <Form.Control as="select" placeholder="입금은행을 선택하세요.">
-                                    <option>농협 / 352-0559-2528-83 / 김수빈</option>
-                                    <option>우리은행 / 0000-000-000000 / 이재연</option>
-                                    <option>국민은행 / 111111-11-111111 / 윤대기</option>
+                                <Form.Control as="select" name="bank" onChange={handleReceiverInfo}>
+                                    <option value=''>입금은행을 선택하세요.</option>
+                                    <option value="농협">농협 / 352-0559-2528-83 / 김수빈</option>
+                                    <option value="우리은행">우리은행 / 0000-000-000000 / 이재연</option>
+                                    <option value="국민은행">국민은행 / 111111-11-111111 / 윤대기</option>
                                 </Form.Control>
                             </Form.Group>
-                            <Form.Group controlId="formName">
+                            <Form.Group controlId="depositor">
                                 <Form.Label>입금자</Form.Label>
-                                <Form.Control type="email" placeholder="윤지원" />
+                                <Form.Control type="text" name="depositor" onChange={handleReceiverInfo} />
                             </Form.Group>
-                            <Form.Group controlId="formDay">
+                            <Form.Group controlId="deadline">
                                 <Form.Label>입금예정일</Form.Label>
-                                <Form.Control type="date" />
+                                <Form.Control type="date" name="deadline" onChange={handleReceiverInfo} />
                             </Form.Group>
                         </Form>
                     </Col>
                 </Row>)
+            setCompleteState("Remittance")
             setPaymentWay(bankList)
         }
     }
@@ -167,61 +170,69 @@ function Payment({ match, location }) {
         order.products.map((el) => {
             cartIds.push(el._id)
         })
-        try {
-            setError('')
-            const response = await axios.post(`/api/order/addorder`, {
-                userId: user,
-                ...order,
-                total: finalPrice + 2500
-            })
-            const response2 = await axios.post(`/api/cart/deletecart2`, {
-                userId: user,
-                cartId: cartIds
-            })
-            const response3 = await axios.post(`/api/product/pluspurchase`, {
-                products: order.products
-            })
-            if (completeState === "kakaopay") {
-                let itemNames = ""
-                if (cart.length > 1) {
-                    itemNames = cart[0].productId.pro_name + ' 외 ' + String(cart.length - 1) + '개'
-                } else {
-                    itemNames = cart[0].productId.pro_name
-                }
-                setError('')
-                const response = await fetch('/api/kakaopay/test/single', {
-                    method: "POST",
-                    headers: {
-                        'Content-type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        cid: 'TC0ONETIME',
-                        partner_order_id: 'partner_order_id',
-                        partner_user_id: user,
-                        item_name: itemNames,
-                        quantity: cart.length,
-                        total_amount: finalPrice + 2500,
-                        vat_amount: 200,
-                        tax_free_amount: 0,
-                        approval_url: 'http://localhost:3000/paymentcompleted',
-                        fail_url: 'http://localhost:3000/shoppingcart',
-                        cancel_url: 'http://localhost:3000/shoppingcart',
-                    })
-                })
-                const data = await response.json()
-                window.location.href = data.redirect_url
-            } else {
-                alert("주문이 완료되었습니다.")
-                history.push('/paymentcompleted')
-            }
-        } catch (error) {
-            catchErrors(error, setError)
-            alert("주문에 실패하셨습니다. 다시 확인해주세요.")
-        }
+        // try {
+        //     setError('')
+        //     const response = await axios.post(`/api/order/addorder`, {
+        //         userId: user,
+        //         ...order,
+        //         paymentWay: completeState,
+        //         total: finalPrice + 2500
+        //     })
+        //     const response2 = await axios.post(`/api/cart/deletecart2`, {
+        //         userId: user,
+        //         cartId: cartIds
+        //     })
+        //     const response3 = await axios.post(`/api/product/pluspurchase`, {
+        //         products: order.products
+        //     })
+        //     if (completeState === "kakaopay") {
+        //         let itemNames = ""
+        //         if (cart.length > 1) {
+        //             itemNames = cart[0].productId.pro_name + ' 외 ' + String(cart.length - 1) + '개'
+        //         } else {
+        //             itemNames = cart[0].productId.pro_name
+        //         }
+        //         setError('')
+        //         const response = await fetch('/api/kakaopay/test/single', {
+        //             method: "POST",
+        //             headers: {
+        //                 'Content-type': 'application/json'
+        //             },
+        //             body: JSON.stringify({
+        //                 cid: 'TC0ONETIME',
+        //                 partner_order_id: 'partner_order_id',
+        //                 partner_user_id: user,
+        //                 item_name: itemNames,
+        //                 quantity: cart.length,
+        //                 total_amount: finalPrice + 2500,
+        //                 vat_amount: 200,
+        //                 tax_free_amount: 0,
+        //                 approval_url: 'http://localhost:3000/paymentcompleted',
+        //                 fail_url: 'http://localhost:3000/shoppingcart',
+        //                 cancel_url: 'http://localhost:3000/shoppingcart',
+        //             })
+        //         })
+        //         const data = await response.json()
+        //         window.location.href = data.redirect_url
+        //     } else {
+        //         alert("주문이 완료되었습니다.")
+        //         history.push('/paymentcompleted')
+        //     }
+        // } catch (error) {
+        //     catchErrors(error, setError)
+        //     alert("주문에 실패하셨습니다. 다시 확인해주세요.")
+        //     window.location.reload()
+        // }
+    }
+
+    if (error) {
+        alert(`${error}`)
+        setError('')
     }
 
     return (
         <Container className="mb-5">
+            {console.log("order=",order)}
             <h3 className="my-5 font-weight-bold text-center">주문/결제</h3>
             <div>
                 <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>주문자 정보</h5>
@@ -249,15 +260,15 @@ function Payment({ match, location }) {
                 <Row className="justify-content-center">
                     <Col md={8}>
                         <Form>
-                            <Form.Group>
+                            <Form.Group controlId="recipientName">
                                 <Form.Label>이름</Form.Label>
                                 <Form.Control type="text" name="name" onChange={handleReceiverInfo}></Form.Control>
                             </Form.Group>
-                            <Form.Group>
+                            <Form.Group controlId="recipientTel">
                                 <Form.Label>휴대전화</Form.Label>
                                 <Form.Control type="text" name="tel" onChange={handleReceiverInfo}></Form.Control>
                             </Form.Group>
-                            <Form.Group controlId="formBasicAdd">
+                            <Form.Group controlId="recipientAdd">
                                 <Form.Label>주소</Form.Label>
                                 <Form.Row>
                                     <Col xs={4} sm={4}>

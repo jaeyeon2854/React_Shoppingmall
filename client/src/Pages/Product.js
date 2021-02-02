@@ -26,6 +26,7 @@ function Product({ location }) {
     }, [product])
 
     useEffect(() => {
+        window.scrollTo(0,0)
         setProduct(location.state)
     }, [location.state])
 

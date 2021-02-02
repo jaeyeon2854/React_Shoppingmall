@@ -34,6 +34,7 @@ function ProductsList({ match }) {
     }, [mainCategory])
 
     useEffect(() => {
+        window.scrollTo(0,0)
         changePage()
     }, [currentPage])
 

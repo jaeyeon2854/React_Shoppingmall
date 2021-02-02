@@ -36,10 +36,13 @@ function Payment({ match, location }) {
     }, [cart])
 
     async function getUser() {
-        const name = localStorage.getItem('name')
-        const tel = localStorage.getItem('tel')
-        const email = localStorage.getItem('email')
-        setUserData({ name: name, tel: tel, email: email })
+        try {
+            const response = await axios.get(`/api/users/account/${user}`)
+            const { name, tel, email } = response.data
+            setUserData({ name: name, tel: tel, email: email })
+        } catch (error) {
+            catchErrors(error, setError)
+        }
     }
 
     async function getCart() {
@@ -107,11 +110,9 @@ function Payment({ match, location }) {
         }
         setAddress({ full: fullAddress, code: data.zonecode });
         setOrder({ ...order, receiverInfo: { ...order.receiverInfo, address: fullAddress, postalCode: data.zonecode } })
-        console.log(fullAddress);
     }
 
     const postCodeStyle = {
-        // display: "block",
         position: "absolute",
         width: "400px",
         height: "500px",
@@ -159,11 +160,9 @@ function Payment({ match, location }) {
                 <p>주문하기를 눌러 결제를 이어가주세요.</p>
             </div>
         )
-        // setRedirect(data.redirect_url)
     }
 
     async function paymentCompleted() {
-        console.log(order)
         const cartIds = []
         order.products.map((el) => {
             cartIds.push(el._id)
@@ -209,13 +208,9 @@ function Payment({ match, location }) {
                         cancel_url: 'http://localhost:3000/shoppingcart',
                     })
                 })
-                console.log(response.data)
                 const data = await response.json()
                 window.location.href = data.redirect_url
             } else {
-                console.log(response.data)
-                console.log(response2.data)
-                console.log(response3.data)
                 alert("주문이 완료되었습니다.")
                 history.push('/paymentcompleted')
             }

@@ -20,8 +20,10 @@ function Admin() {
 
     useEffect(() => {
         if (search.word == '') {
+            window.scrollTo(0,0)
             getProductlist()
         } else {
+            window.scrollTo(0,0)
             handleSearch()
         }
     }, [currentPage])
@@ -46,7 +48,7 @@ function Admin() {
             setLength(response.data.length)
         } catch (error) {
             catchError(error, setError)
-        } 
+        }
     }
 
     function handleChange(event) {

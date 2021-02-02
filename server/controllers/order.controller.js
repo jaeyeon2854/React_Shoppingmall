@@ -20,6 +20,7 @@ const Ordered = async (req, res) => {
         const ordered = await req.body.findOne({}, { _id: 0 }).select(`${db}`)
         res.json(ordered);
     } catch (error) {
+        console.log(error)
         res.status(500).send('카테고리를 불러오지 못했습니다.')
     }
 }
@@ -79,12 +80,11 @@ const recommendPro = async (req, res) => {
                 }
             }
         ])
-        console.log('recommend=', recommend)
         const filteredRecommend = recommend.filter((el) => String(el._id) !== String(productId))
-        console.log('filtering=', filteredRecommend)
         res.json(filteredRecommend)
     } catch (error) {
-        console.log('error in order ', error)
+        console.log(error)
+        res.status(404).send('추천 상품이 없습니다.')
     }
 }
 

@@ -17,38 +17,33 @@ const addCart = async (req, res) => {
 
 const changeCart = async (req, res) => {
     const { userId, products } = req.body
-    console.log(products)
     try {
         const cart = await Cart.findOne({ userId: userId })
-        console.log(cart)
         await Cart.updateOne(
             { _id: cart._id },
             { $set: { products: products } }
         )
         res.send("카트에 체크가 활성화되었습니다")
     } catch (error) {
+        console.log(error)
         res.send("카트 체인지 실패")
     }
 }
 
 const showCart = async (req, res) => {
     try {
-        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
         const cart = await Cart.findOne({ userId: req.id }).populate({
             path: 'products.productId',
             model: 'Product'
         })
         res.status(200).json(cart.products)
-        console.log("cart-products : ", cart);
     } catch (error) {
-        console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
         console.log(error)
         res.status(500).send('쇼핑카트를 불러오지 못했습니다.')
     }
 }
 
 const deleteCart = async (req, res) => {
-    console.log(req.body)
     const { userId, cartId } = req.body
     try {
         const cart = await Cart.findOneAndUpdate(
@@ -63,14 +58,13 @@ const deleteCart = async (req, res) => {
     } catch (error) {
         console.log(error)
         res.status(500).send('해당 카트를 삭제하지 못했습니다.')
-
     }
 }
+
 const deleteCart2 = async (req, res) => {
-    console.log(req.body)
     const { userId, cartId } = req.body
     try {
-        for( let i = 0; i < cartId.length; i++ ){
+        for (let i = 0; i < cartId.length; i++) {
             await Cart.findOneAndUpdate(
                 { userId: userId },
                 { $pull: { products: { _id: cartId[i] } } },
@@ -81,11 +75,9 @@ const deleteCart2 = async (req, res) => {
             })
         }
         res.send("주문완료 및 쇼핑카트에서 삭제")
-        // res.json(cart)
     } catch (error) {
         console.log(error)
         res.status(500).send('해당 카트를 삭제하지 못했습니다.')
-
     }
 }
 
@@ -103,5 +95,4 @@ const userById = async (req, res, next, id) => {
     }
 }
 
-
-export default { addCart, changeCart, showCart, deleteCart,deleteCart2, userById }
+export default { addCart, changeCart, showCart, deleteCart, deleteCart2, userById }

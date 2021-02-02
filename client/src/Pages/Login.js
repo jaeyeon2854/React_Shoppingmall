@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import axios from 'axios';
+import catchErrors from '../utils/catchErrors';
+import { handleLogin } from '../utils/auth';
 import { Form, Col, Container, Button, Row, Alert } from 'react-bootstrap';
-import axios from 'axios'
-import catchErrors from '../utils/catchErrors'
-import { handleLogin } from '../utils/auth'
-
 
 const INIT_USER = {
     id: '',
     password: ''
 }
+
 function Login() {
     const [validated, setValidated] = useState(false);
     const [user, setUser] = useState(INIT_USER)
@@ -95,7 +95,6 @@ function Login() {
             </Row>
         </Container>
     )
-
 }
 
 export default Login

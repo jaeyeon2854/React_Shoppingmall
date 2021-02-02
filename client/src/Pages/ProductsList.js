@@ -28,23 +28,15 @@ function ProductsList({ match }) {
         setSortingDisplayName('신상품')
     }, [match.params.main])
 
-
     useEffect(() => {
         getSubsCategories()
         getProductlist()
     }, [mainCategory])
 
-    // useEffect(() => {
-    //     if (sortingName == '' && search.word == '' && selectSubCategory == '') {
-    //         getProductlist()
-    //     } else if (sortingName == '' && search.word == '') {
-    //         changePageforSubname()
-    //     } else if (selectSubCategory == '' && sortingName == '') {
-    //         searchList()
-    //     } else {
-    //         changePageforSorting()
-    //     }
-    // }, [currentPage])
+    useEffect(() => {
+        window.scrollTo(0,0)
+        changePage()
+    }, [currentPage])
 
     async function getSubsCategories() {
         try {
@@ -58,24 +50,14 @@ function ProductsList({ match }) {
 
     async function getProductlist() {
         try {
-            console.log("getProductlist 실행")
             setError('')
             setSelectSubCategory('')
+            setSortingName('')
+            setSortingDisplayName('신상품')
             setSearch({ word: '' })
             const response = await axios.get(`/api/product/getproduct/main/${mainCategory}?page=${currentPage}`)
             setProductlist(response.data.productsPiece)
             setLength(response.data.length)
-        } catch (error) {
-            catchError(error, setError)
-        }
-    }
-
-    async function searchList() {
-        try {
-            console.log("seacrchList 실행")
-            setError('')
-            const response = await axios.get(`/api/product/getproduct/main/${mainCategory}?product=${search.word}&page=${currentPage}`)
-            setProductlist(response.data.productsPiece)
         } catch (error) {
             catchError(error, setError)
         }
@@ -88,9 +70,10 @@ function ProductsList({ match }) {
     async function handleSearch(e) {
         e.preventDefault()
         try {
-            console.log("handleSearch 실행")
             setError('')
             setSelectSubCategory('')
+            setSortingName('')
+            setSortingDisplayName('신상품')
             setCurrentPage(1)
             const response = await axios.get(`/api/product/getproduct/main/${mainCategory}?product=${search.word}&page=1`)
             setProductlist(response.data.productsPiece)
@@ -102,50 +85,22 @@ function ProductsList({ match }) {
         }
     }
 
-    // async function changePageforSorting() {
-    //     try {
-    //         console.log("changePageforSorting 실행")
-    //         setError('')
-    //         if (selectSubCategory != '') {
-    //             const response = await axios.get(`/api/product/getproduct/sub?subname=${selectSubCategory}&method=${sortingName}&page=${currentPage}`)
-    //             setProductlist(response.data.productsPiece)
-    //             setLength(response.data.length)
-    //             setSortingDisplayName()
-    //         } else if (search.word != '') {
-    //             const response = await axios.get(`/api/product/getproduct/main/${mainCategory}?product=${search.word}&method=${sortingName}&page=${currentPage}`)
-    //             setProductlist(response.data.productsPiece)
-    //         } else {
-    //             console.log("else")
-    //             const response = await axios.get(`/api/product/getproduct/main/${mainCategory}?method=${sortingName}&page=${currentPage}`)
-    //             setProductlist(response.data.productsPiece)
-    //         }
-    //     } catch (error) {
-    //         catchError(error, setError)
-    //     }
-    // }
-
     async function handleSort(method) {
         try {
-            console.log("handleSort 실행")
             setError('')
             setCurrentPage(1)
             setSortingName(method)
             if (selectSubCategory != '') {
-                console.log("selectSubCategory != ''")
                 const response = await axios.get(`/api/product/getproduct/sub?subname=${selectSubCategory}&method=${method}&page=1`)
                 setProductlist(response.data.productsPiece)
                 setSortingDisplayName(response.data.str)
             } else if (search.word != '') {
-                console.log("search.word != ''")
                 const response = await axios.get(`/api/product/getproduct/main/${mainCategory}?product=${search.word}&method=${method}&page=1`)
                 setProductlist(response.data.productsPiece)
-                // setLength(response.data.length)
                 setSortingDisplayName(response.data.str)
             } else {
-                console.log("else")
                 const response = await axios.get(`/api/product/getproduct/main/${mainCategory}?method=${method}&page=1`)
                 setProductlist(response.data.productsPiece)
-                // setLength(response.data.length)
                 setSortingDisplayName(response.data.str)
             }
         } catch (error) {
@@ -153,19 +108,7 @@ function ProductsList({ match }) {
         }
     }
 
-    async function changePageforSubname() {
-        try {
-            console.log("changePageforSubname 실행")
-            setError('')
-            const response = await axios.get(`/api/product/getproduct/sub?subname=${selectSubCategory}&page=${currentPage}`)
-            setProductlist(response.data.productsPiece)
-        } catch (error) {
-            catchError(error, setError)
-        }
-    }
-
     async function handleSubname(e) {
-        console.log("handleSubname 실행")
         const subname = e.target.name
         setSelectSubCategory(e.target.name)
         try {
@@ -182,6 +125,32 @@ function ProductsList({ match }) {
         }
     }
 
+    async function changePage() {
+        try {
+            setError('')
+            if (selectSubCategory == '' && sortingName == '' && search.word == '') {
+                getProductlist()
+            } else if (selectSubCategory == '' && sortingName == '') {
+                const response = await axios.get(`/api/product/getproduct/main/${mainCategory}?product=${search.word}&page=${currentPage}`)
+                setProductlist(response.data.productsPiece)
+            } else if (search.word == '' && sortingName == '') {
+                const response = await axios.get(`/api/product/getproduct/sub?subname=${selectSubCategory}&page=${currentPage}`)
+                setProductlist(response.data.productsPiece)
+            } else if (search.word == '' && selectSubCategory == '') {
+                const response = await axios.get(`/api/product/getproduct/main/${mainCategory}?method=${sortingName}&page=${currentPage}`)
+                setProductlist(response.data.productsPiece)
+            } else if (selectSubCategory == '') {
+                const response = await axios.get(`/api/product/getproduct/main/${mainCategory}?product=${search.word}&method=${sortingName}&page=${currentPage}`)
+                setProductlist(response.data.productsPiece)
+            } else if (search.word == '') {
+                const response = await axios.get(`/api/product/getproduct/sub?subname=${selectSubCategory}&method=${sortingName}&page=${currentPage}`)
+                setProductlist(response.data.productsPiece)
+            }
+        } catch (error) {
+            catchError(error, setError)
+        }
+    }
+
     if (error) {
         alert(`${error}`)
         setError('')
@@ -190,7 +159,6 @@ function ProductsList({ match }) {
 
     return (
         <Container>
-            {console.log("subCategory=",selectSubCategory,"sortingName=",sortingName,"search=",search.word,"page=",currentPage)}
             <style type="text/css">
                 {`
                 @font-face {

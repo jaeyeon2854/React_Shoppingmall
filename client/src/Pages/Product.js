@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Redirect, Link, useHistory } from 'react-router-dom';
 import ListCard from "../Components/ListCard";
 import axios from 'axios';
@@ -6,7 +6,7 @@ import catchErrors from '../utils/catchErrors';
 import { Row, Col, Form, Card, Button, Modal, Image } from 'react-bootstrap';
 
 
-function Product({ match, location }) {
+function Product({ location }) {
     const [product, setProduct] = useState(location.state)
     const [productList, setProductList] = useState([])
     const [color, setColor] = useState("")
@@ -18,8 +18,8 @@ function Product({ match, location }) {
     const [price, setPrice] = useState(0)
     const [show, setShow] = useState(false);
     let history = useHistory();
+    const boxRef = useRef(null);
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
 
     useEffect(() => {
         getRecommend()
@@ -39,14 +39,16 @@ function Product({ match, location }) {
         try {
             const response = await axios.get(`/api/order/recommend?products=${product.id}`)
             setProductList(response.data)
+            if (response.data.length == 0) {
+                boxRef.current.style.display = "none"
+            }
         } catch (error) {
             catchErrors(error, setError)
         }
     }
 
-    function handleClick(e) {
-        const box = e.target.parentNode.parentNode
-        box.style.display = "none"
+    function handleClick() {
+        boxRef.current.style.display = "none"
     }
 
     function pushOptions() {
@@ -113,20 +115,17 @@ function Product({ match, location }) {
     }
 
     async function addCart(event) {
-        console.log(cart)
         if (cart.length < 1) {
             alert("옵션을 선택해주세요")
         }
         else if (localStorage.getItem('id')) {
             if (event.target.name === "shoppingcart") {
-                // preCart(color, size, count), productId(productlist에서 props), userId(로컬) 를 보내줌
                 try {
                     setError('')
                     const response = await axios.put('/api/cart/addcart', {
                         userId: localStorage.getItem('id'),
                         products: cart
                     })
-                    console.log(response.data)
                     setShow(true)
                 } catch (error) {
                     catchErrors(error, setError)
@@ -146,7 +145,6 @@ function Product({ match, location }) {
                     catchErrors(error, setError)
                 }
             }
-
         } else {
             alert("로그인을 해주세요.")
             return <Redirect to='/login' />
@@ -271,10 +269,10 @@ function Product({ match, location }) {
                     </Col>
                 </Col>
             </Row>
-            <Row className="justify-content-center mx-0 pt-3 px-2" style={{ position: "fixed", bottom: "0", width: "100%", backgroundColor: "#fff" }}>
+            <Row ref={boxRef} className="justify-content-center mx-0 pt-3 px-2" style={{ position: "fixed", bottom: "0", width: "100%", backgroundColor: "#fff" }}>
                 <Col sm={12} md={8}>
                     <h6 style={{ borderBottom: "1px solid", paddingBottom: "5px", marginBottom: "1em" }}>회원님이 선호할만한 상품 추천
-                        <a className="close float-right" onClick={(e) => handleClick(e)} style={{ fontSize: "1rem", cursor: "pointer" }}>X</a>
+                        <a className="close float-right" onClick={handleClick} style={{ fontSize: "1rem", cursor: "pointer" }}>X</a>
                     </h6>
                     <Row className="justify-content-lg-center mx-auto" style={{ flexWrap: "nowrap", width: "100%", overflowX: "auto" }}>
                         {productList.map(pro => (

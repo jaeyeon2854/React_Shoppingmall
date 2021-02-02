@@ -11,13 +11,12 @@ const getCategory = async (req, res) => {
 }
 
 const getSubCategory = async (req, res) => {
-     console.log("req.params=?(getsubcategory)", req.params);
     const { sub } = req.params
     try {
-        const subcategory = await Category.findOne({}, { _id: 0}).select(`${sub}`)
+        const subcategory = await Category.findOne({}, { _id: 0 }).select(`${sub}`)
         res.json(subcategory);
-        console.log("sub= ",subcategory);
     } catch (error) {
+        console.log(error)
         res.status(500).send('카테고리를 불러오지 못했습니다.')
     }
 }
@@ -26,17 +25,16 @@ const getToHome = async (res, req) => {
     try {
         const bestProduct = await Product.find({}).sort({ purchase: 1 }).limit(6)
         const newProduct = await Product.find({}).sort({ createdAt: -1 }).limit(6)
-        // console.log("best=", bestProduct)
-        // console.log("new=", newProduct)
         res.json(bestProduct, newProduct)
     } catch {
+        console.log(error)
         res.status(500).send('상품을 불러오지 못했습니다.')
     }
 }
 
 const getsubId = async (req, res, next, ele) => {
     try {
-        const sub = await Category.find({ele})
+        const sub = await Category.find({ ele })
         if (!sub) {
             res.status(404).send('카테고리가 존재하지 않습니다.')
         } req.category = sub

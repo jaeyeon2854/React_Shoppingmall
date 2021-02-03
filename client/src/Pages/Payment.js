@@ -6,6 +6,7 @@ import axios from 'axios';
 import { isAuthenticated } from '../utils/auth';
 import catchErrors from '../utils/catchErrors';
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
+const paymentInfo = {}
 
 function Payment({ match, location }) {
     const [cart, setCart] = useState([])
@@ -20,7 +21,6 @@ function Payment({ match, location }) {
     const [completeState, setCompleteState] = useState(false)
     const user = isAuthenticated()
     let history = useHistory();
-    const preCart = []
 
     useEffect(() => {
         getUser()
@@ -79,8 +79,16 @@ function Payment({ match, location }) {
 
     function handleReceiverInfo(e) {
         const { name, value } = e.target
-        console.log(name,value)
+        console.log(name, value)
         setOrder({ ...order, receiverInfo: { ...order.receiverInfo, [name]: value } })
+    }
+
+    function handlepaymentInfo(e) {
+        const { name, value } = e.target
+        // console.log(name, value)
+        paymentInfo[name] = value
+        console.log(paymentInfo)
+        // setOrder({ ...order, paymentInfo: { ...order.paymentInfo, [name]: value } })
     }
 
     function postClick() {
@@ -122,37 +130,33 @@ function Payment({ match, location }) {
     };
 
     function handleClick() {
-        if (paymentWay.length !== 0) {
-            setCompleteState(false)
-            setPaymentWay([])
-        } else {
-            const bankList = (
-                <Row className="justify-content-md-center">
-                    <Col md={6} className="border m-5 p-5">
-                        <Form>
-                            <Form.Group controlId="bank">
-                                <Form.Label>입금은행</Form.Label>
-                                <Form.Control as="select" name="bank" onChange={handleReceiverInfo}>
-                                    <option value=''>입금은행을 선택하세요.</option>
-                                    <option value="농협">농협 / 352-0559-2528-83 / 김수빈</option>
-                                    <option value="우리은행">우리은행 / 0000-000-000000 / 이재연</option>
-                                    <option value="국민은행">국민은행 / 111111-11-111111 / 윤대기</option>
-                                </Form.Control>
-                            </Form.Group>
-                            <Form.Group controlId="depositor">
-                                <Form.Label>입금자</Form.Label>
-                                <Form.Control type="text" name="depositor" onChange={handleReceiverInfo} />
-                            </Form.Group>
-                            <Form.Group controlId="deadline">
-                                <Form.Label>입금예정일</Form.Label>
-                                <Form.Control type="date" name="deadline" onChange={handleReceiverInfo} />
-                            </Form.Group>
-                        </Form>
-                    </Col>
-                </Row>)
-            setCompleteState("Remittance")
-            setPaymentWay(bankList)
-        }
+        const bankList = (
+            <Row className="justify-content-md-center">
+                <Col md={6} className="border m-5 p-5">
+                    <Form>
+                        <Form.Group controlId="bank">
+                            <Form.Label>입금은행</Form.Label>
+                            <Form.Control as="select" name="bank" onChange={handlepaymentInfo}>
+                                <option value=''>입금은행을 선택하세요.</option>
+                                <option value="농협 / 352-0559-2528-83 / 김수빈">농협 / 352-0559-2528-83 / 김수빈</option>
+                                <option value="우리은행 / 0000-000-000000 / 이재연">우리은행 / 0000-000-000000 / 이재연</option>
+                                <option value="국민은행 / 111111-11-111111 / 윤대기">국민은행 / 111111-11-111111 / 윤대기</option>
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group controlId="depositor">
+                            <Form.Label>입금자</Form.Label>
+                            <Form.Control type="text" name="depositor" onChange={handlepaymentInfo} />
+                        </Form.Group>
+                        <Form.Group controlId="deadline">
+                            <Form.Label>입금예정일</Form.Label>
+                            <Form.Control type="date" name="deadline" onChange={handlepaymentInfo} />
+                        </Form.Group>
+                    </Form>
+                </Col>
+            </Row>)
+        setCompleteState("Remittance")
+        setPaymentWay(bankList)
+
     }
 
     async function kakaopay() {
@@ -163,66 +167,91 @@ function Payment({ match, location }) {
                 <p>주문하기를 눌러 결제를 이어가주세요.</p>
             </div>
         )
+        // setOrder({ ...order, paymentInfo: { bank: "kakaopay" }})
     }
 
     async function paymentCompleted() {
+        console.log(paymentInfo)
+        console.log(completeState)
         const cartIds = []
         order.products.map((el) => {
             cartIds.push(el._id)
         })
-        // try {
-        //     setError('')
-        //     const response = await axios.post(`/api/order/addorder`, {
-        //         userId: user,
-        //         ...order,
-        //         paymentWay: completeState,
-        //         total: finalPrice + 2500
-        //     })
-        //     const response2 = await axios.post(`/api/cart/deletecart2`, {
-        //         userId: user,
-        //         cartId: cartIds
-        //     })
-        //     const response3 = await axios.post(`/api/product/pluspurchase`, {
-        //         products: order.products
-        //     })
-        //     if (completeState === "kakaopay") {
-        //         let itemNames = ""
-        //         if (cart.length > 1) {
-        //             itemNames = cart[0].productId.pro_name + ' 외 ' + String(cart.length - 1) + '개'
-        //         } else {
-        //             itemNames = cart[0].productId.pro_name
-        //         }
-        //         setError('')
-        //         const response = await fetch('/api/kakaopay/test/single', {
-        //             method: "POST",
-        //             headers: {
-        //                 'Content-type': 'application/json'
-        //             },
-        //             body: JSON.stringify({
-        //                 cid: 'TC0ONETIME',
-        //                 partner_order_id: 'partner_order_id',
-        //                 partner_user_id: user,
-        //                 item_name: itemNames,
-        //                 quantity: cart.length,
-        //                 total_amount: finalPrice + 2500,
-        //                 vat_amount: 200,
-        //                 tax_free_amount: 0,
-        //                 approval_url: 'http://localhost:3000/paymentcompleted',
-        //                 fail_url: 'http://localhost:3000/shoppingcart',
-        //                 cancel_url: 'http://localhost:3000/shoppingcart',
-        //             })
-        //         })
-        //         const data = await response.json()
-        //         window.location.href = data.redirect_url
-        //     } else {
-        //         alert("주문이 완료되었습니다.")
-        //         history.push('/paymentcompleted')
-        //     }
-        // } catch (error) {
-        //     catchErrors(error, setError)
-        //     alert("주문에 실패하셨습니다. 다시 확인해주세요.")
-        //     window.location.reload()
-        // }
+        try {
+            setError('')
+            if (completeState === "kakaopay") {
+                let itemNames = ""
+                if (cart.length > 1) {
+                    itemNames = cart[0].productId.pro_name + ' 외 ' + String(cart.length - 1) + '개'
+                } else {
+                    itemNames = cart[0].productId.pro_name
+                }
+                setError('')
+                const response = await fetch('/api/kakaopay/test/single', {
+                    method: "POST",
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        cid: 'TC0ONETIME',
+                        partner_order_id: 'partner_order_id',
+                        partner_user_id: user,
+                        item_name: itemNames,
+                        quantity: cart.length,
+                        total_amount: finalPrice + 2500,
+                        vat_amount: 200,
+                        tax_free_amount: 0,
+                        approval_url: 'http://localhost:3000/paymentcompleted',
+                        fail_url: 'http://localhost:3000/shoppingcart',
+                        cancel_url: 'http://localhost:3000/shoppingcart',
+                    })
+                })
+                const data = await response.json()
+                const response1 = await axios.post(`/api/order/addorder`, {
+                    userId: user,
+                    ...order,
+                    completeState,
+                    total: finalPrice + 2500
+                })
+                const response2 = await axios.post(`/api/cart/deletecart2`, {
+                    userId: user,
+                    cartId: cartIds
+                })
+                const response3 = await axios.post(`/api/product/pluspurchase`, {
+                    products: order.products
+                })
+                if (response1 && response2 && response3) {
+                    window.location.href = data.redirect_url
+                }
+            } else if(completeState === "Remittance"){
+                const response1 = await axios.post(`/api/order/addorder`, {
+                    userId: user,
+                    ...order,
+                    paymentInfo,
+                    completeState,
+                    total: finalPrice + 2500
+                })
+                const response2 = await axios.post(`/api/cart/deletecart2`, {
+                    userId: user,
+                    cartId: cartIds
+                })
+                const response3 = await axios.post(`/api/product/pluspurchase`, {
+                    products: order.products
+                })
+                if (response1 && response2 && response3) {
+                    alert("주문이 완료되었습니다.")
+                    history.push('/paymentcompleted')
+                } else {
+                    alert("주문에 실패하셨습니다. 다시 확인해주세요.")
+                }
+            } else {
+                alert("completeState없음")
+            }
+        } catch (error) {
+            catchErrors(error, setError)
+            alert("주문에 실패하셨습니다. 정보가 모두 입력되었는지 다시 확인해주세요.")
+            window.location.reload()
+        }
     }
 
     if (error) {
@@ -232,7 +261,7 @@ function Payment({ match, location }) {
 
     return (
         <Container className="mb-5">
-            {console.log("order=",order)}
+            {console.log("order=", order)}
             <h3 className="my-5 font-weight-bold text-center">주문/결제</h3>
             <div>
                 <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>주문자 정보</h5>
@@ -313,9 +342,32 @@ function Payment({ match, location }) {
             <div>
                 <h5 className="font-weight-bold py-3 border-top border-bottom text-center" style={{ background: '#F7F3F3' }}>결제수단</h5>
                 <div className="text-center m-3">
-                    <Button className="align-top m-1" variant="success" onClick={handleClick} style={{ height: '42px' }}>무통장입금</Button>
+                    <Button className="align-top m-1" variant="success" type="button" onClick={handleClick} style={{ height: '42px' }}>무통장입금</Button>
                     <Button className="align-top m-1 p-0" style={{ borderColor: "#ffeb00" }} type="button" onClick={kakaopay} alt="카카오페이"><img src="icon/payment_icon_yellow_small2.png" /></Button>
                 </div>
+                {/* <Row className="justify-content-md-center">
+                    <Col md={6} className="border m-5 p-5">
+                        <Form>
+                            <Form.Group controlId="bank">
+                                <Form.Label>입금은행</Form.Label>
+                                <Form.Control as="select" name="bank" onChange={handlepaymentInfo}>
+                                    <option value=''>입금은행을 선택하세요.</option>
+                                    <option value="농협 / 352-0559-2528-83 / 김수빈">농협 / 352-0559-2528-83 / 김수빈</option>
+                                    <option value="우리은행 / 0000-000-000000 / 이재연">우리은행 / 0000-000-000000 / 이재연</option>
+                                    <option value="국민은행 / 111111-11-111111 / 윤대기">국민은행 / 111111-11-111111 / 윤대기</option>
+                                </Form.Control>
+                            </Form.Group>
+                            <Form.Group controlId="depositor">
+                                <Form.Label>입금자</Form.Label>
+                                <Form.Control type="text" name="depositor" onChange={handlepaymentInfo} />
+                            </Form.Group>
+                            <Form.Group controlId="deadline">
+                                <Form.Label>입금예정일</Form.Label>
+                                <Form.Control type="date" name="deadline" onChange={handlepaymentInfo} />
+                            </Form.Group>
+                        </Form>
+                    </Col>
+                </Row> */}
                 {paymentWay}
             </div>
             <div className="text-center">

@@ -53,19 +53,22 @@ const OrderSchema = new mongoose.Schema({
             required: true
         }
     },
-    paymentWay: {
+    completeState: {
         type: String,
         required: true
     },
     paymentInfo: {
         bank: {
-            type: String
+            type: String,
+            required: true
         },
         depositor: {
-            type: String
+            type: String,
+            required: true
         },
         deadline: {
-            type: String
+            type: String,
+            required: true
         }
     },
     total: {

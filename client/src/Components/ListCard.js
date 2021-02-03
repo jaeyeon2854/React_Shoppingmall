@@ -55,7 +55,7 @@ function ListCard(props) {
                                         <Col sm={8} xs={6} className='p-1'><strong>{e.createdAt.substring(0, 10)}</strong></Col>
 
                                         <Col sm={3} xs={5} className='p-1'><li>결제정보 :</li></Col>
-                                        <Col sm={8} xs={6} className='p-1'><strong>{e.paymentWay}</strong>{e.paymentWay == 'Remittance' ? (
+                                        <Col sm={8} xs={6} className='p-1'><strong>{e.completeState}</strong>{e.completeState == 'Remittance' ? (
                                             <>
                                                 <br /><strong>{e.paymentInfo.bank} / ~ {e.paymentInfo.deadline}</strong>
                                             </>

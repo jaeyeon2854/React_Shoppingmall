@@ -92,8 +92,8 @@ function Payment() {
                 </div>
             )
         }
-
     }
+    
     const handleComplete = (data) => {
         let fullAddress = data.address;
         let extraAddress = "";

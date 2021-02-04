@@ -155,7 +155,6 @@ function Payment() {
             </Row>)
         setCompleteState("Remittance")
         setPaymentWay(bankList)
-
     }
 
     async function kakaopay() {
